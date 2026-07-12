@@ -12,9 +12,9 @@ from urllib.request import Request, urlopen
 
 
 UNITS = (
-    ("alpha-1", "SFGPUCI----F---", "1st Infantry Battalion", 6.13, 49.61, 0.045, 0.025, 0.0),
-    ("red-2", "SHGPUCA----F---", "2nd Armored Battalion", 6.32, 49.68, 0.055, 0.018, 2.1),
-    ("echo-3", "SNGPUCR----F---", "3rd Reconnaissance Battalion", 5.98, 49.52, 0.035, 0.030, 4.2),
+    ("civil-protection", "E-O-B-----", "Civil Protection Team", 6.13, 49.61, 0.045, 0.025, 0.0),
+    ("fire-rescue", "E-O-C-----", "Fire and Rescue Service", 6.32, 49.68, 0.055, 0.018, 2.1),
+    ("medical-response", "E-O-A-----", "Emergency Medical Service", 5.98, 49.52, 0.035, 0.030, 4.2),
 )
 
 

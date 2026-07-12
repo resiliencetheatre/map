@@ -31,21 +31,44 @@ const liveMarkers = new Map();
 let fittedToLivePositions = false;
 let positionRequestRunning = false;
 
-function createLiveMarker(map, position) {
-  const element = new window.ms.Symbol(position.sidc, {
+function ageInSeconds(position) {
+  const updatedAt = Date.parse(position.received_at || position.timestamp);
+  return Number.isFinite(updatedAt) ? Math.max(0, Math.floor((Date.now() - updatedAt) / 1000)) : 0;
+}
+
+function formatAge(seconds) {
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+function renderLiveSymbol(live) {
+  const age = ageInSeconds(live.position);
+  const label = `${live.position.designation} · age ${formatAge(age)}`;
+  const symbol = new window.ms.Symbol(live.position.sidc, {
     size: 32,
-    uniqueDesignation: position.designation
+    uniqueDesignation: label
   }).asCanvas();
-  element.classList.add("military-symbol");
-  element.setAttribute("aria-label", position.designation);
+  symbol.classList.add("military-symbol");
+  live.element.replaceChildren(symbol);
+  live.element.setAttribute("aria-label", label);
+}
+
+function createLiveMarker(map, position) {
+  const element = document.createElement("div");
 
   const popup = new maplibregl.Popup({ offset: 24 });
   const marker = new maplibregl.Marker({ element, anchor: "center" })
     .setLngLat([position.longitude, position.latitude])
     .setPopup(popup)
     .addTo(map);
-  liveMarkers.set(position.device_id, { marker, popup, sidc: position.sidc });
+  liveMarkers.set(position.device_id, { marker, popup, element, position, sidc: position.sidc });
+  renderLiveSymbol(liveMarkers.get(position.device_id));
   return liveMarkers.get(position.device_id);
+}
+
+function updateMarkerAges() {
+  liveMarkers.forEach((live) => renderLiveSymbol(live));
 }
 
 function updateActivity(positions) {
@@ -81,9 +104,12 @@ async function refreshPositions(map) {
         live = null;
       }
       live ||= createLiveMarker(map, position);
+      live.position = position;
+      renderLiveSymbol(live);
       live.marker.setLngLat([position.longitude, position.latitude]);
       live.popup.setText(
-        `${position.designation} · ${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`
+        `${position.designation} · age ${formatAge(ageInSeconds(position))} · ` +
+        `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`
       );
     });
     updateActivity(positions);
@@ -127,7 +153,10 @@ Promise.all([
     map.addControl(new maplibregl.NavigationControl(), "top-right");
     map.on("load", () => {
       refreshPositions(map);
-      window.setInterval(() => refreshPositions(map), 1000);
+      window.setInterval(() => {
+        updateMarkerAges();
+        refreshPositions(map);
+      }, 1000);
       mapMessage.classList.add("hidden");
     });
     map.on("error", (event) => {

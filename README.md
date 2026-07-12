@@ -28,9 +28,10 @@ Only Python standard-library modules are used, including `http.server`,
 Internet access is not required at runtime. Map data, JavaScript, CSS, fonts,
 sprites, and the map style are all served locally.
 
-The included simulator moves three milsymbol demonstrations near Luxembourg:
-friendly infantry, hostile armor, and neutral reconnaissance. Selecting a
-symbol shows its designation, speed, and heading.
+The included simulator moves three civilian-response milsymbol demonstrations
+near Luxembourg: civil protection, fire and rescue, and emergency medical
+services. Each symbol shows its designation and the age of its latest report;
+selecting it also shows speed and heading.
 
 ### Using military symbols
 
@@ -42,10 +43,15 @@ the library available as `window.ms`. The backend position schema includes:
 - `designation`: example unit text rendered with the symbol
 - `latitude` and `longitude`: WGS84 decimal-degree coordinates
 
+The frontend derives a target's age from the backend-generated `received_at`
+timestamp (falling back to the device `timestamp`). Age is displayed in seconds
+below one minute and as `minutes:seconds` thereafter, so it continues increasing
+when a device stops reporting.
+
 For example:
 
 ```js
-{"sidc":"SFGPUCI----K---","designation":"ALPHA 1","latitude":49.61,"longitude":6.13}
+{"sidc":"E-O-B-----","designation":"Civil Protection Team","latitude":49.61,"longitude":6.13}
 ```
 
 The frontend creates a canvas the first time it sees a `device_id`, then moves
@@ -54,7 +60,7 @@ the existing MapLibre marker for subsequent reports:
 ```js
 const element = new window.ms.Symbol(position.sidc, {
   size: 32,
-  uniqueDesignation: position.designation
+  uniqueDesignation: `${position.designation} · age ${formatAge(ageInSeconds(position))}`
 }).asCanvas();
 
 new maplibregl.Marker({ element, anchor: "center" })
