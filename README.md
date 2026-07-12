@@ -27,28 +27,76 @@ Only Python standard-library modules are used: `argparse`, `http.server`,
 Internet access is not required at runtime. Map data, JavaScript, CSS, fonts,
 sprites, and the map style are all served locally.
 
+The initial map view includes three static milsymbol demonstrations near
+Luxembourg: friendly infantry, hostile armor, and neutral reconnaissance.
+Selecting a symbol opens its name and example designation.
+
+### Using military symbols
+
+`web/index.html` loads `web/milsymbol.js` before the application module, making
+the library available as `window.ms`. Static examples are defined in the
+`sampleSymbols` array near the top of `web/app.js`. Each entry contains:
+
+- `sidc`: a MIL-STD-2525/APP-6 Symbol Identification Code
+- `name`: the human-readable popup and accessibility label
+- `designation`: example unit text rendered with the symbol
+- `coordinates`: a MapLibre `[longitude, latitude]` pair
+
+For example:
+
+```js
+{
+  sidc: "SFGPUCI----K---",
+  name: "Friendly infantry",
+  designation: "ALPHA 1",
+  coordinates: [6.13, 49.61]
+}
+```
+
+`addSampleSymbols(map)` converts each definition into a canvas and attaches it
+to MapLibre:
+
+```js
+const element = new window.ms.Symbol(sample.sidc, {
+  size: 32,
+  uniqueDesignation: sample.designation
+}).asCanvas();
+
+new maplibregl.Marker({ element, anchor: "center" })
+  .setLngLat(sample.coordinates)
+  .setPopup(popup)
+  .addTo(map);
+```
+
+Add, remove, or relocate examples by editing `sampleSymbols`. The marker setup
+runs once in the map's `load` event. These are static browser-side examples;
+they are not persisted or supplied by an API. Consult the milsymbol project for
+supported SIDCs and rendering options.
+
 ## Bundled web dependencies
 
 | Component | Location | Purpose |
 | --- | --- | --- |
 | MapLibre GL JS `6.0.0-20` | `maplibre-gl-js/` | Interactive WebGL map renderer |
 | PMTiles JS `3.2.0` | `web/pmtiles.js` | Registers the `pmtiles://` protocol with MapLibre |
+| milsymbol `3.0.4` | `web/milsymbol.js` | Generates MIL-STD-2525/APP-6 tactical symbols |
 | Situation style | `web/styles/situation.json` | Bright, MapLibre-v6-compatible vector map style |
 | EdgeUI bright style | `web/styles/style-v4.json` | Original style source retained for reference |
 | Protomaps sprite atlas | `web/sprites/` | Map icons in standard and high-DPI variants |
 | Noto Sans glyphs | `web/fonts/` | Primary Latin regular and italic label glyphs |
 
-MapLibre GL JS and PMTiles JS are BSD-3-Clause projects. The map style is
-adapted from EdgeUI's Protomaps-based bright style; Protomaps releases its map
-design under CC0. Noto fonts are distributed under the SIL Open Font License.
-OpenStreetMap-derived tiles require visible OpenStreetMap attribution, which is
-included in the map style.
+MapLibre GL JS and PMTiles JS are BSD-3-Clause projects. milsymbol is MIT
+licensed. The map style is adapted from EdgeUI's Protomaps-based bright style;
+Protomaps releases its map design under CC0. Noto fonts are distributed under
+the SIL Open Font License. OpenStreetMap-derived tiles require visible
+OpenStreetMap attribution, which is included in the map style.
 
 ## Directory layout
 
 ```text
 python-front.py             Server entry point
 web/                        Application HTML, CSS, JavaScript, and map assets
+web/milsymbol.js            Bundled tactical-symbol renderer
 web/styles/situation.json   Active map style
 maplibre-gl-js/             Bundled MapLibre ES modules and CSS
 maps/planet.pmtiles         Required map archive or symlink (not committed)

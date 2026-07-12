@@ -36,6 +36,7 @@ body { margin: 0; min-height: 100vh; }
 }
 .map-message { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); z-index: 2; padding: 9px 12px; border-radius: 5px; background: #111820dd; color: #aebbc6; font-size: 13px; pointer-events: none; }
 .map-message.hidden { display: none; }
+.military-symbol { cursor: pointer; filter: drop-shadow(0 2px 2px #0008); }
 
 .activity { padding: 22px; background: #111820; border-left: 1px solid #26313d; }
 .activity h2 { margin: 0 0 24px; font-size: 15px; text-transform: uppercase; letter-spacing: .1em; color: #8999a6; }
