@@ -3,7 +3,8 @@
 Situation is a small, offline-capable situation-awareness web application. A
 Python standard-library server delivers the user interface and a local PMTiles
 world map to MapLibre GL JS. It does not require Flask, Django, Node.js, npm, a
-database, or a build step.
+database server, or a build step. Live and historical positions are stored in a
+local SQLite database through Python's standard library.
 
 ## Requirements
 
@@ -14,8 +15,8 @@ database, or a build step.
 - Enough free storage for the map archive (the archive is not included)
 - `curl` is optional and is only needed for the verification commands below
 
-Only Python standard-library modules are used: `argparse`, `http.server`,
-`json`, `mimetypes`, `pathlib`, `re`, and `urllib.parse`. There is no
+Only Python standard-library modules are used, including `http.server`,
+`sqlite3`, and `urllib.request`. There is no
 `requirements.txt` because no Python packages need to be installed.
 
 ### Browser
@@ -27,51 +28,44 @@ Only Python standard-library modules are used: `argparse`, `http.server`,
 Internet access is not required at runtime. Map data, JavaScript, CSS, fonts,
 sprites, and the map style are all served locally.
 
-The initial map view includes three static milsymbol demonstrations near
-Luxembourg: friendly infantry, hostile armor, and neutral reconnaissance.
-Selecting a symbol opens its name and example designation.
+The included simulator moves three milsymbol demonstrations near Luxembourg:
+friendly infantry, hostile armor, and neutral reconnaissance. Selecting a
+symbol shows its designation, speed, and heading.
 
 ### Using military symbols
 
 `web/index.html` loads `web/milsymbol.js` before the application module, making
-the library available as `window.ms`. Static examples are defined in the
-`sampleSymbols` array near the top of `web/app.js`. Each entry contains:
+the library available as `window.ms`. The backend position schema includes:
 
 - `sidc`: a MIL-STD-2525/APP-6 Symbol Identification Code
 - `name`: the human-readable popup and accessibility label
 - `designation`: example unit text rendered with the symbol
-- `coordinates`: a MapLibre `[longitude, latitude]` pair
+- `latitude` and `longitude`: WGS84 decimal-degree coordinates
 
 For example:
 
 ```js
-{
-  sidc: "SFGPUCI----K---",
-  name: "Friendly infantry",
-  designation: "ALPHA 1",
-  coordinates: [6.13, 49.61]
-}
+{"sidc":"SFGPUCI----K---","designation":"ALPHA 1","latitude":49.61,"longitude":6.13}
 ```
 
-`addSampleSymbols(map)` converts each definition into a canvas and attaches it
-to MapLibre:
+The frontend creates a canvas the first time it sees a `device_id`, then moves
+the existing MapLibre marker for subsequent reports:
 
 ```js
-const element = new window.ms.Symbol(sample.sidc, {
+const element = new window.ms.Symbol(position.sidc, {
   size: 32,
-  uniqueDesignation: sample.designation
+  uniqueDesignation: position.designation
 }).asCanvas();
 
 new maplibregl.Marker({ element, anchor: "center" })
-  .setLngLat(sample.coordinates)
+  .setLngLat([position.longitude, position.latitude])
   .setPopup(popup)
   .addTo(map);
 ```
 
-Add, remove, or relocate examples by editing `sampleSymbols`. The marker setup
-runs once in the map's `load` event. These are static browser-side examples;
-they are not persisted or supplied by an API. Consult the milsymbol project for
-supported SIDCs and rendering options.
+The browser polls `GET /api/positions` once per second. Markers are keyed by
+`device_id`, so updates move symbols without creating duplicates. Consult the
+milsymbol project for supported SIDCs and rendering options.
 
 ## Bundled web dependencies
 
@@ -95,6 +89,8 @@ OpenStreetMap attribution, which is included in the map style.
 
 ```text
 python-front.py             Server entry point
+python-simulator.py         Three-device movement simulator
+situation.db                Runtime SQLite position store (not committed)
 web/                        Application HTML, CSS, JavaScript, and map assets
 web/milsymbol.js            Bundled tactical-symbol renderer
 web/styles/situation.json   Active map style
@@ -145,6 +141,68 @@ The application expects the vector archive to contain the Protomaps layers
 
 5. Open <http://127.0.0.1:8080/> in a browser.
 
+6. In a second terminal, start the simulator:
+
+   ```sh
+   python3 python-simulator.py
+   ```
+
+   The three symbols should appear and move once per second. Stop the simulator
+   with `Ctrl+C`; all submitted points remain in `situation.db`.
+
+## Simulator
+
+The simulator creates a UUID track session and posts three positions per update
+to `POST /api/positions`. It runs continuously by default.
+
+```text
+--url URL           Position API (default: http://127.0.0.1:8080/api/positions)
+--interval SECONDS  Delay between updates (default: 1.0)
+--steps COUNT       Stop after COUNT updates; 0 runs forever (default: 0)
+--run-id ID         Use a specific track session ID instead of a UUID
+```
+
+For a short ten-update test:
+
+```sh
+python3 python-simulator.py --steps 10 --interval 0.25
+```
+
+Each report includes a run ID, device ID, timestamp, coordinates, heading,
+speed, accuracy, SIDC, and designation. This is the contract that a future
+hardware adapter can use in place of the simulator.
+
+Example request body:
+
+```json
+{
+  "run_id": "exercise-001",
+  "device_id": "alpha-1",
+  "timestamp": "2026-07-12T05:00:00Z",
+  "latitude": 49.6116,
+  "longitude": 6.1319,
+  "heading": 120,
+  "speed": 8.0,
+  "accuracy": 5.0,
+  "sidc": "SFGPUCI----K---",
+  "designation": "ALPHA 1"
+}
+```
+
+Coordinates use WGS84 decimal degrees, heading is degrees clockwise from north,
+speed is kilometres per hour, and accuracy is metres.
+
+## Position database
+
+`python-front.py` creates `situation.db` automatically. The append-only
+`positions` table stores both device timestamps and backend receipt timestamps.
+Indexes support retrieval by simulation run and latest device position. The
+database and its SQLite sidecar files are excluded from Git.
+
+Use `--database PATH` to place it elsewhere. SQLite manages concurrent request
+threads through short, independent connections; no external database service
+or administration is required.
+
 The server streams byte ranges from the archive and does not load the complete
 file into memory. MapLibre may cancel obsolete tile requests while navigating;
 these normal disconnects are handled quietly.
@@ -156,6 +214,7 @@ these normal disconnects are handled quietly.
 --port PORT        TCP port (default: 8080)
 --web-dir PATH     Frontend directory (default: ./web)
 --map-dir PATH     Map archive directory (default: ./maps)
+--database PATH    SQLite position database (default: ./situation.db)
 ```
 
 Paths supplied with `--web-dir` and `--map-dir` are resolved relative to the
@@ -206,6 +265,10 @@ sudo systemctl status situation.service
 - `GET /` serves the application.
 - `GET /health` returns plain text `OK`.
 - `GET /api/status` returns JSON service status.
+- `POST /api/positions` validates and stores one position report.
+- `GET /api/positions` returns the latest report for each device.
+- `GET /api/tracks` lists recorded simulation sessions.
+- `GET /api/tracks/<run_id>` returns every point in a recorded session.
 - `GET /maps/...` streams map assets with HTTP byte-range support.
 - `GET /maplibre/...` serves the bundled MapLibre distribution.
 

@@ -3,3 +3,9 @@ __pycache__/
 
 # Map archives are deployment data and may be very large or local symlinks.
 maps/*.pmtiles
+
+# Runtime position database and SQLite sidecar files.
+situation.db
+situation.db-shm
+situation.db-wal
+situation.db-journal

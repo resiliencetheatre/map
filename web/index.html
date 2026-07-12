@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Situation</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/maplibre/maplibre-gl.css">
   <link rel="stylesheet" href="/app.css">
 </head>
@@ -24,11 +25,13 @@
 
     <aside class="activity">
       <h2>Activity</h2>
-      <div class="activity-item">
-        <span class="activity-marker"></span>
-        <div><strong>System started</strong><time>Just now</time></div>
+      <div id="activity-list">
+        <div class="activity-item">
+          <span class="activity-marker"></span>
+          <div><strong>Waiting for positions</strong><time>Start the simulator</time></div>
+        </div>
       </div>
-      <p class="empty-state">No field activity reported.</p>
+      <p class="empty-state" id="position-summary">No live devices reported.</p>
     </aside>
   </main>
 

@@ -3,11 +3,72 @@
 
 import argparse
 import json
+import math
 import mimetypes
 import re
+import sqlite3
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+
+
+POSITION_FIELDS = ("run_id", "device_id", "timestamp", "latitude", "longitude",
+                   "heading", "speed", "accuracy", "sidc", "designation")
+
+
+def init_database(database: Path) -> None:
+    """Create the append-only position store when it does not yet exist."""
+    with sqlite3.connect(database) as connection:
+        connection.executescript("""
+            CREATE TABLE IF NOT EXISTS positions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                run_id TEXT NOT NULL,
+                device_id TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                received_at TEXT NOT NULL,
+                latitude REAL NOT NULL,
+                longitude REAL NOT NULL,
+                heading REAL,
+                speed REAL,
+                accuracy REAL,
+                sidc TEXT NOT NULL,
+                designation TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS positions_run_time
+                ON positions (run_id, timestamp);
+            CREATE INDEX IF NOT EXISTS positions_device_id
+                ON positions (device_id, id);
+        """)
+
+
+def validate_position(data: object) -> dict:
+    """Return a normalized position report or raise ValueError."""
+    if not isinstance(data, dict):
+        raise ValueError("JSON body must be an object")
+    missing = [field for field in POSITION_FIELDS if field not in data]
+    if missing:
+        raise ValueError(f"missing fields: {', '.join(missing)}")
+
+    position = {field: data[field] for field in POSITION_FIELDS}
+    for field in ("run_id", "device_id", "timestamp", "sidc", "designation"):
+        if not isinstance(position[field], str) or not position[field].strip():
+            raise ValueError(f"{field} must be a non-empty string")
+    for field in ("latitude", "longitude", "heading", "speed", "accuracy"):
+        try:
+            position[field] = float(position[field])
+        except (TypeError, ValueError) as error:
+            raise ValueError(f"{field} must be numeric") from error
+        if not math.isfinite(position[field]):
+            raise ValueError(f"{field} must be finite")
+    if not -90 <= position["latitude"] <= 90:
+        raise ValueError("latitude is out of range")
+    if not -180 <= position["longitude"] <= 180:
+        raise ValueError("longitude is out of range")
+    position["heading"] %= 360
+    if position["speed"] < 0 or position["accuracy"] < 0:
+        raise ValueError("speed and accuracy cannot be negative")
+    return position
 
 
 def safe_file(root: Path, requested: str, *, allow_symlink: bool = False) -> Path | None:
@@ -24,7 +85,7 @@ def safe_file(root: Path, requested: str, *, allow_symlink: bool = False) -> Pat
     return candidate if candidate.is_file() else None
 
 
-def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path):
+def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Path):
     class SituationHandler(BaseHTTPRequestHandler):
         def do_GET(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
             path = urlsplit(self.path).path
@@ -36,6 +97,41 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path):
             if path == "/api/status":
                 payload = json.dumps({"status": "ok", "service": "Situation"}).encode()
                 self._send_bytes(payload, "application/json; charset=utf-8")
+                return
+
+            if path == "/api/positions":
+                with sqlite3.connect(database) as connection:
+                    connection.row_factory = sqlite3.Row
+                    rows = connection.execute("""
+                        SELECT * FROM positions
+                        WHERE id IN (SELECT MAX(id) FROM positions GROUP BY device_id)
+                        ORDER BY device_id
+                    """).fetchall()
+                self._send_json({"positions": [dict(row) for row in rows]})
+                return
+
+            if path == "/api/tracks":
+                with sqlite3.connect(database) as connection:
+                    connection.row_factory = sqlite3.Row
+                    rows = connection.execute("""
+                        SELECT run_id, MIN(timestamp) AS started_at,
+                               MAX(timestamp) AS ended_at, COUNT(*) AS points,
+                               COUNT(DISTINCT device_id) AS devices
+                        FROM positions GROUP BY run_id ORDER BY ended_at DESC
+                    """).fetchall()
+                self._send_json({"tracks": [dict(row) for row in rows]})
+                return
+
+            track_match = re.fullmatch(r"/api/tracks/([^/]+)", path)
+            if track_match:
+                run_id = unquote(track_match.group(1))
+                with sqlite3.connect(database) as connection:
+                    connection.row_factory = sqlite3.Row
+                    rows = connection.execute(
+                        "SELECT * FROM positions WHERE run_id = ? ORDER BY timestamp, id",
+                        (run_id,),
+                    ).fetchall()
+                self._send_json({"run_id": run_id, "positions": [dict(row) for row in rows]})
                 return
 
             # Map assets have their own URL namespace; everything else is web UI.
@@ -54,6 +150,32 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path):
                 return
 
             self._send_file(file_path)
+
+        def do_POST(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
+            if urlsplit(self.path).path != "/api/positions":
+                self.send_error(404, "Not found")
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                if length <= 0 or length > 64 * 1024:
+                    raise ValueError("request body must be between 1 byte and 64 KiB")
+                data = json.loads(self.rfile.read(length))
+                position = validate_position(data)
+            except (ValueError, json.JSONDecodeError) as error:
+                self._send_json({"error": str(error)}, status=400)
+                return
+
+            received_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+            values = [position[field] for field in POSITION_FIELDS]
+            with sqlite3.connect(database) as connection:
+                cursor = connection.execute("""
+                    INSERT INTO positions (
+                        run_id, device_id, timestamp, latitude, longitude,
+                        heading, speed, accuracy, sidc, designation, received_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (*values, received_at))
+                row_id = cursor.lastrowid
+            self._send_json({"stored": True, "id": row_id}, status=201)
 
         def _send_file(self, file_path: Path) -> None:
             """Stream a whole file or one HTTP byte range without buffering it."""
@@ -110,6 +232,16 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path):
             self.end_headers()
             self.wfile.write(body)
 
+        def _send_json(self, value: object, status: int = 200) -> None:
+            body = json.dumps(value, separators=(",", ":")).encode()
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            self.wfile.write(body)
+
     return SituationHandler
 
 
@@ -119,6 +251,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port", type=int, default=8080, help="TCP port")
     parser.add_argument("--web-dir", default="./web", help="frontend directory")
     parser.add_argument("--map-dir", default="./maps", help="map asset directory")
+    parser.add_argument("--database", default="./situation.db", help="SQLite database")
     return parser.parse_args()
 
 
@@ -126,9 +259,12 @@ def main() -> None:
     args = parse_args()
     web_dir = Path(args.web_dir).resolve()
     map_dir = Path(args.map_dir).resolve()
+    database = Path(args.database).resolve()
+    database.parent.mkdir(parents=True, exist_ok=True)
+    init_database(database)
     maplibre_dir = (Path(__file__).resolve().parent / "maplibre-gl-js").resolve()
     server = ThreadingHTTPServer(
-        (args.listen, args.port), make_handler(web_dir, map_dir, maplibre_dir)
+        (args.listen, args.port), make_handler(web_dir, map_dir, maplibre_dir, database)
     )
     print(f"Situation listening on http://{args.listen}:{args.port}")
     try:
