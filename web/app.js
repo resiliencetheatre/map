@@ -21,10 +21,7 @@ fetch("/api/status")
     label.textContent = "Offline";
   });
 
-const archiveUrl = `${location.origin}/maps/planet.pmtiles`;
 const protocol = new pmtiles.Protocol();
-const archive = new pmtiles.PMTiles(archiveUrl);
-protocol.add(archive);
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
 const liveMarkers = new Map();
@@ -128,16 +125,92 @@ async function refreshPositions(map) {
   }
 }
 
+function validateLayerConfig(config) {
+  if (!config || !Array.isArray(config.layers) || !config.layers.length) {
+    throw new Error("Map layer configuration must contain at least one layer");
+  }
+  const ids = new Set();
+  config.layers.forEach((layer) => {
+    if (!layer.id || !/^[a-zA-Z0-9_-]+$/.test(layer.id) || ids.has(layer.id)) {
+      throw new Error(`Invalid or duplicate map layer id: ${layer.id}`);
+    }
+    if (!layer.archive || !["base", "overlay"].includes(layer.role)) {
+      throw new Error(`Incomplete map layer: ${layer.id}`);
+    }
+    ids.add(layer.id);
+  });
+  if (config.layers.filter((layer) => layer.role === "base").length !== 1) {
+    throw new Error("Map layer configuration must contain exactly one base layer");
+  }
+  return config;
+}
+
+function buildLayeredStyle(baseStyle, configuredLayers) {
+  const style = structuredClone(baseStyle);
+  const templateSource = style.sources.protomaps;
+  const templateLayers = style.layers;
+  style.sources = {};
+  style.layers = templateLayers.filter((layer) => !layer.source);
+  configuredLayers.forEach(({ config, url, header }) => {
+    const sourceId = `pmtiles-${config.id}`;
+    const sourceBounds = [header.minLon, header.minLat, header.maxLon, header.maxLat];
+    if (header.tileType === pmtiles.TileType.Mvt) {
+      style.sources[sourceId] = {
+        ...templateSource,
+        url: `pmtiles://${url}`,
+        minzoom: header.minZoom,
+        maxzoom: header.maxZoom,
+        bounds: sourceBounds
+      };
+      templateLayers.filter((layer) => layer.source).forEach((template) => {
+        const layer = structuredClone(template);
+        layer.id = `${config.id}--${template.id}`;
+        layer.source = sourceId;
+        style.layers.push(layer);
+      });
+    } else {
+      style.sources[sourceId] = {
+        type: "raster",
+        url: `pmtiles://${url}`,
+        tileSize: 256,
+        minzoom: header.minZoom,
+        maxzoom: header.maxZoom,
+        bounds: sourceBounds
+      };
+      style.layers.push({
+        id: `${config.id}--raster`,
+        type: "raster",
+        source: sourceId,
+        minzoom: header.minZoom,
+        paint: { "raster-fade-duration": 0 }
+      });
+    }
+  });
+  return style;
+}
+
 Promise.all([
-  archive.getHeader(),
+  fetch("/map-layers.json", { cache: "no-store" }).then((response) => {
+    if (!response.ok) throw new Error("Map layer configuration request failed");
+    return response.json();
+  }),
   fetch("/styles/situation.json").then((response) => {
     if (!response.ok) throw new Error("Map style request failed");
     return response.json();
   })
 ])
-  .then(([header, style]) => {
+  .then(async ([rawConfig, baseStyle]) => {
+    const config = validateLayerConfig(rawConfig);
+    const configuredLayers = await Promise.all(config.layers.map(async (layer) => {
+      const url = new URL(`/maps/${encodeURIComponent(layer.archive)}`, location.origin).href;
+      const archive = new pmtiles.PMTiles(url);
+      protocol.add(archive);
+      return { config: layer, url, header: await archive.getHeader() };
+    }));
+    const base = configuredLayers.find(({ config: layer }) => layer.role === "base");
+
     // MapLibre v6 requires absolute protocol, sprite, and glyph URLs.
-    style.sources.protomaps.url = `pmtiles://${archiveUrl}`;
+    const style = buildLayeredStyle(baseStyle, configuredLayers);
     style.sprite = new URL(style.sprite, location.origin).href;
     if (!/^https?:\/\//.test(style.glyphs)) {
       const path = style.glyphs.startsWith("/") ? style.glyphs : `/${style.glyphs}`;
@@ -146,8 +219,8 @@ Promise.all([
 
     const map = new maplibregl.Map({
       container: "map",
-      center: [header.centerLon, header.centerLat],
-      zoom: Math.max(header.minZoom, Math.min(header.centerZoom, 3)),
+      center: [base.header.centerLon, base.header.centerLat],
+      zoom: Math.max(base.header.minZoom, Math.min(base.header.centerZoom, 3)),
       style
     });
     map.addControl(new maplibregl.NavigationControl(), "top-right");

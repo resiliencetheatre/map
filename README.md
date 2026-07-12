@@ -102,11 +102,42 @@ web/milsymbol.js            Bundled tactical-symbol renderer
 web/styles/situation.json   Active map style
 maplibre-gl-js/             Bundled MapLibre ES modules and CSS
 maps/planet.pmtiles         Required map archive or symlink (not committed)
+web/map-layers.json         Base and regional PMTiles archive configuration
 ```
 
 The application expects the vector archive to contain the Protomaps layers
 `boundaries`, `buildings`, `earth`, `landcover`, `landuse`, `places`, `pois`,
 `roads`, and `water`.
+
+### Configuring map layers
+
+Map sources are configured in `web/map-layers.json`. Exactly one archive has
+the `base` role and remains visible everywhere. Regional archives use the
+`overlay` role and automatically render above it only within their PMTiles
+bounds and native zoom range. To add one, place it below `maps/` and add an
+entry with a stable `id` and its `archive` filename:
+
+```json
+{
+  "layers": [
+    {
+      "id": "planet",
+      "archive": "planet.pmtiles",
+      "role": "base"
+    },
+    {
+      "id": "riyadh-governorate",
+      "archive": "riyadh_governorate.pmtiles",
+      "role": "overlay"
+    }
+  ]
+}
+```
+
+Vector archives must use the Protomaps source-layer schema expected by
+`web/styles/situation.json`. Raster PMTiles archives (PNG, JPEG, WebP, or AVIF)
+are detected automatically and rendered as raster overlays. Reload the browser
+after changing the config; the server does not need to be restarted.
 
 ## Setup on another Linux system
 
