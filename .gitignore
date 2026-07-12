@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+
+# Map archives are deployment data and may be very large or local symlinks.
+maps/*.pmtiles

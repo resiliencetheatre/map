@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Situation</title>
+  <link rel="stylesheet" href="/maplibre/maplibre-gl.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Situation</h1>
+    <div class="status" aria-live="polite">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-text">Checking</span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="map" aria-label="Map area">
+      <div id="map"></div>
+      <div class="map-message" id="map-message">Loading world map…</div>
+    </section>
+
+    <aside class="activity">
+      <h2>Activity</h2>
+      <div class="activity-item">
+        <span class="activity-marker"></span>
+        <div><strong>System started</strong><time>Just now</time></div>
+      </div>
+      <p class="empty-state">No field activity reported.</p>
+    </aside>
+  </main>
+
+  <script src="/pmtiles.js"></script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
