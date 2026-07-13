@@ -46,7 +46,11 @@ the library available as `window.ms`. The backend position schema includes:
 The frontend derives a target's age from the backend-generated `received_at`
 timestamp (falling back to the device `timestamp`). Age is displayed in seconds
 below one minute and as `minutes:seconds` thereafter, so it continues increasing
-when a device stops reporting.
+when a device stops reporting. The right-side target list separates targets into
+Live and Idle tabs. The adjustable idle threshold defaults to 300 seconds and is
+stored in browser local storage. Each target shows its last-known-good (LKG)
+receipt time beside speed and heading; LKG is green for live targets and red for
+idle targets.
 
 For example:
 

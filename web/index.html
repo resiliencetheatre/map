@@ -34,18 +34,32 @@
     </section>
 
     <aside class="activity">
-      <h2>Activity</h2>
+      <h2>Target list</h2>
       <div class="tail-length">
         <label for="tail-length">Tail length <output id="tail-length-value">300 s</output></label>
         <input id="tail-length" type="range" min="5" max="300" step="5" value="300">
       </div>
-      <div id="activity-list">
-        <div class="activity-item">
-          <span class="activity-marker"></span>
-          <div><strong>Waiting for positions</strong><time>Start the simulator</time></div>
-        </div>
+      <label class="idle-threshold" for="idle-threshold">
+        Idle after
+        <span><input id="idle-threshold" type="number" min="1" step="1" value="300"> s</span>
+      </label>
+      <div class="target-tabs" role="tablist" aria-label="Target state">
+        <button id="live-tab" type="button" role="tab" aria-selected="true" aria-controls="live-targets">
+          Live <span id="live-count">0</span>
+        </button>
+        <button id="idle-tab" type="button" role="tab" tabindex="-1" aria-selected="false" aria-controls="idle-targets">
+          Idle <span id="idle-count">0</span>
+        </button>
       </div>
-      <p class="empty-state" id="position-summary">No live devices reported.</p>
+      <div id="live-targets" role="tabpanel" aria-labelledby="live-tab">
+        <div class="activity-list" id="live-target-list"></div>
+        <p class="empty-state" id="live-empty">No live targets.</p>
+      </div>
+      <div id="idle-targets" role="tabpanel" aria-labelledby="idle-tab" hidden>
+        <div class="activity-list" id="idle-target-list"></div>
+        <p class="empty-state" id="idle-empty">No idle targets.</p>
+      </div>
+      <p class="target-summary" id="position-summary">No targets reported.</p>
     </aside>
   </main>
 

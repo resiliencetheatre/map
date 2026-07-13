@@ -3,11 +3,23 @@ import * as maplibregl from "/maplibre/maplibre-gl.mjs";
 const dot = document.querySelector("#status-dot");
 const label = document.querySelector("#status-text");
 const mapMessage = document.querySelector("#map-message");
-const activityList = document.querySelector("#activity-list");
+const liveTargetList = document.querySelector("#live-target-list");
+const idleTargetList = document.querySelector("#idle-target-list");
+const liveEmpty = document.querySelector("#live-empty");
+const idleEmpty = document.querySelector("#idle-empty");
+const liveCount = document.querySelector("#live-count");
+const idleCount = document.querySelector("#idle-count");
+const liveTab = document.querySelector("#live-tab");
+const idleTab = document.querySelector("#idle-tab");
+const livePanel = document.querySelector("#live-targets");
+const idlePanel = document.querySelector("#idle-targets");
 const positionSummary = document.querySelector("#position-summary");
 const tailLengthInput = document.querySelector("#tail-length");
 const tailLengthValue = document.querySelector("#tail-length-value");
+const idleThresholdInput = document.querySelector("#idle-threshold");
 const refreshIntervalSelect = document.querySelector("#refresh-interval");
+const IDLE_THRESHOLD_KEY = "situation.idleThresholdSeconds";
+const DEFAULT_IDLE_THRESHOLD_SECONDS = 300;
 
 // Reflect server availability in the compact header indicator.
 fetch("/api/status")
@@ -34,15 +46,48 @@ let fittedToLivePositions = false;
 let positionRequestRunning = false;
 let tailRequestRunning = false;
 let refreshTimer = null;
+let latestPositions = [];
+let situationMap = null;
+
+const savedIdleThreshold = Number(localStorage.getItem(IDLE_THRESHOLD_KEY));
+if (Number.isFinite(savedIdleThreshold) && savedIdleThreshold >= 1) {
+  idleThresholdInput.value = String(Math.floor(savedIdleThreshold));
+}
 
 tailLengthInput.addEventListener("input", () => {
   tailLengthValue.value = `${tailLengthInput.value} s`;
 });
 
+function idleThresholdSeconds() {
+  const seconds = Math.floor(Number(idleThresholdInput.value));
+  return Number.isFinite(seconds) && seconds >= 1 ? seconds : DEFAULT_IDLE_THRESHOLD_SECONDS;
+}
+
+idleThresholdInput.addEventListener("change", () => {
+  const seconds = idleThresholdSeconds();
+  idleThresholdInput.value = String(seconds);
+  localStorage.setItem(IDLE_THRESHOLD_KEY, String(seconds));
+  updateTargetLists(situationMap, latestPositions);
+});
+
+function selectTargetTab(state) {
+  const showLive = state === "live";
+  liveTab.setAttribute("aria-selected", String(showLive));
+  idleTab.setAttribute("aria-selected", String(!showLive));
+  liveTab.tabIndex = showLive ? 0 : -1;
+  idleTab.tabIndex = showLive ? -1 : 0;
+  livePanel.hidden = !showLive;
+  idlePanel.hidden = showLive;
+}
+
+liveTab.addEventListener("click", () => selectTargetTab("live"));
+idleTab.addEventListener("click", () => selectTargetTab("idle"));
+
 function startPositionRefresh(map) {
   if (refreshTimer !== null) window.clearInterval(refreshTimer);
   const refresh = () => {
     updateMarkerAges();
+    updateTargetLists(map, latestPositions);
     refreshPositions(map);
   };
   refresh();
@@ -58,6 +103,20 @@ function formatAge(seconds) {
   if (seconds < 60) return `${seconds}s`;
   const minutes = Math.floor(seconds / 60);
   return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+function formatLkg(position) {
+  const timestamp = Date.parse(position.received_at || position.timestamp);
+  return Number.isFinite(timestamp)
+    ? new Date(timestamp).toLocaleString([], {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      })
+    : "Unknown";
 }
 
 function renderLiveSymbol(live) {
@@ -152,41 +211,60 @@ async function refreshTails(map) {
   }
 }
 
-function updateActivity(map, positions) {
-  activityList.replaceChildren(...positions.map((position) => {
-    const row = document.createElement("div");
-    row.className = "activity-item";
-    const marker = document.createElement("span");
-    marker.className = "activity-marker";
-    marker.style.backgroundColor = tailColor(position.device_id);
-    const details = document.createElement("div");
-    const name = document.createElement("strong");
-    name.textContent = position.designation;
-    const time = document.createElement("time");
-    time.textContent = `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`;
-    details.append(name, time);
-    const statusText = position.status_text || position.status;
-    if (statusText) {
-      const status = document.createElement("span");
-      status.className = "activity-status";
-      status.textContent = statusText;
-      details.append(status);
-    }
-    const tailButton = document.createElement("button");
-    tailButton.className = "tail-toggle";
-    tailButton.type = "button";
-    tailButton.textContent = "Tail";
+function createTargetRow(map, position, state) {
+  const row = document.createElement("div");
+  row.className = "activity-item";
+  const marker = document.createElement("span");
+  marker.className = "activity-marker";
+  marker.style.backgroundColor = tailColor(position.device_id);
+  const details = document.createElement("div");
+  const name = document.createElement("strong");
+  name.textContent = position.designation;
+  const metadata = document.createElement("span");
+  metadata.className = "activity-meta";
+  const lkg = document.createElement("time");
+  lkg.className = `lkg ${state}`;
+  lkg.dateTime = position.received_at || position.timestamp;
+  lkg.textContent = `LKG ${formatLkg(position)}`;
+  metadata.append(lkg, ` · ${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`);
+  details.append(name, metadata);
+  const statusText = position.status_text || position.status;
+  if (statusText) {
+    const status = document.createElement("span");
+    status.className = "activity-status";
+    status.textContent = statusText;
+    details.append(status);
+  }
+  const tailButton = document.createElement("button");
+  tailButton.className = "tail-toggle";
+  tailButton.type = "button";
+  tailButton.textContent = "Tail";
+  tailButton.setAttribute("aria-pressed", String(visibleTails.has(position.device_id)));
+  tailButton.addEventListener("click", () => {
+    if (visibleTails.has(position.device_id)) visibleTails.delete(position.device_id);
+    else visibleTails.add(position.device_id);
     tailButton.setAttribute("aria-pressed", String(visibleTails.has(position.device_id)));
-    tailButton.addEventListener("click", () => {
-      if (visibleTails.has(position.device_id)) visibleTails.delete(position.device_id);
-      else visibleTails.add(position.device_id);
-      tailButton.setAttribute("aria-pressed", String(visibleTails.has(position.device_id)));
-      refreshTails(map);
-    });
-    row.append(marker, details, tailButton);
-    return row;
-  }));
-  positionSummary.textContent = `${positions.length} live device${positions.length === 1 ? "" : "s"}.`;
+    refreshTails(map);
+  });
+  row.append(marker, details, tailButton);
+  return row;
+}
+
+function updateTargetLists(map, positions) {
+  if (!map) return;
+  const threshold = idleThresholdSeconds();
+  const livePositions = positions.filter((position) => ageInSeconds(position) < threshold);
+  const idlePositions = positions.filter((position) => ageInSeconds(position) >= threshold);
+  liveTargetList.replaceChildren(...livePositions.map((position) => createTargetRow(map, position, "live")));
+  idleTargetList.replaceChildren(...idlePositions.map((position) => createTargetRow(map, position, "idle")));
+  liveEmpty.hidden = livePositions.length > 0;
+  idleEmpty.hidden = idlePositions.length > 0;
+  liveCount.textContent = String(livePositions.length);
+  idleCount.textContent = String(idlePositions.length);
+  const total = positions.length;
+  positionSummary.textContent = total
+    ? `${total} target${total === 1 ? "" : "s"}: ${livePositions.length} live, ${idlePositions.length} idle.`
+    : "No targets reported.";
 }
 
 async function refreshPositions(map) {
@@ -196,6 +274,7 @@ async function refreshPositions(map) {
     const response = await fetch("/api/positions", { cache: "no-store" });
     if (!response.ok) throw new Error("Position request failed");
     const { positions } = await response.json();
+    latestPositions = positions;
     positions.forEach((position) => {
       let live = liveMarkers.get(position.device_id);
       if (live && live.sidc !== position.sidc) {
@@ -214,7 +293,7 @@ async function refreshPositions(map) {
         `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°${status}`
       );
     });
-    updateActivity(map, positions);
+    updateTargetLists(map, positions);
     refreshTails(map);
 
     if (positions.length && !fittedToLivePositions) {
@@ -329,6 +408,7 @@ Promise.all([
       zoom: Math.max(base.header.minZoom, Math.min(base.header.centerZoom, 3)),
       style
     });
+    situationMap = map;
     map.addControl(new maplibregl.NavigationControl(), "top-right");
     map.on("load", () => {
       map.addSource("target-tails", { type: "geojson", data: emptyTailData() });
