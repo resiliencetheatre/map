@@ -25,8 +25,11 @@ const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
 const liveMarkers = new Map();
+const visibleTails = new Set();
+const tailColors = new Map();
 let fittedToLivePositions = false;
 let positionRequestRunning = false;
+let tailRequestRunning = false;
 
 function ageInSeconds(position) {
   const updatedAt = Date.parse(position.received_at || position.timestamp);
@@ -42,10 +45,14 @@ function formatAge(seconds) {
 function renderLiveSymbol(live) {
   const age = ageInSeconds(live.position);
   const label = `${live.position.designation} · age ${formatAge(age)}`;
-  const symbol = new window.ms.Symbol(live.position.sidc, {
+  const renderedSymbol = new window.ms.Symbol(live.position.sidc, {
     size: 32,
     uniqueDesignation: label
-  }).asCanvas();
+  });
+  const symbol = renderedSymbol.asCanvas();
+  const size = renderedSymbol.getSize();
+  const anchor = renderedSymbol.getAnchor();
+  live.marker.setOffset([size.width / 2 - anchor.x, size.height / 2 - anchor.y]);
   symbol.classList.add("military-symbol");
   live.element.replaceChildren(symbol);
   live.element.setAttribute("aria-label", label);
@@ -68,19 +75,89 @@ function updateMarkerAges() {
   liveMarkers.forEach((live) => renderLiveSymbol(live));
 }
 
-function updateActivity(positions) {
+function tailColor(deviceId) {
+  if (!tailColors.has(deviceId)) {
+    const hue = (tailColors.size * 137.508 + 6) % 360;
+    tailColors.set(deviceId, `hsl(${hue.toFixed(1)} 78% 60%)`);
+  }
+  return tailColors.get(deviceId);
+}
+
+function emptyTailData() {
+  return { type: "FeatureCollection", features: [] };
+}
+
+async function refreshTails(map) {
+  if (tailRequestRunning) return;
+  if (!visibleTails.size) {
+    map.getSource("target-tails")?.setData(emptyTailData());
+    return;
+  }
+  tailRequestRunning = true;
+  try {
+    const response = await fetch("/api/positions/tails", { cache: "no-store" });
+    if (!response.ok) throw new Error("Tail request failed");
+    const { positions } = await response.json();
+    const grouped = new Map();
+    positions.filter((position) => visibleTails.has(position.device_id)).forEach((position) => {
+      const points = grouped.get(position.device_id) || [];
+      points.push(position);
+      grouped.set(position.device_id, points);
+    });
+    const features = [];
+    grouped.forEach((points, deviceId) => {
+      const color = tailColor(deviceId);
+      if (points.length > 1) {
+        features.push({
+          type: "Feature",
+          properties: { kind: "line", color },
+          geometry: { type: "LineString", coordinates: points.map((point) => [point.longitude, point.latitude]) }
+        });
+      }
+      points.forEach((point) => features.push({
+        type: "Feature",
+        properties: {
+          kind: "point",
+          color,
+          designation: point.designation,
+          timestamp: point.timestamp
+        },
+        geometry: { type: "Point", coordinates: [point.longitude, point.latitude] }
+      }));
+    });
+    map.getSource("target-tails")?.setData({ type: "FeatureCollection", features });
+  } catch (error) {
+    console.warn("Tails:", error);
+  } finally {
+    tailRequestRunning = false;
+  }
+}
+
+function updateActivity(map, positions) {
   activityList.replaceChildren(...positions.map((position) => {
     const row = document.createElement("div");
     row.className = "activity-item";
     const marker = document.createElement("span");
     marker.className = "activity-marker";
+    marker.style.backgroundColor = tailColor(position.device_id);
     const details = document.createElement("div");
     const name = document.createElement("strong");
     name.textContent = position.designation;
     const time = document.createElement("time");
     time.textContent = `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`;
     details.append(name, time);
-    row.append(marker, details);
+    const tailButton = document.createElement("button");
+    tailButton.className = "tail-toggle";
+    tailButton.type = "button";
+    tailButton.textContent = "Tail";
+    tailButton.setAttribute("aria-pressed", String(visibleTails.has(position.device_id)));
+    tailButton.addEventListener("click", () => {
+      if (visibleTails.has(position.device_id)) visibleTails.delete(position.device_id);
+      else visibleTails.add(position.device_id);
+      tailButton.setAttribute("aria-pressed", String(visibleTails.has(position.device_id)));
+      refreshTails(map);
+    });
+    row.append(marker, details, tailButton);
     return row;
   }));
   positionSummary.textContent = `${positions.length} live device${positions.length === 1 ? "" : "s"}.`;
@@ -109,7 +186,8 @@ async function refreshPositions(map) {
         `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`
       );
     });
-    updateActivity(positions);
+    updateActivity(map, positions);
+    refreshTails(map);
 
     if (positions.length && !fittedToLivePositions) {
       const bounds = new maplibregl.LngLatBounds();
@@ -225,6 +303,42 @@ Promise.all([
     });
     map.addControl(new maplibregl.NavigationControl(), "top-right");
     map.on("load", () => {
+      map.addSource("target-tails", { type: "geojson", data: emptyTailData() });
+      map.addLayer({
+        id: "target-tail-lines",
+        type: "line",
+        source: "target-tails",
+        filter: ["==", ["get", "kind"], "line"],
+        paint: { "line-color": ["get", "color"], "line-width": 2 }
+      });
+      map.addLayer({
+        id: "target-tail-points",
+        type: "circle",
+        source: "target-tails",
+        filter: ["==", ["get", "kind"], "point"],
+        paint: {
+          "circle-color": ["get", "color"],
+          "circle-radius": 2,
+          "circle-stroke-color": "#101820",
+          "circle-stroke-width": 0.5
+        }
+      });
+      map.on("click", "target-tail-points", (event) => {
+        const feature = event.features?.[0];
+        if (!feature) return;
+        const content = document.createElement("div");
+        const name = document.createElement("strong");
+        name.textContent = feature.properties.designation;
+        const timestamp = document.createElement("div");
+        timestamp.textContent = new Date(feature.properties.timestamp).toLocaleString();
+        content.append(name, timestamp);
+        new maplibregl.Popup({ offset: 6 })
+          .setLngLat(feature.geometry.coordinates)
+          .setDOMContent(content)
+          .addTo(map);
+      });
+      map.on("mouseenter", "target-tail-points", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "target-tail-points", () => { map.getCanvas().style.cursor = ""; });
       refreshPositions(map);
       window.setInterval(() => {
         updateMarkerAges();

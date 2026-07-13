@@ -40,9 +40,21 @@ body { margin: 0; min-height: 100vh; }
 
 .activity { padding: 22px; background: #111820; border-left: 1px solid #26313d; }
 .activity h2 { margin: 0 0 24px; font-size: 15px; text-transform: uppercase; letter-spacing: .1em; color: #8999a6; }
-.activity-item { display: flex; gap: 12px; font-size: 14px; }
+.activity-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; font-size: 14px; }
+.activity-item > div { min-width: 0; flex: 1; }
 .activity-item time { display: block; margin-top: 4px; color: #71808c; font-size: 12px; }
 .activity-marker { width: 9px; height: 9px; margin-top: 5px; border-radius: 50%; background: #58a6c8; }
+.tail-toggle {
+  padding: 4px 8px;
+  border: 1px solid #3b4a57;
+  border-radius: 4px;
+  background: #18222c;
+  color: #9cabb8;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.tail-toggle[aria-pressed="true"] { border-color: #58a6c8; background: #244455; color: #e7f7ff; }
 .empty-state { margin-top: 28px; color: #64737f; font-size: 13px; }
 
 @media (max-width: 720px) {

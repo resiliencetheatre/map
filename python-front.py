@@ -39,6 +39,8 @@ def init_database(database: Path) -> None:
                 ON positions (run_id, timestamp);
             CREATE INDEX IF NOT EXISTS positions_device_id
                 ON positions (device_id, id);
+            CREATE INDEX IF NOT EXISTS positions_received_at
+                ON positions (received_at);
         """)
 
 
@@ -106,6 +108,19 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
                         SELECT * FROM positions
                         WHERE id IN (SELECT MAX(id) FROM positions GROUP BY device_id)
                         ORDER BY device_id
+                    """).fetchall()
+                self._send_json({"positions": [dict(row) for row in rows]})
+                return
+
+            if path == "/api/positions/tails":
+                with sqlite3.connect(database) as connection:
+                    connection.row_factory = sqlite3.Row
+                    rows = connection.execute("""
+                        SELECT device_id, timestamp, received_at, latitude, longitude,
+                               designation
+                        FROM positions
+                        WHERE datetime(received_at) >= datetime('now', '-15 minutes')
+                        ORDER BY device_id, id
                     """).fetchall()
                 self._send_json({"positions": [dict(row) for row in rows]})
                 return
