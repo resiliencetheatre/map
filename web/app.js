@@ -5,6 +5,8 @@ const label = document.querySelector("#status-text");
 const mapMessage = document.querySelector("#map-message");
 const activityList = document.querySelector("#activity-list");
 const positionSummary = document.querySelector("#position-summary");
+const tailLengthInput = document.querySelector("#tail-length");
+const tailLengthValue = document.querySelector("#tail-length-value");
 
 // Reflect server availability in the compact header indicator.
 fetch("/api/status")
@@ -30,6 +32,10 @@ const tailColors = new Map();
 let fittedToLivePositions = false;
 let positionRequestRunning = false;
 let tailRequestRunning = false;
+
+tailLengthInput.addEventListener("input", () => {
+  tailLengthValue.value = `${tailLengthInput.value} s`;
+});
 
 function ageInSeconds(position) {
   const updatedAt = Date.parse(position.received_at || position.timestamp);
@@ -95,7 +101,8 @@ async function refreshTails(map) {
   }
   tailRequestRunning = true;
   try {
-    const response = await fetch("/api/positions/tails", { cache: "no-store" });
+    const seconds = Number(tailLengthInput.value);
+    const response = await fetch(`/api/positions/tails?seconds=${seconds}`, { cache: "no-store" });
     if (!response.ok) throw new Error("Tail request failed");
     const { positions } = await response.json();
     const grouped = new Map();

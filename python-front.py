@@ -10,7 +10,7 @@ import sqlite3
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 
 
 POSITION_FIELDS = ("run_id", "device_id", "timestamp", "latitude", "longitude",
@@ -90,7 +90,8 @@ def safe_file(root: Path, requested: str, *, allow_symlink: bool = False) -> Pat
 def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Path):
     class SituationHandler(BaseHTTPRequestHandler):
         def do_GET(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
-            path = urlsplit(self.path).path
+            request = urlsplit(self.path)
+            path = request.path
 
             if path == "/health":
                 self._send_bytes(b"OK", "text/plain; charset=utf-8")
@@ -113,15 +114,22 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
                 return
 
             if path == "/api/positions/tails":
+                try:
+                    seconds = int(parse_qs(request.query).get("seconds", ["300"])[0])
+                    if not 5 <= seconds <= 300:
+                        raise ValueError
+                except (TypeError, ValueError):
+                    self._send_json({"error": "seconds must be an integer from 5 to 300"}, status=400)
+                    return
                 with sqlite3.connect(database) as connection:
                     connection.row_factory = sqlite3.Row
                     rows = connection.execute("""
                         SELECT device_id, timestamp, received_at, latitude, longitude,
                                designation
                         FROM positions
-                        WHERE datetime(received_at) >= datetime('now', '-15 minutes')
+                        WHERE datetime(received_at) >= datetime('now', ?)
                         ORDER BY device_id, id
-                    """).fetchall()
+                    """, (f"-{seconds} seconds",)).fetchall()
                 self._send_json({"positions": [dict(row) for row in rows]})
                 return
 
