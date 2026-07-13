@@ -99,6 +99,7 @@ python-simulator.py         Three-device movement simulator
 situation.db                Runtime SQLite position store (not committed)
 web/                        Application HTML, CSS, JavaScript, and map assets
 web/milsymbol.js            Bundled tactical-symbol renderer
+web/report.html             Mobile browser position-reporting page
 web/styles/situation.json   Active map style
 maplibre-gl-js/             Bundled MapLibre ES modules and CSS
 maps/planet.pmtiles         Required map archive or symlink (not committed)
@@ -138,6 +139,24 @@ Vector archives must use the Protomaps source-layer schema expected by
 `web/styles/situation.json`. Raster PMTiles archives (PNG, JPEG, WebP, or AVIF)
 are detected automatically and rendered as raster overlays. Reload the browser
 after changing the config; the server does not need to be restarted.
+
+### Browser position reporting
+
+Open `/report` on a phone to submit its position to the Situation map. The page
+requests high-accuracy browser geolocation on load and centers a crosshair on
+the result. If access is unavailable or the position needs adjustment, pan and
+zoom the map until the crosshair is over the desired location. The form shows
+the selected latitude, longitude, and zoom and accepts an editable target name
+and optional status text.
+
+Each browser receives a random device ID stored in local storage. Its editable
+target name is stored there as well, so later reports update the same target.
+Clearing site storage creates a new identity. Browser geolocation normally
+requires HTTPS, except when accessing the application through localhost.
+
+Select **Report Position** to append the selected coordinate to the position
+store. Reports from this page use the same API as hardware adapters and the
+simulator; status is optional, so existing clients remain compatible.
 
 ## Setup on another Linux system
 
@@ -194,7 +213,7 @@ to `POST /api/positions`. It runs continuously by default.
 
 ```text
 --url URL           Position API (default: http://127.0.0.1:8080/api/positions)
---interval SECONDS  Delay between updates (default: 1.0)
+--interval SECONDS  Delay between updates; minimum 0.1 (default: 1.0)
 --steps COUNT       Stop after COUNT updates; 0 runs forever (default: 0)
 --run-id ID         Use a specific track session ID instead of a UUID
 ```
@@ -202,7 +221,7 @@ to `POST /api/positions`. It runs continuously by default.
 For a short ten-update test:
 
 ```sh
-python3 python-simulator.py --steps 10 --interval 0.25
+python3 python-simulator.py --steps 10 --interval 0.1
 ```
 
 Each report includes a run ID, device ID, timestamp, coordinates, heading,

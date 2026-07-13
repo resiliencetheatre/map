@@ -33,7 +33,8 @@ def init_database(database: Path) -> None:
                 speed REAL,
                 accuracy REAL,
                 sidc TEXT NOT NULL,
-                designation TEXT NOT NULL
+                designation TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT ''
             );
             CREATE INDEX IF NOT EXISTS positions_run_time
                 ON positions (run_id, timestamp);
@@ -42,6 +43,9 @@ def init_database(database: Path) -> None:
             CREATE INDEX IF NOT EXISTS positions_received_at
                 ON positions (received_at);
         """)
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(positions)")}
+        if "status" not in columns:
+            connection.execute("ALTER TABLE positions ADD COLUMN status TEXT NOT NULL DEFAULT ''")
 
 
 def validate_position(data: object) -> dict:
@@ -53,6 +57,10 @@ def validate_position(data: object) -> dict:
         raise ValueError(f"missing fields: {', '.join(missing)}")
 
     position = {field: data[field] for field in POSITION_FIELDS}
+    status = data.get("status", "")
+    if not isinstance(status, str) or len(status) > 500:
+        raise ValueError("status must be a string of at most 500 characters")
+    position["status"] = status.strip()
     for field in ("run_id", "device_id", "timestamp", "sidc", "designation"):
         if not isinstance(position[field], str) or not position[field].strip():
             raise ValueError(f"{field} must be a non-empty string")
@@ -165,7 +173,7 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
             elif path.startswith("/maplibre/"):
                 file_path = safe_file(maplibre_dir, path.removeprefix("/maplibre/"))
             else:
-                relative = "index.html" if path == "/" else path
+                relative = "index.html" if path == "/" else "report.html" if path == "/report" else path
                 file_path = safe_file(web_dir, relative)
 
             if file_path is None:
@@ -194,9 +202,9 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
                 cursor = connection.execute("""
                     INSERT INTO positions (
                         run_id, device_id, timestamp, latitude, longitude,
-                        heading, speed, accuracy, sidc, designation, received_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (*values, received_at))
+                        heading, speed, accuracy, sidc, designation, received_at, status
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (*values, received_at, position["status"]))
                 row_id = cursor.lastrowid
             self._send_json({"stored": True, "id": row_id}, status=201)
 

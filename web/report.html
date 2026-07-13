@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Report position · Situation</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/maplibre/maplibre-gl.css">
+  <link rel="stylesheet" href="/report.css">
+</head>
+<body>
+  <header class="report-header">
+    <a href="/" aria-label="Back to Situation map">Situation</a>
+    <strong>Report position</strong>
+    <button id="locate" type="button">Use my location</button>
+  </header>
+
+  <main>
+    <section class="report-map" aria-label="Position selection map">
+      <div id="report-map"></div>
+      <div class="crosshair" aria-hidden="true"></div>
+      <div class="map-message" id="report-map-message">Loading map…</div>
+    </section>
+
+    <form id="report-form" class="report-form">
+      <div class="coordinates" aria-live="polite">
+        <span><small>Latitude</small><output id="latitude">—</output></span>
+        <span><small>Longitude</small><output id="longitude">—</output></span>
+        <span><small>Zoom</small><output id="zoom">—</output></span>
+      </div>
+
+      <div class="identity-row">
+        <label>Target name<input id="target-name" maxlength="80" required autocomplete="nickname"></label>
+        <label>Browser ID<input id="device-id" readonly></label>
+      </div>
+
+      <label>Status<input id="target-status" maxlength="500" placeholder="Optional status" autocomplete="off"></label>
+
+      <div class="report-actions">
+        <span id="report-result" role="status">Pan the map to set position.</span>
+        <button id="report-position" type="submit">Report Position</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="/pmtiles.js"></script>
+  <script type="module" src="/report.js"></script>
+</body>
+</html>

@@ -49,7 +49,10 @@ def post(url: str, report: dict) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Simulate three moving map units")
     parser.add_argument("--url", default="http://127.0.0.1:8080/api/positions")
-    parser.add_argument("--interval", type=float, default=1.0, help="seconds per update")
+    parser.add_argument(
+        "--interval", type=float, default=1.0,
+        help="seconds per update, minimum 0.1 (default: 1.0)",
+    )
     parser.add_argument("--steps", type=int, default=0, help="updates; 0 runs forever")
     parser.add_argument("--run-id", help="track session ID; defaults to a UUID")
     return parser.parse_args()
@@ -57,11 +60,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    if args.interval <= 0 or args.steps < 0:
-        raise SystemExit("--interval must be positive and --steps cannot be negative")
+    if args.interval < 0.1 or args.steps < 0:
+        raise SystemExit("--interval must be at least 0.1 and --steps cannot be negative")
     run_id = args.run_id or str(uuid.uuid4())
     print(f"Simulation run {run_id}; posting to {args.url}")
     tick = 0
+    next_update = time.monotonic()
     try:
         while args.steps == 0 or tick < args.steps:
             for unit in UNITS:
@@ -71,7 +75,8 @@ def main() -> None:
                 except (URLError, RuntimeError) as error:
                     print(f"{report['device_id']}: {error}")
             tick += 1
-            time.sleep(args.interval)
+            next_update += args.interval
+            time.sleep(max(0, next_update - time.monotonic()))
     except KeyboardInterrupt:
         pass
     print(f"Simulation stopped after {tick} updates")

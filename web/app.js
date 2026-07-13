@@ -7,6 +7,7 @@ const activityList = document.querySelector("#activity-list");
 const positionSummary = document.querySelector("#position-summary");
 const tailLengthInput = document.querySelector("#tail-length");
 const tailLengthValue = document.querySelector("#tail-length-value");
+const refreshIntervalSelect = document.querySelector("#refresh-interval");
 
 // Reflect server availability in the compact header indicator.
 fetch("/api/status")
@@ -32,10 +33,21 @@ const tailColors = new Map();
 let fittedToLivePositions = false;
 let positionRequestRunning = false;
 let tailRequestRunning = false;
+let refreshTimer = null;
 
 tailLengthInput.addEventListener("input", () => {
   tailLengthValue.value = `${tailLengthInput.value} s`;
 });
+
+function startPositionRefresh(map) {
+  if (refreshTimer !== null) window.clearInterval(refreshTimer);
+  const refresh = () => {
+    updateMarkerAges();
+    refreshPositions(map);
+  };
+  refresh();
+  refreshTimer = window.setInterval(refresh, Number(refreshIntervalSelect.value));
+}
 
 function ageInSeconds(position) {
   const updatedAt = Date.parse(position.received_at || position.timestamp);
@@ -188,9 +200,10 @@ async function refreshPositions(map) {
       live.position = position;
       renderLiveSymbol(live);
       live.marker.setLngLat([position.longitude, position.latitude]);
+      const status = position.status ? ` · ${position.status}` : "";
       live.popup.setText(
         `${position.designation} · age ${formatAge(ageInSeconds(position))} · ` +
-        `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`
+        `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°${status}`
       );
     });
     updateActivity(map, positions);
@@ -346,11 +359,8 @@ Promise.all([
       });
       map.on("mouseenter", "target-tail-points", () => { map.getCanvas().style.cursor = "pointer"; });
       map.on("mouseleave", "target-tail-points", () => { map.getCanvas().style.cursor = ""; });
-      refreshPositions(map);
-      window.setInterval(() => {
-        updateMarkerAges();
-        refreshPositions(map);
-      }, 1000);
+      refreshIntervalSelect.addEventListener("change", () => startPositionRefresh(map));
+      startPositionRefresh(map);
       mapMessage.classList.add("hidden");
     });
     map.on("error", (event) => {
