@@ -1,0 +1,9 @@
+{
+	auto_https off
+}
+
+https://:8443 {
+	bind 0.0.0.0
+	tls ./caddy/certs/situation-server.crt ./caddy/certs/situation-server.key
+	reverse_proxy 127.0.0.1:8080
+}

@@ -2,7 +2,7 @@ import * as maplibregl from "/maplibre/maplibre-gl.mjs";
 
 const DEVICE_ID_KEY = "situation.reporter.deviceId";
 const TARGET_NAME_KEY = "situation.reporter.targetName";
-const DEFAULT_SIDC = "E-O-B-----";
+const TARGET_SYMBOL_KEY = "situation.reporter.targetSymbol";
 
 const latitudeOutput = document.querySelector("#latitude");
 const longitudeOutput = document.querySelector("#longitude");
@@ -10,6 +10,8 @@ const zoomOutput = document.querySelector("#zoom");
 const deviceIdInput = document.querySelector("#device-id");
 const targetNameInput = document.querySelector("#target-name");
 const statusInput = document.querySelector("#target-status");
+const symbolSelect = document.querySelector("#target-symbol");
+const symbolPreview = document.querySelector("#symbol-preview");
 const result = document.querySelector("#report-result");
 const form = document.querySelector("#report-form");
 const locateButton = document.querySelector("#locate");
@@ -25,6 +27,38 @@ localStorage.setItem(DEVICE_ID_KEY, deviceId);
 deviceIdInput.value = deviceId;
 targetNameInput.value = localStorage.getItem(TARGET_NAME_KEY) || `Mobile ${deviceId.slice(0, 6)}`;
 targetNameInput.addEventListener("input", () => localStorage.setItem(TARGET_NAME_KEY, targetNameInput.value));
+
+function populateSymbols(config) {
+  if (!config || !Array.isArray(config.symbols) || !config.symbols.length) {
+    throw new Error("Report symbol configuration must contain at least one symbol");
+  }
+  const groups = new Map();
+  config.symbols.forEach((symbol) => {
+    if (!symbol.sidc || !symbol.label) throw new Error("Report symbol entries require sidc and label");
+    const groupName = symbol.group || "Other";
+    if (!groups.has(groupName)) groups.set(groupName, []);
+    groups.get(groupName).push(symbol);
+  });
+  groups.forEach((symbols, groupName) => {
+    const group = document.createElement("optgroup");
+    group.label = groupName;
+    symbols.forEach((symbol) => group.append(new Option(`${symbol.label} · ${symbol.sidc}`, symbol.sidc)));
+    symbolSelect.append(group);
+  });
+  const saved = localStorage.getItem(TARGET_SYMBOL_KEY);
+  symbolSelect.value = config.symbols.some(({ sidc }) => sidc === saved) ? saved : config.symbols[0].sidc;
+  renderSymbolPreview();
+}
+
+function renderSymbolPreview() {
+  const canvas = new window.ms.Symbol(symbolSelect.value, { size: 30 }).asCanvas();
+  symbolPreview.replaceChildren(canvas);
+}
+
+symbolSelect.addEventListener("change", () => {
+  localStorage.setItem(TARGET_SYMBOL_KEY, symbolSelect.value);
+  renderSymbolPreview();
+});
 
 const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -106,8 +140,10 @@ function useBrowserLocation(map) {
 
 Promise.all([
   fetch("/map-layers.json", { cache: "no-store" }).then((response) => response.json()),
-  fetch("/styles/situation.json").then((response) => response.json())
-]).then(async ([config, baseStyle]) => {
+  fetch("/styles/situation.json").then((response) => response.json()),
+  fetch("/report-symbols.json", { cache: "no-store" }).then((response) => response.json())
+]).then(async ([config, baseStyle, symbolConfig]) => {
+  populateSymbols(symbolConfig);
   const layers = await Promise.all(config.layers.map(async (layer) => {
     const url = new URL(`/maps/${encodeURIComponent(layer.archive)}`, location.origin).href;
     const archive = new pmtiles.PMTiles(url);
@@ -156,7 +192,7 @@ Promise.all([
           heading: map.reporterHeading,
           speed: map.reporterSpeed,
           accuracy: map.reporterAccuracy,
-          sidc: DEFAULT_SIDC,
+          sidc: symbolSelect.value,
           designation,
           status_text: statusInput.value.trim()
         })

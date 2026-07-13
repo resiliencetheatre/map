@@ -9,3 +9,7 @@ situation.db
 situation.db-shm
 situation.db-wal
 situation.db-journal
+
+# Locally generated TLS private keys and CA serial state.
+caddy/certs/*.key
+caddy/certs/*.srl

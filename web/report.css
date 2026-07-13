@@ -7,7 +7,7 @@
 
 * { box-sizing: border-box; }
 body { min-height: 100vh; min-height: 100dvh; margin: 0; background: #0b1016; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 
 .report-header {
   height: 52px;
@@ -58,9 +58,13 @@ main { min-height: calc(100dvh - 52px); }
 .coordinates output { display: block; overflow: hidden; margin-top: 2px; font-size: 13px; font-variant-numeric: tabular-nums; text-overflow: ellipsis; }
 .identity-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; }
 .report-form label { display: grid; gap: 4px; color: #8999a6; font-size: 11px; }
-.report-form input { min-width: 0; width: 100%; padding: 8px 9px; border: 1px solid #364654; border-radius: 5px; outline: none; background: #18222c; color: #dce5ee; }
-.report-form input:focus { border-color: #58a6c8; }
+.report-form input, .report-form select { min-width: 0; width: 100%; padding: 8px 9px; border: 1px solid #364654; border-radius: 5px; outline: none; background: #18222c; color: #dce5ee; }
+.report-form input:focus, .report-form select:focus { border-color: #58a6c8; }
 .report-form input[readonly] { color: #71808c; }
+.symbol-selector { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 8px; }
+.symbol-selector select { height: 36px; }
+#symbol-preview { display: flex; align-items: center; justify-content: center; height: 36px; overflow: hidden; }
+#symbol-preview canvas { max-width: 40px; max-height: 36px; }
 .report-actions { display: flex; align-items: center; gap: 10px; }
 .report-actions span { flex: 1; color: #71808c; font-size: 11px; line-height: 1.25; }
 .report-actions span.success { color: #69db9c; }

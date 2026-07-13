@@ -1,0 +1,19 @@
+[req]
+distinguished_name = distinguished_name
+prompt = no
+
+[distinguished_name]
+CN = Situation Test Server
+
+[server_certificate]
+basicConstraints = critical, CA:FALSE
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @subject_alt_names
+
+[subject_alt_names]
+DNS.1 = localhost
+DNS.2 = situation.local
+IP.1 = 127.0.0.1
+IP.2 = 192.168.1.117
+IP.3 = 10.0.0.4

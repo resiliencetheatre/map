@@ -34,6 +34,13 @@
         <label>Browser ID<input id="device-id" readonly></label>
       </div>
 
+      <label>Map symbol
+        <span class="symbol-selector">
+          <span id="symbol-preview" aria-hidden="true"></span>
+          <select id="target-symbol" required aria-label="Map symbol"></select>
+        </span>
+      </label>
+
       <label>Status<input id="target-status" maxlength="500" placeholder="Optional status" autocomplete="off"></label>
 
       <div class="report-actions">
@@ -44,6 +51,7 @@
   </main>
 
   <script src="/pmtiles.js"></script>
+  <script src="/milsymbol.js"></script>
   <script type="module" src="/report.js"></script>
 </body>
 </html>

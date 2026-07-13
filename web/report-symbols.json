@@ -1,0 +1,10 @@
+{
+  "symbols": [
+    { "sidc": "E-O-B-----", "label": "Civil Protection", "group": "Civilian" },
+    { "sidc": "E-O-C-----", "label": "Fire and Rescue", "group": "Civilian" },
+    { "sidc": "E-O-A-----", "label": "Emergency Medical", "group": "Civilian" },
+    { "sidc": "SFGPUCI----K---", "label": "Friendly Infantry", "group": "Military" },
+    { "sidc": "SHGPUCI----K---", "label": "Hostile Infantry", "group": "Military" },
+    { "sidc": "SNGPUCI----K---", "label": "Neutral Infantry", "group": "Military" }
+  ]
+}
