@@ -103,6 +103,7 @@ OpenStreetMap attribution, which is included in the map style.
 ```text
 python-front.py             Server entry point
 python-simulator.py         Three-device movement simulator
+tak-bridge.py               Receive-only taky-ng position bridge
 situation.db                Runtime SQLite position store (not committed)
 web/                        Application HTML, CSS, JavaScript, and map assets
 web/milsymbol.js            Bundled tactical-symbol renderer
@@ -409,6 +410,108 @@ client certificate, and that the URL hostname or IP appears in the server
 certificate's SAN list. Some managed Android devices prohibit user-added CAs;
 their administrator must deploy the CA policy. Remove it after testing from
 **Encryption & credentials > User credentials** (wording varies by device).
+
+## TAK bridge (initial receive-only version)
+
+`tak-bridge.py` makes live Cursor on Target (CoT) positions received by
+[taky-ng](https://codeberg.org/hunterSG7/taky-ng) available to Situation. It is
+a separate receive-only process and connects to taky-ng as an ordinary TAK
+client; it does not import taky-ng code or read its database.
+
+The initial data path is:
+
+```text
+ATAK -> taky-ng TCP listener -> tak-bridge.py -> POST /api/positions
+     -> python-front.py -> browser polling -> Live/Idle map targets
+```
+
+### Prerequisites and startup
+
+- Run taky-ng with its plain CoT TCP listener enabled on port 8087.
+- Connect at least one ATAK or other CoT-producing client to taky-ng.
+- Run Python 3.10 or newer; the bridge has no third-party dependencies.
+- Keep plain TCP on localhost or a trusted private network because it provides
+  neither encryption nor client authentication.
+
+Start `python-front.py` first, then run the bridge in a second terminal from the
+repository root:
+
+```sh
+python3 python-front.py
+python3 tak-bridge.py
+```
+
+By default, `tak-bridge.py` connects as an ordinary TAK client to the unencrypted
+TCP listener at `127.0.0.1:8087` and posts received positions to
+`http://127.0.0.1:8080/api/positions`. An ATAK client's current position then
+appears in the Live target list and on the map. It moves to Idle according to
+the browser's configured idle threshold if reports stop arriving.
+
+To confirm reception, watch for messages such as:
+
+```text
+Connected to TAK server at 127.0.0.1:8087
+Updated ALPHA 1 (ANDROID-deadbeef)
+```
+
+### Connection options
+
+To connect to a different host or Situation API:
+
+```sh
+python3 tak-bridge.py --host 192.0.2.10 --port 8087 \
+  --url http://127.0.0.1:8080/api/positions
+```
+
+Available options are:
+
+```text
+--host HOST                 taky-ng host (default: 127.0.0.1)
+--port PORT                 Plain CoT TCP port (default: 8087)
+--url URL                   Situation API URL
+--reconnect-delay SECONDS   Delay after a lost TAK connection (default: 3)
+--max-event-bytes BYTES     Maximum accepted CoT event size (default: 1048576)
+```
+
+The bridge reconnects automatically when taky-ng restarts. If Situation is not
+running, it logs `Cannot post ... Connection refused` but remains connected to
+taky-ng and tries again when the next position arrives. If taky-ng is not
+running or its listener is bound to another interface, it logs a connection
+error and retries after the configured delay.
+
+### CoT handling
+
+The bridge accepts current CoT atom (`a-...`) point events and ignores chat,
+routes, files, and administrative messages. It validates coordinates and CoT
+timestamps, rejects events after their `stale` time, ignores older updates for
+the same UID, limits event and identity sizes, and rejects XML DTD/entity
+declarations.
+
+Fields are mapped as follows:
+
+| CoT field | Situation field |
+| --- | --- |
+| Event `uid` | Stable `device_id` |
+| Event `time` | Position timestamp |
+| Point `lat`, `lon`, `ce` | Coordinates and accuracy |
+| Contact `callsign` | Designation, falling back to UID |
+| Track `course` | Heading in degrees |
+| Track `speed` | Speed converted from m/s to km/h |
+| Type affiliation | Basic friendly, hostile, neutral, or unknown unit SIDC |
+
+TAK's `9999999` unknown-accuracy sentinel is stored as zero rather than as a
+misleading accuracy measurement.
+
+### Current limitations
+
+This first version does not connect to TAK TLS port 8089 with client
+certificates, send data back to TAK, or remove an already stored Situation
+position exactly when its CoT `stale` timestamp passes. It also uses the
+existing HTTP position API rather than the planned generic live-track registry
+and Unix-domain socket. These are intended follow-up additions after basic
+reception is stable.
+
+Run `python3 tak-bridge.py --help` for all connection and safety-limit options.
 
 ## Simulator
 
