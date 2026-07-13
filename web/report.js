@@ -158,7 +158,7 @@ Promise.all([
           accuracy: map.reporterAccuracy,
           sidc: DEFAULT_SIDC,
           designation,
-          status: statusInput.value.trim()
+          status_text: statusInput.value.trim()
         })
       });
       if (!response.ok) {

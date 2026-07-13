@@ -35,6 +35,7 @@ def position(unit: tuple, tick: int, run_id: str) -> dict:
         "accuracy": 5.0,
         "sidc": sidc,
         "designation": designation,
+        "status_text": "simulation",
     }
 
 

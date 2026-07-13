@@ -39,8 +39,8 @@ selecting it also shows speed and heading.
 the library available as `window.ms`. The backend position schema includes:
 
 - `sidc`: a MIL-STD-2525/APP-6 Symbol Identification Code
-- `name`: the human-readable popup and accessibility label
 - `designation`: example unit text rendered with the symbol
+- `status_text`: optional free-form target status, up to 500 characters
 - `latitude` and `longitude`: WGS84 decimal-degree coordinates
 
 The frontend derives a target's age from the backend-generated `received_at`
@@ -158,6 +158,10 @@ Select **Report Position** to append the selected coordinate to the position
 store. Reports from this page use the same API as hardware adapters and the
 simulator; status is optional, so existing clients remain compatible.
 
+Browser and adapter reports may include an optional `status_text` string of up
+to 500 characters. Non-empty status text appears below the target in Activity
+and in its map popup. The simulator submits `simulation` for this field.
+
 ## Setup on another Linux system
 
 1. Copy or clone the complete repository. Do not omit `maplibre-gl-js/` or the
@@ -241,12 +245,14 @@ Example request body:
   "speed": 8.0,
   "accuracy": 5.0,
   "sidc": "SFGPUCI----K---",
-  "designation": "ALPHA 1"
+  "designation": "ALPHA 1",
+  "status_text": "Awaiting instructions"
 }
 ```
 
 Coordinates use WGS84 decimal degrees, heading is degrees clockwise from north,
-speed is kilometres per hour, and accuracy is metres.
+speed is kilometres per hour, and accuracy is metres. `status_text` is optional;
+omitting it or sending an empty string hides the status line in Activity.
 
 ## Position database
 
@@ -319,10 +325,12 @@ sudo systemctl status situation.service
 ## HTTP endpoints
 
 - `GET /` serves the application.
+- `GET /report` serves the mobile browser position-reporting page.
 - `GET /health` returns plain text `OK`.
 - `GET /api/status` returns JSON service status.
 - `POST /api/positions` validates and stores one position report.
 - `GET /api/positions` returns the latest report for each device.
+- `GET /api/positions/tails?seconds=<5-300>` returns recent tail points.
 - `GET /api/tracks` lists recorded simulation sessions.
 - `GET /api/tracks/<run_id>` returns every point in a recorded session.
 - `GET /maps/...` streams map assets with HTTP byte-range support.

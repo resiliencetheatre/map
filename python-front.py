@@ -34,7 +34,7 @@ def init_database(database: Path) -> None:
                 accuracy REAL,
                 sidc TEXT NOT NULL,
                 designation TEXT NOT NULL,
-                status TEXT NOT NULL DEFAULT ''
+                status_text TEXT NOT NULL DEFAULT ''
             );
             CREATE INDEX IF NOT EXISTS positions_run_time
                 ON positions (run_id, timestamp);
@@ -44,8 +44,13 @@ def init_database(database: Path) -> None:
                 ON positions (received_at);
         """)
         columns = {row[1] for row in connection.execute("PRAGMA table_info(positions)")}
-        if "status" not in columns:
-            connection.execute("ALTER TABLE positions ADD COLUMN status TEXT NOT NULL DEFAULT ''")
+        if "status_text" not in columns:
+            connection.execute("ALTER TABLE positions ADD COLUMN status_text TEXT NOT NULL DEFAULT ''")
+        if "status" in columns:
+            connection.execute("""
+                UPDATE positions SET status_text = status
+                WHERE status_text = '' AND status != ''
+            """)
 
 
 def validate_position(data: object) -> dict:
@@ -57,10 +62,10 @@ def validate_position(data: object) -> dict:
         raise ValueError(f"missing fields: {', '.join(missing)}")
 
     position = {field: data[field] for field in POSITION_FIELDS}
-    status = data.get("status", "")
-    if not isinstance(status, str) or len(status) > 500:
-        raise ValueError("status must be a string of at most 500 characters")
-    position["status"] = status.strip()
+    status_text = data.get("status_text", data.get("status", ""))
+    if not isinstance(status_text, str) or len(status_text) > 500:
+        raise ValueError("status_text must be a string of at most 500 characters")
+    position["status_text"] = status_text.strip()
     for field in ("run_id", "device_id", "timestamp", "sidc", "designation"):
         if not isinstance(position[field], str) or not position[field].strip():
             raise ValueError(f"{field} must be a non-empty string")
@@ -202,9 +207,9 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
                 cursor = connection.execute("""
                     INSERT INTO positions (
                         run_id, device_id, timestamp, latitude, longitude,
-                        heading, speed, accuracy, sidc, designation, received_at, status
+                        heading, speed, accuracy, sidc, designation, received_at, status_text
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (*values, received_at, position["status"]))
+                """, (*values, received_at, position["status_text"]))
                 row_id = cursor.lastrowid
             self._send_json({"stored": True, "id": row_id}, status=201)
 

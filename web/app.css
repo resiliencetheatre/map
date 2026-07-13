@@ -60,6 +60,7 @@ body { margin: 0; min-height: 100vh; }
 .activity-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; font-size: 14px; }
 .activity-item > div { min-width: 0; flex: 1; }
 .activity-item time { display: block; margin-top: 4px; color: #71808c; font-size: 12px; }
+.activity-status { display: block; margin-top: 5px; color: #aebbc6; font-size: 12px; line-height: 1.3; overflow-wrap: anywhere; }
 .activity-marker { width: 9px; height: 9px; margin-top: 5px; border-radius: 50%; background: #58a6c8; }
 .tail-toggle {
   padding: 4px 8px;

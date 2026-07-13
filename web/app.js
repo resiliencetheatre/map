@@ -165,6 +165,13 @@ function updateActivity(map, positions) {
     const time = document.createElement("time");
     time.textContent = `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`;
     details.append(name, time);
+    const statusText = position.status_text || position.status;
+    if (statusText) {
+      const status = document.createElement("span");
+      status.className = "activity-status";
+      status.textContent = statusText;
+      details.append(status);
+    }
     const tailButton = document.createElement("button");
     tailButton.className = "tail-toggle";
     tailButton.type = "button";
@@ -200,7 +207,8 @@ async function refreshPositions(map) {
       live.position = position;
       renderLiveSymbol(live);
       live.marker.setLngLat([position.longitude, position.latitude]);
-      const status = position.status ? ` · ${position.status}` : "";
+      const statusText = position.status_text || position.status;
+      const status = statusText ? ` · ${statusText}` : "";
       live.popup.setText(
         `${position.designation} · age ${formatAge(ageInSeconds(position))} · ` +
         `${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°${status}`
