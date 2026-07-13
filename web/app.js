@@ -48,6 +48,7 @@ let tailRequestRunning = false;
 let refreshTimer = null;
 let latestPositions = [];
 let situationMap = null;
+let activeTargetState = "live";
 
 const savedIdleThreshold = Number(localStorage.getItem(IDLE_THRESHOLD_KEY));
 if (Number.isFinite(savedIdleThreshold) && savedIdleThreshold >= 1) {
@@ -68,9 +69,15 @@ idleThresholdInput.addEventListener("change", () => {
   idleThresholdInput.value = String(seconds);
   localStorage.setItem(IDLE_THRESHOLD_KEY, String(seconds));
   updateTargetLists(situationMap, latestPositions);
+  updateMarkerPresentations();
+  if (situationMap) {
+    situationMap.getSource("target-tails")?.setData(emptyTailData());
+    refreshTails(situationMap);
+  }
 });
 
 function selectTargetTab(state) {
+  activeTargetState = state;
   const showLive = state === "live";
   liveTab.setAttribute("aria-selected", String(showLive));
   idleTab.setAttribute("aria-selected", String(!showLive));
@@ -78,6 +85,11 @@ function selectTargetTab(state) {
   idleTab.tabIndex = showLive ? -1 : 0;
   livePanel.hidden = !showLive;
   idlePanel.hidden = showLive;
+  updateMarkerPresentations();
+  if (situationMap) {
+    situationMap.getSource("target-tails")?.setData(emptyTailData());
+    refreshTails(situationMap);
+  }
 }
 
 liveTab.addEventListener("click", () => selectTargetTab("live"));
@@ -86,7 +98,7 @@ idleTab.addEventListener("click", () => selectTargetTab("idle"));
 function startPositionRefresh(map) {
   if (refreshTimer !== null) window.clearInterval(refreshTimer);
   const refresh = () => {
-    updateMarkerAges();
+    updateMarkerPresentations();
     updateTargetLists(map, latestPositions);
     refreshPositions(map);
   };
@@ -105,6 +117,10 @@ function formatAge(seconds) {
   return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
+function targetState(position) {
+  return ageInSeconds(position) >= idleThresholdSeconds() ? "idle" : "live";
+}
+
 function formatLkg(position) {
   const timestamp = Date.parse(position.received_at || position.timestamp);
   return Number.isFinite(timestamp)
@@ -119,12 +135,14 @@ function formatLkg(position) {
     : "Unknown";
 }
 
-function renderLiveSymbol(live) {
+function renderTargetSymbol(live) {
   const age = ageInSeconds(live.position);
+  const state = targetState(live.position);
   const label = `${live.position.designation} · age ${formatAge(age)}`;
   const renderedSymbol = new window.ms.Symbol(live.position.sidc, {
     size: 32,
-    uniqueDesignation: label
+    uniqueDesignation: label,
+    ...(state === "idle" ? { monoColor: "#ed5555" } : {})
   });
   const symbol = renderedSymbol.asCanvas();
   const size = renderedSymbol.getSize();
@@ -132,7 +150,10 @@ function renderLiveSymbol(live) {
   live.marker.setOffset([size.width / 2 - anchor.x, size.height / 2 - anchor.y]);
   symbol.classList.add("military-symbol");
   live.element.replaceChildren(symbol);
+  live.element.classList.toggle("target-marker-hidden", state !== activeTargetState);
+  if (state !== activeTargetState) live.popup.remove();
   live.element.setAttribute("aria-label", label);
+  live.state = state;
 }
 
 function createLiveMarker(map, position) {
@@ -144,12 +165,21 @@ function createLiveMarker(map, position) {
     .setPopup(popup)
     .addTo(map);
   liveMarkers.set(position.device_id, { marker, popup, element, position, sidc: position.sidc });
-  renderLiveSymbol(liveMarkers.get(position.device_id));
+  renderTargetSymbol(liveMarkers.get(position.device_id));
   return liveMarkers.get(position.device_id);
 }
 
-function updateMarkerAges() {
-  liveMarkers.forEach((live) => renderLiveSymbol(live));
+function updateMarkerPresentations() {
+  let classificationChanged = false;
+  liveMarkers.forEach((live) => {
+    const previousState = live.state;
+    renderTargetSymbol(live);
+    if (previousState && previousState !== live.state) classificationChanged = true;
+  });
+  if (classificationChanged && situationMap) {
+    situationMap.getSource("target-tails")?.setData(emptyTailData());
+    refreshTails(situationMap);
+  }
 }
 
 function tailColor(deviceId) {
@@ -165,23 +195,35 @@ function emptyTailData() {
 }
 
 async function refreshTails(map) {
-  if (tailRequestRunning) return;
-  if (!visibleTails.size) {
+  const relevantTailIds = new Set(
+    latestPositions
+      .filter((position) => targetState(position) === activeTargetState)
+      .map((position) => position.device_id)
+  );
+  if (![...visibleTails].some((deviceId) => relevantTailIds.has(deviceId))) {
     map.getSource("target-tails")?.setData(emptyTailData());
     return;
   }
+  if (tailRequestRunning) return;
   tailRequestRunning = true;
   try {
     const seconds = Number(tailLengthInput.value);
     const response = await fetch(`/api/positions/tails?seconds=${seconds}`, { cache: "no-store" });
     if (!response.ok) throw new Error("Tail request failed");
     const { positions } = await response.json();
+    const displayedTailIds = new Set(
+      latestPositions
+        .filter((position) => targetState(position) === activeTargetState)
+        .map((position) => position.device_id)
+    );
     const grouped = new Map();
-    positions.filter((position) => visibleTails.has(position.device_id)).forEach((position) => {
-      const points = grouped.get(position.device_id) || [];
-      points.push(position);
-      grouped.set(position.device_id, points);
-    });
+    positions
+      .filter((position) => visibleTails.has(position.device_id) && displayedTailIds.has(position.device_id))
+      .forEach((position) => {
+        const points = grouped.get(position.device_id) || [];
+        points.push(position);
+        grouped.set(position.device_id, points);
+      });
     const features = [];
     grouped.forEach((points, deviceId) => {
       const color = tailColor(deviceId);
@@ -252,9 +294,8 @@ function createTargetRow(map, position, state) {
 
 function updateTargetLists(map, positions) {
   if (!map) return;
-  const threshold = idleThresholdSeconds();
-  const livePositions = positions.filter((position) => ageInSeconds(position) < threshold);
-  const idlePositions = positions.filter((position) => ageInSeconds(position) >= threshold);
+  const livePositions = positions.filter((position) => targetState(position) === "live");
+  const idlePositions = positions.filter((position) => targetState(position) === "idle");
   liveTargetList.replaceChildren(...livePositions.map((position) => createTargetRow(map, position, "live")));
   idleTargetList.replaceChildren(...idlePositions.map((position) => createTargetRow(map, position, "idle")));
   liveEmpty.hidden = livePositions.length > 0;
@@ -275,6 +316,7 @@ async function refreshPositions(map) {
     if (!response.ok) throw new Error("Position request failed");
     const { positions } = await response.json();
     latestPositions = positions;
+    let classificationChanged = false;
     positions.forEach((position) => {
       let live = liveMarkers.get(position.device_id);
       if (live && live.sidc !== position.sidc) {
@@ -283,8 +325,10 @@ async function refreshPositions(map) {
         live = null;
       }
       live ||= createLiveMarker(map, position);
+      const previousState = live.state;
       live.position = position;
-      renderLiveSymbol(live);
+      renderTargetSymbol(live);
+      if (previousState && previousState !== live.state) classificationChanged = true;
       live.marker.setLngLat([position.longitude, position.latitude]);
       const statusText = position.status_text || position.status;
       const status = statusText ? ` · ${statusText}` : "";
@@ -294,11 +338,13 @@ async function refreshPositions(map) {
       );
     });
     updateTargetLists(map, positions);
+    if (classificationChanged) map.getSource("target-tails")?.setData(emptyTailData());
     refreshTails(map);
 
-    if (positions.length && !fittedToLivePositions) {
+    const displayedPositions = positions.filter((position) => targetState(position) === activeTargetState);
+    if (displayedPositions.length && !fittedToLivePositions) {
       const bounds = new maplibregl.LngLatBounds();
-      positions.forEach((position) => bounds.extend([position.longitude, position.latitude]));
+      displayedPositions.forEach((position) => bounds.extend([position.longitude, position.latitude]));
       map.fitBounds(bounds, { padding: 80, maxZoom: 10, duration: 0 });
       fittedToLivePositions = true;
     }

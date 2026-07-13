@@ -50,7 +50,9 @@ when a device stops reporting. The right-side target list separates targets into
 Live and Idle tabs. The adjustable idle threshold defaults to 300 seconds and is
 stored in browser local storage. Each target shows its last-known-good (LKG)
 receipt time beside speed and heading; LKG is green for live targets and red for
-idle targets.
+idle targets. The selected tab also filters the map: Live shows only live
+targets and their selected tails, while Idle shows only idle targets and their
+selected tails. Idle map symbols, designation text, and age are rendered red.
 
 For example:
 
