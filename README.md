@@ -52,7 +52,8 @@ stored in browser local storage. Each target shows its last-known-good (LKG)
 receipt time beside speed and heading; LKG is green for live targets and red for
 idle targets. The selected tab also filters the map: Live shows only live
 targets and their selected tails, while Idle shows only idle targets and their
-selected tails. Idle map symbols, designation text, and age are rendered red.
+selected tails. Map symbols retain their standard milsymbol colors in both
+tabs.
 
 For example:
 

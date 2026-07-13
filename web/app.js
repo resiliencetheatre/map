@@ -141,8 +141,7 @@ function renderTargetSymbol(live) {
   const label = `${live.position.designation} · age ${formatAge(age)}`;
   const renderedSymbol = new window.ms.Symbol(live.position.sidc, {
     size: 32,
-    uniqueDesignation: label,
-    ...(state === "idle" ? { monoColor: "#ed5555" } : {})
+    uniqueDesignation: label
   });
   const symbol = renderedSymbol.asCanvas();
   const size = renderedSymbol.getSize();
