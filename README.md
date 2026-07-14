@@ -1,5 +1,7 @@
 # Situation
 
+![Situation map interface](docs/map.png)
+
 Copyright © 2026 Resilience Theatre.
 
 The code in this repository is AI-generated. It should be independently
@@ -477,6 +479,7 @@ Available options are:
 --url URL                   Situation API URL
 --reconnect-delay SECONDS   Delay after a lost TAK connection (default: 3)
 --max-event-bytes BYTES     Maximum accepted CoT event size (default: 1048576)
+--event-log MODE            quiet, summary, or raw (default: summary)
 ```
 
 The bridge reconnects automatically when taky-ng restarts. If Situation is not
@@ -484,6 +487,39 @@ running, it logs `Cannot post ... Connection refused` but remains connected to
 taky-ng and tries again when the next position arrives. If taky-ng is not
 running or its listener is bound to another interface, it logs a connection
 error and retries after the configured delay.
+
+### Observing TAK events
+
+The default `--event-log summary` mode emits one JSON-formatted `CoT` line for
+every received event, including events that the initial position bridge does
+not forward. Each line records the event type, UID, `how`, timestamps, whether
+it has a point, nested detail element names, the action taken, and the reason.
+For example, an unsupported data type may appear as:
+
+```text
+CoT {"action":"ignored","reason":"non-atom event type","type":"b-t-f","uid":"...","how":"...","time":"...","stale":"...","has_point":true,"detail_types":["__chat","chatgrp"]}
+```
+
+This summary is intended to identify chat, mission, route, sensor, file, and
+other CoT families before adding support for them. Use quiet mode to retain
+only connection, forwarding, and error messages:
+
+```sh
+python3 tak-bridge.py --event-log quiet
+```
+
+For short diagnostic captures, raw mode also writes each event's serialized
+XML, limited to 4096 characters per event:
+
+```sh
+python3 tak-bridge.py --event-log raw
+```
+
+Raw CoT can contain callsigns, locations, chat text, mission identifiers, and
+other sensitive operational data. Do not leave raw logging enabled routinely,
+and protect or delete captured terminal and service logs appropriately. Raw
+logging does not change the event-size validation or forward raw CoT to the
+browser or Situation API.
 
 ### CoT handling
 

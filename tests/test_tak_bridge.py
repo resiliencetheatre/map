@@ -64,6 +64,21 @@ class CotNormalizationTests(unittest.TestCase):
         report, _event_time = tak_bridge.cot_to_position(event, self.now)
         self.assertEqual(report["accuracy"], 0.0)
 
+    def test_reports_reason_for_non_position_event(self):
+        normalized, reason = tak_bridge.normalize_cot_event(
+            self.event(type="b-t-f"), self.now
+        )
+        self.assertIsNone(normalized)
+        self.assertEqual(reason, "non-atom event type")
+
+    def test_observation_lists_nested_detail_types(self):
+        observation = tak_bridge.event_observation(
+            self.event(), "forwarded", "position event"
+        )
+        self.assertEqual(observation["type"], "a-f-G-U-C")
+        self.assertTrue(observation["has_point"])
+        self.assertEqual(observation["detail_types"], ["contact", "track"])
+
 
 if __name__ == "__main__":
     unittest.main()

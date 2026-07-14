@@ -13,6 +13,7 @@ from urllib.request import Request, urlopen
 
 
 DEFAULT_MAX_EVENT_BYTES = 1024 * 1024
+MAX_RAW_LOG_CHARS = 4096
 TAK_UNKNOWN_VALUE = 9999999.0
 SIDC_BY_AFFILIATION = {
     "f": "SFGPUCI----K---",
@@ -64,8 +65,10 @@ def finite_float(value: str | None, default: float = 0.0) -> float:
     return number if math.isfinite(number) else default
 
 
-def cot_to_position(event: ET.Element, now: datetime | None = None) -> tuple[dict, datetime] | None:
-    """Normalize one current CoT atom event for the existing position API."""
+def normalize_cot_event(
+    event: ET.Element, now: datetime | None = None
+) -> tuple[tuple[dict, datetime] | None, str]:
+    """Normalize one CoT event and return a result or an observation reason."""
     cot_type = event.get("type", "")
     uid = event.get("uid", "").strip()
     event_time = parse_time(event.get("time"))
@@ -75,15 +78,23 @@ def cot_to_position(event: ET.Element, now: datetime | None = None) -> tuple[dic
 
     # CoT atom types describe point entities. Other event families include chat,
     # routes, files and administrative traffic that this first bridge ignores.
-    if not uid or len(uid) > 200 or len(cot_type) > 200 or not cot_type.startswith("a-") or point is None:
-        return None
-    if event_time is None or stale_time is None or stale_time <= now:
-        return None
+    if not uid:
+        return None, "missing UID"
+    if len(uid) > 200 or len(cot_type) > 200:
+        return None, "oversized identity or type"
+    if not cot_type.startswith("a-"):
+        return None, "non-atom event type"
+    if point is None:
+        return None, "atom event has no point"
+    if event_time is None or stale_time is None:
+        return None, "invalid event or stale timestamp"
+    if stale_time <= now:
+        return None, "event is stale"
 
     latitude = finite_float(point.get("lat"), math.nan)
     longitude = finite_float(point.get("lon"), math.nan)
     if not (-90 <= latitude <= 90 and -180 <= longitude <= 180):
-        return None
+        return None, "invalid coordinates"
 
     detail = child(event, "detail")
     contact = descendant(detail, "contact")
@@ -110,7 +121,57 @@ def cot_to_position(event: ET.Element, now: datetime | None = None) -> tuple[dic
         "designation": callsign[:100],
         "status_text": "TAK",
     }
-    return report, event_time
+    return (report, event_time), "position event"
+
+
+def cot_to_position(event: ET.Element, now: datetime | None = None) -> tuple[dict, datetime] | None:
+    """Normalize one current CoT atom event for the existing position API."""
+    normalized, _reason = normalize_cot_event(event, now)
+    return normalized
+
+
+def event_observation(event: ET.Element, action: str, reason: str) -> dict:
+    """Return bounded, JSON-safe metadata useful when studying CoT traffic."""
+    detail = child(event, "detail")
+    detail_types = []
+    if detail is not None:
+        for item in detail.iter():
+            name = local_name(item.tag)[:100]
+            if name != "detail" and name not in detail_types:
+                detail_types.append(name)
+            if len(detail_types) == 32:
+                break
+    return {
+        "action": action,
+        "reason": reason,
+        "type": event.get("type", "")[:200],
+        "uid": event.get("uid", "")[:200],
+        "how": event.get("how", "")[:100],
+        "time": event.get("time", "")[:100],
+        "stale": event.get("stale", "")[:100],
+        "has_point": child(event, "point") is not None,
+        "detail_types": detail_types,
+    }
+
+
+def log_cot_event(event: ET.Element, mode: str, action: str, reason: str) -> None:
+    if mode == "quiet":
+        return
+    observation = event_observation(event, action, reason)
+    log(f"CoT {json.dumps(observation, separators=(',', ':'), ensure_ascii=True)}")
+    if mode == "raw":
+        raw = ET.tostring(event, encoding="unicode")
+        truncated = len(raw) > MAX_RAW_LOG_CHARS
+        if truncated:
+            raw = raw[:MAX_RAW_LOG_CHARS]
+        log(
+            "CoT raw "
+            + json.dumps(
+                {"uid": observation["uid"], "xml": raw, "truncated": truncated},
+                separators=(",", ":"),
+                ensure_ascii=True,
+            )
+        )
 
 
 def post_position(url: str, report: dict) -> None:
@@ -126,6 +187,7 @@ def receive_connection(
     api_url: str,
     latest_times: dict[str, datetime],
     max_event_bytes: int,
+    event_log: str,
 ) -> None:
     parser = ET.XMLPullParser(events=("end",))
     parser.feed("<stream>")
@@ -151,7 +213,7 @@ def receive_connection(
             if local_name(element.tag) != "event":
                 continue
             bytes_without_event = 0
-            normalized = cot_to_position(element)
+            normalized, reason = normalize_cot_event(element)
             if normalized is not None:
                 report, event_time = normalized
                 previous = latest_times.get(report["device_id"])
@@ -159,10 +221,16 @@ def receive_connection(
                     try:
                         post_position(api_url, report)
                     except (HTTPError, URLError, RuntimeError) as error:
+                        log_cot_event(element, event_log, "post_failed", str(error))
                         log(f"Cannot post {report['device_id']}: {error}")
                     else:
                         latest_times[report["device_id"]] = event_time
+                        log_cot_event(element, event_log, "forwarded", reason)
                         log(f"Updated {report['designation']} ({report['device_id']})")
+                else:
+                    log_cot_event(element, event_log, "ignored", "duplicate or out-of-order event")
+            else:
+                log_cot_event(element, event_log, "ignored", reason)
             element.clear()
 
 
@@ -184,6 +252,10 @@ def parse_args() -> argparse.Namespace:
         "--max-event-bytes", type=int, default=DEFAULT_MAX_EVENT_BYTES,
         help="maximum CoT XML bytes between events (default: 1048576)",
     )
+    parser.add_argument(
+        "--event-log", choices=("quiet", "summary", "raw"), default="summary",
+        help="CoT observation detail: quiet, summary, or bounded raw XML (default: summary)",
+    )
     return parser.parse_args()
 
 
@@ -202,7 +274,9 @@ def main() -> None:
                 with socket.create_connection((args.host, args.port), timeout=10) as tak_socket:
                     tak_socket.settimeout(1)
                     log(f"Connected to TAK server at {args.host}:{args.port}")
-                    receive_connection(tak_socket, args.url, latest_times, args.max_event_bytes)
+                    receive_connection(
+                        tak_socket, args.url, latest_times, args.max_event_bytes, args.event_log
+                    )
             except (ConnectionError, OSError, ET.ParseError, ValueError) as error:
                 log(f"TAK connection lost: {error}; retrying in {args.reconnect_delay:g}s")
                 time.sleep(args.reconnect_delay)
