@@ -1,5 +1,9 @@
 # TAK integration analysis
 
+Copyright © 2026 Resilience Theatre. This project is licensed under GPLv3.
+The project code is AI-generated and should be independently reviewed and
+tested before operational use.
+
 ## Goal
 
 Display live positions from ATAK Android devices in the MapLibre-based

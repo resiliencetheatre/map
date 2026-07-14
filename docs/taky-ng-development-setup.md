@@ -1,5 +1,9 @@
 # taky-ng Development Setup
 
+Copyright © 2026 Resilience Theatre. This project is licensed under GPLv3.
+The project code is AI-generated and should be independently reviewed and
+tested before operational use.
+
 This document describes a practical development setup for running
 [`taky-ng`](https://codeberg.org/hunterSG7/taky-ng) alongside the `map`
 project.

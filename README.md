@@ -1,5 +1,11 @@
 # Situation
 
+Copyright © 2026 Resilience Theatre.
+
+The code in this repository is AI-generated. It should be independently
+reviewed and tested before use in operational, safety-critical, or security-
+sensitive environments.
+
 Situation is a small, offline-capable situation-awareness web application. A
 Python standard-library server delivers the user interface and a local PMTiles
 world map to MapLibre GL JS. It does not require Flask, Django, Node.js, npm, a
@@ -671,3 +677,14 @@ from `/health`, and HTTP `206 Partial Content` for the map range request.
   `web/fonts/<font name>/` directory for additional writing systems.
 - **`favicon.ico` returns 404:** no favicon is currently bundled; this browser
   request is harmless.
+
+## License
+
+Situation is free software licensed under the GNU General Public License,
+version 3. See [LICENSE](LICENSE) for the complete license text.
+
+Copyright © 2026 Resilience Theatre.
+
+The code in this repository is AI-generated. No warranty is provided; review
+and test it for your intended use. Bundled third-party dependencies and assets
+remain subject to their respective licenses described above.
