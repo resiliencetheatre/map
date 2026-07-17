@@ -178,7 +178,12 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
             elif path.startswith("/maplibre/"):
                 file_path = safe_file(maplibre_dir, path.removeprefix("/maplibre/"))
             else:
-                relative = "index.html" if path == "/" else "report.html" if path == "/report" else path
+                page_routes = {
+                    "/": "index.html",
+                    "/report": "report.html",
+                    "/api-usage": "api-usage.html",
+                }
+                relative = page_routes.get(path, path)
                 file_path = safe_file(web_dir, relative)
 
             if file_path is None:

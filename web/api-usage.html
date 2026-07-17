@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Situation API endpoints and integration examples">
+  <title>API usage · Situation</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/api-usage.css">
+</head>
+<body>
+  <header class="docs-header">
+    <a class="brand" href="/">Situation</a>
+    <strong>API usage</strong>
+    <a class="map-link" href="/">Back to map</a>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Local HTTP API</p>
+      <h1 id="page-title">Interface with <code>python-front.py</code></h1>
+      <p>Run the server, then send and retrieve JSON over HTTP. The default base URL is
+        <code>http://127.0.0.1:8080</code>. Responses from API routes use JSON except for
+        <code>/health</code>.</p>
+      <pre><code>python3 python-front.py
+curl http://127.0.0.1:8080/api/status</code></pre>
+    </section>
+
+    <section aria-labelledby="endpoints-title">
+      <h2 id="endpoints-title">Endpoints</h2>
+      <div class="endpoint-list">
+        <article class="endpoint">
+          <div><span class="method get">GET</span><code>/health</code></div>
+          <p>Simple process health check. Returns plain text <code>OK</code>.</p>
+        </article>
+        <article class="endpoint">
+          <div><span class="method get">GET</span><code>/api/status</code></div>
+          <p>Returns service status: <code>{"status":"ok","service":"Situation"}</code>.</p>
+        </article>
+        <article class="endpoint">
+          <div><span class="method post">POST</span><code>/api/positions</code></div>
+          <p>Validates and appends one position report. Returns <code>201 Created</code> with its database ID, or <code>400</code> with an error.</p>
+        </article>
+        <article class="endpoint">
+          <div><span class="method get">GET</span><code>/api/positions</code></div>
+          <p>Returns the latest stored report for every <code>device_id</code> as <code>{"positions":[...]}</code>.</p>
+        </article>
+        <article class="endpoint">
+          <div><span class="method get">GET</span><code>/api/positions/tails?seconds=300</code></div>
+          <p>Returns points received during the last 5–300 seconds. The query defaults to 300.</p>
+        </article>
+        <article class="endpoint">
+          <div><span class="method get">GET</span><code>/api/tracks</code></div>
+          <p>Lists recorded runs with start time, end time, point count, and device count.</p>
+        </article>
+        <article class="endpoint">
+          <div><span class="method get">GET</span><code>/api/tracks/&lt;run_id&gt;</code></div>
+          <p>Returns all stored positions for one URL-encoded run ID in timestamp order.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="report-title">
+      <h2 id="report-title">Submit a position</h2>
+      <p>All fields below are required. <code>status_text</code> is optional, and may contain up to 500 characters. Coordinates use WGS84 decimal degrees; heading is degrees, speed is km/h, and accuracy is metres.</p>
+      <pre><code>curl -X POST http://127.0.0.1:8080/api/positions \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "run_id": "exercise-01",
+    "device_id": "unit-alpha",
+    "timestamp": "2026-07-17T12:00:00Z",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "heading": 90,
+    "speed": 8.0,
+    "accuracy": 5.0,
+    "sidc": "SFGPUCI----K---",
+    "designation": "Alpha",
+    "status_text": "En route"
+  }'</code></pre>
+      <div class="note"><strong>Identity:</strong> Reuse a stable <code>device_id</code> to move the same map symbol. Use <code>run_id</code> to group reports into a retrievable track.</div>
+    </section>
+
+    <section class="tools" aria-labelledby="tools-title">
+      <h2 id="tools-title">Included clients</h2>
+      <div class="tool-grid">
+        <article>
+          <h3><code>python-simulator.py</code></h3>
+          <p>Posts three moving demonstration units once per second. It runs until stopped unless <code>--steps</code> is set.</p>
+          <pre><code>python3 python-simulator.py
+python3 python-simulator.py --steps 10 --interval 0.5
+python3 python-simulator.py --url http://server:8080/api/positions \
+  --run-id exercise-01</code></pre>
+          <p class="options"><code>--interval</code> minimum 0.1 s · <code>--steps 0</code> runs forever · <code>--run-id</code> defaults to a UUID</p>
+        </article>
+        <article>
+          <h3><code>tak-bridge.py</code></h3>
+          <p>Receive-only adapter that connects to taky-ng as an ordinary TAK client, accepts current CoT atom positions, normalizes them, and posts them to this API.</p>
+          <pre><code>python3 tak-bridge.py
+python3 tak-bridge.py --host 192.0.2.10 --port 8087 \
+  --url http://127.0.0.1:8080/api/positions</code></pre>
+          <p class="options">Defaults: plain CoT TCP on <code>127.0.0.1:8087</code> · reconnect after 3 s · summary event logging</p>
+          <div class="warning">The current bridge uses an unencrypted plain TCP listener. Keep it on a trusted network; TAK protocol and certificate handling remain outside <code>python-front.py</code>.</div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="server-title">
+      <h2 id="server-title">Server options</h2>
+      <pre><code>python3 python-front.py \
+  --listen 127.0.0.1 \
+  --port 8080 \
+  --web-dir ./web \
+  --map-dir ./maps \
+  --database ./situation.db</code></pre>
+      <p>API requests are limited to 64 KiB. Data is appended to SQLite; no authentication is provided by the Python server, so use a trusted interface or a properly configured reverse proxy.</p>
+    </section>
+  </main>
+
+  <footer>Situation · inline API reference</footer>
+</body>
+</html>

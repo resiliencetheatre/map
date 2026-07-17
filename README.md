@@ -36,6 +36,13 @@ Only Python standard-library modules are used, including `http.server`,
 Internet access is not required at runtime. Map data, JavaScript, CSS, fonts,
 sprites, and the map style are all served locally.
 
+## API usage
+
+With `python-front.py` running on its default address, open the inline API
+reference at [http://localhost:8080/api-usage](http://localhost:8080/api-usage).
+It lists the HTTP endpoints, position-report schema, request examples, and
+usage notes for `python-simulator.py` and `tak-bridge.py`.
+
 The included simulator moves three civilian-response milsymbol demonstrations
 near Luxembourg: civil protection, fire and rescue, and emergency medical
 services. Each symbol shows its designation and the age of its latest report;
