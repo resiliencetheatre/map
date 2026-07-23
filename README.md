@@ -1,6 +1,6 @@
 # Situation
 
-![Situation map interface](docs/map.png)
+![Situation map interface](docs/situation-map.excalidraw.png)
 
 Copyright © 2026 Resilience Theatre.
 
@@ -13,6 +13,8 @@ Python standard-library server delivers the user interface and a local PMTiles
 world map to MapLibre GL JS. It does not require Flask, Django, Node.js, npm, a
 database server, or a build step. Live and historical positions are stored in a
 local SQLite database through Python's standard library.
+
+![Situation map interface](docs/map.png)
 
 ## Requirements
 
@@ -35,6 +37,9 @@ Only Python standard-library modules are used, including `http.server`,
 
 Internet access is not required at runtime. Map data, JavaScript, CSS, fonts,
 sprites, and the map style are all served locally.
+
+
+
 
 ## API usage
 
