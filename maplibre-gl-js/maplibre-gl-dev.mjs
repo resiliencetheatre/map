@@ -1,10 +1,10 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0-20/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/LICENSE.txt
 */
-import { $n as findLineIntersection, $r as rotateX$1, $t as validateStyle, A as earthRadius, Ai as isOffscreenCanvasDistorted, Ar as warnOnce, At as SegmentVector, B as evaluateSizeForFeature, Bn as createMat4f64, Br as zero, Bt as isRasterStyleLayer, C as altitudeFromMercatorZ, Ci as scale, Cn as addProtocol, Cr as rollPitchBearingToQuat, Ct as Uniform2f, D as mercatorYfromLat, Di as create$2, Dn as AbortError, Dr as threePlaneIntersection, Dt as UniformColorArray, E as mercatorXfromLng, Ei as fromRotation, En as config, Er as subscribe, Et as UniformColor, F as isBackgroundStyleLayer, Fn as bezier, Fr as create$3, Ft as PosArray, G as ImagePosition, Gn as degreesToRadians, Gr as transformMat4, Gt as EvaluationParameters, Hn as createVec4f64, Hr as slerp, Ht as Properties, I as isSymbolStyleLayer, In as clamp, Ir as length, It as QuadTriangleArray, J as parseGlyphPbf, Jn as easeCubicInOut, Jr as cross, Jt as ZoomHistory, K as potpack, Kn as differenceOfAnglesDegrees, Kr as add, L as SymbolBucket, Ln as clone$2, Lr as scale$1, Lt as RasterBoundsArray, M as createStyleLayer, Mi as Point, Mn as angleToRotateBetweenVectors2D, Mr as zoomScale, Mt as CollisionCircleLayoutArray, N as isCustomStyleLayer, Nn as arrayBufferToImage, Nr as pixelsToTileUnits, Nt as LineStripIndexArray, O as mercatorZfromAltitude, Oi as invert, On as isAbortError, Or as translatePosition, Ot as UniformFloatArray, P as validateCustomStyleLayer, Pn as arrayBufferToImageBitmap, Pr as EXTENT, Pt as Pos3dArray, Qn as filterObject, Qr as normalize, Qt as validateSky, R as addDynamicAttributes, Rn as createIdentityMat4f32, Rr as sqrLen, Rt as TriangleIndexArray, S as MercatorCoordinate, Si as rotateZ, Sn as sameOrigin, Sr as rollPitchBearingEqual, St as Uniform1i, T as lngFromMercatorX, Ti as create$4, Tn as removeProtocol, Tr as sphericalToCartesian, Tt as Uniform4f, U as getAnchorAlignment, Un as deepEqual, Ur as mul, Ut as TRANSITION_SUFFIX, V as evaluateSizeForZoom, Vn as createVec3f64, Vr as fromEuler, Vt as DataConstantProperty, Wn as defaultEasing, Wr as scale$3, Wt as Transitionable, X as collisionCircleLayout, Xn as evaluateZoomSnap, Xr as len, Xt as emitValidationErrors$1, Yn as ensureError, Yr as dot, Z as isLineStyleLayer, Zn as extend, Zr as length$1, Zt as validateLight, _ as OverscaledTileID, _i as multiply, _n as getArrayBuffer, _r as pointPlaneSignedDistance, _t as RGBAImage, a as clipLine, ai as transformMat3, an as diff, ar as isImageBitmap, at as NORTH_POLE_Y, b as compareTileId, bi as rotateX, bn as getVideo, br as readImageUsingVideoFrame, bt as toEvaluationFeature, ci as zero$1, cr as isTouchableEvent, ct as SubdivisionGranularitySetting, di as create$1, dn as v8, dr as lerp, dt as Texture, ei as rotateY, en as Color, er as getAABB, et as isFillExtrusionStyleLayer, f as GEOJSON_TILE_LAYER_NAME, fi as equals, fn as ErrorEvent, fr as mapObject, ft as isHillshadeStyleLayer, g as CanonicalTileID, gi as invert$1, gn as GLOBAL_DISPATCHER_ID, gr as pick, gt as AlphaImage, h as Bounds, hi as identity, hn as AJAXError, hr as parseCacheControl, ht as renderColorRamp, ii as sub, in as derefLayers, ir as getRollPitchBearing, j as Actor, ji as offscreenCanvasSupported, jn as MAX_VALID_LATITUDE, jr as wrap, jt as CollisionBoxArray, k as LngLat, ki as rotate, kn as throwIfAborted, kr as uniqueId, kt as UniformMatrix4f, li as clone$1, ln as interpolateFactory, lr as isTouchableOrPointableType, lt as isColorReliefStyleLayer, mi as fromScaling, mn as Evented, mr as nextPowerOfTwo, mt as isHeatmapStyleLayer, ni as scale$2, nn as ValidationError, nr as getEdgeTiles, oi as transformMat4$1, on as emptyStyle, or as isPointableEvent, ot as SOUTH_POLE_Y, pi as exactEquals, pn as Event, pr as mod, pt as HEATMAP_FULL_RENDER_FBO_KEY, q as renderStyleImage, qn as distanceOfAnglesRadians, qr as clone, qt as codePointUsesLocalIdeographFontFamily, r as TextAnchorEnum, ri as scaleAndAdd, rt as isFillStyleLayer, s as TileCache, si as transformQuat, sn as featureFilter, sr as isSafari, st as SubdivisionGranularityExpression, t as getAnchorJustification, ti as rotateZ$1, tn as ProjectionDefinition, tr as getAngleDelta, u as GeoJSONFeature, ui as copy, un as latest_default, ur as isWorker, v as UnwrappedTileID, vi as ortho, vn as getJSON, vr as radiansToDegrees, vt as isCircleStyleLayer, w as latFromMercatorY, wi as translate, wn as getProtocol, wr as scaleZoom, wt as Uniform3f, x as isInBoundsForZoomLngLat, xi as rotateY$1, xn as makeRequest, xr as remapSaturate, xt as Uniform1f, y as calculateTileKey, yi as perspective, yn as getReferrer, yr as rayPlaneIntersection, yt as polygonIntersectsPolygon, z as getOverlapMode, zn as createIdentityMat4f64, zr as transformMat4$2, zt as createLayout } from "./maplibre-gl-shared-dev.mjs";
+import { $n as findLineIntersection, $r as normalize, $t as validateStyle, A as earthRadius, Ai as rotate, Ar as warnOnce, At as SegmentVector, B as evaluateSizeForFeature, Bn as createMat4f64, Br as zero, Bt as isRasterStyleLayer, C as altitudeFromMercatorZ, Ci as rotateZ, Cn as addProtocol, Cr as rollPitchBearingToQuat, Ct as Uniform2f, D as mercatorYfromLat, Di as fromRotation, Dn as AbortError, Dr as threePlaneIntersection, Dt as UniformColorArray, E as mercatorXfromLng, Ei as create$4, En as config, Er as subscribe, Et as UniformColor, F as isBackgroundStyleLayer, Fn as bezier, Fr as create$3, Ft as PosArray, G as ImagePosition, Gn as degreesToRadians, Gr as transformMat4, Gt as EvaluationParameters, Hn as createVec4f64, Hr as slerp, Ht as Properties, I as isSymbolStyleLayer, In as clamp, Ir as length, It as QuadTriangleArray, J as parseGlyphPbf, Jn as easeCubicInOut, Jr as cross, Jt as ZoomHistory, K as potpack, Kn as differenceOfAnglesDegrees, Kr as add, L as SymbolBucket, Ln as clone$2, Lr as scale$1, Lt as RasterBoundsArray, M as createStyleLayer, Mi as offscreenCanvasSupported, Mn as angleToRotateBetweenVectors2D, Mr as zoomScale, Mt as CollisionCircleLayoutArray, N as isCustomStyleLayer, Ni as Point, Nn as arrayBufferToImage, Nr as pixelsToTileUnits, Nt as LineStripIndexArray, O as mercatorZfromAltitude, Oi as create$2, On as isAbortError, Or as translatePosition, Ot as UniformFloatArray, P as validateCustomStyleLayer, Pn as arrayBufferToImageBitmap, Pr as EXTENT, Pt as Pos3dArray, Qn as filterObject, Qr as negate, Qt as validateAndEmit, R as addDynamicAttributes, Rn as createIdentityMat4f32, Rr as sqrLen, Rt as TriangleIndexArray, S as MercatorCoordinate, Si as rotateY$1, Sn as sameOrigin, Sr as rollPitchBearingEqual, St as Uniform1i, T as lngFromMercatorX, Ti as translate, Tn as removeProtocol, Tr as sphericalToCartesian, Tt as Uniform4f, U as getAnchorAlignment, Un as deepEqual, Ur as mul, Ut as TRANSITION_SUFFIX, V as evaluateSizeForZoom, Vn as createVec3f64, Vr as fromEuler, Vt as DataConstantProperty, Wn as defaultEasing, Wr as scale$3, Wt as Transitionable, X as collisionCircleLayout, Xn as evaluateZoomSnap, Xr as len, Xt as SPEC_SOURCE_TYPES, Yn as ensureError, Yr as dot, Z as isLineStyleLayer, Zn as extend, Zr as length$1, Zt as emitValidationErrors, _ as OverscaledTileID, _i as invert$1, _n as getArrayBuffer, _r as pointPlaneSignedDistance, _t as RGBAImage, a as clipLine, ai as sub, an as derefLayers, ar as isImageBitmap, at as NORTH_POLE_Y, b as compareTileId, bi as perspective, bn as getVideo, br as readImageUsingVideoFrame, bt as toEvaluationFeature, ci as transformQuat, cn as featureFilter, cr as isTouchableEvent, ct as SubdivisionGranularitySetting, di as copy, dn as latest, dr as lerp, dt as Texture, ei as rotateX$1, en as validateStyleAndEmit, er as getAABB, et as isFillExtrusionStyleLayer, f as GEOJSON_TILE_LAYER_NAME, fi as create$1, fn as ErrorEvent, fr as mapObject, ft as isHillshadeStyleLayer, g as CanonicalTileID, gi as identity, gn as GLOBAL_DISPATCHER_ID, gr as pick, gt as AlphaImage, h as Bounds, hi as fromScaling, hn as AJAXError, hr as parseCacheControl, ht as renderColorRamp, ii as scaleAndAdd, ir as getRollPitchBearing, j as Actor, ji as isOffscreenCanvasDistorted, jn as MAX_VALID_LATITUDE, jr as wrap, jt as CollisionBoxArray, k as LngLat, ki as invert, kn as throwIfAborted, kr as uniqueId, kt as UniformMatrix4f, li as zero$1, lr as isTouchableOrPointableType, lt as isColorReliefStyleLayer, mi as exactEquals, mn as Evented, mr as nextPowerOfTwo, mt as isHeatmapStyleLayer, ni as rotateZ$1, nn as ProjectionDefinition, nr as getEdgeTiles, oi as transformMat3, on as diff, or as isPointableEvent, ot as SOUTH_POLE_Y, pi as equals, pn as Event, pr as mod, pt as HEATMAP_FULL_RENDER_FBO_KEY, q as renderStyleImage, qn as distanceOfAnglesRadians, qr as clone, qt as codePointUsesLocalIdeographFontFamily, r as TextAnchorEnum, ri as scale$2, rn as ValidationError, rt as isFillStyleLayer, s as TileCache, si as transformMat4$1, sn as emptyStyle, sr as isSafari, st as SubdivisionGranularityExpression, t as getAnchorJustification, ti as rotateY, tn as Color, tr as getAngleDelta, u as GeoJSONFeature, ui as clone$1, un as interpolateFactory, ur as isWorker, v as UnwrappedTileID, vi as multiply, vn as getJSON, vr as radiansToDegrees, vt as isCircleStyleLayer, w as latFromMercatorY, wi as scale, wn as getProtocol, wr as scaleZoom, wt as Uniform3f, x as isInBoundsForZoomLngLat, xi as rotateX, xn as makeRequest, xr as remapSaturate, xt as Uniform1f, y as calculateTileKey, yi as ortho, yn as getReferrer, yr as rayPlaneIntersection, yt as polygonIntersectsPolygon, z as getOverlapMode, zn as createIdentityMat4f64, zr as transformMat4$2, zt as createLayout } from "./maplibre-gl-shared-dev.mjs";
 //#region package.json
-var version$2 = "6.0.0-20";
+var version$2 = "6.0.0";
 //#endregion
 //#region src/util/browser.ts
 let linkEl;
@@ -326,7 +326,7 @@ let ImageRequest;
 		for (const key of Object.keys(throttleControlCallbacks)) if (throttleControlCallbacks[key]()) return true;
 		return false;
 	};
-	_ImageRequest.getImage = (requestParameters, abortController, supportImageRefresh = true) => {
+	_ImageRequest.getImage = (requestParameters, abortController, supportImageRefresh = true, imageBitmapOptions) => {
 		return new Promise((resolve, reject) => {
 			requestParameters.headers ||= {};
 			requestParameters.headers.accept = "image/webp,*/*";
@@ -335,6 +335,7 @@ let ImageRequest;
 				abortController,
 				requestParameters,
 				supportImageRefresh,
+				imageBitmapOptions,
 				state: "queued",
 				onError: (error) => {
 					reject(error);
@@ -347,14 +348,14 @@ let ImageRequest;
 			processQueue();
 		});
 	};
-	const arrayBufferToCanvasImageSource = (data) => {
-		if (typeof createImageBitmap === "function") return arrayBufferToImageBitmap(data);
+	const arrayBufferToCanvasImageSource = (data, imageBitmapOptions) => {
+		if (typeof createImageBitmap === "function") return arrayBufferToImageBitmap(data, imageBitmapOptions);
 		else return arrayBufferToImage(data);
 	};
 	const doImageRequest = async (itemInQueue) => {
 		itemInQueue.state = "running";
-		const { requestParameters, supportImageRefresh, onError, onSuccess, abortController } = itemInQueue;
-		const canUseHTMLImageElement = supportImageRefresh === false && !isWorker(self) && !getProtocol(requestParameters.url) && (!requestParameters.headers || Object.keys(requestParameters.headers).reduce((acc, item) => acc && item === "accept", true));
+		const { requestParameters, supportImageRefresh, imageBitmapOptions, onError, onSuccess, abortController } = itemInQueue;
+		const canUseHTMLImageElement = supportImageRefresh === false && !imageBitmapOptions && !isWorker(self) && !getProtocol(requestParameters.url) && (!requestParameters.headers || Object.keys(requestParameters.headers).reduce((acc, item) => acc && item === "accept", true));
 		currentParallelImageRequests++;
 		const getImagePromise = canUseHTMLImageElement ? getImageUsingHtmlImage(requestParameters, abortController) : makeRequest(requestParameters, abortController);
 		try {
@@ -363,7 +364,7 @@ let ImageRequest;
 			itemInQueue.state = "completed";
 			if (response.data instanceof HTMLImageElement || isImageBitmap(response.data)) onSuccess(response);
 			else if (response.data) onSuccess({
-				data: await arrayBufferToCanvasImageSource(response.data),
+				data: await arrayBufferToCanvasImageSource(response.data, imageBitmapOptions),
 				cacheControl: response.cacheControl,
 				expires: response.expires
 			});
@@ -647,7 +648,10 @@ var MapProjectionEvent = class extends MapLibreEvent {
 */
 var MapContextEvent = class extends MapLibreEvent {};
 /**
-* The style image missing event
+* The style image missing event, fired when an image is still missing after the missing style image
+* resolver has been given a chance to supply it. To load or generate images on demand,
+* use {@link Map.setMissingStyleImageResolver}.
+* Event listeners cannot resolve the missing image for the current request.
 *
 * @group Event Related
 *
@@ -774,6 +778,7 @@ var ImageManager = class extends Evented {
 		this.callbackDispatchedThisFrame = {};
 		this.loaded = false;
 		this.requestors = [];
+		this.missingImageResolver = null;
 		this.patterns = {};
 		this.atlasImage = new RGBAImage({
 			width: 1,
@@ -876,6 +881,9 @@ var ImageManager = class extends Evented {
 	listImages() {
 		return Object.keys(this.images);
 	}
+	setMissingImageResolver(resolver) {
+		this.missingImageResolver = resolver;
+	}
 	getImages(ids) {
 		return new Promise((resolve, _reject) => {
 			let hasAllDependencies = true;
@@ -889,27 +897,32 @@ var ImageManager = class extends Evented {
 			});
 		});
 	}
-	_getImagesForIds(ids) {
+	async _getImagesForIds(ids) {
+		const unresolvedIds = new Set(ids.filter((id) => !this.getImage(id)));
+		const resolver = this.missingImageResolver;
+		if (resolver) await Promise.all(Array.from(unresolvedIds, (id) => resolver(id)));
 		const response = {};
 		for (const id of ids) {
-			let image = this.getImage(id);
-			if (!image) {
-				this.fire(new MapStyleImageMissingEvent({ id }));
-				image = this.getImage(id);
+			const image = this.getImage(id);
+			if (image) {
+				unresolvedIds.delete(id);
+				response[id] = {
+					data: image.data.clone(),
+					pixelRatio: image.pixelRatio,
+					sdf: image.sdf,
+					version: image.version,
+					stretchX: image.stretchX,
+					stretchY: image.stretchY,
+					content: image.content,
+					textFitWidth: image.textFitWidth,
+					textFitHeight: image.textFitHeight,
+					hasRenderCallback: Boolean(image.userImage?.render)
+				};
 			}
-			if (image) response[id] = {
-				data: image.data.clone(),
-				pixelRatio: image.pixelRatio,
-				sdf: image.sdf,
-				version: image.version,
-				stretchX: image.stretchX,
-				stretchY: image.stretchY,
-				content: image.content,
-				textFitWidth: image.textFitWidth,
-				textFitHeight: image.textFitHeight,
-				hasRenderCallback: Boolean(image.userImage?.render)
-			};
-			else warnOnce(`Image "${id}" could not be loaded. Please make sure you have added the image with map.addImage() or a "sprite" property in your style. You can provide missing images by listening for the "styleimagemissing" map event.`);
+		}
+		for (const id of unresolvedIds) {
+			this.fire(new MapStyleImageMissingEvent({ id }));
+			warnOnce(`Image "${id}" could not be loaded. Please make sure you have added the image before it is needed with map.addImage(), resolved it with map.setMissingStyleImageResolver(), or included it in a "sprite" property in your style.`);
 		}
 		return response;
 	}
@@ -1172,7 +1185,7 @@ function edt1d(grid, offset, stride, length, f, v, z) {
 /**
 * The style specification hard-codes some last resort fonts as a default fontstack.
 */
-const defaultStack = v8.layout_symbol["text-font"].default.join(",");
+const defaultStack = latest.layout_symbol["text-font"].default.join(",");
 /**
 * The CSS generic font family closest to `defaultStack`.
 */
@@ -1386,41 +1399,34 @@ var GlyphManager = class GlyphManager {
 	}
 };
 //#endregion
+//#region src/style/light_properties.g.ts
+let properties$2;
+const getProperties$2 = () => properties$2 = properties$2 || new Properties({
+	"anchor": new DataConstantProperty(latest["light"]["anchor"], "anchor"),
+	"position": new DataConstantProperty(latest["light"]["position"], "position"),
+	"color": new DataConstantProperty(latest["light"]["color"], "color"),
+	"intensity": new DataConstantProperty(latest["light"]["intensity"], "intensity")
+});
+//#endregion
 //#region src/style/light.ts
-var LightPositionProperty = class {
-	constructor() {
-		this.specification = latest_default.light.position;
-	}
-	possiblyEvaluate(value, parameters) {
-		return sphericalToCartesian(value.expression.evaluate(parameters));
-	}
-	interpolate(a, b, t) {
-		return {
-			x: interpolateFactory.number(a.x, b.x, t),
-			y: interpolateFactory.number(a.y, b.y, t),
-			z: interpolateFactory.number(a.z, b.z, t)
-		};
-	}
-};
-let lightProperties;
 var Light = class extends Evented {
 	constructor(lightOptions) {
 		super();
-		lightProperties ||= new Properties({
-			"anchor": new DataConstantProperty(latest_default.light.anchor),
-			"position": new LightPositionProperty(),
-			"color": new DataConstantProperty(latest_default.light.color),
-			"intensity": new DataConstantProperty(latest_default.light.intensity)
-		});
-		this._transitionable = new Transitionable(lightProperties, void 0);
+		this._transitionable = new Transitionable(getProperties$2(), "light", void 0);
 		this.setLight(lightOptions);
 		this._transitioning = this._transitionable.untransitioned();
 	}
 	getLight() {
 		return this._transitionable.serialize();
 	}
+	/**
+	* Gets the light position in cartesian coordinates.
+	*/
+	getCartesianPosition() {
+		return sphericalToCartesian(this.properties.get("position"));
+	}
 	setLight(light, options = {}) {
-		if (this._validate(validateLight, light, options)) return;
+		if (this._validate(validateStyle.light, light, options)) return;
 		for (const name in light) {
 			const value = light[name];
 			if (name.endsWith("-transition")) this._transitionable.setTransition(name.slice(0, -TRANSITION_SUFFIX.length), value);
@@ -1437,38 +1443,33 @@ var Light = class extends Evented {
 		this.properties = this._transitioning.possiblyEvaluate(parameters);
 	}
 	_validate(validate, value, options) {
-		if (options?.validate === false) return false;
-		return emitValidationErrors$1(this, validate.call(validateStyle, {
-			value,
-			style: {
-				glyphs: true,
-				sprite: true
-			},
-			styleSpec: latest_default
-		}));
+		return validateAndEmit(this, validate, { value }, options);
 	}
 };
 //#endregion
-//#region src/style/sky.ts
-const properties$1 = new Properties({
-	"sky-color": new DataConstantProperty(latest_default.sky["sky-color"]),
-	"horizon-color": new DataConstantProperty(latest_default.sky["horizon-color"]),
-	"fog-color": new DataConstantProperty(latest_default.sky["fog-color"]),
-	"fog-ground-blend": new DataConstantProperty(latest_default.sky["fog-ground-blend"]),
-	"horizon-fog-blend": new DataConstantProperty(latest_default.sky["horizon-fog-blend"]),
-	"sky-horizon-blend": new DataConstantProperty(latest_default.sky["sky-horizon-blend"]),
-	"atmosphere-blend": new DataConstantProperty(latest_default.sky["atmosphere-blend"])
+//#region src/style/sky_properties.g.ts
+let properties$1;
+const getProperties$1 = () => properties$1 = properties$1 || new Properties({
+	"sky-color": new DataConstantProperty(latest["sky"]["sky-color"], "sky-color"),
+	"horizon-color": new DataConstantProperty(latest["sky"]["horizon-color"], "horizon-color"),
+	"fog-color": new DataConstantProperty(latest["sky"]["fog-color"], "fog-color"),
+	"fog-ground-blend": new DataConstantProperty(latest["sky"]["fog-ground-blend"], "fog-ground-blend"),
+	"horizon-fog-blend": new DataConstantProperty(latest["sky"]["horizon-fog-blend"], "horizon-fog-blend"),
+	"sky-horizon-blend": new DataConstantProperty(latest["sky"]["sky-horizon-blend"], "sky-horizon-blend"),
+	"atmosphere-blend": new DataConstantProperty(latest["sky"]["atmosphere-blend"], "atmosphere-blend")
 });
+//#endregion
+//#region src/style/sky.ts
 var Sky = class extends Evented {
 	constructor(sky) {
 		super();
-		this._transitionable = new Transitionable(properties$1, void 0);
+		this._transitionable = new Transitionable(getProperties$1(), "sky", void 0);
 		this.setSky(sky);
 		this._transitioning = this._transitionable.untransitioned();
 		this.recalculate(new EvaluationParameters(0));
 	}
 	setSky(sky, options = {}) {
-		if (this._validate(validateSky, sky, options)) return;
+		if (this._validate(validateStyle.sky, sky, options)) return;
 		sky ||= {
 			"sky-color": "transparent",
 			"horizon-color": "transparent",
@@ -1495,15 +1496,7 @@ var Sky = class extends Evented {
 		this.properties = this._transitioning.possiblyEvaluate(parameters);
 	}
 	_validate(validate, value, options = {}) {
-		if (options?.validate === false) return false;
-		return emitValidationErrors$1(this, validate.call(validateStyle, extend({
-			value,
-			style: {
-				glyphs: true,
-				sprite: true
-			},
-			styleSpec: latest_default
-		})));
+		return validateAndEmit(this, validate, { value }, options);
 	}
 	/**
 	* Currently fog is a very simple implementation, and should only used
@@ -2682,6 +2675,7 @@ var RasterTileSource = class extends Evented {
 		this.scheme = "xyz";
 		this.tileSize = 512;
 		this._loaded = false;
+		this._premultiplyAlpha = true;
 		this._options = extend({ type: "raster" }, options);
 		extend(this, pick(options, [
 			"url",
@@ -2759,14 +2753,33 @@ var RasterTileSource = class extends Evented {
 	serialize() {
 		return extend({}, this._options);
 	}
+	/**
+	* Sets whether alpha premultiplication is applied to raster tile images.
+	* Set to `false` to preserve exact RGBA byte values when alpha carries data instead of opacity.
+	*
+	* @param premultiplyAlpha - If `false`, disables alpha premultiplication for raster tile image decode and texture upload.
+	* @example
+	* ```ts
+	* map.getSource<RasterTileSource>('raster-source').setPremultiplyAlpha(false);
+	* ```
+	*/
+	setPremultiplyAlpha(premultiplyAlpha) {
+		if (this._premultiplyAlpha === premultiplyAlpha) return this;
+		this.setSourceProperty(() => {
+			this._premultiplyAlpha = premultiplyAlpha;
+		});
+		return this;
+	}
 	hasTile(tileID) {
 		return !this.tileBounds || this.tileBounds.contains(tileID.canonical);
 	}
 	async loadTile(tile) {
 		const url = tile.tileID.canonical.url(this.tiles, this.map.getPixelRatio(), this.scheme);
+		const premultiply = this._premultiplyAlpha;
+		const imageBitmapOptions = premultiply ? void 0 : { premultiplyAlpha: "none" };
 		tile.abortController = new AbortController();
 		try {
-			const response = await ImageRequest.getImage(await this.map._requestManager.transformRequest(url, "Tile"), tile.abortController, this.map._refreshExpiredTiles);
+			const response = await ImageRequest.getImage(await this.map._requestManager.transformRequest(url, "Tile"), tile.abortController, this.map._refreshExpiredTiles, imageBitmapOptions);
 			delete tile.abortController;
 			if (tile.aborted) {
 				tile.state = "unloaded";
@@ -2781,9 +2794,15 @@ var RasterTileSource = class extends Evented {
 				const gl = context.gl;
 				const img = response.data;
 				tile.texture = this.map.painter.getTileTexture(img.width);
-				if (tile.texture) tile.texture.update(img, { useMipmap: true });
+				if (tile.texture) tile.texture.update(img, {
+					useMipmap: true,
+					premultiply
+				});
 				else {
-					tile.texture = new Texture(context, img, gl.RGBA, { useMipmap: true });
+					tile.texture = new Texture(context, img, gl.RGBA, {
+						useMipmap: true,
+						premultiply
+					});
 					tile.texture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE, gl.LINEAR_MIPMAP_NEAREST);
 				}
 				tile.state = "loaded";
@@ -3464,7 +3483,10 @@ var GeoJSONSource = class extends Evented {
 	* Create the parameters object that will be sent to the worker and used to load GeoJSON.
 	*/
 	async _getLoadGeoJSONParameters(data, diff, updateCluster) {
-		const params = extend({ type: this.type }, this.workerOptions);
+		const params = extend({
+			type: this.type,
+			source: this.id
+		}, this.workerOptions);
 		if (typeof data === "string") {
 			params.request = await this.map._requestManager.transformRequest(browser.resolveURL(data), "Source");
 			params.request.collectResourceTiming = this._collectResourceTiming;
@@ -4490,7 +4512,7 @@ var Tile = class {
 		const sourceLayer = params?.sourceLayer ? params.sourceLayer : "";
 		const layer = vtLayers["_geojsonTileLayer"] || vtLayers[sourceLayer];
 		if (!layer) return;
-		const filter = featureFilter(params?.filter, params?.globalState);
+		const filter = featureFilter(params?.filter, `querySourceFeatures[${sourceLayer}].filter`, params?.globalState);
 		const { z, x, y } = this.tileID.canonical;
 		const coord = {
 			z,
@@ -10264,6 +10286,10 @@ var MercatorCameraHelper = class {
 	}
 };
 //#endregion
+//#region src/style/projection_properties.g.ts
+let properties;
+const getProperties = () => properties = properties || new Properties({ "type": new DataConstantProperty(latest["projection"]["type"], "type") });
+//#endregion
 //#region src/webgl/color_mode.ts
 const ZERO = 0;
 const ONE = 1;
@@ -10703,11 +10729,10 @@ var VerticalPerspectiveProjection = class {
 };
 //#endregion
 //#region src/geo/projection/globe_projection.ts
-const properties = new Properties({ "type": new DataConstantProperty(latest_default.projection.type) });
 var GlobeProjection = class extends Evented {
 	constructor(projection) {
 		super();
-		this._transitionable = new Transitionable(properties, void 0);
+		this._transitionable = new Transitionable(getProperties(), "projection", void 0);
 		this.setProjection(projection);
 		this._transitioning = this._transitionable.untransitioned();
 		this.recalculate(new EvaluationParameters(0));
@@ -12697,7 +12722,8 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 				warnOnce("Easing around a point is not supported under globe projection.");
 				tr.setLocationAtPoint(options.around, options.aroundPoint);
 			} else {
-				const newCenter = interpolateLngLatForGlobe(startCenter, deltaLng, deltaLat, k * Math.pow(normalizedEndZoom > normalizedStartZoom ? Math.min(2, finalScale) : Math.max(.5, finalScale), 1 - k));
+				const factor = k * Math.pow(normalizedEndZoom > normalizedStartZoom ? Math.min(2, finalScale) : Math.max(.5, finalScale), 1 - k);
+				const newCenter = interpolateLngLatForGlobe(startCenter, deltaLng, deltaLat, factor);
 				tr.setCenter(newCenter.wrap());
 			}
 			if (isZooming) {
@@ -12897,7 +12923,6 @@ function createProjectionFromName(name, transformConstrain) {
 }
 //#endregion
 //#region src/style/style.ts
-const emitValidationErrors = (evented, errors) => emitValidationErrors$1(evented, errors?.filter((error) => error.identifier !== "source.canvas"));
 const empty = emptyStyle();
 /**
 * The Style base class
@@ -12924,6 +12949,7 @@ var Style = class extends Evented {
 		});
 		this.imageManager = new ImageManager();
 		this.imageManager.setEventedParent(this);
+		this.imageManager.setMissingImageResolver(map._missingStyleImageResolver);
 		const glyphLang = map._container?.lang || typeof document !== "undefined" && document.documentElement?.lang || void 0;
 		this.glyphManager = new GlyphManager(map._requestManager, options.localIdeographFontFamily, glyphLang);
 		this.lineAtlas = new LineAtlas(256, 512);
@@ -13055,7 +13081,7 @@ var Style = class extends Evented {
 	}
 	_load(json, options, previousStyle) {
 		let nextState = options.transformStyle ? options.transformStyle(previousStyle, json) : json;
-		if (options.validate && emitValidationErrors(this, validateStyle(nextState))) return;
+		if (options.validate && validateStyleAndEmit(this, nextState)) return;
 		nextState = { ...nextState };
 		this._loaded = true;
 		this.stylesheet = nextState;
@@ -13067,7 +13093,7 @@ var Style = class extends Evented {
 		this.light = new Light(this.stylesheet.light);
 		this._setProjectionInternal(this.stylesheet.projection?.type || "mercator");
 		this.sky = new Sky(this.stylesheet.sky);
-		this.map.setTerrain(this.stylesheet.terrain ?? null);
+		this.map.setTerrain(this.stylesheet.terrain ?? null, { validate: false });
 		this.fire(new MapStyleDataEvent("data"));
 		this.fire(new MapStyleLoadEvent());
 	}
@@ -13285,7 +13311,7 @@ var Style = class extends Evented {
 		this._checkLoaded();
 		const serializedStyle = this.serialize();
 		nextState = options.transformStyle ? options.transformStyle(serializedStyle, nextState) : nextState;
-		if ((options.validate ?? true) && emitValidationErrors(this, validateStyle(nextState))) return false;
+		if ((options.validate ?? true) && validateStyleAndEmit(this, nextState)) return false;
 		nextState = clone$2(nextState);
 		nextState.layers = derefLayers(nextState.layers);
 		const changes = diff(serializedStyle, nextState);
@@ -13381,6 +13407,9 @@ var Style = class extends Evented {
 	getImage(id) {
 		return this.imageManager.getImage(id);
 	}
+	setMissingImageResolver(resolver) {
+		this.imageManager.setMissingImageResolver(resolver);
+	}
 	removeImage(id) {
 		if (!this.getImage(id)) {
 			this.fire(new ErrorEvent(/* @__PURE__ */ new Error(`An image named "${id}" does not exist.`)));
@@ -13404,13 +13433,7 @@ var Style = class extends Evented {
 		this._checkLoaded();
 		if (this.tileManagers[id] !== void 0) throw new Error(`Source "${id}" already exists.`);
 		if (!source.type) throw new Error(`The type property must be defined, but only the following properties were given: ${Object.keys(source).join(", ")}.`);
-		if ([
-			"vector",
-			"raster",
-			"geojson",
-			"video",
-			"image"
-		].includes(source.type) && this._validate(validateStyle.source, `sources.${id}`, source, null, options)) return;
+		if (SPEC_SOURCE_TYPES.has(source.type) && this._validate(validateStyle.source, `sources.${id}`, source, null, options)) return;
 		if (this.map?._collectResourceTiming) source.collectResourceTiming = true;
 		const tileManager = this.tileManagers[id] = new TileManager(id, source, this.dispatcher);
 		tileManager.style = this;
@@ -13921,13 +13944,12 @@ var Style = class extends Evented {
 		for (const key in this.tileManagers) this.tileManagers[key].reload();
 	}
 	_validate(validate, key, value, props, options = {}) {
-		if (options?.validate === false) return false;
-		return emitValidationErrors(this, validate.call(validateStyle, extend({
+		return validateAndEmit(this, validate, {
 			key,
 			style: this.serialize(),
 			value,
-			styleSpec: latest_default
-		}, props)));
+			...props
+		}, options);
 	}
 	_remove(mapRemoved = true) {
 		if (this._frameRequest) {
@@ -14491,12 +14513,7 @@ const fillExtrusionPatternUniforms = (context, locations) => ({
 });
 const fillExtrusionUniformValues = (painter, shouldUseVerticalGradient, opacity, translate) => {
 	const light = painter.style.light;
-	const _lp = light.properties.get("position");
-	const lightPos = [
-		_lp.x,
-		_lp.y,
-		_lp.z
-	];
+	const lightPos = light.getCartesianPosition();
 	const lightMat = create$4();
 	if (light.properties.get("anchor") === "viewport") fromRotation(lightMat, painter.transform.bearingInRadians);
 	transformMat3(lightPos, lightPos, lightMat);
@@ -17486,7 +17503,9 @@ function drawTerrain(painter, terrain, tiles, renderOptions) {
 		const terrainData = terrain.getTerrainData(tile.tileID);
 		context.activeTexture.set(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-		const uniformValues = terrainUniformValues(terrain.getSkirtLength(tr.zoom), tr.calculateFogMatrix(tile.tileID.toUnwrapped()), painter.style.sky, tr.pitch, isRenderingGlobe);
+		const eleDelta = terrain.getSkirtLength(tr.zoom);
+		const fogMatrix = tr.calculateFogMatrix(tile.tileID.toUnwrapped());
+		const uniformValues = terrainUniformValues(eleDelta, fogMatrix, painter.style.sky, tr.pitch, isRenderingGlobe);
 		const projectionData = tr.getProjectionData({
 			overscaledTileID: tile.tileID,
 			applyTerrainMatrix: false,
@@ -17523,12 +17542,8 @@ function drawSky(painter, sky) {
 	program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.disabled, skyUniforms, null, void 0, "sky", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 }
 function getSunPos(light, transform) {
-	const _lp = light.properties.get("position");
-	const lightPos = [
-		-_lp.x,
-		-_lp.y,
-		-_lp.z
-	];
+	const lightPos = light.getCartesianPosition();
+	negate(lightPos, lightPos);
 	const lightMat = identity(/* @__PURE__ */ new Float64Array(16));
 	if (light.properties.get("anchor") === "map") {
 		rotateZ(lightMat, lightMat, transform.rollInRadians);
@@ -17568,11 +17583,12 @@ function drawAtmosphere(painter, sky, light) {
 	vec[1] /= vec[3];
 	vec[2] /= vec[3];
 	vec[3] = 1;
-	const uniformValues = atmosphereUniformValues(sunPos, atmosphereBlend, [
+	const globePosition = [
 		vec[0],
 		vec[1],
 		vec[2]
-	], globeRadius, invProjMatrix);
+	];
+	const uniformValues = atmosphereUniformValues(sunPos, atmosphereBlend, globePosition, globeRadius, invProjMatrix);
 	const mesh = getMesh(context, sky);
 	program.draw(context, gl.TRIANGLES, depthMode, StencilMode.disabled, ColorMode.alphaBlended, CullFaceMode.disabled, uniformValues, null, null, "atmosphere", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 }
@@ -19314,7 +19330,8 @@ var TwoFingersTouchRotateHandler = class extends TwoFingersTouchHandler {
 	}
 	_isBelowThreshold(vector) {
 		this._minDiameter = Math.min(this._minDiameter, vector.mag());
-		const threshold = ROTATION_THRESHOLD / (Math.PI * this._minDiameter) * 360;
+		const circumference = Math.PI * this._minDiameter;
+		const threshold = ROTATION_THRESHOLD / circumference * 360;
 		const bearingDeltaSinceStart = getBearingDelta(vector, this._startVector);
 		return Math.abs(bearingDeltaSinceStart) < threshold;
 	}
@@ -22225,7 +22242,7 @@ var Terrain = class {
 	* exaggeration
 	*/
 	getMinMaxElevation(tileID) {
-		const tile = this.getTerrainData(tileID).tile;
+		const tile = this.tileManager.getSourceTile(tileID, true);
 		const minMax = {
 			minElevation: null,
 			maxElevation: null
@@ -22313,29 +22330,32 @@ var RenderToTexture = class {
 		this._rttTiles = [];
 		this._renderableTiles = this.terrain.tileManager.getRenderableTiles();
 		this._renderableLayerIds = style._order.filter((id) => !style._layers[id].isHidden(zoom));
+		const rttSourceIds = /* @__PURE__ */ new Set();
+		for (const layerId of this._renderableLayerIds) {
+			const layer = style._layers[layerId];
+			const source = layer.source;
+			if (source && LAYERS_TO_TEXTURES[layer.type]) rttSourceIds.add(source);
+		}
 		this._coordsAscending = {};
-		for (const id in style.tileManagers) {
-			this._coordsAscending[id] = {};
-			const tileIDs = style.tileManagers[id].getVisibleCoordinates();
-			const source = style.tileManagers[id].getSource();
+		this._rttFingerprints = {};
+		for (const sourceId of rttSourceIds) {
+			const tileManager = style.tileManagers[sourceId];
+			if (!tileManager) continue;
+			this._coordsAscending[sourceId] = {};
+			const coordsAscending = this._coordsAscending[sourceId];
+			const source = tileManager.getSource();
 			const terrainTileRanges = source instanceof ImageSource ? source.terrainTileRanges : null;
-			for (const tileID of tileIDs) {
+			for (const tileID of tileManager.getVisibleCoordinates()) {
 				const keys = this.terrain.tileManager.getTerrainCoords(tileID, terrainTileRanges);
 				for (const key in keys) {
-					this._coordsAscending[id][key] ||= [];
-					this._coordsAscending[id][key].push(keys[key]);
+					coordsAscending[key] ||= [];
+					coordsAscending[key].push(keys[key]);
 				}
 			}
-		}
-		this._rttFingerprints = {};
-		for (const id of style._order) {
-			const layer = style._layers[id];
-			const source = layer.source;
-			if (LAYERS_TO_TEXTURES[layer.type] && !this._rttFingerprints[source]) {
-				this._rttFingerprints[source] = {};
-				const revision = style.tileManagers[source]?.getState().revision ?? 0;
-				for (const key in this._coordsAscending[source]) this._rttFingerprints[source][key] = `${this._coordsAscending[source][key].map((c) => c.key).sort().join()}#${revision}`;
-			}
+			this._rttFingerprints[sourceId] = {};
+			const fingerprints = this._rttFingerprints[sourceId];
+			const revision = tileManager.getState().revision;
+			for (const key in coordsAscending) fingerprints[key] = `${coordsAscending[key].map((c) => c.key).sort().join()}#${revision}`;
 		}
 		for (const tile of this._renderableTiles) for (const source in this._rttFingerprints) {
 			const fingerprint = this._rttFingerprints[source][tile.tileID.key];
@@ -22545,6 +22565,7 @@ var Map$1 = class extends Evented {
 		this._renderTaskQueue = new TaskQueue();
 		this._controls = [];
 		this._mapId = uniqueId();
+		this._missingStyleImageResolver = null;
 		this._lostContextStyle = {
 			style: null,
 			images: null
@@ -24398,8 +24419,9 @@ var Map$1 = class extends Evented {
 	* map.setTerrain({ source: 'terrain' });
 	* ```
 	*/
-	setTerrain(options) {
+	setTerrain(options, styleOptions = {}) {
 		this.style._checkLoaded();
+		if (options && validateAndEmit(this, validateStyle.terrain, { value: options }, styleOptions)) return this;
 		if (this._terrainDataCallback) this.style.off("data", this._terrainDataCallback);
 		if (!options) {
 			if (this.terrain) this.terrain.destroy();
@@ -24584,12 +24606,41 @@ var Map$1 = class extends Evented {
 	* @see Use `ImageData`: [Add a generated icon to the map](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-generated-icon-to-the-map/)
 	*/
 	addImage(id, image, options = {}) {
-		const { pixelRatio = 1, sdf = false, stretchX, stretchY, content, textFitWidth, textFitHeight } = options;
 		this._lazyInitEmptyStyle();
+		const styleImage = this._createStyleImage(image, options);
+		if (!styleImage) return this;
+		this.style.addImage(id, styleImage);
+		if (styleImage.userImage?.onAdd) styleImage.userImage.onAdd(this, id);
+		return this;
+	}
+	/**
+	* Sets a callback that is invoked when an icon or pattern needed by the style is missing.
+	*
+	* The resolver typically loads or generates the image and registers it with {@link Map.addImage}.
+	* MapLibre awaits the returned promise before treating the image as missing, so async work is
+	* supported. If the image is still missing afterwards, the `styleimagemissing` event is fired.
+	*
+	* @param resolver - Callback used to resolve missing images, or `null` to remove the resolver.
+	* @example
+	* ```ts
+	* map.setMissingStyleImageResolver(async (id) => {
+	*     const response = await fetch(`/icons/${id}.png`);
+	*     const image = await createImageBitmap(await response.blob());
+	*     map.addImage(id, image, {pixelRatio: 2});
+	* });
+	* ```
+	*/
+	setMissingStyleImageResolver(resolver) {
+		this._missingStyleImageResolver = resolver;
+		this.style?.setMissingImageResolver(resolver);
+		return this;
+	}
+	_createStyleImage(image, options = {}) {
+		const { pixelRatio = 1, sdf = false, stretchX, stretchY, content, textFitWidth, textFitHeight } = options;
 		const version = 0;
 		if (image instanceof HTMLImageElement || isImageBitmap(image)) {
 			const { width, height, data } = browser.getImageData(image);
-			this.style.addImage(id, {
+			return {
 				data: new RGBAImage({
 					width,
 					height
@@ -24602,12 +24653,14 @@ var Map$1 = class extends Evented {
 				textFitHeight,
 				sdf,
 				version
-			});
-		} else if (image.width === void 0 || image.height === void 0) return this.fire(new ErrorEvent(/* @__PURE__ */ new Error("Invalid arguments to map.addImage(). The second argument must be an `HTMLImageElement`, `ImageData`, `ImageBitmap`, or object with `width`, `height`, and `data` properties with the same format as `ImageData`")));
-		else {
+			};
+		} else if (image.width === void 0 || image.height === void 0) {
+			this.fire(new ErrorEvent(/* @__PURE__ */ new Error("Invalid arguments to map.addImage(). The second argument must be an `HTMLImageElement`, `ImageData`, `ImageBitmap`, or object with `width`, `height`, and `data` properties with the same format as `ImageData`")));
+			return null;
+		} else {
 			const { width, height, data } = image;
 			const userImage = image;
-			this.style.addImage(id, {
+			return {
 				data: new RGBAImage({
 					width,
 					height
@@ -24621,9 +24674,7 @@ var Map$1 = class extends Evented {
 				sdf,
 				version,
 				userImage
-			});
-			if (userImage.onAdd) userImage.onAdd(this, id);
-			return this;
+			};
 		}
 	}
 	/**

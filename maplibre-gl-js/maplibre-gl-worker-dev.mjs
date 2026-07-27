@@ -1,8 +1,8 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0-20/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/LICENSE.txt
 */
-import { $ as GeoJSONVT, An as JSON_PREFIX, Ar as warnOnce, Cn as addProtocol, Gt as EvaluationParameters, K as potpack, Kt as rtlWorkerPlugin, L as SymbolBucket, M as createStyleLayer, Mi as Point, On as isAbortError, Pr as EXTENT, Q as LineBucket, Tn as removeProtocol, W as ImageAtlas, Y as PbfReader, Yn as ensureError, Yt as register, Zn as extend, _ as OverscaledTileID, _n as getArrayBuffer, _t as RGBAImage, ar as isImageBitmap, c as FeatureIndex, cn as groupByLayout, d as DictionaryCoder, fr as mapObject, gt as AlphaImage, i as clipGeometry, it as FillBucket, j as Actor, jt as CollisionBoxArray, l as MLTVectorTile, m as fromVectorTileJs, n as performSymbolLayout, nt as VectorTile, o as BoundedLRUCache, p as GeoJSONWrapper, rn as createExpression, rr as getImageData, sn as featureFilter, tt as FillExtrusionBucket, ur as isWorker, ut as DEMData, vn as getJSON, xn as makeRequest } from "./maplibre-gl-shared-dev.mjs";
+import { $ as GeoJSONVT, An as JSON_PREFIX, Ar as warnOnce, Cn as addProtocol, Gt as EvaluationParameters, K as potpack, Kt as rtlWorkerPlugin, L as SymbolBucket, M as createStyleLayer, Ni as Point, On as isAbortError, Pr as EXTENT, Q as LineBucket, Tn as removeProtocol, W as ImageAtlas, Y as PbfReader, Yn as ensureError, Yt as register, Zn as extend, _ as OverscaledTileID, _n as getArrayBuffer, _t as RGBAImage, ar as isImageBitmap, c as FeatureIndex, cn as featureFilter, d as DictionaryCoder, fr as mapObject, gt as AlphaImage, i as clipGeometry, in as createExpression, it as FillBucket, j as Actor, jt as CollisionBoxArray, l as MLTVectorTile, ln as groupByLayout, m as fromVectorTileJs, n as performSymbolLayout, nt as VectorTile, o as BoundedLRUCache, p as GeoJSONWrapper, rr as getImageData, tt as FillExtrusionBucket, ur as isWorker, ut as DEMData, vn as getJSON, xn as makeRequest } from "./maplibre-gl-shared-dev.mjs";
 //#region src/style/style_layer_index.ts
 var StyleLayerIndex = class {
 	constructor(layerConfigs, globalState) {
@@ -18,7 +18,7 @@ var StyleLayerIndex = class {
 		for (const layerConfig of layerConfigs) {
 			this._layerConfigs[layerConfig.id] = layerConfig;
 			const layer = this._layers[layerConfig.id] = createStyleLayer(layerConfig, globalState);
-			layer._featureFilter = featureFilter(layer.filter, globalState);
+			layer._featureFilter = featureFilter(layer.filter, `layers[${layerConfig.id}].filter`, globalState);
 			if (this.keyCache[layerConfig.id]) delete this.keyCache[layerConfig.id];
 		}
 		for (const id of removedIds) {
@@ -750,7 +750,7 @@ var GeoJSONWorkerSource = class {
 	async loadAndProcessGeoJSON(params, abortController) {
 		if (params.request) params.data = (await getJSON(params.request, abortController)).data;
 		if (params.data) {
-			params.data = this._filterGeoJSON(params.data, params.filter);
+			params.data = this._filterGeoJSON(params.data, params.filter, params.source);
 			this._geoJSONIndex = this._createGeoJSONIndex(params.data, params);
 			return;
 		}
@@ -759,7 +759,7 @@ var GeoJSONWorkerSource = class {
 				type: "FeatureCollection",
 				features: []
 			}, params);
-			this._geoJSONIndex.updateData(params.dataDiff, this._getFilterPredicate(params.filter));
+			this._geoJSONIndex.updateData(params.dataDiff, this._getFilterPredicate(params.filter, params.source));
 			return;
 		}
 		if (params.updateCluster) this._geoJSONIndex.updateClusterOptions(params.geojsonVtOptions.cluster, getSuperclusterOptions(params));
@@ -768,9 +768,9 @@ var GeoJSONWorkerSource = class {
 	/**
 	* Applies a filter to a GeoJSON object.
 	*/
-	_filterGeoJSON(data, filter) {
+	_filterGeoJSON(data, filter, source) {
 		if (data.type !== "FeatureCollection") return data;
-		const predicate = this._getFilterPredicate(filter);
+		const predicate = this._getFilterPredicate(filter, source);
 		if (!predicate) return data;
 		return {
 			type: "FeatureCollection",
@@ -780,9 +780,9 @@ var GeoJSONWorkerSource = class {
 	/**
 	* Gets a predicate function that can be used to filter GeoJSON features.
 	*/
-	_getFilterPredicate(filter) {
+	_getFilterPredicate(filter, source) {
 		if (typeof filter !== "boolean" && !filter?.length) return void 0;
-		const compiled = createExpression(filter, {
+		const compiled = createExpression(filter, `sources.${source}.filter`, {
 			type: "boolean",
 			"property-type": "data-driven",
 			overridable: false,
@@ -810,7 +810,7 @@ function createGeoJSONIndex(data, params) {
 		clusterOptions: getSuperclusterOptions(params)
 	}));
 }
-function getSuperclusterOptions({ geojsonVtOptions, clusterProperties }) {
+function getSuperclusterOptions({ geojsonVtOptions, clusterProperties, source }) {
 	if (!clusterProperties || !geojsonVtOptions.clusterOptions) return geojsonVtOptions.clusterOptions;
 	const mapExpressions = {};
 	const reduceExpressions = {};
@@ -822,12 +822,12 @@ function getSuperclusterOptions({ geojsonVtOptions, clusterProperties }) {
 	const propertyNames = Object.keys(clusterProperties);
 	for (const key of propertyNames) {
 		const [operator, mapExpression] = clusterProperties[key];
-		const mapExpressionParsed = createExpression(mapExpression);
+		const mapExpressionParsed = createExpression(mapExpression, `sources.${source}.clusterProperties.${key}[1]`);
 		const reduceExpressionParsed = createExpression(typeof operator === "string" ? [
 			operator,
 			["accumulated"],
 			["get", key]
-		] : operator);
+		] : operator, `sources.${source}.clusterProperties.${key}[0]`);
 		mapExpressions[key] = mapExpressionParsed.value;
 		reduceExpressions[key] = reduceExpressionParsed.value;
 	}
