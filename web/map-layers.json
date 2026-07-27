@@ -1,6 +1,5 @@
 {
   "layers": [
-    { "id": "planet", "archive": "planet.pmtiles", "role": "base" },
-    { "id": "riyadh-governorate", "archive": "riyadh_governorate.pmtiles", "role": "overlay" }
+    { "id": "planet", "archive": "planet.pmtiles", "role": "base" }
   ]
 }
