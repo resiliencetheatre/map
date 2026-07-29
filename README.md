@@ -132,12 +132,17 @@ web/report-symbols.json     Symbols allowed by the reporting page
 web/styles/situation.json   Active map style
 maplibre-gl-js/             Bundled MapLibre ES modules and CSS
 maps/planet.pmtiles         Required map archive or symlink (not committed)
+maps/terrain.pmtiles        Optional Mapterhorn terrain archive (not committed)
 web/map-layers.json         Base and regional PMTiles archive configuration
 ```
 
 The application expects the vector archive to contain the Protomaps layers
 `boundaries`, `buildings`, `earth`, `landcover`, `landuse`, `places`, `pois`,
 `roads`, and `water`.
+
+When `maps/terrain.pmtiles` is present, the **Terrain** map control enables
+3D terrain and hillshading from the archive. The archive is expected to contain
+Mapterhorn's 512-pixel, Terrarium-encoded elevation tiles.
 
 ### Configuring map layers
 

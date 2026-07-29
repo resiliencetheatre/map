@@ -49,6 +49,17 @@ body { margin: 0; min-height: 100vh; }
 }
 .map-message { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); z-index: 2; padding: 9px 12px; border-radius: 5px; background: #111820dd; color: #aebbc6; font-size: 13px; pointer-events: none; }
 .map-message.hidden { display: none; }
+.terrain-control button {
+  width: auto;
+  min-width: 62px;
+  padding: 0 8px;
+  color: #26313d;
+  font: 600 11px/29px Inter, ui-sans-serif, system-ui, sans-serif;
+}
+.terrain-control button[aria-pressed="true"] {
+  background: #d9edf5;
+  color: #153c4d;
+}
 .military-symbol { cursor: pointer; filter: drop-shadow(0 2px 2px #0008); }
 .target-marker-hidden { display: none !important; }
 
