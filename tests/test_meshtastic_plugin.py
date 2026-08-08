@@ -25,6 +25,7 @@ class MeshtasticNormalizationTests(unittest.TestCase):
             "deviceMetrics": {"batteryLevel": 87, "voltage": 4.1, "airUtilTx": 0.5},
             "snr": 6.75,
             "hopsAway": 2,
+            "lastHeard": 1786183210,
         }
         node.update(overrides)
         return node
@@ -35,6 +36,7 @@ class MeshtasticNormalizationTests(unittest.TestCase):
         self.assertEqual(report["designation"], "Hill relay")
         self.assertEqual(report["heading"], 1.0)
         self.assertEqual(report["speed"], 9.0)
+        self.assertEqual(report["activity_at"], "2026-08-08T10:00:10Z")
         self.assertIn("battery 87%", report["status_text"])
         self.assertIn("TBEAM", report["status_text"])
         self.assertLessEqual(len(report["status_text"]), 500)
@@ -68,6 +70,10 @@ class MeshtasticNormalizationTests(unittest.TestCase):
         adapter.on_node_updated(node=self.node(), interface=interface)
         self.assertIs(adapter.interface, interface)
         self.assertTrue(adapter.changed.is_set())
+
+    def test_omits_activity_time_when_last_heard_is_unknown(self):
+        report = plugin.node_to_position(self.node(lastHeard=None))
+        self.assertNotIn("activity_at", report)
 
 
 if __name__ == "__main__":

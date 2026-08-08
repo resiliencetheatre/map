@@ -34,7 +34,8 @@ def init_database(database: Path) -> None:
                 accuracy REAL,
                 sidc TEXT NOT NULL,
                 designation TEXT NOT NULL,
-                status_text TEXT NOT NULL DEFAULT ''
+                status_text TEXT NOT NULL DEFAULT '',
+                activity_at TEXT
             );
             CREATE INDEX IF NOT EXISTS positions_run_time
                 ON positions (run_id, timestamp);
@@ -46,6 +47,8 @@ def init_database(database: Path) -> None:
         columns = {row[1] for row in connection.execute("PRAGMA table_info(positions)")}
         if "status_text" not in columns:
             connection.execute("ALTER TABLE positions ADD COLUMN status_text TEXT NOT NULL DEFAULT ''")
+        if "activity_at" not in columns:
+            connection.execute("ALTER TABLE positions ADD COLUMN activity_at TEXT")
         if "status" in columns:
             connection.execute("""
                 UPDATE positions SET status_text = status
@@ -66,6 +69,18 @@ def validate_position(data: object) -> dict:
     if not isinstance(status_text, str) or len(status_text) > 500:
         raise ValueError("status_text must be a string of at most 500 characters")
     position["status_text"] = status_text.strip()
+    activity_at = data.get("activity_at")
+    if activity_at is not None:
+        if not isinstance(activity_at, str) or not activity_at.strip() or len(activity_at) > 100:
+            raise ValueError("activity_at must be a non-empty ISO 8601 timestamp of at most 100 characters")
+        try:
+            parsed_activity = datetime.fromisoformat(activity_at.strip().replace("Z", "+00:00"))
+        except ValueError as error:
+            raise ValueError("activity_at must be a valid ISO 8601 timestamp") from error
+        if parsed_activity.tzinfo is None:
+            raise ValueError("activity_at must include a timezone")
+        activity_at = parsed_activity.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    position["activity_at"] = activity_at
     for field in ("run_id", "device_id", "timestamp", "sidc", "designation"):
         if not isinstance(position[field], str) or not position[field].strip():
             raise ValueError(f"{field} must be a non-empty string")
@@ -212,9 +227,10 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
                 cursor = connection.execute("""
                     INSERT INTO positions (
                         run_id, device_id, timestamp, latitude, longitude,
-                        heading, speed, accuracy, sidc, designation, received_at, status_text
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (*values, received_at, position["status_text"]))
+                        heading, speed, accuracy, sidc, designation, received_at,
+                        status_text, activity_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (*values, received_at, position["status_text"], position["activity_at"]))
                 row_id = cursor.lastrowid
             self._send_json({"stored": True, "id": row_id}, status=201)
 

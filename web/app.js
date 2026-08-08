@@ -108,8 +108,12 @@ function startPositionRefresh(map) {
   refreshTimer = window.setInterval(refresh, Number(refreshIntervalSelect.value));
 }
 
+function activityTimestamp(position) {
+  return position.activity_at || position.received_at || position.timestamp;
+}
+
 function ageInSeconds(position) {
-  const updatedAt = Date.parse(position.received_at || position.timestamp);
+  const updatedAt = Date.parse(activityTimestamp(position));
   return Number.isFinite(updatedAt) ? Math.max(0, Math.floor((Date.now() - updatedAt) / 1000)) : 0;
 }
 
@@ -124,7 +128,7 @@ function targetState(position) {
 }
 
 function formatLkg(position) {
-  const timestamp = Date.parse(position.received_at || position.timestamp);
+  const timestamp = Date.parse(activityTimestamp(position));
   return Number.isFinite(timestamp)
     ? new Date(timestamp).toLocaleString([], {
         year: "numeric",
@@ -267,7 +271,7 @@ function createTargetRow(map, position, state) {
   metadata.className = "activity-meta";
   const lkg = document.createElement("time");
   lkg.className = `lkg ${state}`;
-  lkg.dateTime = position.received_at || position.timestamp;
+  lkg.dateTime = activityTimestamp(position);
   lkg.textContent = `LKG ${formatLkg(position)}`;
   metadata.append(lkg, ` · ${position.speed.toFixed(1)} km/h · ${position.heading.toFixed(0)}°`);
   details.append(name, metadata);

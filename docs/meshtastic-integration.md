@@ -68,6 +68,7 @@ The adapter maps radio data into the existing Situation contract:
 | Long name, short name, or node ID | `designation` |
 | Position latitude/longitude | WGS84 coordinates |
 | Position time or last-heard time | `timestamp` |
+| Last-heard time, when known | Optional `activity_at` liveness reference |
 | Ground track | Heading in degrees |
 | Ground speed in m/s | Speed in km/h |
 | Radio and device telemetry | Bounded `status_text` |
@@ -76,6 +77,24 @@ Battery and voltage come from `deviceMetrics`, not from `position`. Optional
 metadata includes hardware model, SNR, RSSI, hop count, altitude, satellites,
 PDOP, channel utilization, and airtime utilization. Missing metadata is
 omitted. Nodes without a valid position are not submitted.
+
+Situation normally measures target age from the time it receives a report.
+Meshtastic nodes may already be old when their cached entries are first read,
+so the adapter also sends `lastHeard` as `activity_at`. The map prefers this
+optional source-observation time for age, LKG display, and Live/Idle
+classification while retaining `received_at` as the import time. If
+`lastHeard` is unavailable, the normal receipt-time behavior remains in force.
+
+These timestamps intentionally describe different events:
+
+- `timestamp` is the time associated with the stored position fix;
+- `activity_at` is the latest time the attached radio heard that mesh node;
+- `received_at` is generated when Situation accepts the normalized report.
+
+The API validates `activity_at` as a timezone-aware ISO 8601 value and
+normalizes it to UTC. Existing databases gain a nullable `activity_at` column
+at server startup. This preserves old records and keeps adapters that do not
+provide source activity information backward-compatible.
 
 ### Remain receive-only by default
 

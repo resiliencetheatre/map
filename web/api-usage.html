@@ -62,13 +62,14 @@ curl http://127.0.0.1:8080/api/status</code></pre>
 
     <section aria-labelledby="report-title">
       <h2 id="report-title">Submit a position</h2>
-      <p>All fields below are required. <code>status_text</code> is optional, and may contain up to 500 characters. Coordinates use WGS84 decimal degrees; heading is degrees, speed is km/h, and accuracy is metres.</p>
+      <p>The example includes all required fields plus the optional <code>status_text</code> and <code>activity_at</code> fields. Status text may contain up to 500 characters. Activity time must be a timezone-aware ISO 8601 timestamp of at most 100 characters; it is used for target age and Live/Idle classification. Coordinates use WGS84 decimal degrees; heading is degrees, speed is km/h, and accuracy is metres.</p>
       <pre><code>curl -X POST http://127.0.0.1:8080/api/positions \
   -H 'Content-Type: application/json' \
   -d '{
     "run_id": "exercise-01",
     "device_id": "unit-alpha",
     "timestamp": "2026-07-17T12:00:00Z",
+    "activity_at": "2026-07-17T12:00:00Z",
     "latitude": 49.6116,
     "longitude": 6.1319,
     "heading": 90,
@@ -77,8 +78,9 @@ curl http://127.0.0.1:8080/api/status</code></pre>
     "sidc": "SFGPUCI----K---",
     "designation": "Alpha",
     "status_text": "En route"
-  }'</code></pre>
+      }'</code></pre>
       <div class="note"><strong>Identity:</strong> Reuse a stable <code>device_id</code> to move the same map symbol. Use <code>run_id</code> to group reports into a retrievable track.</div>
+      <div class="note"><strong>Time semantics:</strong> <code>timestamp</code> describes the position fix, optional <code>activity_at</code> describes the source's latest observed activity, and response field <code>received_at</code> records when Situation accepted the report. Age prefers these fields in the order <code>activity_at</code>, <code>received_at</code>, then <code>timestamp</code>.</div>
     </section>
 
     <section class="tools" aria-labelledby="tools-title">

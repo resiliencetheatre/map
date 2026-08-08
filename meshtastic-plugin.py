@@ -99,7 +99,7 @@ def node_to_position(node: object, now: float | None = None) -> dict | None:
     # Meshtastic groundSpeed is metres/second; Situation stores kilometres/hour.
     speed = max(0.0, finite_number(position.get("groundSpeed")) * 3.6)
 
-    return {
+    report = {
         "run_id": "meshtastic",
         "device_id": f"meshtastic:{node_id}",
         "timestamp": iso_z(source_time),
@@ -112,6 +112,10 @@ def node_to_position(node: object, now: float | None = None) -> dict | None:
         "designation": designation,
         "status_text": status_text(node),
     }
+    last_heard = finite_number(node.get("lastHeard"), 0.0)
+    if last_heard > 0:
+        report["activity_at"] = iso_z(last_heard)
+    return report
 
 
 def post_position(url: str, report: dict) -> None:

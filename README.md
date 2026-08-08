@@ -61,16 +61,19 @@ the library available as `window.ms`. The backend position schema includes:
 - `sidc`: a MIL-STD-2525/APP-6 Symbol Identification Code
 - `designation`: example unit text rendered with the symbol
 - `status_text`: optional free-form target status, up to 500 characters
+- `activity_at`: optional source-observation time used for age and liveness
 - `latitude` and `longitude`: WGS84 decimal-degree coordinates
 
-The frontend derives a target's age from the backend-generated `received_at`
-timestamp (falling back to the device `timestamp`). Age is displayed in seconds
-below one minute and as `minutes:seconds` thereafter, so it continues increasing
-when a device stops reporting. The right-side target list separates targets into
-Live and Idle tabs. The adjustable idle threshold defaults to 300 seconds and is
-stored in browser local storage. Each target shows its last-known-good (LKG)
-receipt time beside speed and heading; LKG is green for live targets and red for
-idle targets. The selected tab also filters the map: Live shows only live
+The frontend derives a target's age from optional `activity_at`, then the
+backend-generated `received_at`, and finally the device `timestamp`. Adapters
+use `activity_at` when they have a more meaningful source-observation time,
+such as a Meshtastic node's last-heard time. Age is displayed in seconds below
+one minute and as `minutes:seconds` thereafter, so it continues increasing when
+a device stops reporting. The right-side target list separates targets into
+Live and Idle tabs. The adjustable idle threshold defaults to 300 seconds and
+is stored in browser local storage. Each target shows its last-known-good (LKG)
+activity time beside speed and heading; LKG is green for live targets and red
+for idle targets. The selected tab also filters the map: Live shows only live
 targets and their selected tails, while Idle shows only idle targets and their
 selected tails. Map symbols retain their standard milsymbol colors in both
 tabs.
@@ -620,6 +623,10 @@ Missing fields are simply omitted; nodes without a valid position are not
 posted. Position packets can be less precise when a node is configured to limit
 location precision.
 
+When a node has `lastHeard`, the adapter sends it as `activity_at`. This means a
+cached node last heard an hour ago appears immediately with an hour of age and
+is classified as Idle, even if it was only just imported into Situation.
+
 The adapter reacts to node-database update events and also performs a full scan
 every 30 seconds. It only posts a node when its location or displayed metadata
 has changed. Useful options are:
@@ -665,6 +672,7 @@ Example request body:
   "run_id": "exercise-001",
   "device_id": "alpha-1",
   "timestamp": "2026-07-12T05:00:00Z",
+  "activity_at": "2026-07-12T05:00:00Z",
   "latitude": 49.6116,
   "longitude": 6.1319,
   "heading": 120,
@@ -679,13 +687,25 @@ Example request body:
 Coordinates use WGS84 decimal degrees, heading is degrees clockwise from north,
 speed is kilometres per hour, and accuracy is metres. `status_text` is optional;
 omitting it or sending an empty string hides the status line in Activity.
+`activity_at` is also optional and must be an ISO 8601 timestamp with a
+timezone and at most 100 characters. The server normalizes it to UTC. When
+present, it controls displayed age and Live/Idle classification; otherwise the
+backend receipt time retains the existing behavior. The three times have
+distinct meanings: `timestamp` describes the position fix, `activity_at`
+describes the source's latest observed activity, and `received_at` records when
+Situation accepted the report.
 
 ## Position database
 
 `python-front.py` creates `situation.db` automatically. The append-only
-`positions` table stores both device timestamps and backend receipt timestamps.
+`positions` table stores device timestamps, backend receipt timestamps, and an
+optional source activity timestamp.
 Indexes support retrieval by simulation run and latest device position. The
 database and its SQLite sidecar files are excluded from Git.
+
+Existing databases are migrated automatically when `python-front.py` starts;
+the nullable `activity_at` column is added without rewriting old reports. Old
+rows and clients that omit the field continue to use `received_at` for age.
 
 Use `--database PATH` to place it elsewhere. SQLite manages concurrent request
 threads through short, independent connections; no external database service
