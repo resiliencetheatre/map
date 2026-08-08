@@ -124,6 +124,7 @@ OpenStreetMap attribution, which is included in the map style.
 python-front.py             Server entry point
 python-simulator.py         Three-device movement simulator
 tak-bridge.py               Receive-only taky-ng position bridge
+meshtastic-plugin.py        USB Meshtastic location/telemetry adapter
 situation.db                Runtime SQLite position store (not committed)
 web/                        Application HTML, CSS, JavaScript, and map assets
 web/milsymbol.js            Bundled tactical-symbol renderer
@@ -566,6 +567,69 @@ and Unix-domain socket. These are intended follow-up additions after basic
 reception is stable.
 
 Run `python3 tak-bridge.py --help` for all connection and safety-limit options.
+
+## Meshtastic plugin
+
+`meshtastic-plugin.py` is a receive-only adapter for a Meshtastic radio attached
+over USB serial. It keeps Meshtastic-specific handling outside
+`python-front.py`: the adapter reads the Python client's node database,
+normalizes located nodes, and posts them to the existing Situation position
+API. This also imports nodes already known by the attached radio, not only
+packets received after the adapter starts.
+
+The adapter design is documented in
+[`docs/meshtastic-integration.md`](docs/meshtastic-integration.md). The supplied
+`meshtastic/meshpipe_ng.py` example was reviewed before implementation and was
+useful for identifying practical location and telemetry fields. Its historical
+source is the Resilience Theatre
+[`rpi-extree`](https://git.resilience-theatre.com/resiliencetheatre/rpi-extree)
+repository. The example was then removed: the new adapter uses Situation's HTTP
+API and the Meshtastic client's merged node database instead of carrying over
+the example's FIFOs, private SQLite database, GPS threads, or outbound-message
+behavior.
+
+The main server remains dependency-free. On Debian and Ubuntu, install the
+virtual-environment support package if it is not already present, then create a
+project-local environment for the optional radio library:
+
+```sh
+sudo apt install python3-venv
+python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install meshtastic
+```
+
+Start Situation, then start the adapter. Omit `--port` to let the Meshtastic
+library auto-detect a supported serial device:
+
+```sh
+python3 python-front.py
+.venv/bin/python meshtastic-plugin.py --port /dev/ttyACM0
+```
+
+Each node with a valid WGS84 position appears as a separate map target. Its
+Meshtastic long name is used as the designation. Available battery percentage,
+voltage, hardware model, SNR, RSSI, hop count, altitude, satellite/PDOP data,
+channel utilization, and airtime utilization are shown in the target status.
+Missing fields are simply omitted; nodes without a valid position are not
+posted. Position packets can be less precise when a node is configured to limit
+location precision.
+
+The adapter reacts to node-database update events and also performs a full scan
+every 30 seconds. It only posts a node when its location or displayed metadata
+has changed. Useful options are:
+
+```text
+--port DEVICE             USB serial device (default: auto-detect)
+--url URL                 Position API (default: http://127.0.0.1:8080/api/positions)
+--interval SECONDS        Full node scan interval (default: 30)
+--reconnect-delay SECONDS Delay after radio disconnect (default: 3)
+```
+
+Only one process can normally own a serial port at a time. Stop the Meshtastic
+CLI, `meshpipe_ng.py`, or another serial client before starting the adapter.
+The adapter reads location and telemetry but does not transmit messages or
+change radio configuration.
 
 ## Simulator
 
