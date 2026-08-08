@@ -20,6 +20,8 @@ const idleThresholdInput = document.querySelector("#idle-threshold");
 const refreshIntervalSelect = document.querySelector("#refresh-interval");
 const IDLE_THRESHOLD_KEY = "situation.idleThresholdSeconds";
 const DEFAULT_IDLE_THRESHOLD_SECONDS = 300;
+const TERRAIN_SOURCE_ID = "mapterhorn-terrain";
+const TERRAIN_LAYER_ID = "mapterhorn-hillshade";
 
 // Reflect server availability in the compact header indicator.
 fetch("/api/status")
@@ -379,7 +381,16 @@ function buildLayeredStyle(baseStyle, configuredLayers) {
   const style = structuredClone(baseStyle);
   const templateSource = style.sources.protomaps;
   const templateLayers = style.layers;
-  style.sources = {};
+  const terrainUrl = new URL("/maps/terrain.pmtiles", location.origin).href;
+  style.sources = {
+    [TERRAIN_SOURCE_ID]: {
+      type: "raster-dem",
+      url: `pmtiles://${terrainUrl}`,
+      encoding: "terrarium",
+      tileSize: 512,
+      attribution: '<a href="https://mapterhorn.com/attribution">Mapterhorn terrain</a>'
+    }
+  };
   style.layers = templateLayers.filter((layer) => !layer.source);
   configuredLayers.forEach(({ config, url, header }) => {
     const sourceId = `pmtiles-${config.id}`;
@@ -416,7 +427,59 @@ function buildLayeredStyle(baseStyle, configuredLayers) {
       });
     }
   });
+  const firstSymbolLayer = style.layers.findIndex((layer) => layer.type === "symbol");
+  const hillshadeLayer = {
+    id: TERRAIN_LAYER_ID,
+    type: "hillshade",
+    source: TERRAIN_SOURCE_ID,
+    layout: { visibility: "none" },
+    paint: {
+      "hillshade-exaggeration": 0.35,
+      "hillshade-shadow-color": "#17212a",
+      "hillshade-highlight-color": "#f2eee5",
+      "hillshade-accent-color": "#394957"
+    }
+  };
+  style.layers.splice(firstSymbolLayer === -1 ? style.layers.length : firstSymbolLayer, 0, hillshadeLayer);
   return style;
+}
+
+class TerrainControl {
+  onAdd(map) {
+    this.map = map;
+    this.enabled = false;
+    this.container = document.createElement("div");
+    this.container.className = "maplibregl-ctrl maplibregl-ctrl-group terrain-control";
+    this.button = document.createElement("button");
+    this.button.type = "button";
+    this.button.textContent = "Terrain";
+    this.button.title = "Turn terrain and hillshading on";
+    this.button.setAttribute("aria-label", this.button.title);
+    this.button.setAttribute("aria-pressed", "false");
+    this.button.addEventListener("click", this.toggle);
+    this.container.append(this.button);
+    return this.container;
+  }
+
+  toggle = () => {
+    this.enabled = !this.enabled;
+    this.map.setLayoutProperty(
+      TERRAIN_LAYER_ID,
+      "visibility",
+      this.enabled ? "visible" : "none"
+    );
+    this.map.setTerrain(this.enabled ? { source: TERRAIN_SOURCE_ID, exaggeration: 1 } : null);
+    const action = this.enabled ? "off" : "on";
+    this.button.title = `Turn terrain and hillshading ${action}`;
+    this.button.setAttribute("aria-label", this.button.title);
+    this.button.setAttribute("aria-pressed", String(this.enabled));
+  };
+
+  onRemove() {
+    this.button.removeEventListener("click", this.toggle);
+    this.container.remove();
+    this.map = undefined;
+  }
 }
 
 Promise.all([
@@ -456,6 +519,7 @@ Promise.all([
     situationMap = map;
     map.addControl(new maplibregl.NavigationControl(), "top-right");
     map.on("load", () => {
+      map.addControl(new TerrainControl(), "top-right");
       map.addSource("target-tails", { type: "geojson", data: emptyTailData() });
       map.addLayer({
         id: "target-tail-lines",
