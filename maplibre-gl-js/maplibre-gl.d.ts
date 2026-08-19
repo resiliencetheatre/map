@@ -3,7 +3,6 @@ import { GeoJSONVTOptions } from "@maplibre/geojson-vt";
 import { AllLayoutProperties, AllPaintProperties, Color, ColorArray, CompositeExpression, DiffCommand, DiffOperations, Feature, FeatureFilter, FeatureState, FilterSpecification, Formatted, FormattedSection, GeoJSONSourceSpecification, GlobalProperties, ICanonicalTileID, IMercatorCoordinate, ImageSourceSpecification, InterpolationType, LayerSpecification, LightSpecification, NumberArray, Padding, ProjectionSpecification, PromoteIdSpecification, PropertyValueSpecification, RasterDEMSourceSpecification, RasterSourceSpecification, ResolvedImage, SkySpecification, SourceExpression, SourceSpecification, SpriteSpecification, StateSpecification, StylePropertyExpression, StylePropertySpecification, StyleSpecification, TerrainSpecification, TransitionSpecification, ValidationError, VariableAnchorOffsetCollection, VectorSourceSpecification, VideoSourceSpecification, VisibilityExpression, VisibilitySpecification } from "@maplibre/maplibre-gl-style-spec";
 import { VectorTileFeatureLike, VectorTileLayerLike } from "@maplibre/vt-pbf";
 import { mat2, mat4, vec3, vec4 } from "gl-matrix";
-import { PotpackBox } from "potpack";
 import KDBush from "kdbush";
 import TinySDF from "@mapbox/tiny-sdf";
 export type * from "@maplibre/maplibre-gl-style-spec";
@@ -994,19 +993,31 @@ declare class OverscaledTileID {
 /**
  * A listener method used as a callback to events
  */
-type Listener = (a: any) => any;
-type Listeners<EventType extends Record<string, any>> = { [_ in keyof EventType]?: Listener[]; };
+type Listener<E extends Event$1 = Event$1> = (event: E) => any;
+/**
+ * A mapping between event names and the event each of them carries.
+ */
+type EventTypeMap = Record<string, Event$1>;
+/**
+ * The event names of an {@link EventTypeMap}.
+ */
+type EventNames<EventType extends EventTypeMap> = Extract<keyof EventType, string>;
+/**
+ * Properties merged into every event bubbled up to an evented parent.
+ */
+type EventedParentData = Record<string, unknown>;
+type Listeners<EventType extends EventTypeMap> = { [K in keyof EventType]?: Array<Listener<EventType[K]>>; };
 /**
  * The event class
  */
-declare class Event$1 {
-  readonly type: string;
+declare class Event$1<TType extends string = string> {
+  readonly type: TType;
   /**
    * The object that fired the event. Set when the event is fired, and narrowed to a more
    * specific type (e.g. `Map`, `Marker`) by the event subclasses.
    */
   target?: unknown;
-  constructor(type: string, data?: any);
+  constructor(type: TType, data?: object);
 }
 type ErrorLike = {
   message: string;
@@ -1014,20 +1025,26 @@ type ErrorLike = {
 /**
  * An error event
  */
-declare class ErrorEvent$1 extends Event$1 {
+declare class ErrorEvent extends Event$1<"error"> {
   error: ErrorLike;
-  constructor(error: ErrorLike, data?: any);
+  constructor(error: ErrorLike, data?: object);
 }
+/**
+ * The event map of an {@link Evented} that only reports errors.
+ */
+type ErrorEventType = {
+  error: ErrorEvent;
+};
 /**
  * Methods mixed in to other classes for event capabilities.
  *
  * @group Event Related
  */
-declare abstract class Evented<EventType extends Record<string, any> = Record<string, any>> {
-  _listeners: Listeners<EventType>;
-  _oneTimeListeners: Listeners<EventType>;
-  _eventedParent: Evented;
-  _eventedParentData: any | (() => any);
+declare abstract class Evented<EventType extends EventTypeMap = EventTypeMap> {
+  _listeners?: Listeners<EventType>;
+  _oneTimeListeners?: Listeners<EventType>;
+  _eventedParent?: Evented;
+  _eventedParentData?: EventedParentData | (() => EventedParentData);
   /**
    * Adds a listener to a specified event type.
    *
@@ -1036,14 +1053,14 @@ declare abstract class Evented<EventType extends Record<string, any> = Record<st
    * The listener function is called with the data object passed to `fire`,
    * extended with `target` and `type` properties.
    */
-  on<T extends keyof EventType>(type: T, listener: (event: EventType[T]) => void): Subscription;
+  on<T extends EventNames<EventType>>(type: T, listener: (event: EventType[T]) => void): Subscription;
   /**
    * Removes a previously registered event listener.
    *
    * @param type - The event type to remove listeners for.
    * @param listener - The listener function to remove.
    */
-  off<T extends keyof EventType>(type: T, listener: (event: EventType[T]) => void): this;
+  off<T extends EventNames<EventType>>(type: T, listener: (event: EventType[T]) => void): this;
   /**
    * Adds a listener that will be called only once to a specified event type.
    *
@@ -1052,7 +1069,7 @@ declare abstract class Evented<EventType extends Record<string, any> = Record<st
    * @param type - The event type to listen for.
    * @returns a promise that resolves with the event
    */
-  once<T extends keyof EventType>(type: T): Promise<EventType[T]>;
+  once<T extends EventNames<EventType>>(type: T): Promise<EventType[T]>;
   /**
    * Adds a listener that will be called only once to a specified event type.
    *
@@ -1062,19 +1079,28 @@ declare abstract class Evented<EventType extends Record<string, any> = Record<st
    * @param listener - The function to be called when the event is fired the first time.
    * @returns `this` when a listener is provided
    */
-  once<T extends keyof EventType>(type: T, listener: (event: EventType[T]) => void): this;
-  fire(event: Event$1 | string, properties?: any): this;
+  once<T extends EventNames<EventType>>(type: T, listener: (event: EventType[T]) => void): this;
+  /**
+   * Calls every listener registered for the event's type.
+   */
+  fire(event: EventType[EventNames<EventType>]): this;
+  /**
+   * Compatibility with the (type: string, properties: Object) signature from previous versions.
+   * See https://github.com/mapbox/mapbox-gl-js/issues/6522,
+   *     https://github.com/mapbox/mapbox-gl-draw/issues/766
+   */
+  fire(type: EventNames<EventType>, properties?: object): this;
   /**
    * Returns a true if this instance of Evented or any forwardeed instances of Evented have a listener for the specified type.
    *
    * @param type - The event type
    * @returns `true` if there is at least one registered listener for specified event type, `false` otherwise
    */
-  listens(type: string): boolean;
+  listens(type: EventNames<EventType>): boolean;
   /**
    * Bubble all events fired by this instance of Evented to this parent instance of Evented.
    */
-  setEventedParent(parent?: Evented | null, data?: any | (() => any)): this;
+  setEventedParent(parent?: Evented | null, data?: EventedParentData | (() => EventedParentData)): this;
 }
 //#endregion
 //#region src/util/vectortile_to_geojson.d.ts
@@ -2089,6 +2115,7 @@ type StyleImageData = {
   data: RGBAImage;
   version?: number;
   hasRenderCallback?: boolean;
+  isWebGLImage?: boolean;
   userImage?: StyleImageInterface;
   spriteData?: SpriteOnDemandStyleImage;
 };
@@ -2150,6 +2177,46 @@ type StyleImageMetadata = {
  */
 type StyleImage = StyleImageData & StyleImageMetadata;
 /**
+ * Where a {@link StyleImageWebGLData.renderWithWebGL} callback writes its pixels.
+ */
+type StyleImageWebGLTarget = {
+  gl: WebGL2RenderingContext;
+  /**
+   * The icon atlas to write into. MapLibre does not bind it for you, so start with
+   * `gl.bindTexture(gl.TEXTURE_2D, texture)` or attach it to your own framebuffer.
+   */
+  texture: WebGLTexture;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+/**
+ * What a {@link StyleImageInterface} gives as its `data` when it renders itself with WebGL rather
+ * than handing over an array of pixels.
+ *
+ * @see [Animate an icon on the GPU.](https://maplibre.org/maplibre-gl-js/docs/examples/animate-an-icon-on-the-gpu/)
+ */
+type StyleImageWebGLData = {
+  /**
+   * Render exactly `width` x `height` premultiplied-alpha pixels at (`x`, `y`) of
+   * `target.texture`. That rectangle is the only part of the shared atlas that belongs to this
+   * image; drawing outside it corrupts the others.
+   *
+   * This is the image's counterpart to {@link CustomLayerInterface.render}, and the context
+   * arrives in the same state a custom layer's is given: cull face, active texture and the pixel
+   * store settings at their WebGL defaults, and no vertex array bound. Everything is yours to
+   * change, and MapLibre restores its own state afterwards. The scissor test is the one
+   * exception: MapLibre never touches it, so an image that enables it has to disable it again.
+   *
+   * Called before the first frame the image is used in, again whenever
+   * {@link StyleImageInterface.render} returns `true`, and again for each atlas holding a slot
+   * this image has never rendered into, so one change may mean several calls with different
+   * targets.
+   */
+  renderWithWebGL: (target: StyleImageWebGLTarget) => void;
+};
+/**
  * Interface for dynamically generated style images. This is a specification for
  * implementers to model: it is not an exported method or class.
  *
@@ -2205,13 +2272,22 @@ type StyleImage = StyleImageData & StyleImageMetadata;
 interface StyleImageInterface {
   width: number;
   height: number;
-  data: Uint8Array | Uint8ClampedArray;
+  /**
+   * The image's pixels, in the same format as `ImageData`, or a {@link StyleImageWebGLData}
+   * callback that renders them with WebGL. A WebGL image renders straight into its slot of the
+   * shared icon atlas. Nothing new is possible that pixels could not express, but an image that
+   * changes often, such as an animated icon, gets much cheaper: no CPU pixel work and no upload.
+   */
+  data: Uint8Array | Uint8ClampedArray | StyleImageWebGLData;
   /**
    * This method is called once before every frame where the icon will be used.
    * The method can optionally update the image's `data` member with a new image.
    *
    * If the method updates the image it must return `true` to commit the change.
    * If the method returns `false` or nothing the image is assumed to not have changed.
+   *
+   * An image whose `data` renders with WebGL has nothing to update here; returning `true` is how
+   * it asks for {@link StyleImageWebGLData.renderWithWebGL} to be called again.
    *
    * If updates are infrequent it maybe easier to use {@link Map.updateImage} to update
    * the image instead of implementing this method.
@@ -2228,8 +2304,123 @@ interface StyleImageInterface {
   /**
    * Optional method called when the icon is removed from the map with {@link Map.removeImage}.
    * This gives the image a chance to clean up resources and event listeners.
+   *
+   * This also fires when the WebGL context is lost, after which the same image is added back
+   * without a matching `onAdd`, so the image has to be able to build again whatever it
+   * released here.
    */
   onRemove?: () => void;
+}
+//#endregion
+//#region src/render/image_manager.d.ts
+type MissingImageRequestHandler = (id: string) => void | Promise<void>;
+type ImageManagerEventType = {
+  error: ErrorEvent;
+  styleimagemissing: MapStyleImageMissingEvent;
+};
+/**
+ * Owns every image of the style - the ones the sprites bring in as well as the ones added at
+ * runtime - and tracks requests for them from the tile workers, sending responses when the
+ * requests are fulfilled.
+ */
+declare class ImageManager extends Evented<ImageManagerEventType> {
+  images: Record<string, StyleImage>;
+  /**
+   * Incremented on every {@link ImageManager.updateImage} call. {@link ImageAtlas} instances
+   * compare it against the value they last patched against, so that a tile whose atlas is up to
+   * date can skip its patching work entirely.
+   */
+  updateVersion: number;
+  loaded: boolean;
+  /**
+   * This is used to track requests for images that are not yet available. When the image is loaded,
+   * the requestors will be notified.
+   */
+  requestors: Array<{
+    ids: string[];
+    promiseResolve: (value: GetImagesResponse | PromiseLike<GetImagesResponse>) => void;
+  }>;
+  missingImageResolver: MissingImageRequestHandler | null;
+  /**
+   * The images whose `render` callback already ran in the current frame. A given image usually
+   * sits in the atlas of several tiles, so it would otherwise be asked to re-render once per
+   * tile that holds it.
+   */
+  private _renderCallbacksDispatchedThisFrame;
+  /**
+   * The ids of the images each sprite has brought in, keyed by sprite id, so that they can be
+   * removed again when that sprite is reloaded or removed.
+   */
+  private _spriteImagesIds;
+  /** Cached result of {@link ImageManager.listImages}, invalidated whenever an image is added or removed */
+  private _imagesIds;
+  constructor();
+  destroy(): void;
+  isLoaded(): boolean;
+  setLoaded(loaded: boolean): void;
+  getImage(id: string): StyleImage;
+  addImage(id: string, image: StyleImage): void;
+  _validate(id: string, image: StyleImage): boolean;
+  _validateStretch(stretch: Array<[number, number]>, size: number): boolean;
+  _validateContent(content: [number, number, number, number], image: StyleImage): boolean;
+  /**
+   * Replaces an image that is already known under this id, bumping its version so that the
+   * atlases holding it notice.
+   *
+   * The old record is read directly rather than through {@link ImageManager.getImage}, which
+   * would force a synchronous decode of the sprite data of the very image being replaced. Its
+   * size therefore comes from whichever of the two the pixels are still in, since an image that
+   * came from a sprite and was never rendered has not been decoded yet, and its version is
+   * defaulted, since images start out without one.
+   *
+   * @param validate - whether to reject an image of a different size than the one it replaces
+   */
+  updateImage(id: string, image: StyleImage, validate?: boolean): void;
+  removeImage(id: string): void;
+  /**
+   * @returns the ids of every image currently held, sprite images and runtime ones alike. The
+   * returned array is shared between callers and must not be modified.
+   */
+  listImages(): string[];
+  /**
+   * Images of the `default` sprite keep their plain id, the ones of any other sprite are
+   * namespaced by their sprite's id.
+   */
+  private _getSpriteImageId;
+  /**
+   * Takes over the images of a single sprite: adds the new ones, updates the ones that are
+   * already known, and removes the ones that a previous load of this same sprite had brought in
+   * but that are not part of it anymore.
+   *
+   * @param spriteId - the id of the sprite the images belong to
+   * @param images - the sprite's images, keyed by their id within the sprite
+   * @returns the ids of the images that this sprite now provides, and the ids of the ones that
+   * were removed because they are no longer part of it
+   */
+  setSpriteImages(spriteId: string, images: Record<string, StyleImage>): {
+    loaded: string[];
+    removed: string[];
+  };
+  /**
+   * Removes all the images a single sprite has brought in.
+   * @returns the ids of the removed images
+   */
+  removeSpriteImages(spriteId: string): string[];
+  /**
+   * Removes the images of every sprite, leaving the images added at runtime alone.
+   * @returns the ids of the removed images
+   */
+  removeAllSpriteImages(): string[];
+  setMissingImageResolver(resolver: MissingImageRequestHandler | null): void;
+  getImages(ids: string[]): Promise<GetImagesResponse>;
+  _getImagesForIds(ids: string[]): Promise<GetImagesResponse>;
+  beginFrame(): void;
+  /**
+   * Re-renders the images among `ids` that were added with a `render` callback (see
+   * `StyleImageInterface`), at most once per frame each.
+   */
+  dispatchRenderCallbacks(ids: string[]): void;
+  cloneImages(): Record<string, StyleImage>;
 }
 //#endregion
 //#region src/webgl/texture.d.ts
@@ -2274,76 +2465,6 @@ declare class Texture {
   private _updateRawData;
   bind(filter: TextureFilter, wrap: TextureWrap, minFilter?: TextureFilter | null): void;
   destroy(): void;
-}
-//#endregion
-//#region src/render/image_manager.d.ts
-type MissingImageRequestHandler = (id: string) => void | Promise<void>;
-type Pattern = {
-  bin: PotpackBox;
-  position: ImagePosition;
-};
-/**
- * ImageManager does three things:
- *
- * 1. Tracks requests for icon images from tile workers and sends responses when the requests are fulfilled.
- * 2. Builds a texture atlas for pattern images.
- * 3. Rerenders renderable images once per frame
- *
- * These are disparate responsibilities and should eventually be handled by different classes. When we implement
- * data-driven support for `*-pattern`, we'll likely use per-bucket pattern atlases, and that would be a good time
- * to refactor this.
- */
-declare class ImageManager extends Evented {
-  images: {
-    [_: string]: StyleImage;
-  };
-  updatedImages: {
-    [_: string]: boolean;
-  };
-  callbackDispatchedThisFrame: {
-    [_: string]: boolean;
-  };
-  loaded: boolean;
-  /**
-   * This is used to track requests for images that are not yet available. When the image is loaded,
-   * the requestors will be notified.
-   */
-  requestors: Array<{
-    ids: string[];
-    promiseResolve: (value: GetImagesResponse | PromiseLike<GetImagesResponse>) => void;
-  }>;
-  missingImageResolver: MissingImageRequestHandler | null;
-  patterns: {
-    [_: string]: Pattern;
-  };
-  atlasImage: RGBAImage;
-  atlasTexture: Texture;
-  dirty: boolean;
-  constructor();
-  destroy(): void;
-  isLoaded(): boolean;
-  setLoaded(loaded: boolean): void;
-  getImage(id: string): StyleImage;
-  addImage(id: string, image: StyleImage): void;
-  _validate(id: string, image: StyleImage): boolean;
-  _validateStretch(stretch: Array<[number, number]>, size: number): boolean;
-  _validateContent(content: [number, number, number, number], image: StyleImage): boolean;
-  updateImage(id: string, image: StyleImage, validate?: boolean): void;
-  removeImage(id: string): void;
-  listImages(): string[];
-  setMissingImageResolver(resolver: MissingImageRequestHandler | null): void;
-  getImages(ids: string[]): Promise<GetImagesResponse>;
-  _getImagesForIds(ids: string[]): Promise<GetImagesResponse>;
-  getPixelSize(): {
-    width: number;
-    height: number;
-  };
-  getPattern(id: string): ImagePosition;
-  bind(context: Context): void;
-  _updatePatternAtlas(): void;
-  beginFrame(): void;
-  dispatchRenderCallbacks(ids: string[]): void;
-  cloneImages(): Record<string, StyleImage>;
 }
 //#endregion
 //#region src/style/style_glyph.d.ts
@@ -2401,36 +2522,57 @@ declare class ImagePosition {
   paddedRect: Rect;
   pixelRatio: number;
   version: number;
+  needsFirstWebGLRender: boolean;
   stretchY: Array<[number, number]>;
   stretchX: Array<[number, number]>;
   content: [number, number, number, number];
   textFitWidth: TextFit;
   textFitHeight: TextFit;
-  constructor(paddedRect: Rect, { pixelRatio, version, stretchX, stretchY, content, textFitWidth, textFitHeight }: StyleImage);
+  constructor(paddedRect: Rect, { pixelRatio, version, isWebGLImage, stretchX, stretchY, content, textFitWidth, textFitHeight }: StyleImage);
   get tl(): [number, number];
   get br(): [number, number];
   get tlbr(): number[];
   get displaySize(): [number, number];
 }
 /**
- * A class holding all the images
+ * A single tile's packed copy of the icons and patterns its features reference, built in the
+ * worker so that the symbol layout can bake the positions within it straight into the vertex
+ * buffers. Each tile owns one, along with the texture it is uploaded to - as opposed to
+ * {@link ImageManager}, which owns the images of the whole style.
+ * @internal
  */
 declare class ImageAtlas {
   image: RGBAImage;
-  iconPositions: {
-    [_: string]: ImagePosition;
-  };
-  patternPositions: {
-    [_: string]: ImagePosition;
-  };
+  iconPositions: Record<string, ImagePosition>;
+  patternPositions: Record<string, ImagePosition>;
   haveRenderCallbacks: string[];
   uploaded: boolean;
+  /**
+   * The {@link ImageManager.updateVersion} this atlas' texture was last patched against.
+   * Starts out at `-1` so that a freshly transferred atlas always patches once: images may have
+   * been updated between the moment the worker snapshotted them and the moment the atlas arrives.
+   */
+  patchedUpdateVersion: number;
   constructor(icons: GetImagesResponse, patterns: GetImagesResponse);
   addImages(images: {
     [_: string]: StyleImage;
   }, positions: {
     [_: string]: ImagePosition;
   }, bins: Rect[]): void;
+  /**
+   * Brings this atlas' texture back in sync with the images it was built from, re-uploading the
+   * ones that were replaced in the meantime.
+   *
+   * This runs for every in-view tile on every frame, so the common case of nothing having
+   * changed has to cost nothing: a single comparison against {@link ImageManager.updateVersion}
+   * ends the call. When something did change, only the images this atlas actually holds are
+   * looked at - a handful per tile - and {@link ImageAtlas.patchUpdatedImage} then skips the
+   * ones whose version still matches, leaving just the genuinely stale ones to upload.
+   *
+   * The render callbacks are dispatched first because they may update images themselves, and
+   * those updates have to be part of the version this call catches up with - otherwise an
+   * animated image would always be uploaded a frame late.
+   */
   patchUpdatedImages(imageManager: ImageManager, texture: Texture): void;
   patchUpdatedImage(position: ImagePosition, image: StyleImage, texture: Texture): void;
 }
@@ -3127,6 +3269,12 @@ declare class FillExtrusionBucket implements Bucket {
 }
 //#endregion
 //#region src/style/style_layer/fill_extrusion_style_layer_properties.g.d.ts
+type FillExtrusionLayoutProps = {
+  "fill-extrusion-rounded-corner-distance": DataConstantProperty<number>;
+};
+type FillExtrusionLayoutPropsPossiblyEvaluated = {
+  "fill-extrusion-rounded-corner-distance": number;
+};
 type FillExtrusionPaintProps = {
   "fill-extrusion-opacity": DataConstantProperty<number>;
   "fill-extrusion-color": DataDrivenProperty<Color>;
@@ -3150,6 +3298,8 @@ type FillExtrusionPaintPropsPossiblyEvaluated = {
 //#endregion
 //#region src/style/style_layer/fill_extrusion_style_layer.d.ts
 declare class FillExtrusionStyleLayer extends StyleLayer {
+  _unevaluatedLayout: Layout<FillExtrusionLayoutProps>;
+  layout: PossiblyEvaluated<FillExtrusionLayoutProps, FillExtrusionLayoutPropsPossiblyEvaluated>;
   _transitionablePaint: Transitionable<FillExtrusionPaintProps>;
   _transitioningPaint: Transitioning<FillExtrusionPaintProps>;
   paint: PossiblyEvaluated<FillExtrusionPaintProps, FillExtrusionPaintPropsPossiblyEvaluated>;
@@ -3992,7 +4142,7 @@ declare class Sky extends Evented {
   atmosphereMesh: Mesh | undefined;
   _transitionable: Transitionable<SkyProps>;
   _transitioning: Transitioning<SkyProps>;
-  constructor(sky?: SkySpecification);
+  constructor(sky: SkySpecification | undefined, globalState: Record<string, any>);
   setSky(sky?: SkySpecification, options?: StyleSetterOptions): void;
   getSky(): SkySpecification;
   updateTransitions(parameters: TransitionParameters): void;
@@ -4273,6 +4423,14 @@ type ProjectionData<MainMatrix extends mat4 = mat4, FallbackMatrix extends mat4 
    * Uniform name: `u_projection_fallback_matrix`.
    */
   fallbackMatrix: FallbackMatrix;
+  /**
+   * Whether line fragments outside the tile's X extent should be discarded: true for the zoom 0 tile under globe projection, false otherwise.
+   * The z0 tile covers the whole world, so its buffer wraps around the planet onto the tile itself,
+   * drawing geometry near the antimeridian twice. Stencil clipping cannot remove this same-pixel overlap,
+   * so lines are clipped in the fragment shader instead (fills are clipped during subdivision).
+   * Uniform name: `u_projection_clip_antimeridian`.
+   */
+  clipAntimeridian: boolean;
 };
 /**
  * Parameters object for the transform's `getProjectionData` function.
@@ -4609,8 +4767,10 @@ interface ITransformMutators {
    * Set's the transform's center so that the given point on screen is at the given world coordinates.
    * @param lnglat - Desired world coordinates of the point.
    * @param point - The screen point that should lie at the given coordinates.
+   * @param elevation - Optional ground elevation in meters above sea level at `lnglat`,
+   * defaults to the elevation at the map's center. Ignored when rendering the globe.
    */
-  setLocationAtPoint(lnglat: LngLat, point: Point$1): void;
+  setLocationAtPoint(lnglat: LngLat, point: Point$1, elevation?: number): void;
   /**
    * Sets or clears the map's geographical constraints.
    * @param bounds - A {@link LngLatBounds} object describing the new geographic boundaries of the map.
@@ -4633,9 +4793,8 @@ interface ITransformMutators {
    * @internal
    * Sets the transform's transition state from one projection to another.
    * @param value - The transition state value.
-   * @param error - The error value.
    */
-  setTransitionState(value: number, error: number): void;
+  setTransitionState(value: number): void;
 }
 /**
  * @internal
@@ -4724,6 +4883,15 @@ interface IReadonlyTransform extends ITransformGetters {
    * @returns lnglat location
    */
   screenPointToLocation(p: Point$1, terrain?: Terrain): LngLat;
+  /**
+   * @internal
+   * Given a point on screen, return its LngLat location assuming the ground there
+   * lies at the given elevation. When rendering the globe the elevation is ignored.
+   * @param p - screen point
+   * @param elevation - ground elevation in meters above sea level
+   * @returns lnglat location
+   */
+  screenPointToLocationAtElevation(p: Point$1, elevation: number): LngLat;
   /**
    * @internal
    * Given a point on screen, return its mercator coordinate.
@@ -4971,6 +5139,41 @@ declare class CanvasSource extends ImageSource {
   _hasInvalidDimensions(): boolean;
 }
 //#endregion
+//#region src/style/style_layer/raster_style_layer_properties.g.d.ts
+type RasterPaintProps = {
+  "raster-opacity": DataConstantProperty<number>;
+  "raster-hue-rotate": DataConstantProperty<number>;
+  "raster-brightness-min": DataConstantProperty<number>;
+  "raster-brightness-max": DataConstantProperty<number>;
+  "raster-saturation": DataConstantProperty<number>;
+  "raster-contrast": DataConstantProperty<number>;
+  "resampling": DataConstantProperty<"linear" | "nearest">;
+  "raster-resampling": DataConstantProperty<"linear" | "nearest">;
+  "raster-fade-duration": DataConstantProperty<number>;
+};
+type RasterPaintPropsPossiblyEvaluated = {
+  "raster-opacity": number;
+  "raster-hue-rotate": number;
+  "raster-brightness-min": number;
+  "raster-brightness-max": number;
+  "raster-saturation": number;
+  "raster-contrast": number;
+  "resampling": "linear" | "nearest";
+  "raster-resampling": "linear" | "nearest";
+  "raster-fade-duration": number;
+};
+//#endregion
+//#region src/style/style_layer/raster_style_layer.d.ts
+declare class RasterStyleLayer extends StyleLayer {
+  _transitionablePaint: Transitionable<RasterPaintProps>;
+  _transitioningPaint: Transitioning<RasterPaintProps>;
+  paint: PossiblyEvaluated<RasterPaintProps, RasterPaintPropsPossiblyEvaluated>;
+  constructor(layer: LayerSpecification, globalState: Record<string, any>);
+}
+//#endregion
+//#region src/webgl/program/raster_program.d.ts
+type RasterPerspectiveTransform = [number, number, number];
+//#endregion
 //#region src/source/image_source.d.ts
 /**
  * Four geographical coordinates,
@@ -4980,18 +5183,33 @@ declare class CanvasSource extends ImageSource {
  */
 type Coordinates = [[number, number], [number, number], [number, number], [number, number]];
 /**
- * The options object for the {@link ImageSource.updateImage} method
+ * An already-decoded image that can be handed to an {@link ImageSource} directly,
+ * without a network request.
+ */
+type ImageSourceImage = HTMLImageElement | HTMLCanvasElement | ImageBitmap | ImageData;
+/**
+ * The options object for the {@link ImageSource.updateImage} method.
+ *
+ * Provide exactly one of `url` (to load an image over the network) or `image`
+ * (an already-decoded image to display directly, without a network request).
  */
 type UpdateImageOptions = {
-  /**
-   * Required image URL.
-   */
-  url: string;
   /**
    * The image coordinates
    */
   coordinates?: Coordinates;
-};
+} & ({
+  /**
+   * The image URL to load.
+   */
+  url: string;
+} | {
+  /**
+   * An already-decoded image (`HTMLImageElement`, `HTMLCanvasElement`, `ImageBitmap` or `ImageData`)
+   * to display directly, without a network request.
+   */
+  image: ImageSourceImage;
+});
 type CanonicalTileRange = {
   minTileY: number;
   maxTileY: number;
@@ -5044,6 +5262,10 @@ type CanonicalTileRange = {
  *    ]
  * })
  *
+ * // update with an already-decoded image (no network request)
+ * const bitmap = await createImageBitmap(myCanvas);
+ * mySource.updateImage({image: bitmap});
+ *
  * map.removeSource('some id');  // remove
  * ```
  */
@@ -5069,23 +5291,33 @@ declare class ImageSource extends Evented<SourceEventType> implements Source {
   dispatcher: Dispatcher;
   map: Map$1;
   texture: Texture | null;
-  image: HTMLImageElement | ImageBitmap;
+  image: ImageSourceImage;
   tileID: CanonicalTileID;
   tileCoords: Point$1[];
+  perspectiveTransform: RasterPerspectiveTransform;
   flippedWindingOrder: boolean;
   _loaded: boolean;
-  _request: AbortController;
+  _abortController: AbortController;
+  private _imageDirty;
   /** @internal */
   constructor(id: string, options: ImageSourceSpecification | VideoSourceSpecification | CanvasSourceSpecification, dispatcher: Dispatcher, eventedParent: Evented);
   load(newCoordinates?: Coordinates): Promise<void>;
   loaded(): boolean;
   /**
-   * Updates the image URL and, optionally, the coordinates. To avoid having the image flash after changing,
+   * Updates the image and, optionally, the coordinates. To avoid having the image flash after changing,
    * set the `raster-fade-duration` paint property on the raster layer to 0.
+   *
+   * Provide exactly one of `url` (to fetch a new image over the network) or `image` (an
+   * already-decoded `HTMLImageElement`, `HTMLCanvasElement`, `ImageBitmap` or `ImageData` to
+   * display directly, without a network request).
    *
    * @param options - The options object.
    */
   updateImage(options: UpdateImageOptions): this;
+  /** Loaded tiles hold `this.texture`, so the wrapper has to outlive the images in it. */
+  private _setImage;
+  /** Teardown only: dropping the reference alone leaves the allocation to the GC. */
+  private _disposeTexture;
   _finishLoading(): void;
   onAdd(map: Map$1): void;
   onRemove(): void;
@@ -5257,6 +5489,7 @@ type TerrainData = {
   depthTexture: WebGLTexture;
   tile: Tile;
 };
+type TerrainElevationSampler = (x: number, y: number, extent: number) => number;
 /**
  * @internal
  * This is the main class which handles most of the 3D Terrain logic. It has the following topics:
@@ -5356,12 +5589,13 @@ declare class Terrain {
    * as of overzooming of raster-dem tiles in high zoomlevels, this cache contains
    * matrices to transform from vector-tile coords to raster-dem-tile coords.
    */
-  _demMatrixCache: {
-    [_: string]: {
-      matrix: mat4;
-      coord: OverscaledTileID;
-    };
-  };
+  _demMatrixCache: Map<string, mat4>;
+  /**
+   * Per-render cache of resolved CPU elevation samplers. It is cleared after
+   * terrain tile selection updates and whenever the terrain source changes.
+   * Missing DEM data is deliberately not cached so a later sample can retry.
+   */
+  _elevationSamplerCache: Map<string, TerrainElevationSampler>;
   /**
    * Controls how terrain skirt length is calculated.
    * @see {@link MapOptions.terrainSkirtLength}
@@ -5403,6 +5637,13 @@ declare class Terrain {
    * @returns the elevation
    */
   getElevation(tileID: OverscaledTileID, x: number, y: number, extent?: number): number;
+  /**
+   * Clear CPU elevation samplers that may retain a previously selected DEM tile.
+   * @internal
+   */
+  resetElevationCache(): void;
+  _getElevationSampler(tileID: OverscaledTileID): TerrainElevationSampler | null;
+  _getDEMTileMatrix(tileID: OverscaledTileID, sourceTile: Tile): mat4;
   /**
    * returns a Terrain Object for a tile. Unless the tile corresponds to data (e.g. tile is loading), return a flat dem object
    * @param tileID - the tile to get the terrain for
@@ -5481,10 +5722,15 @@ type ProjectionPreludeUniformsType = {
   "u_projection_clipping_plane": Uniform4f;
   "u_projection_transition": Uniform1f;
   "u_projection_fallback_matrix": UniformMatrix4f;
+  "u_projection_clip_antimeridian": Uniform1i;
 };
 //#endregion
 //#region src/webgl/program.d.ts
 type DrawMode = WebGLRenderingContextBase["LINES"] | WebGLRenderingContextBase["TRIANGLES"] | WebGL2RenderingContext["LINE_STRIP"];
+type ProgramAttribute = {
+  location: number;
+  isInteger: boolean;
+};
 /**
  * @internal
  * A webgl program to execute in the GPU space
@@ -5492,7 +5738,7 @@ type DrawMode = WebGLRenderingContextBase["LINES"] | WebGLRenderingContextBase["
 declare class Program<Us extends UniformBindings> {
   program: WebGLProgram;
   attributes: {
-    [_: string]: number;
+    [_: string]: ProgramAttribute;
   };
   numAttributes: number;
   fixedUniforms: Us;
@@ -5587,6 +5833,17 @@ declare class Context {
   constructor(gl: WebGL2RenderingContext);
   setDefault(): void;
   setDirty(): void;
+  /**
+   * Reset some GL state to default values before handing users the raw context, as we do for
+   * custom layers and WebGL style images, to avoid hard-to-debug bugs in their code.
+   *
+   * MapLibre restores all of its own state afterwards, so the only state worth resetting first
+   * is state users would be surprised to find dirty: `CULL_FACE`, `TEXTURE0` and the three
+   * `UNPACK_` settings, whose defaults are meaningful enough that most code assumes them.
+   * The vertex array is unbound rather than reset, so that MapLibre never has to track it and
+   * a user's `vertexAttribPointer` calls cannot land on one of ours.
+   */
+  setCustomLayerDefaults(): void;
   createIndexBuffer(array: TriangleIndexArray | LineIndexArray | LineStripIndexArray, dynamicDraw?: boolean): IndexBuffer;
   createVertexBuffer(array: StructArray, attributes: readonly StructArrayMember[], dynamicDraw?: boolean): VertexBuffer;
   createRenderbuffer(storageFormat: number, width: number, height: number): WebGLRenderbuffer;
@@ -5910,7 +6167,7 @@ type TileResult = {
  *  - unloading cached tiles not needed to render a given viewport
  *  - managing tile state and feature state
  */
-declare class TileManager extends Evented {
+declare class TileManager extends Evented<SourceEventType> {
   id: string;
   dispatcher: Dispatcher;
   map: Map$1;
@@ -5956,7 +6213,7 @@ declare class TileManager extends Evented {
   getState(): SourceFeatureState;
   pause(): void;
   resume(): void;
-  _loadTile(tile: Tile, id: string, state: TileState): Promise<void>;
+  _loadTile(tile: Tile, id: string, state: TileState, hadData: boolean): Promise<void>;
   _unloadTile(tile: Tile): void;
   _abortTile(tile: Tile): void;
   serialize(): any;
@@ -5969,12 +6226,12 @@ declare class TileManager extends Evented {
   hasRenderableParent(tileID: OverscaledTileID): boolean;
   /**
    * Reload tiles based on the current state of the source.
-   * @param sourceDataChanged - If `true`, reload all tiles using a state of 'expired', otherwise reload only non-errored tiles using state of 'reloading'.
+   * @param sourceDataChanged - If `true`, reload all tiles using a state of 'expired' (errored tiles use 'loading' since they have nothing to show yet), otherwise reload only non-errored tiles using state of 'reloading'.
    * @param shouldReloadTileOptions - Set of options associated with a `MapSourceDataChangedEvent` that can be passed back to the associated `Source` determine whether a tile should be reloaded.
    */
   reload(sourceDataChanged?: boolean, shouldReloadTileOptions?: any): void;
   _reloadTile(id: string, state: TileState): Promise<void>;
-  _tileLoaded(tile: Tile, id: string, previousState: TileState, result: LoadTileResult): void;
+  _tileLoaded(tile: Tile, id: string, previousState: TileState, hadData: boolean, result: LoadTileResult): void;
   /**
    * Get a specific tile by TileID
    */
@@ -6142,6 +6399,34 @@ declare class TileLayerIndex {
   findMatches(symbolInstances: SymbolInstanceArray, newTileID: OverscaledTileID, zoomCrossTileIDs: {
     [crossTileID: number]: boolean;
   }): void;
+  /**
+   * Matches a symbol instance against an entry backed by a KDBush spatial index
+   * (used for keys with more than {@link KDBUSH_THRESHHOLD} symbols).
+   *
+   * Matches any symbol with the same key whose coordinates are within one grid
+   * unit (with a 4px grid, this covers a 12px by 12px area). The lowest-index
+   * unclaimed candidate is claimed in a single pass rather than sorting the
+   * whole result set on every query: `range()` can return many candidates where
+   * symbols are coincident (e.g. stacked point markers), so a per-query sort
+   * would dominate placement cost on dense layers.
+   *
+   * Once a symbol is marked duplicate against a parent symbol, no other symbol
+   * at the same zoom level may duplicate against the same parent (see issue #5993).
+   */
+  private findMatchesForIndexedEntry;
+  /**
+   * Matches a symbol instance against an entry that stores its positions as a
+   * plain array (used for keys with at most {@link KDBUSH_THRESHHOLD} symbols).
+   *
+   * Matches any symbol with the same key whose coordinates are within one grid
+   * unit (with a 4px grid, this covers a 12px by 12px area). Positions are
+   * stored in symbol-instance order, so the first unclaimed match is also the
+   * lowest-index one.
+   *
+   * Once a symbol is marked duplicate against a parent symbol, no other symbol
+   * at the same zoom level may duplicate against the same parent (see issue #5993).
+   */
+  private findMatchesForNonIndexedEntry;
   getCrossTileIDsLists(): number[][];
 }
 declare class CrossTileIDs {
@@ -6464,38 +6749,6 @@ declare function drawHillshade(painter: Painter, tileManager: TileManager, layer
 //#endregion
 //#region src/webgl/draw/draw_color_relief.d.ts
 declare function drawColorRelief(painter: Painter, tileManager: TileManager, layer: ColorReliefStyleLayer, tileIDs: OverscaledTileID[], renderOptions: RenderOptions): void;
-//#endregion
-//#region src/style/style_layer/raster_style_layer_properties.g.d.ts
-type RasterPaintProps = {
-  "raster-opacity": DataConstantProperty<number>;
-  "raster-hue-rotate": DataConstantProperty<number>;
-  "raster-brightness-min": DataConstantProperty<number>;
-  "raster-brightness-max": DataConstantProperty<number>;
-  "raster-saturation": DataConstantProperty<number>;
-  "raster-contrast": DataConstantProperty<number>;
-  "resampling": DataConstantProperty<"linear" | "nearest">;
-  "raster-resampling": DataConstantProperty<"linear" | "nearest">;
-  "raster-fade-duration": DataConstantProperty<number>;
-};
-type RasterPaintPropsPossiblyEvaluated = {
-  "raster-opacity": number;
-  "raster-hue-rotate": number;
-  "raster-brightness-min": number;
-  "raster-brightness-max": number;
-  "raster-saturation": number;
-  "raster-contrast": number;
-  "resampling": "linear" | "nearest";
-  "raster-resampling": "linear" | "nearest";
-  "raster-fade-duration": number;
-};
-//#endregion
-//#region src/style/style_layer/raster_style_layer.d.ts
-declare class RasterStyleLayer extends StyleLayer {
-  _transitionablePaint: Transitionable<RasterPaintProps>;
-  _transitioningPaint: Transitioning<RasterPaintProps>;
-  paint: PossiblyEvaluated<RasterPaintProps, RasterPaintPropsPossiblyEvaluated>;
-  constructor(layer: LayerSpecification, globalState: Record<string, any>);
-}
 //#endregion
 //#region src/webgl/draw/draw_raster.d.ts
 declare function drawRaster(painter: Painter, tileManager: TileManager, layer: RasterStyleLayer, tileIDs: OverscaledTileID[], renderOptions: RenderOptions): void;
@@ -6859,13 +7112,13 @@ declare class Light extends Evented {
   _transitionable: Transitionable<LightProps>;
   _transitioning: Transitioning<LightProps>;
   properties: PossiblyEvaluated<LightProps, LightPropsPossiblyEvaluated>;
-  constructor(lightOptions?: LightSpecification);
+  constructor(lightOptions: LightSpecification, globalState: Record<string, any>);
   getLight(): LightSpecification;
   /**
    * Gets the light position in cartesian coordinates.
    */
   getCartesianPosition(): vec3;
-  setLight(light?: LightSpecification, options?: StyleSetterOptions): void;
+  setLight(light: LightSpecification, options?: StyleSetterOptions): void;
   updateTransitions(parameters: TransitionParameters): void;
   hasTransition(): boolean;
   recalculate(parameters: EvaluationParameters): void;
@@ -6896,6 +7149,32 @@ type DrawFunctions = {
   terrainDepth: typeof drawDepth;
   terrainCoords: typeof drawCoords;
 };
+//#endregion
+//#region src/render/pattern_atlas.d.ts
+/**
+ * A texture atlas of the pattern images that are drawn without a tile's own {@link ImageAtlas},
+ * i.e. `background-pattern`. Entries are packed on demand and re-packed whenever one of them is
+ * added or changes, which is rare enough for the repacking cost not to matter.
+ */
+declare class PatternAtlas {
+  private _imageManager;
+  private _entries;
+  private _image;
+  private _texture;
+  private _dirty;
+  constructor(imageManager: ImageManager);
+  destroy(): void;
+  getPixelSize(): {
+    width: number;
+    height: number;
+  };
+  /**
+   * @returns the position of the pattern within the atlas, or `null` if there is no such image
+   */
+  getPattern(id: string): ImagePosition;
+  bind(context: Context): void;
+  private _update;
+}
 //#endregion
 //#region src/util/request_manager.d.ts
 /**
@@ -7088,6 +7367,7 @@ declare class Painter {
   options: PainterOptions;
   lineAtlas: LineAtlas;
   imageManager: ImageManager;
+  patternAtlas: PatternAtlas;
   glyphManager: GlyphManager;
   depthRangeFor3D: DepthRangeType;
   opaquePassCutoff: number;
@@ -7775,6 +8055,23 @@ type SetClusterOptions = {
   clusterRadius?: number;
 };
 /**
+ * The cluster options currently configured on a source, as returned by `getClusterOptions`
+ */
+type GetClusterOptions = {
+  /**
+   * Whether or not the source is clustered
+   */
+  cluster: boolean;
+  /**
+   * The cluster's max zoom
+   */
+  clusterMaxZoom: number;
+  /**
+   * The cluster's radius, in pixels
+   */
+  clusterRadius: number;
+};
+/**
  * A source containing GeoJSON.
  * (See the [Style Specification](https://maplibre.org/maplibre-style-spec/#sources-geojson) for detailed documentation of options.)
  *
@@ -7860,6 +8157,7 @@ declare class GeoJSONSource extends Evented<SourceEventType> implements Source {
   constructor(id: string, options: GeoJSONSourceOptions, dispatcher: Dispatcher, eventedParent: Evented);
   private _hasPendingWorkerUpdate;
   private _pixelsToTileUnits;
+  private _tileUnitsToPixels;
   private _getClusterMaxZoom;
   load(): Promise<void>;
   onAdd(map: Map$1): void;
@@ -7906,6 +8204,17 @@ declare class GeoJSONSource extends Evented<SourceEventType> implements Source {
    * ```
    */
   setClusterOptions(options: SetClusterOptions): Promise<void>;
+  /**
+   * Gets the cluster options currently configured on the source.
+   * The returned values mirror the options accepted by `setClusterOptions`.
+   *
+   * @returns the source's current cluster options
+   * @example
+   * ```ts
+   * const {cluster, clusterMaxZoom, clusterRadius} = map.getSource('some id').getClusterOptions();
+   * ```
+   */
+  getClusterOptions(): GetClusterOptions;
   /**
    * For clustered sources, fetches the zoom at which the given cluster expands.
    *
@@ -8811,13 +9120,6 @@ declare class PauseablePlacement {
  */
 /**
  * @internal
- */
-type ProjectionGPUContext = {
-  context: Context;
-  useProgram: (name: string) => Program<any>;
-};
-/**
- * @internal
  * Specifies the usage for a square tile mesh:
  * - 'stencil' for drawing stencil masks
  * - 'raster' for drawing raster tiles, hillshade, etc.
@@ -8877,19 +9179,9 @@ interface Projection {
   get transitionState(): number;
   /**
    * @internal
-   * Gets the error correction latitude in radians.
-   */
-  get latitudeErrorCorrectionRadians(): number;
-  /**
-   * @internal
    * Cleans up any resources the projection created, especially GPU buffers.
    */
   destroy(): void;
-  /**
-   * @internal
-   * Runs any GPU-side tasks this projection required. Called at the beginning of every frame.
-   */
-  updateGPUdependent(renderContext: ProjectionGPUContext): void;
   /**
    * @internal
    * Returns a subdivided mesh for a given tile ID, covering 0..EXTENT range.
@@ -8911,11 +9203,6 @@ interface Projection {
    * Returns true if the projection is currently transitioning between two states.
    */
   hasTransition(): boolean;
-  /**
-   * @internal
-   * Sets the error query latidude in degrees
-   */
-  setErrorQueryLatitudeDegrees(value: number): void;
 }
 //#endregion
 //#region src/style/style.d.ts
@@ -9048,6 +9335,7 @@ declare class Style extends Evented<MapEventType> {
   stylesheet: StyleSpecification;
   dispatcher: Dispatcher;
   imageManager: ImageManager;
+  patternAtlas: PatternAtlas;
   glyphManager: GlyphManager;
   lineAtlas: LineAtlas;
   light: Light;
@@ -9087,10 +9375,6 @@ declare class Style extends Evented<MapEventType> {
     [layer: string]: true;
   };
   _layerOrderChanged: boolean;
-  _spritesImagesIds: {
-    [spriteId: string]: string[];
-  };
-  _availableImages: string[];
   _globalState: Record<string, any>;
   crossTileSymbolIndex: CrossTileSymbolIndex;
   pauseablePlacement: PauseablePlacement;
@@ -9114,7 +9398,7 @@ declare class Style extends Evented<MapEventType> {
   loadEmpty(): void;
   _load(json: StyleSpecification, options: StyleSwapOptions & StyleSetterOptions, previousStyle?: StyleSpecification): void;
   private _createLayers;
-  _loadSprite(sprite: SpriteSpecification, isUpdate?: boolean, completion?: (err: Error) => void): void;
+  _loadSprite(sprite: SpriteSpecification, isUpdate?: boolean, completion?: (err: Error) => void): Promise<void>;
   _unloadSprite(): void;
   _validateLayer(layer: StyleLayer): void;
   loaded(): boolean;
@@ -9162,6 +9446,11 @@ declare class Style extends Evented<MapEventType> {
   getImage(id: string): StyleImage;
   setMissingImageResolver(resolver: MissingImageRequestHandler | null): void;
   removeImage(id: string): void;
+  /**
+   * Queues the tiles that depend on these images to be reloaded on the next update, which is
+   * needed whenever an image appears, disappears or changes size.
+   */
+  _markImagesChanged(ids: string[]): void;
   _afterImageUpdated(id: string): void;
   listImages(): string[];
   addSource(id: string, source: SourceSpecification | CanvasSourceSpecification, options?: StyleSetterOptions): void;
@@ -9375,7 +9664,7 @@ type QueryIntersectsFeatureParams = {
 /**
  * A base class for style layers
  */
-declare abstract class StyleLayer extends Evented {
+declare abstract class StyleLayer extends Evented<ErrorEventType> {
   id: string;
   metadata: unknown;
   type: LayerSpecification["type"] | CustomLayerInterface["type"];
@@ -10122,6 +10411,11 @@ type MapControlsDeltas = {
   pitchDelta: number;
   rollDelta: number;
   around: Point$1;
+  /**
+   * Elevation in meters of the terrain under `around` at gesture start; when set,
+   * pan and zoom keep the terrain at this elevation under `around`.
+   */
+  aroundElevation?: number;
 };
 type CameraForBoxAndBearingHandlerResult = {
   center: LngLat;
@@ -10633,16 +10927,36 @@ declare class Camera extends Evented<MapEventType> {
 }
 //#endregion
 //#region src/ui/handler_inertia.d.ts
+type InertiaBufferEntry = {
+  time: number;
+  settings: HandlerResult;
+};
 declare class HandlerInertia {
   _map: Map$1;
-  _inertiaBuffer: Array<{
-    time: number;
-    settings: any;
-  }>;
+  _inertiaBuffer: InertiaBufferEntry[];
   constructor(map: Map$1);
   clear(): void;
-  record(settings: any): void;
+  record(settings: HandlerResult): void;
   _drainInertiaBuffer(): void;
+  /**
+   * Returns the entries the velocity is measured from: everything recorded within
+   * {@link VELOCITY_WINDOW} before now, but never fewer than the last two, so that
+   * inertia also works below two recorded updates per window.
+   */
+  _getVelocityEntries(): InertiaBufferEntry[];
+  /**
+   * Returns the ease which continues the gesture that has just ended.
+   *
+   * The velocity is measured over the time up to the release and not up to the last
+   * recorded movement, so that a gesture held still before being released has a lower
+   * velocity, down to no inertia at all. The delta of an entry happened before it was
+   * recorded, so the first entry only marks the start of the measured interval; anchors
+   * are the exception, as they describe the state at the moment of their entry.
+   *
+   * @param panInertiaOptions - overrides for the pan inertia defaults
+   * @returns the ease options, or `undefined` when the measured interval holds no
+   * movement, which terrain gestures produce by recording updates without any delta
+   */
   _onMoveEnd(panInertiaOptions?: DragPanOptions | boolean): EaseToOptions;
 }
 //#endregion
@@ -10788,6 +11102,11 @@ declare class HandlerManager {
     [handlerName: string]: Event$1;
   }]>;
   _terrainMovement: boolean;
+  /**
+   * Elevation in meters of the terrain point grabbed at gesture start; kept for the
+   * same lifetime as the elevation freeze. Null when that terrain was not available.
+   */
+  _terrainGestureAnchorElevation: number | null;
   _zoom: {
     handlerName: string;
   };
@@ -10828,6 +11147,30 @@ declare class HandlerManager {
   _updateMapTransform(combinedResult: HandlerResult, combinedEventsInProgress: EventsInProgress, deactivatedHandlers: {
     [handlerName: string]: Event$1;
   }): void;
+  /**
+   * The gesture's anchor point: the pinch midpoint when pinching, otherwise the
+   * pan's anchor, clamped to the center point when it does not lie on the map.
+   */
+  _resolveAround(combinedResult: HandlerResult, terrain: Terrain | null, tr: ITransform): {
+    around: Point$1;
+    aroundOnSurface: boolean;
+  };
+  /**
+   * The elevation of the plane a terrain gesture is solved on: the elevation of the
+   * terrain point grabbed at gesture start, captured here on the gesture's first
+   * frame. Undefined means the gesture is solved at the center's elevation instead —
+   * when the grabbed terrain is not loaded, the anchor is the center point (a
+   * center-point anchor is skipped by the camera helper and would lose the pan), or
+   * the anchor plane is too close to the camera for a stable ray-plane solve.
+   */
+  _terrainGestureElevation(terrain: Terrain, around: Point$1, aroundOnSurface: boolean, tr: ITransform, combinedEventsInProgress: EventsInProgress): number | undefined;
+  /**
+   * The location that was under `around` before this frame's deltas — the point the
+   * camera helper re-anchors after zooming — solved at `aroundElevation` when a
+   * terrain gesture provides one. When rotating about the center point, the
+   * transform's center is used directly to avoid numerical issues near the horizon.
+   */
+  _computePreZoomAroundLoc(tr: ITransform, around: Point$1, panDelta: Point$1 | undefined, aroundElevation: number | undefined): LngLat;
   _handleMapControls({ terrain, tr, deltasForHelper, preZoomAroundLoc, combinedEventsInProgress, panDelta }: MapControlsScenarioOptions): void;
   _fireEvents(newEventsInProgress: EventsInProgress, deactivatedHandlers: {
     [handlerName: string]: Event$1;
@@ -12011,6 +12354,17 @@ type MapOptions = {
    * @defaultValue false
    */
   rollEnabled?: boolean;
+  /**
+   * Degrees the map's bearing changes per pixel of horizontal drag when rotating.
+   * @defaultValue 0.8
+   */
+  rotateSpeed?: number;
+  /**
+   * Degrees the map's pitch changes per pixel of vertical drag. Negative, so that
+   * dragging up pitches the map toward the horizon.
+   * @defaultValue -0.5
+   */
+  pitchSpeed?: number;
   /**
    * If `true`, gesture inertia (such as panning) is disabled. If not provided, gesture inertia defaults to the user's device settings.
    * @defaultValue undefined
@@ -13680,6 +14034,7 @@ declare class Map$1 extends Evented<MapEventType> {
    * ```
    */
   setTerrain(options: TerrainSpecification | null, styleOptions?: StyleSetterOptions): this;
+  private _handleTerrainDataEvent;
   /**
    * Get the terrain-options if terrain is loaded
    * @returns the TerrainSpecification passed to setTerrain
@@ -15095,6 +15450,10 @@ type MarkerOptions = {
   scale?: number;
   /**
    * A boolean indicating whether or not a marker is able to be dragged to a new position on the map.
+   * A draggable default marker also becomes keyboard focusable and, while focused, moves by
+   * 1 screen pixel per arrow-key press (10 with Shift), firing the same `dragstart`/`drag`/`dragend`
+   * events as pointer dragging. Markers with a custom `element` keep their focusability and
+   * keyboard behavior application-owned.
    * @defaultValue false
    */
   draggable?: boolean;
@@ -15261,11 +15620,13 @@ declare class Marker extends Evented<MarkerEventType> {
   _rotation: number;
   _pitchAlignment: Alignment;
   _rotationAlignment: Alignment;
-  _originalTabIndex: string;
   _opacity: string;
   _opacityWhenCovered: string;
   _opacityTimeout: ReturnType<typeof setTimeout>;
   _subpixelPositioning: boolean;
+  _roleManaged: boolean;
+  _tabIndexManaged: boolean;
+  _keyboardDragActive: boolean;
   /**
    * @param options - the options
    */
@@ -15355,6 +15716,18 @@ declare class Marker extends Evented<MarkerEventType> {
   setSubpixelPositioning(value: boolean): this;
   _onClick: (e: MouseEvent) => void;
   _onKeyPress: (e: KeyboardEvent) => void;
+  /**
+   * Move a focused draggable default marker with the arrow keys
+   * (1 screen pixel per keydown; 10 with Shift).
+   * Mirrors the pointer drag gesture: the position updates before `dragstart`
+   * fires on the first movement, every movement fires `drag`, and releasing
+   * the arrow key (or losing focus) fires `dragend`. Holding a key down
+   * produces repeated `drag` events within a single gesture.
+   */
+  _onKeyDown: (e: KeyboardEvent) => void;
+  _onKeyUp: (e: KeyboardEvent) => void;
+  _onBlur: () => void;
+  _endKeyboardDrag(): void;
   _onMapClick: (e: MapMouseEvent) => void;
   /**
    * Returns the {@link Popup} instance that is bound to the {@link Marker}.
@@ -15439,7 +15812,10 @@ declare class Marker extends Evented<MarkerEventType> {
   _onUp: () => void;
   _addDragHandler: (e: MapMouseEvent | MapTouchEvent) => void;
   /**
-   * Sets the `draggable` property and functionality of the marker
+   * Sets the `draggable` property and functionality of the marker.
+   * A draggable default marker is also keyboard focusable and movable with the
+   * arrow keys (see {@link MarkerOptions.draggable}); custom marker elements keep
+   * their focusability and keyboard behavior application-owned.
    * @param shouldBeDraggable - Turns drag functionality on/off
    */
   setDraggable(shouldBeDraggable?: boolean): this;
@@ -15448,6 +15824,23 @@ declare class Marker extends Evented<MarkerEventType> {
    * @returns True if the marker is draggable.
    */
   isDraggable(): boolean;
+  /**
+   * Keep the marker element focusable while it has built-in keyboard behavior.
+   * A popup makes any marker element interactive; dragging only manages
+   * focusability for the default marker so custom elements stay
+   * application-owned (#7790). A tabindex supplied by the application is
+   * never added, changed, or removed here.
+   */
+  _updateTabIndex(): void;
+  /**
+   * Keep the default marker role aligned with interactivity.
+   * Default markers need a role because `aria-label` is set in {@link Marker.addTo}.
+   * Non-interactive markers use `role=img`; interactive ones (draggable or with a popup) use `role=button`.
+   * Click listeners are application-owned and do not automatically change the role.
+   * Custom marker elements are left alone so applications own their a11y tree.
+   * Explicit roles set by the application are preserved.
+   */
+  _updateAccessibilityRole(): void;
   /**
    * Sets the `rotation` property of the marker.
    * @param rotation - The rotation angle of the marker (clockwise, in degrees), relative to its respective {@link Marker.setRotationAlignment} setting.
@@ -16685,4 +17078,4 @@ declare function setWorkerUrl(value: string): void;
  */
 declare function importScriptInWorkers(workerUrl: string): Promise<void>;
 //#endregion
-export { AJAXError, type Actor, type ActorMessage, type AddLayerObject, type AddProtocolAction, type Alignment, type AlphaImage, type AnimationOptions, type AroundCenterOptions, AttributionControl, type AttributionControlOptions, type BoxZoomEndHandler, BoxZoomHandler, type BoxZoomHandlerOptions, type Bucket, type CalculateTileZoomFunction, type CameraForBoundsOptions, type CameraOptions, type CameraUpdateTransformFunction, type CanonicalTileRange, CanvasSource, type CanvasSourceSpecification, type CenterZoomBearing, type CollisionBoxArray, type Complete, type ControlPosition, CooperativeGesturesHandler, type Coordinates, type CoveringTilesOptions, type CreateTileMeshOptions, type CustomLayerInterface, type CustomLayerProjectionData, type CustomLayerProjectionDataParams, type CustomRenderMethod, type CustomRenderMethodInput, type DashEntry, type Dispatcher, type DistributiveKeys, type DistributiveOmit, DoubleClickZoomHandler, DragPanHandler, type DragPanOptions, DragRotateHandler, EXTENT, type EaseToOptions, EdgeInsets, ErrorEvent$1 as ErrorEvent, Event$1 as Event, Evented, type ExpiryData, type FeatureIdentifier, type FeatureIndex, type FitBoundsOptions, type FlyToOptions, FullscreenControl, type FullscreenControlEventType, type FullscreenControlOptions, FullscreenEvent, GPUInitializationError, type GeoJSONFeature, type GeoJSONFeatureDiff, type GeoJSONFeatureId, GeoJSONSource, type GeoJSONSourceDiff, GeolocateControl, type GeolocateControlEventType, type GeolocateControlOptions, GeolocateErrorEvent, GeolocateEvent, GeolocatePositionEvent, type GestureOptions, type GetResourceResponse, GlobeControl, type GlyphPosition, type GlyphPositions, type Handler, type HandlerResult, Hash, type IActor, type IControl, type ImageAtlas, ImageSource, type IndicesType, type JumpToOptions, KeyboardHandler, type Listener, LngLat, LngLatBounds, type LngLatBoundsLike, type LngLatLike, type LoadTileResult, LogoControl, type LogoControlOptions, Map$1 as Map, Map$1 as MapLibreMap, MapBoxZoomEvent, MapContextEvent, type MapEventType, type MapGeoJSONFeature, type MapLayerEventType, type MapLayerMouseEvent, type MapLayerTouchEvent, MapLibreEvent, MapMouseEvent, MapMovementEvent, type MapOptions, MapProjectionEvent, MapSourceDataEvent, type MapSourceDataType, MapStyleDataEvent, MapStyleImageMissingEvent, MapStyleLoadEvent, MapTerrainEvent, MapTouchEvent, MapWheelEvent, Marker, MarkerClickEvent, MarkerDragEvent, type MarkerEventType, type MarkerOptions, type Mat4f32, type Mat4f64, MercatorCoordinate, type MessageType, type MissingStyleImageResolver, NavigationControl, type NavigationControlOptions, type Offset, type OverscaledTileID, type PaddingOptions, type PaintPropertyEntry, type Painter, Point, type PointLike, Popup, PopupEvent, type PopupEventType, type PopupOptions, type PositionAnchor, type ProjectionData, type ProjectionDataParams, type ProjectionMatrix, type QueryRenderedFeaturesOptions, type QuerySourceFeatureOptions, RasterDEMTileSource, RasterTileSource, type RendererProjectionData, type RequestParameters, type RequestResponseMessageMap, type RequestTransformFunction, type RequireAtLeastOne, type ResourceType, ScaleControl, type ScaleControlOptions, ScrollZoomHandler, type SetClusterOptions, type Source, type SourceClass, type SourceEventType, Style, type StyleGlyph, type StyleImage, type StyleImageData, type StyleImageInterface, type StyleImageMetadata, type StyleImageSource, type StyleLayer, type StyleOptions, type StyleSetterOptions, type StyleSwapOptions, type Subscription, TerrainControl, type TextFit, type Tile, type TileMesh, type TransformConstrainFunction, type TransformStyleFunction, TwoFingersTouchPitchHandler, TwoFingersTouchRotateHandler, TwoFingersTouchZoomHandler, TwoFingersTouchZoomRotateHandler, type Unit, type UnwrappedTileIDLiteral, type UpdateImageOptions, VectorTileSource, VideoSource, type WebGLContextAttributesWithType, type WorkerGlobalScopeInterface, type WorkerTileResult, addProtocol, addSourceType, clearPrewarmedResources, config, createTileMesh, getGlobalDispatcher, getMaxParallelImageRequests, getRTLTextPluginStatus, getVersion, getWorkerCount, getWorkerUrl, importScriptInWorkers, isTimeFrozen, now, prewarm, removeProtocol, restoreNow, setMaxParallelImageRequests, setNow, setRTLTextPlugin, setWorkerCount, setWorkerUrl };
+export { AJAXError, type Actor, type ActorMessage, type AddLayerObject, type AddProtocolAction, type Alignment, type AlphaImage, type AnimationOptions, type AroundCenterOptions, AttributionControl, type AttributionControlOptions, type BoxZoomEndHandler, BoxZoomHandler, type BoxZoomHandlerOptions, type Bucket, type CalculateTileZoomFunction, type CameraForBoundsOptions, type CameraOptions, type CameraUpdateTransformFunction, type CanonicalTileRange, CanvasSource, type CanvasSourceSpecification, type CenterZoomBearing, type CollisionBoxArray, type Complete, type ControlPosition, CooperativeGesturesHandler, type Coordinates, type CoveringTilesOptions, type CreateTileMeshOptions, type CustomLayerInterface, type CustomLayerProjectionData, type CustomLayerProjectionDataParams, type CustomRenderMethod, type CustomRenderMethodInput, type DashEntry, type Dispatcher, type DistributiveKeys, type DistributiveOmit, DoubleClickZoomHandler, DragPanHandler, type DragPanOptions, DragRotateHandler, EXTENT, type EaseToOptions, EdgeInsets, ErrorEvent, type ErrorEventType, Event$1 as Event, type EventTypeMap, Evented, type EventedParentData, type ExpiryData, type FeatureIdentifier, type FeatureIndex, type FitBoundsOptions, type FlyToOptions, FullscreenControl, type FullscreenControlEventType, type FullscreenControlOptions, FullscreenEvent, GPUInitializationError, type GeoJSONFeature, type GeoJSONFeatureDiff, type GeoJSONFeatureId, GeoJSONSource, type GeoJSONSourceDiff, GeolocateControl, type GeolocateControlEventType, type GeolocateControlOptions, GeolocateErrorEvent, GeolocateEvent, GeolocatePositionEvent, type GestureOptions, type GetClusterOptions, type GetResourceResponse, GlobeControl, type GlyphPosition, type GlyphPositions, type Handler, type HandlerResult, Hash, type IActor, type IControl, type ImageAtlas, ImageSource, type ImageSourceImage, type IndicesType, type JumpToOptions, KeyboardHandler, type Listener, LngLat, LngLatBounds, type LngLatBoundsLike, type LngLatLike, type LoadTileResult, LogoControl, type LogoControlOptions, Map$1 as Map, Map$1 as MapLibreMap, MapBoxZoomEvent, MapContextEvent, type MapEventType, type MapGeoJSONFeature, type MapLayerEventType, type MapLayerMouseEvent, type MapLayerTouchEvent, MapLibreEvent, MapMouseEvent, MapMovementEvent, type MapOptions, MapProjectionEvent, MapSourceDataEvent, type MapSourceDataType, MapStyleDataEvent, MapStyleImageMissingEvent, MapStyleLoadEvent, MapTerrainEvent, MapTouchEvent, MapWheelEvent, Marker, MarkerClickEvent, MarkerDragEvent, type MarkerEventType, type MarkerOptions, type Mat4f32, type Mat4f64, MercatorCoordinate, type MessageType, type MissingStyleImageResolver, NavigationControl, type NavigationControlOptions, type Offset, type OverscaledTileID, type PaddingOptions, type PaintPropertyEntry, type Painter, Point, type PointLike, Popup, PopupEvent, type PopupEventType, type PopupOptions, type PositionAnchor, type ProjectionData, type ProjectionDataParams, type ProjectionMatrix, type QueryRenderedFeaturesOptions, type QuerySourceFeatureOptions, RasterDEMTileSource, RasterTileSource, type RendererProjectionData, type RequestParameters, type RequestResponseMessageMap, type RequestTransformFunction, type RequireAtLeastOne, type ResourceType, ScaleControl, type ScaleControlOptions, ScrollZoomHandler, type SetClusterOptions, type Source, type SourceClass, type SourceEventType, Style, type StyleGlyph, type StyleImage, type StyleImageData, type StyleImageInterface, type StyleImageMetadata, type StyleImageSource, type StyleImageWebGLData, type StyleImageWebGLTarget, type StyleLayer, type StyleOptions, type StyleSetterOptions, type StyleSwapOptions, type Subscription, TerrainControl, type TextFit, type Tile, type TileMesh, type TransformConstrainFunction, type TransformStyleFunction, TwoFingersTouchPitchHandler, TwoFingersTouchRotateHandler, TwoFingersTouchZoomHandler, TwoFingersTouchZoomRotateHandler, type Unit, type UnwrappedTileIDLiteral, type UpdateImageOptions, VectorTileSource, VideoSource, type WebGLContextAttributesWithType, type WorkerGlobalScopeInterface, type WorkerTileResult, addProtocol, addSourceType, clearPrewarmedResources, config, createTileMesh, getGlobalDispatcher, getMaxParallelImageRequests, getRTLTextPluginStatus, getVersion, getWorkerCount, getWorkerUrl, importScriptInWorkers, isTimeFrozen, now, prewarm, removeProtocol, restoreNow, setMaxParallelImageRequests, setNow, setRTLTextPlugin, setWorkerCount, setWorkerUrl };

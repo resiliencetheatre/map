@@ -1,8 +1,8 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.4.1/LICENSE.txt
 */
-import { $ as GeoJSONVT, An as JSON_PREFIX, Ar as warnOnce, Cn as addProtocol, Gt as EvaluationParameters, K as potpack, Kt as rtlWorkerPlugin, L as SymbolBucket, M as createStyleLayer, Ni as Point, On as isAbortError, Pr as EXTENT, Q as LineBucket, Tn as removeProtocol, W as ImageAtlas, Y as PbfReader, Yn as ensureError, Yt as register, Zn as extend, _ as OverscaledTileID, _n as getArrayBuffer, _t as RGBAImage, ar as isImageBitmap, c as FeatureIndex, cn as featureFilter, d as DictionaryCoder, fr as mapObject, gt as AlphaImage, i as clipGeometry, in as createExpression, it as FillBucket, j as Actor, jt as CollisionBoxArray, l as MLTVectorTile, ln as groupByLayout, m as fromVectorTileJs, n as performSymbolLayout, nt as VectorTile, o as BoundedLRUCache, p as GeoJSONWrapper, rr as getImageData, tt as FillExtrusionBucket, ur as isWorker, ut as DEMData, vn as getJSON, xn as makeRequest } from "./maplibre-gl-shared-dev.mjs";
+import { B as PbfReader, Bn as JSON_PREFIX, D as SymbolBucket, Dn as getArrayBuffer, Dt as RGBAImage, Et as AlphaImage, Fn as removeProtocol, I as potpack, K as FillExtrusionBucket, Nn as addProtocol, On as getJSON, P as ImageAtlas, Rn as isAbortError, S as createStyleLayer, U as LineBucket, Ur as EXTENT, Vt as CollisionBoxArray, W as GeoJSONVT, Wi as Point, an as register, bt as DEMData, c as FeatureIndex, d as DictionaryCoder, fr as getImageData, g as OverscaledTileID, i as clipGeometry, ir as ensureError, jn as makeRequest, l as MLTVectorTile, m as fromVectorTileJs, mn as createExpression, mr as isImageBitmap, mt as FillBucket, n as performSymbolLayout, nn as rtlWorkerPlugin, o as BoundedLRUCache, or as extend, p as GeoJSONWrapper, tn as EvaluationParameters, ut as VectorTile, vn as featureFilter, x as Actor, xr as mapObject, yn as groupByLayout, yr as isWorker, zr as warnOnce } from "./maplibre-gl-shared-dev.mjs";
 //#region src/style/style_layer_index.ts
 var StyleLayerIndex = class {
 	constructor(layerConfigs, globalState) {
@@ -58,8 +58,8 @@ var GlyphAtlas = class {
 				const bin = {
 					x: 0,
 					y: 0,
-					w: src.bitmap.width + 2 * padding,
-					h: src.bitmap.height + 2 * padding
+					w: src.bitmap.width + 2,
+					h: src.bitmap.height + 2
 				};
 				bins.push(bin);
 				stackPositions[id] = {
@@ -111,7 +111,6 @@ var WorkerTile = class {
 		this.inFlightDependencies = [];
 	}
 	async parse(data, layerIndex, availableImages, actor, subdivisionGranularity) {
-		this.status = "parsing";
 		this.data = data;
 		this.collisionBoxArray = new CollisionBoxArray();
 		const sourceLayerCoder = new DictionaryCoder(Object.keys(data.layers).sort());
@@ -246,7 +245,6 @@ var WorkerTile = class {
 				bucket.addFeatures(options, this.tileID.canonical, imageAtlas.patternPositions, dashPositions);
 			}
 		}
-		this.status = "done";
 		return {
 			buckets: Object.values(buckets).filter((b) => !b.isEmpty()),
 			featureIndex,
@@ -454,28 +452,26 @@ var VectorTileWorkerSource = class {
 			const resourceTiming = this._finishRequestTiming(timing);
 			workerTile.vectorTile = vectorTile;
 			this.tileState.markLoaded(uid, workerTile);
-			const parseState = {
+			const parsingState = {
 				rawData,
 				cacheControl,
 				resourceTiming
 			};
-			this.tileState.setParsing(uid, parseState);
-			try {
-				return await this._parseWorkerTile(workerTile, params, parseState);
-			} finally {
-				this.tileState.removeParsing(uid);
-			}
+			this.tileState.setParsing(uid, parsingState);
+			return await this._parseWorkerTile(workerTile, params);
 		} catch (err) {
 			this.tileState.finishLoading(uid);
-			workerTile.status = "done";
 			this.tileState.markLoaded(uid, workerTile);
 			throw err;
 		}
 	}
 	_getEtagUnmodifiedResult(response, timing) {
-		return extend({ etagUnmodified: true }, this._getExpiryData(response), this._finishRequestTiming(timing));
+		const cacheControl = this._getExpiryData(response);
+		const resourceTiming = this._finishRequestTiming(timing);
+		return extend({ etagUnmodified: true }, cacheControl, resourceTiming);
 	}
-	async _parseWorkerTile(workerTile, params, parseState) {
+	async _parseWorkerTile(workerTile, params) {
+		const parseState = this.tileState.getParsing(workerTile.uid);
 		let result = await workerTile.parse(workerTile.vectorTile, this.layerIndex, this.availableImages, this.actor, params.subdivisionGranularity);
 		if (parseState) {
 			const { rawData, cacheControl, resourceTiming } = parseState;
@@ -484,6 +480,7 @@ var VectorTileWorkerSource = class {
 				rawTileData: rawData.slice(0),
 				encoding
 			}, result, cacheControl, resourceTiming);
+			this.tileState.removeParsing(workerTile.uid);
 		}
 		return result;
 	}
@@ -537,16 +534,9 @@ var VectorTileWorkerSource = class {
 		const uid = params.uid;
 		const workerTile = this.tileState.getLoaded(uid);
 		if (!workerTile) throw new Error("Should not be trying to reload a tile that was never loaded or has been removed");
+		if (!workerTile.vectorTile) return;
 		workerTile.showCollisionBoxes = params.showCollisionBoxes;
-		if (workerTile.status === "parsing") {
-			const parseState = this.tileState.getParsing(uid);
-			try {
-				return await this._parseWorkerTile(workerTile, params, parseState);
-			} finally {
-				this.tileState.removeParsing(uid);
-			}
-		}
-		if (workerTile.status === "done" && workerTile.vectorTile) return await this._parseWorkerTile(workerTile, params);
+		return await this._parseWorkerTile(workerTile, params);
 	}
 	/**
 	* Implements {@link WorkerSource.abortTile}.
@@ -571,10 +561,11 @@ var RasterDEMTileWorkerSource = class {
 		const { uid, encoding, rawImageData, redFactor, greenFactor, blueFactor, baseShift } = params;
 		const width = rawImageData.width + 2;
 		const height = rawImageData.height + 2;
-		const dem = new DEMData(uid, isImageBitmap(rawImageData) ? new RGBAImage({
+		const imagePixels = isImageBitmap(rawImageData) ? new RGBAImage({
 			width,
 			height
-		}, await getImageData(rawImageData, -1, -1, width, height)) : rawImageData, encoding, redFactor, greenFactor, blueFactor, baseShift);
+		}, await getImageData(rawImageData, -1, -1, width, height)) : rawImageData;
+		const dem = new DEMData(uid, imagePixels, encoding, redFactor, greenFactor, blueFactor, baseShift);
 		this.loaded ||= {};
 		this.loaded[uid] = dem;
 		return dem;
@@ -632,35 +623,16 @@ var GeoJSONWorkerSource = class {
 			const { vectorTile, rawData } = loadResult;
 			workerTile.vectorTile = vectorTile;
 			this.tileState.markLoaded(uid, workerTile);
-			const parseState = { rawData };
-			this.tileState.setParsing(uid, parseState);
-			try {
-				return await this._parseWorkerTile(workerTile, params, parseState);
-			} finally {
-				this.tileState.removeParsing(uid);
-			}
+			const parsingState = { rawData };
+			this.tileState.setParsing(uid, parsingState);
+			return await this._parseWorkerTile(workerTile, params);
 		} catch (err) {
-			workerTile.status = "done";
 			this.tileState.markLoaded(uid, workerTile);
 			throw err;
 		}
 	}
-	async _reloadLoadedTile(params) {
-		const uid = params.uid;
-		const workerTile = this.tileState.getLoaded(uid);
-		if (!workerTile) throw new Error("Should not be trying to reload a tile that was never loaded or has been removed");
-		workerTile.showCollisionBoxes = params.showCollisionBoxes;
-		if (workerTile.status === "parsing") {
-			const parseState = this.tileState.getParsing(uid);
-			try {
-				return await this._parseWorkerTile(workerTile, params, parseState);
-			} finally {
-				this.tileState.removeParsing(uid);
-			}
-		}
-		if (workerTile.status === "done" && workerTile.vectorTile) return await this._parseWorkerTile(workerTile, params);
-	}
-	async _parseWorkerTile(workerTile, params, parseState) {
+	async _parseWorkerTile(workerTile, params) {
+		const parseState = this.tileState.getParsing(workerTile.uid);
 		let result = await workerTile.parse(workerTile.vectorTile, this.layerIndex, this.availableImages, this.actor, params.subdivisionGranularity);
 		if (parseState) {
 			const { rawData } = parseState;
@@ -668,6 +640,7 @@ var GeoJSONWorkerSource = class {
 				rawTileData: rawData.slice(0),
 				encoding: "mvt"
 			}, result);
+			this.tileState.removeParsing(workerTile.uid);
 		}
 		return result;
 	}
@@ -735,9 +708,13 @@ var GeoJSONWorkerSource = class {
 	* @param params - the parameters
 	* @returns A promise that resolves when the tile is reloaded
 	*/
-	reloadTile(params) {
-		if (this.tileState.getLoaded(params.uid)) return this._reloadLoadedTile(params);
-		return this.loadTile(params);
+	async reloadTile(params) {
+		const uid = params.uid;
+		const workerTile = this.tileState.getLoaded(uid);
+		if (!workerTile) return await this.loadTile(params);
+		if (!workerTile.vectorTile) return;
+		workerTile.showCollisionBoxes = params.showCollisionBoxes;
+		return await this._parseWorkerTile(workerTile, params);
 	}
 	/**
 	* Fetch, parse and process GeoJSON according to the given parameters.
@@ -805,10 +782,11 @@ var GeoJSONWorkerSource = class {
 	}
 };
 function createGeoJSONIndex(data, params) {
-	return new GeoJSONVT(data, extend(params.geojsonVtOptions || {}, {
+	const options = extend(params.geojsonVtOptions || {}, {
 		updateable: true,
 		clusterOptions: getSuperclusterOptions(params)
-	}));
+	});
+	return new GeoJSONVT(data, options);
 }
 function getSuperclusterOptions({ geojsonVtOptions, clusterProperties, source }) {
 	if (!clusterProperties || !geojsonVtOptions.clusterOptions) return geojsonVtOptions.clusterOptions;
@@ -1025,9 +1003,7 @@ var Worker = class {
 				case "geojson":
 					this.workerSources[mapId][sourceType][sourceName] = new GeoJSONWorkerSource(actor, this._getLayerIndex(mapId), this._getAvailableImages(mapId));
 					break;
-				default:
-					this.workerSources[mapId][sourceType][sourceName] = new this.externalWorkerSourceTypes[sourceType](actor, this._getLayerIndex(mapId), this._getAvailableImages(mapId));
-					break;
+				default: this.workerSources[mapId][sourceType][sourceName] = new this.externalWorkerSourceTypes[sourceType](actor, this._getLayerIndex(mapId), this._getAvailableImages(mapId));
 			}
 		}
 		return this.workerSources[mapId][sourceType][sourceName];

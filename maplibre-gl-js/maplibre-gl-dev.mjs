@@ -1,10 +1,10 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.4.1/LICENSE.txt
 */
-import { $n as findLineIntersection, $r as normalize, $t as validateStyle, A as earthRadius, Ai as rotate, Ar as warnOnce, At as SegmentVector, B as evaluateSizeForFeature, Bn as createMat4f64, Br as zero, Bt as isRasterStyleLayer, C as altitudeFromMercatorZ, Ci as rotateZ, Cn as addProtocol, Cr as rollPitchBearingToQuat, Ct as Uniform2f, D as mercatorYfromLat, Di as fromRotation, Dn as AbortError, Dr as threePlaneIntersection, Dt as UniformColorArray, E as mercatorXfromLng, Ei as create$4, En as config, Er as subscribe, Et as UniformColor, F as isBackgroundStyleLayer, Fn as bezier, Fr as create$3, Ft as PosArray, G as ImagePosition, Gn as degreesToRadians, Gr as transformMat4, Gt as EvaluationParameters, Hn as createVec4f64, Hr as slerp, Ht as Properties, I as isSymbolStyleLayer, In as clamp, Ir as length, It as QuadTriangleArray, J as parseGlyphPbf, Jn as easeCubicInOut, Jr as cross, Jt as ZoomHistory, K as potpack, Kn as differenceOfAnglesDegrees, Kr as add, L as SymbolBucket, Ln as clone$2, Lr as scale$1, Lt as RasterBoundsArray, M as createStyleLayer, Mi as offscreenCanvasSupported, Mn as angleToRotateBetweenVectors2D, Mr as zoomScale, Mt as CollisionCircleLayoutArray, N as isCustomStyleLayer, Ni as Point, Nn as arrayBufferToImage, Nr as pixelsToTileUnits, Nt as LineStripIndexArray, O as mercatorZfromAltitude, Oi as create$2, On as isAbortError, Or as translatePosition, Ot as UniformFloatArray, P as validateCustomStyleLayer, Pn as arrayBufferToImageBitmap, Pr as EXTENT, Pt as Pos3dArray, Qn as filterObject, Qr as negate, Qt as validateAndEmit, R as addDynamicAttributes, Rn as createIdentityMat4f32, Rr as sqrLen, Rt as TriangleIndexArray, S as MercatorCoordinate, Si as rotateY$1, Sn as sameOrigin, Sr as rollPitchBearingEqual, St as Uniform1i, T as lngFromMercatorX, Ti as translate, Tn as removeProtocol, Tr as sphericalToCartesian, Tt as Uniform4f, U as getAnchorAlignment, Un as deepEqual, Ur as mul, Ut as TRANSITION_SUFFIX, V as evaluateSizeForZoom, Vn as createVec3f64, Vr as fromEuler, Vt as DataConstantProperty, Wn as defaultEasing, Wr as scale$3, Wt as Transitionable, X as collisionCircleLayout, Xn as evaluateZoomSnap, Xr as len, Xt as SPEC_SOURCE_TYPES, Yn as ensureError, Yr as dot, Z as isLineStyleLayer, Zn as extend, Zr as length$1, Zt as emitValidationErrors, _ as OverscaledTileID, _i as invert$1, _n as getArrayBuffer, _r as pointPlaneSignedDistance, _t as RGBAImage, a as clipLine, ai as sub, an as derefLayers, ar as isImageBitmap, at as NORTH_POLE_Y, b as compareTileId, bi as perspective, bn as getVideo, br as readImageUsingVideoFrame, bt as toEvaluationFeature, ci as transformQuat, cn as featureFilter, cr as isTouchableEvent, ct as SubdivisionGranularitySetting, di as copy, dn as latest, dr as lerp, dt as Texture, ei as rotateX$1, en as validateStyleAndEmit, er as getAABB, et as isFillExtrusionStyleLayer, f as GEOJSON_TILE_LAYER_NAME, fi as create$1, fn as ErrorEvent, fr as mapObject, ft as isHillshadeStyleLayer, g as CanonicalTileID, gi as identity, gn as GLOBAL_DISPATCHER_ID, gr as pick, gt as AlphaImage, h as Bounds, hi as fromScaling, hn as AJAXError, hr as parseCacheControl, ht as renderColorRamp, ii as scaleAndAdd, ir as getRollPitchBearing, j as Actor, ji as isOffscreenCanvasDistorted, jn as MAX_VALID_LATITUDE, jr as wrap, jt as CollisionBoxArray, k as LngLat, ki as invert, kn as throwIfAborted, kr as uniqueId, kt as UniformMatrix4f, li as zero$1, lr as isTouchableOrPointableType, lt as isColorReliefStyleLayer, mi as exactEquals, mn as Evented, mr as nextPowerOfTwo, mt as isHeatmapStyleLayer, ni as rotateZ$1, nn as ProjectionDefinition, nr as getEdgeTiles, oi as transformMat3, on as diff, or as isPointableEvent, ot as SOUTH_POLE_Y, pi as equals, pn as Event, pr as mod, pt as HEATMAP_FULL_RENDER_FBO_KEY, q as renderStyleImage, qn as distanceOfAnglesRadians, qr as clone, qt as codePointUsesLocalIdeographFontFamily, r as TextAnchorEnum, ri as scale$2, rn as ValidationError, rt as isFillStyleLayer, s as TileCache, si as transformMat4$1, sn as emptyStyle, sr as isSafari, st as SubdivisionGranularityExpression, t as getAnchorJustification, ti as rotateY, tn as Color, tr as getAngleDelta, u as GeoJSONFeature, ui as clone$1, un as interpolateFactory, ur as isWorker, v as UnwrappedTileID, vi as multiply, vn as getJSON, vr as radiansToDegrees, vt as isCircleStyleLayer, w as latFromMercatorY, wi as scale, wn as getProtocol, wr as scaleZoom, wt as Uniform3f, x as isInBoundsForZoomLngLat, xi as rotateX, xn as makeRequest, xr as remapSaturate, xt as Uniform1f, y as calculateTileKey, yi as ortho, yn as getReferrer, yr as rayPlaneIntersection, yt as polygonIntersectsPolygon, z as getOverlapMode, zn as createIdentityMat4f64, zr as transformMat4$2, zt as createLayout } from "./maplibre-gl-shared-dev.mjs";
+import { $ as tileCoordinatesToMercatorCoordinates, $n as deepEqual, $r as mul, $t as TRANSITION_SUFFIX, A as evaluateSizeForFeature, Ai as perspective, An as getVideo, Ar as remapSaturate, At as toEvaluationFeature, Bi as invert, Br as wrap, Bt as SegmentVector, C as isCustomStyleLayer, Ci as equals, Cn as Event, Cr as nextPowerOfTwo, Ct as HEATMAP_FULL_RENDER_FBO_KEY, D as SymbolBucket, Di as invert$1, Dn as getArrayBuffer, Dr as radiansToDegrees, Dt as RGBAImage, E as isSymbolStyleLayer, Ei as identity, En as GLOBAL_DISPATCHER_ID, Er as pointPlaneSignedDistance, Et as AlphaImage, F as ImagePosition, Fi as translate, Fn as removeProtocol, Fr as subscribe, Ft as Uniform4f, G as isFillExtrusionStyleLayer, Gn as bezier, Gr as length, Gt as PosArray, H as isLineStyleLayer, Hi as isOffscreenCanvasDistorted, Hn as angleToRotateBetweenVectors2D, Hr as pixelsToTileUnits, Ht as CollisionCircleLayoutArray, I as potpack, Ii as create$4, In as config, Ir as threePlaneIntersection, It as UniformColor, J as cameraDirectionFromPitchBearing, Jn as createIdentityMat4f32, Jr as zero, Jt as TriangleIndexArray, Kn as clamp, Kr as scale$1, Kt as QuadTriangleArray, L as isStyleImageWebGLData, Li as fromRotation, Ln as AbortError, Lr as translatePosition, Lt as UniformColorArray, Mi as rotateY$1, Mn as sameOrigin, Mr as rollPitchBearingToQuat, Mt as Uniform1i, N as getAnchorAlignment, Ni as rotateZ, Nn as addProtocol, Nr as scaleZoom, Nt as Uniform2f, O as addDynamicAttributes, Oi as multiply, On as getJSON, Or as rayPlaneIntersection, Ot as isCircleStyleLayer, Pi as scale, Pn as getProtocol, Pr as sphericalToCartesian, Pt as Uniform3f, Q as projectToWorldCoordinates, Qn as createVec4f64, Qr as slerp, Qt as Properties, R as renderStyleImage, Ri as create$2, Rn as isAbortError, Rr as uniqueId, Rt as UniformFloatArray, S as createStyleLayer, Si as create$1, Sn as ErrorEvent, Sr as mod, St as isHillshadeStyleLayer, T as isBackgroundStyleLayer, Ti as fromScaling, Tn as AJAXError, Tr as pick, Tt as renderColorRamp, Ui as offscreenCanvasSupported, Un as arrayBufferToImage, Ur as EXTENT, Ut as LineStripIndexArray, V as collisionCircleLayout, Vi as rotate, Vn as MAX_VALID_LATITUDE, Vr as zoomScale, Vt as CollisionBoxArray, Wi as Point, Wn as arrayBufferToImageBitmap, Wr as create$3, Wt as Pos3dArray, X as getMercatorHorizon, Xn as createMat4f64, Xr as fromValues, Xt as isRasterStyleLayer, Y as cameraMercatorCoordinateFromCenterAndRotation, Yn as createIdentityMat4f64, Yr as fromEuler, Yt as createLayout, Z as maxMercatorHorizonAngle, Zn as createVec3f64, Zr as multiply$1, Zt as DataConstantProperty, _ as UnwrappedTileID, _i as transformMat4$1, _n as emptyStyle, _r as isTouchableEvent, _t as SubdivisionGranularityExpression, a as clipLine, ai as dot, ar as evaluateZoomSnap, at as mercatorXfromLng, b as isInBoundsForZoomLngLat, bi as clone$1, bn as interpolateFactory, br as lerp, ci as negate, cn as validateAndEmit, cr as findLineIntersection, ct as LngLat, di as rotateY, dn as Color, dr as getEdgeTiles, dt as EXTENT_BOUNDS, ei as scale$3, en as Transitionable, er as defaultEasing, et as unprojectFromWorldCoordinates, f as GEOJSON_TILE_LAYER_NAME, fi as rotateZ$1, fn as ProjectionDefinition, ft as Bounds, g as OverscaledTileID, gi as transformMat3, gn as diff, gr as isSafari, gt as SOUTH_POLE_Y, h as CanonicalTileID, hi as sub, hn as derefLayers, hr as isPointableEvent, ht as NORTH_POLE_Y, ii as cross, in as ZoomHistory, ir as ensureError, it as lngFromMercatorX, j as evaluateSizeForZoom, ji as rotateX, jn as makeRequest, jr as rollPitchBearingEqual, jt as Uniform1f, k as getOverlapMode, ki as ortho, kn as getReferrer, kr as readImageUsingVideoFrame, kt as polygonIntersectsPolygon, li as normalize, ln as validateStyle, lr as getAABB, lt as earthRadius, mi as scaleAndAdd, mr as isImageBitmap, ni as add, nr as differenceOfAnglesDegrees, nt as altitudeFromMercatorZ, oi as len, on as SPEC_SOURCE_TYPES, or as extend, ot as mercatorYfromLat, pi as scale$2, pn as ValidationError, pr as getRollPitchBearing, pt as isFillStyleLayer, q as calculateTileMatrix, qn as clone$2, qr as sqrLen, qt as RasterBoundsArray, r as TextAnchorEnum, ri as clone, rn as codePointUsesLocalIdeographFontFamily, rr as distanceOfAnglesRadians, rt as latFromMercatorY, s as TileCache, si as length$1, sn as emitValidationErrors, sr as filterObject, st as mercatorZfromAltitude, t as getAnchorJustification, ti as transformMat4, tn as EvaluationParameters, tr as degreesToRadians, tt as MercatorCoordinate, u as GeoJSONFeature, ui as rotateX$1, un as validateStyleAndEmit, ur as getAngleDelta, v as calculateTileKey, vi as transformQuat, vn as featureFilter, vr as isTouchableOrPointableType, vt as SubdivisionGranularitySetting, w as validateCustomStyleLayer, wi as exactEquals, wn as Evented, wr as parseCacheControl, wt as isHeatmapStyleLayer, x as Actor, xi as copy, xn as latest, xr as mapObject, xt as Texture, y as compareTileId, yi as zero$1, yr as isWorker, yt as isColorReliefStyleLayer, z as parseGlyphPbf, zi as determinant, zn as throwIfAborted, zr as warnOnce, zt as UniformMatrix4f } from "./maplibre-gl-shared-dev.mjs";
 //#region package.json
-var version$2 = "6.0.0";
+var version$2 = "6.4.1";
 //#endregion
 //#region src/util/browser.ts
 let linkEl;
@@ -288,7 +288,7 @@ var DOM = class DOM {
 	* @param elem - The element
 	*/
 	static removeAttributes(elem) {
-		for (const { name, value } of elem.attributes) {
+		for (const { name, value } of Array.from(elem.attributes)) {
 			if (!DOM.isPossiblyDangerous(name, value)) continue;
 			elem.removeAttribute(name);
 		}
@@ -326,6 +326,12 @@ let ImageRequest;
 		for (const key of Object.keys(throttleControlCallbacks)) if (throttleControlCallbacks[key]()) return true;
 		return false;
 	};
+	async function transformAndGetImage(requestManager, url, resourceType, abortController, supportImageRefresh = true, imageBitmapOptions) {
+		const requestParameters = await requestManager.transformRequest(url, resourceType);
+		throwIfAborted(abortController.signal);
+		return ImageRequest.getImage(requestParameters, abortController, supportImageRefresh, imageBitmapOptions);
+	}
+	_ImageRequest.transformAndGetImage = transformAndGetImage;
 	_ImageRequest.getImage = (requestParameters, abortController, supportImageRefresh = true, imageBitmapOptions) => {
 		return new Promise((resolve, reject) => {
 			requestParameters.headers ||= {};
@@ -709,7 +715,8 @@ async function loadSprite(originalSprite, requestManager, pixelRatio, abortContr
 	const jsonsMap = {};
 	const imagesMap = {};
 	for (const { id, url } of spriteArray) {
-		jsonsMap[id] = getJSON(await requestManager.transformRequest(normalizeSpriteURL(url, format, ".json"), "SpriteJSON"), abortController);
+		const jsonRequestParameters = await requestManager.transformRequest(normalizeSpriteURL(url, format, ".json"), "SpriteJSON");
+		jsonsMap[id] = getJSON(jsonRequestParameters, abortController);
 		const imageRequestParameters = await requestManager.transformRequest(normalizeSpriteURL(url, format, ".png"), "SpriteImage");
 		imagesMap[id] = ImageRequest.getImage(imageRequestParameters, abortController);
 	}
@@ -753,51 +760,25 @@ async function doOnceCompleted(jsonsMap, imagesMap) {
 //#endregion
 //#region src/render/image_manager.ts
 /**
-* When copied into the atlas texture, image data is padded by one pixel on each side. Icon
-* images are padded with fully transparent pixels, while pattern images are padded with a
-* copy of the image data wrapped from the opposite side. In both cases, this ensures the
-* correct behavior of GL_LINEAR texture sampling mode.
-*/
-const padding = 1;
-/**
-* ImageManager does three things:
-*
-* 1. Tracks requests for icon images from tile workers and sends responses when the requests are fulfilled.
-* 2. Builds a texture atlas for pattern images.
-* 3. Rerenders renderable images once per frame
-*
-* These are disparate responsibilities and should eventually be handled by different classes. When we implement
-* data-driven support for `*-pattern`, we'll likely use per-bucket pattern atlases, and that would be a good time
-* to refactor this.
+* Owns every image of the style - the ones the sprites bring in as well as the ones added at
+* runtime - and tracks requests for them from the tile workers, sending responses when the
+* requests are fulfilled.
 */
 var ImageManager = class extends Evented {
 	constructor() {
 		super();
 		this.images = {};
-		this.updatedImages = {};
-		this.callbackDispatchedThisFrame = {};
+		this.updateVersion = 0;
 		this.loaded = false;
 		this.requestors = [];
 		this.missingImageResolver = null;
-		this.patterns = {};
-		this.atlasImage = new RGBAImage({
-			width: 1,
-			height: 1
-		});
-		this.dirty = true;
+		this._spriteImagesIds = {};
+		this._imagesIds = null;
+		this._renderCallbacksDispatchedThisFrame = {};
 	}
 	destroy() {
-		if (this.atlasTexture) {
-			this.atlasTexture.destroy();
-			this.atlasTexture = null;
-		}
 		for (const id of Object.keys(this.images)) this.removeImage(id);
-		this.patterns = {};
-		this.atlasImage = new RGBAImage({
-			width: 1,
-			height: 1
-		});
-		this.dirty = true;
+		this._spriteImagesIds = {};
 	}
 	isLoaded() {
 		return this.loaded;
@@ -824,7 +805,11 @@ var ImageManager = class extends Evented {
 	}
 	addImage(id, image) {
 		if (this.images[id]) throw new Error(`Image id ${id} already exist, use updateImage instead`);
-		if (this._validate(id, image)) this.images[id] = image;
+		if (this._validate(id, image)) {
+			this.images[id] = image;
+			this._imagesIds = null;
+			if (image.isWebGLImage) this.updateImage(id, image, false);
+		}
 	}
 	_validate(id, image) {
 		let valid = true;
@@ -865,21 +850,97 @@ var ImageManager = class extends Evented {
 		if (content[2] < content[0]) return false;
 		return content[3] >= content[1];
 	}
+	/**
+	* Replaces an image that is already known under this id, bumping its version so that the
+	* atlases holding it notice.
+	*
+	* The old record is read directly rather than through {@link ImageManager.getImage}, which
+	* would force a synchronous decode of the sprite data of the very image being replaced. Its
+	* size therefore comes from whichever of the two the pixels are still in, since an image that
+	* came from a sprite and was never rendered has not been decoded yet, and its version is
+	* defaulted, since images start out without one.
+	*
+	* @param validate - whether to reject an image of a different size than the one it replaces
+	*/
 	updateImage(id, image, validate = true) {
-		const oldImage = this.getImage(id);
-		if (validate && (oldImage.data.width !== image.data.width || oldImage.data.height !== image.data.height)) throw new Error(`size mismatch between old image (${oldImage.data.width}x${oldImage.data.height}) and new image (${image.data.width}x${image.data.height}).`);
-		image.version = oldImage.version + 1;
+		const oldImage = this.images[id];
+		if (validate) {
+			const oldData = oldImage.data || oldImage.spriteData;
+			if (oldData.width !== image.data.width || oldData.height !== image.data.height) throw new Error(`size mismatch between old image (${oldData.width}x${oldData.height}) and new image (${image.data.width}x${image.data.height}).`);
+		}
+		image.version = (oldImage.version ?? 0) + 1;
 		this.images[id] = image;
-		this.updatedImages[id] = true;
+		this.updateVersion++;
 	}
 	removeImage(id) {
 		const image = this.images[id];
+		if (!image) return;
 		delete this.images[id];
-		delete this.patterns[id];
+		this._imagesIds = null;
 		if (image.userImage?.onRemove) image.userImage.onRemove();
 	}
+	/**
+	* @returns the ids of every image currently held, sprite images and runtime ones alike. The
+	* returned array is shared between callers and must not be modified.
+	*/
 	listImages() {
-		return Object.keys(this.images);
+		this._imagesIds ??= Object.keys(this.images);
+		return this._imagesIds;
+	}
+	/**
+	* Images of the `default` sprite keep their plain id, the ones of any other sprite are
+	* namespaced by their sprite's id.
+	*/
+	_getSpriteImageId(spriteId, imageId) {
+		return spriteId === "default" ? imageId : `${spriteId}:${imageId}`;
+	}
+	/**
+	* Takes over the images of a single sprite: adds the new ones, updates the ones that are
+	* already known, and removes the ones that a previous load of this same sprite had brought in
+	* but that are not part of it anymore.
+	*
+	* @param spriteId - the id of the sprite the images belong to
+	* @param images - the sprite's images, keyed by their id within the sprite
+	* @returns the ids of the images that this sprite now provides, and the ids of the ones that
+	* were removed because they are no longer part of it
+	*/
+	setSpriteImages(spriteId, images) {
+		const previousIds = this._spriteImagesIds[spriteId] ?? [];
+		const loaded = [];
+		for (const id in images) {
+			const imageId = this._getSpriteImageId(spriteId, id);
+			loaded.push(imageId);
+			if (imageId in this.images) this.updateImage(imageId, images[id], false);
+			else this.addImage(imageId, images[id]);
+		}
+		const loadedIds = new Set(loaded);
+		const removed = previousIds.filter((imageId) => !loadedIds.has(imageId));
+		for (const imageId of removed) this.removeImage(imageId);
+		this._spriteImagesIds[spriteId] = loaded;
+		return {
+			loaded,
+			removed
+		};
+	}
+	/**
+	* Removes all the images a single sprite has brought in.
+	* @returns the ids of the removed images
+	*/
+	removeSpriteImages(spriteId) {
+		const removed = this._spriteImagesIds[spriteId] ?? [];
+		for (const imageId of removed) this.removeImage(imageId);
+		delete this._spriteImagesIds[spriteId];
+		return removed;
+	}
+	/**
+	* Removes the images of every sprite, leaving the images added at runtime alone.
+	* @returns the ids of the removed images
+	*/
+	removeAllSpriteImages() {
+		const removed = Object.values(this._spriteImagesIds).flat();
+		for (const imageId of removed) this.removeImage(imageId);
+		this._spriteImagesIds = {};
+		return removed;
 	}
 	setMissingImageResolver(resolver) {
 		this.missingImageResolver = resolver;
@@ -900,7 +961,7 @@ var ImageManager = class extends Evented {
 	async _getImagesForIds(ids) {
 		const unresolvedIds = new Set(ids.filter((id) => !this.getImage(id)));
 		const resolver = this.missingImageResolver;
-		if (resolver) await Promise.all(Array.from(unresolvedIds, (id) => resolver(id)));
+		if (resolver) await Promise.allSettled(Array.from(unresolvedIds, (id) => resolver(id)));
 		const response = {};
 		for (const id of ids) {
 			const image = this.getImage(id);
@@ -916,7 +977,8 @@ var ImageManager = class extends Evented {
 					content: image.content,
 					textFitWidth: image.textFitWidth,
 					textFitHeight: image.textFitHeight,
-					hasRenderCallback: Boolean(image.userImage?.render)
+					hasRenderCallback: Boolean(image.userImage?.render),
+					isWebGLImage: image.isWebGLImage
 				};
 			}
 		}
@@ -926,57 +988,126 @@ var ImageManager = class extends Evented {
 		}
 		return response;
 	}
+	beginFrame() {
+		this._renderCallbacksDispatchedThisFrame = {};
+	}
+	/**
+	* Re-renders the images among `ids` that were added with a `render` callback (see
+	* `StyleImageInterface`), at most once per frame each.
+	*/
+	dispatchRenderCallbacks(ids) {
+		for (const id of ids) {
+			if (this._renderCallbacksDispatchedThisFrame[id]) continue;
+			this._renderCallbacksDispatchedThisFrame[id] = true;
+			const image = this.getImage(id);
+			if (!image) warnOnce(`Image with ID: "${id}" was not found`);
+			if (renderStyleImage(image)) this.updateImage(id, image);
+		}
+	}
+	cloneImages() {
+		const clonedImages = {};
+		for (const id in this.images) {
+			const image = this.images[id];
+			clonedImages[id] = {
+				...image,
+				data: image.data ? image.data.clone() : null
+			};
+		}
+		return clonedImages;
+	}
+};
+//#endregion
+//#region src/render/pattern_atlas.ts
+/**
+* When copied into the atlas texture, pattern images are padded by one pixel on each side with a
+* copy of the image data wrapped from the opposite side. This ensures the correct behavior of
+* GL_LINEAR texture sampling mode.
+*/
+const PADDING = 1;
+/**
+* A texture atlas of the pattern images that are drawn without a tile's own {@link ImageAtlas},
+* i.e. `background-pattern`. Entries are packed on demand and re-packed whenever one of them is
+* added or changes, which is rare enough for the repacking cost not to matter.
+*/
+var PatternAtlas = class {
+	constructor(imageManager) {
+		this._imageManager = imageManager;
+		this._entries = {};
+		this._image = new RGBAImage({
+			width: 1,
+			height: 1
+		});
+		this._dirty = true;
+	}
+	destroy() {
+		if (this._texture) {
+			this._texture.destroy();
+			this._texture = null;
+		}
+		this._entries = {};
+		this._image = new RGBAImage({
+			width: 1,
+			height: 1
+		});
+		this._dirty = true;
+	}
 	getPixelSize() {
-		const { width, height } = this.atlasImage;
+		const { width, height } = this._image;
 		return {
 			width,
 			height
 		};
 	}
+	/**
+	* @returns the position of the pattern within the atlas, or `null` if there is no such image
+	*/
 	getPattern(id) {
-		const pattern = this.patterns[id];
-		const image = this.getImage(id);
+		const image = this._imageManager.getImage(id);
 		if (!image) return null;
-		if (pattern && pattern.position.version === image.version) return pattern.position;
-		if (!pattern) {
+		const entry = this._entries[id];
+		if (entry?.image !== image) {
 			const bin = {
-				w: image.data.width + padding * 2,
-				h: image.data.height + padding * 2,
+				w: image.data.width + 2,
+				h: image.data.height + 2,
 				x: 0,
 				y: 0
 			};
-			const position = new ImagePosition(bin, image);
-			this.patterns[id] = {
+			this._entries[id] = {
 				bin,
-				position
+				position: new ImagePosition(bin, image),
+				image
 			};
-		} else pattern.position.version = image.version;
-		this._updatePatternAtlas();
-		return this.patterns[id].position;
+		} else if (entry.position.version !== image.version) entry.position.version = image.version;
+		else return entry.position;
+		this._update();
+		return this._entries[id].position;
 	}
 	bind(context) {
 		const gl = context.gl;
-		if (!this.atlasTexture) this.atlasTexture = new Texture(context, this.atlasImage, gl.RGBA);
-		else if (this.dirty) {
-			this.atlasTexture.update(this.atlasImage);
-			this.dirty = false;
+		if (!this._texture) {
+			this._texture = new Texture(context, this._image, gl.RGBA);
+			this._dirty = false;
+		} else if (this._dirty) {
+			this._texture.update(this._image);
+			this._dirty = false;
 		}
-		this.atlasTexture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
+		this._texture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
 	}
-	_updatePatternAtlas() {
+	_update() {
+		for (const id in this._entries) if (!this._imageManager.getImage(id)) delete this._entries[id];
 		const bins = [];
-		for (const id in this.patterns) bins.push(this.patterns[id].bin);
+		for (const id in this._entries) bins.push(this._entries[id].bin);
 		const { w, h } = potpack(bins);
-		const dst = this.atlasImage;
+		const dst = this._image;
 		dst.resize({
 			width: w || 1,
 			height: h || 1
 		});
-		for (const id in this.patterns) {
-			const { bin } = this.patterns[id];
-			const x = bin.x + padding;
-			const y = bin.y + padding;
-			const src = this.getImage(id).data;
+		for (const id in this._entries) {
+			const { bin } = this._entries[id];
+			const x = bin.x + PADDING;
+			const y = bin.y + PADDING;
+			const src = this._entries[id].image.data;
 			const w = src.width;
 			const h = src.height;
 			RGBAImage.copy(src, dst, {
@@ -1030,30 +1161,7 @@ var ImageManager = class extends Evented {
 				height: h
 			});
 		}
-		this.dirty = true;
-	}
-	beginFrame() {
-		this.callbackDispatchedThisFrame = {};
-	}
-	dispatchRenderCallbacks(ids) {
-		for (const id of ids) {
-			if (this.callbackDispatchedThisFrame[id]) continue;
-			this.callbackDispatchedThisFrame[id] = true;
-			const image = this.getImage(id);
-			if (!image) warnOnce(`Image with ID: "${id}" was not found`);
-			if (renderStyleImage(image)) this.updateImage(id, image);
-		}
-	}
-	cloneImages() {
-		const clonedImages = {};
-		for (const id in this.images) {
-			const image = this.images[id];
-			clonedImages[id] = {
-				...image,
-				data: image.data ? image.data.clone() : null
-			};
-		}
-		return clonedImages;
+		this._dirty = true;
 	}
 };
 //#endregion
@@ -1061,7 +1169,8 @@ var ImageManager = class extends Evented {
 async function loadGlyphRange(fontstack, range, urlTemplate, requestManager) {
 	const begin = range * 256;
 	const end = begin + 255;
-	const response = await getArrayBuffer(await requestManager.transformRequest(urlTemplate.replace("{fontstack}", fontstack).replace("{range}", `${begin}-${end}`), "Glyphs"), new AbortController());
+	const request = await requestManager.transformRequest(urlTemplate.replace("{fontstack}", fontstack).replace("{range}", `${begin}-${end}`), "Glyphs");
+	const response = await getArrayBuffer(request, new AbortController());
 	if (!response?.data) throw new Error(`Could not load glyph range. range: ${range}, ${begin}-${end}`);
 	const glyphs = {};
 	for (const glyph of parseGlyphPbf(response.data)) glyphs[glyph.id] = glyph;
@@ -1280,7 +1389,9 @@ var GlyphManager = class GlyphManager {
 	}
 	_warnOnMissingGlyphRange(glyph, range, id, err) {
 		const begin = range * 256;
-		warnOnce(`Unable to load glyph range ${range}, ${begin}-${begin + 255}. Rendering codepoint U+${id.toString(16).padStart(4, "0").toUpperCase()} locally instead. ${err}`);
+		const end = begin + 255;
+		const codePoint = id.toString(16).padStart(4, "0").toUpperCase();
+		warnOnce(`Unable to load glyph range ${range}, ${begin}-${end}. Rendering codepoint U+${codePoint} locally instead. ${err}`);
 	}
 	/**
 	* Returns whether the given codepoint should be rendered locally.
@@ -1315,8 +1426,8 @@ var GlyphManager = class GlyphManager {
 		return {
 			id,
 			bitmap: new AlphaImage({
-				width: char.width || 30 * textureScale,
-				height: char.height || 30 * textureScale
+				width: char.width || 60,
+				height: char.height || 60
 			}, char.data),
 			metrics: {
 				width: isControl ? 0 : char.glyphWidth / textureScale || 24,
@@ -1332,7 +1443,7 @@ var GlyphManager = class GlyphManager {
 		const fontFamilies = stack ? stack.split(",") : [];
 		fontFamilies.push(defaultGenericFontFamily);
 		const fontFamily = fontFamilies.map((fontName) => /[-\w]+/.test(fontName) ? fontName : `'${CSS.escape(fontName)}'`).join(",");
-		const fontSize = 24 * textureScale;
+		const fontSize = 48;
 		const fontWeight = this._fontWeight(fontFamilies[0]);
 		const fontStyle = this._fontStyle(fontFamilies[0]);
 		if (typeof document !== "undefined" && document.fonts?.load) try {
@@ -1342,8 +1453,8 @@ var GlyphManager = class GlyphManager {
 		}
 		return new GlyphManager.TinySDF({
 			fontSize,
-			buffer: 3 * textureScale,
-			radius: 8 * textureScale,
+			buffer: 6,
+			radius: 16,
 			cutoff: .25,
 			fontFamily,
 			fontWeight,
@@ -1410,9 +1521,9 @@ const getProperties$2 = () => properties$2 = properties$2 || new Properties({
 //#endregion
 //#region src/style/light.ts
 var Light = class extends Evented {
-	constructor(lightOptions) {
+	constructor(lightOptions, globalState) {
 		super();
-		this._transitionable = new Transitionable(getProperties$2(), "light", void 0);
+		this._transitionable = new Transitionable(getProperties$2(), "light", globalState);
 		this.setLight(lightOptions);
 		this._transitioning = this._transitionable.untransitioned();
 	}
@@ -1461,9 +1572,9 @@ const getProperties$1 = () => properties$1 = properties$1 || new Properties({
 //#endregion
 //#region src/style/sky.ts
 var Sky = class extends Evented {
-	constructor(sky) {
+	constructor(sky, globalState) {
 		super();
-		this._transitionable = new Transitionable(getProperties$1(), "sky", void 0);
+		this._transitionable = new Transitionable(getProperties$1(), "sky", globalState);
 		this.setSky(sky);
 		this._transitioning = this._transitionable.untransitioned();
 		this.recalculate(new EvaluationParameters(0));
@@ -1810,10 +1921,12 @@ function prewarm() {
 */
 function clearPrewarmedResources() {
 	const pool = globalWorkerPool;
-	if (pool) if (pool.isPreloaded() && pool.numActive() === 1) {
-		pool.release(PRELOAD_POOL_ID);
-		globalWorkerPool = null;
-	} else console.warn("Could not clear WebWorkers since there are active Map instances that still reference it. The pre-warmed WebWorker pool can only be cleared when all map instances have been removed with map.remove()");
+	if (pool) {
+		if (pool.isPreloaded() && pool.numActive() === 1) {
+			pool.release(PRELOAD_POOL_ID);
+			globalWorkerPool = null;
+		} else console.warn("Could not clear WebWorkers since there are active Map instances that still reference it. The pre-warmed WebWorker pool can only be cleared when all map instances have been removed with map.remove()");
+	}
 }
 //#endregion
 //#region src/util/dispatcher.ts
@@ -2086,8 +2199,10 @@ var LngLatBounds = class LngLatBounds {
 	*/
 	constructor(sw, ne) {
 		if (!sw) {} else if (ne) this.setSouthWest(sw).setNorthEast(ne);
-		else if (Array.isArray(sw)) if (sw.length === 4) this.setSouthWest([sw[0], sw[1]]).setNorthEast([sw[2], sw[3]]);
-		else this.setSouthWest(sw[0]).setNorthEast(sw[1]);
+		else if (Array.isArray(sw)) {
+			if (sw.length === 4) this.setSouthWest([sw[0], sw[1]]).setNorthEast([sw[2], sw[3]]);
+			else this.setSouthWest(sw[0]).setNorthEast(sw[1]);
+		}
 	}
 	/**
 	* Set the northeast corner of the bounding box
@@ -2123,14 +2238,15 @@ var LngLatBounds = class LngLatBounds {
 			ne2 = obj._ne;
 			if (!sw2 || !ne2) return this;
 		} else {
-			if (Array.isArray(obj)) if (obj.length === 4 || obj.every(Array.isArray)) {
-				const lngLatBoundsObj = obj;
-				return this.extend(LngLatBounds.convert(lngLatBoundsObj));
-			} else {
-				const lngLatObj = obj;
-				return this.extend(LngLat.convert(lngLatObj));
-			}
-			else if (obj && ("lng" in obj || "lon" in obj) && "lat" in obj) return this.extend(LngLat.convert(obj));
+			if (Array.isArray(obj)) {
+				if (obj.length === 4 || obj.every(Array.isArray)) {
+					const lngLatBoundsObj = obj;
+					return this.extend(LngLatBounds.convert(lngLatBoundsObj));
+				} else {
+					const lngLatObj = obj;
+					return this.extend(LngLat.convert(lngLatObj));
+				}
+			} else if (obj && ("lng" in obj || "lon" in obj) && "lat" in obj) return this.extend(LngLat.convert(obj));
 			return this;
 		}
 		if (!sw && !ne) {
@@ -2779,7 +2895,7 @@ var RasterTileSource = class extends Evented {
 		const imageBitmapOptions = premultiply ? void 0 : { premultiplyAlpha: "none" };
 		tile.abortController = new AbortController();
 		try {
-			const response = await ImageRequest.getImage(await this.map._requestManager.transformRequest(url, "Tile"), tile.abortController, this.map._refreshExpiredTiles, imageBitmapOptions);
+			const response = await ImageRequest.transformAndGetImage(this.map._requestManager, url, "Tile", tile.abortController, this.map._refreshExpiredTiles, imageBitmapOptions);
 			delete tile.abortController;
 			if (tile.aborted) {
 				tile.state = "unloaded";
@@ -2861,11 +2977,10 @@ var RasterDEMTileSource = class extends RasterTileSource {
 	}
 	async loadTile(tile) {
 		const url = tile.tileID.canonical.url(this.tiles, this.map.getPixelRatio(), this.scheme);
-		const request = await this.map._requestManager.transformRequest(url, "Tile");
 		tile.neighboringTiles = this._getNeighboringTiles(tile.tileID);
 		tile.abortController = new AbortController();
 		try {
-			const response = await ImageRequest.getImage(request, tile.abortController, this.map._refreshExpiredTiles);
+			const response = await ImageRequest.transformAndGetImage(this.map._requestManager, url, "Tile", tile.abortController, this.map._refreshExpiredTiles, { colorSpaceConversion: "none" });
 			delete tile.abortController;
 			if (tile.aborted) {
 				tile.state = "unloaded";
@@ -3184,9 +3299,7 @@ function getGeoJSONBounds(data) {
 		case "Feature":
 			coordinates = getCoordinatesFromGeometry(data.geometry);
 			break;
-		default:
-			coordinates = getCoordinatesFromGeometry(data);
-			break;
+		default: coordinates = getCoordinatesFromGeometry(data);
 	}
 	if (coordinates.length === 0) return bounds;
 	for (const coordinate of coordinates) {
@@ -3314,6 +3427,9 @@ var GeoJSONSource = class extends Evented {
 	_pixelsToTileUnits(pixelValue) {
 		return pixelValue * (EXTENT / this.tileSize);
 	}
+	_tileUnitsToPixels(tileUnitValue) {
+		return tileUnitValue / (EXTENT / this.tileSize);
+	}
 	_getClusterMaxZoom(clusterMaxZoom) {
 		const effectiveClusterMaxZoom = clusterMaxZoom ? Math.round(clusterMaxZoom) : this.maxzoom - 1;
 		if (!(Number.isInteger(clusterMaxZoom) || clusterMaxZoom === void 0)) warnOnce(`Integer expected for option 'clusterMaxZoom': provided value "${clusterMaxZoom}" rounded to "${effectiveClusterMaxZoom}"`);
@@ -3390,6 +3506,24 @@ var GeoJSONSource = class extends Evented {
 		if (options.clusterMaxZoom !== void 0) this.workerOptions.geojsonVtOptions.clusterOptions.maxZoom = this._getClusterMaxZoom(options.clusterMaxZoom);
 		this._pendingWorkerUpdate.updateCluster = true;
 		return this._updateWorkerData();
+	}
+	/**
+	* Gets the cluster options currently configured on the source.
+	* The returned values mirror the options accepted by `setClusterOptions`.
+	*
+	* @returns the source's current cluster options
+	* @example
+	* ```ts
+	* const {cluster, clusterMaxZoom, clusterRadius} = map.getSource('some id').getClusterOptions();
+	* ```
+	*/
+	getClusterOptions() {
+		const { cluster, clusterOptions } = this.workerOptions.geojsonVtOptions;
+		return {
+			cluster,
+			clusterMaxZoom: clusterOptions.maxZoom,
+			clusterRadius: this._tileUnitsToPixels(clusterOptions.radius)
+		};
 	}
 	/**
 	* For clustered sources, fetches the zoom at which the given cluster expands.
@@ -3673,6 +3807,76 @@ var GeoJSONSource = class extends Evented {
 	}
 };
 //#endregion
+//#region src/webgl/program/raster_program.ts
+/**
+* Affine texture coordinates represented as a homogeneous transform.
+*/
+const identityPerspectiveTransform = [
+	0,
+	0,
+	1
+];
+const rasterUniforms = (context, locations) => ({
+	"u_tl_parent": new Uniform2f(context, locations.u_tl_parent),
+	"u_scale_parent": new Uniform1f(context, locations.u_scale_parent),
+	"u_buffer_scale": new Uniform1f(context, locations.u_buffer_scale),
+	"u_perspective_transform": new Uniform3f(context, locations.u_perspective_transform),
+	"u_fade_t": new Uniform1f(context, locations.u_fade_t),
+	"u_opacity": new Uniform1f(context, locations.u_opacity),
+	"u_image0": new Uniform1i(context, locations.u_image0),
+	"u_image1": new Uniform1i(context, locations.u_image1),
+	"u_brightness_low": new Uniform1f(context, locations.u_brightness_low),
+	"u_brightness_high": new Uniform1f(context, locations.u_brightness_high),
+	"u_saturation_factor": new Uniform1f(context, locations.u_saturation_factor),
+	"u_contrast_factor": new Uniform1f(context, locations.u_contrast_factor),
+	"u_spin_weights": new Uniform3f(context, locations.u_spin_weights),
+	"u_coords_top": new Uniform4f(context, locations.u_coords_top),
+	"u_coords_bottom": new Uniform4f(context, locations.u_coords_bottom)
+});
+const rasterUniformValues = (parentTL, parentScaleBy, fade, layer, cornerCoords, perspectiveTransform) => ({
+	"u_tl_parent": parentTL,
+	"u_scale_parent": parentScaleBy,
+	"u_buffer_scale": 1,
+	"u_perspective_transform": perspectiveTransform,
+	"u_fade_t": fade.mix,
+	"u_opacity": fade.opacity * layer.paint.get("raster-opacity"),
+	"u_image0": 0,
+	"u_image1": 1,
+	"u_brightness_low": layer.paint.get("raster-brightness-min"),
+	"u_brightness_high": layer.paint.get("raster-brightness-max"),
+	"u_saturation_factor": saturationFactor(layer.paint.get("raster-saturation")),
+	"u_contrast_factor": contrastFactor(layer.paint.get("raster-contrast")),
+	"u_spin_weights": spinWeights(layer.paint.get("raster-hue-rotate")),
+	"u_coords_top": [
+		cornerCoords[0].x,
+		cornerCoords[0].y,
+		cornerCoords[1].x,
+		cornerCoords[1].y
+	],
+	"u_coords_bottom": [
+		cornerCoords[3].x,
+		cornerCoords[3].y,
+		cornerCoords[2].x,
+		cornerCoords[2].y
+	]
+});
+function spinWeights(angle) {
+	angle *= Math.PI / 180;
+	const s = Math.sin(angle);
+	const c = Math.cos(angle);
+	return [
+		(2 * c + 1) / 3,
+		(-Math.sqrt(3) * s - c + 1) / 3,
+		(Math.sqrt(3) * s - c + 1) / 3
+	];
+}
+function contrastFactor(contrast) {
+	return contrast > 0 ? 1 / (1 - contrast) : 1 + contrast;
+}
+function saturationFactor(saturation) {
+	return saturation > 0 ? 1 - 1 / (1.001 - saturation) : -saturation;
+}
+//#endregion
 //#region src/source/image_source.ts
 /**
 * A data source containing an image.
@@ -3714,6 +3918,10 @@ var GeoJSONSource = class extends Evented {
 *    ]
 * })
 *
+* // update with an already-decoded image (no network request)
+* const bitmap = await createImageBitmap(myCanvas);
+* mySource.updateImage({image: bitmap});
+*
 * map.removeSource('some id');  // remove
 * ```
 */
@@ -3721,7 +3929,9 @@ var ImageSource = class extends Evented {
 	/** @internal */
 	constructor(id, options, dispatcher, eventedParent) {
 		super();
+		this.perspectiveTransform = identityPerspectiveTransform;
 		this.flippedWindingOrder = false;
+		this._imageDirty = false;
 		this.id = id;
 		this.dispatcher = dispatcher;
 		this.coordinates = options.coordinates;
@@ -3738,40 +3948,62 @@ var ImageSource = class extends Evented {
 		this._loaded = false;
 		this.fire(new MapSourceDataEvent("dataloading"));
 		this.url = this.options.url;
-		this._request = new AbortController();
+		this._abortController = new AbortController();
 		try {
-			const image = await ImageRequest.getImage(await this.map._requestManager.transformRequest(this.url, "Image"), this._request);
-			this._request = null;
+			const image = await ImageRequest.transformAndGetImage(this.map._requestManager, this.url, "Image", this._abortController);
+			this._abortController = null;
 			this._loaded = true;
 			if (image?.data) {
-				this.image = image.data;
+				this._setImage(image.data);
 				if (newCoordinates) this.coordinates = newCoordinates;
 				this._finishLoading();
 			}
 		} catch (err) {
-			this._request = null;
+			if (isAbortError(err)) return;
+			this._abortController = null;
 			this._loaded = true;
-			if (!isAbortError(err)) this.fire(new ErrorEvent(ensureError(err)));
+			this.fire(new ErrorEvent(ensureError(err)));
 		}
 	}
 	loaded() {
 		return this._loaded;
 	}
 	/**
-	* Updates the image URL and, optionally, the coordinates. To avoid having the image flash after changing,
+	* Updates the image and, optionally, the coordinates. To avoid having the image flash after changing,
 	* set the `raster-fade-duration` paint property on the raster layer to 0.
+	*
+	* Provide exactly one of `url` (to fetch a new image over the network) or `image` (an
+	* already-decoded `HTMLImageElement`, `HTMLCanvasElement`, `ImageBitmap` or `ImageData` to
+	* display directly, without a network request).
 	*
 	* @param options - The options object.
 	*/
 	updateImage(options) {
-		if (!options.url) return this;
-		if (this._request) {
-			this._request.abort();
-			this._request = null;
+		if (this._abortController) {
+			this._abortController.abort();
+			this._abortController = null;
 		}
+		if ("image" in options) {
+			this._loaded = true;
+			this._setImage(options.image);
+			if (options.coordinates) this.coordinates = options.coordinates;
+			this._finishLoading();
+			return this;
+		}
+		if (!options.url) return this;
 		this.options.url = options.url;
-		this.load(options.coordinates).finally(() => this.texture = null);
+		this.load(options.coordinates);
 		return this;
+	}
+	/** Loaded tiles hold `this.texture`, so the wrapper has to outlive the images in it. */
+	_setImage(image) {
+		this.image = image;
+		this._imageDirty = true;
+	}
+	/** Teardown only: dropping the reference alone leaves the allocation to the GC. */
+	_disposeTexture() {
+		this.texture?.destroy();
+		this.texture = null;
 	}
 	_finishLoading() {
 		if (this.map) {
@@ -3784,10 +4016,13 @@ var ImageSource = class extends Evented {
 		this.load();
 	}
 	onRemove() {
-		if (this._request) {
-			this._request.abort();
-			this._request = null;
+		if (this._abortController) {
+			this._abortController.abort();
+			this._abortController = null;
 		}
+		this._disposeTexture();
+		this.image = null;
+		this.tiles = {};
 	}
 	/**
 	* Sets the image's coordinates and re-renders the map.
@@ -3804,6 +4039,7 @@ var ImageSource = class extends Evented {
 		this.terrainTileRanges = this._getOverlappingTileRanges(cornerCoords);
 		this.minzoom = this.maxzoom = this.tileID.z;
 		this.tileCoords = cornerCoords.map((coord) => this.tileID.getTilePoint(coord)._round());
+		this.perspectiveTransform = calculateRasterPerspectiveTransform(this.tileCoords);
 		this.flippedWindingOrder = hasWrongWindingOrder(this.tileCoords);
 		this.fire(new MapSourceDataEvent("data", { sourceDataType: "content" }));
 		return this;
@@ -3815,7 +4051,11 @@ var ImageSource = class extends Evented {
 		if (!this.texture) {
 			this.texture = new Texture(context, this.image, gl.RGBA);
 			this.texture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
+		} else if (this._imageDirty) {
+			this.texture.update(this.image);
+			this.texture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
 		}
+		this._imageDirty = false;
 		let newTilesLoaded = false;
 		for (const w in this.tiles) {
 			const tile = this.tiles[w];
@@ -3863,9 +4103,11 @@ var ImageSource = class extends Evented {
 			const maxTileY = Math.floor(maxY * tilesAtZoom);
 			const minTileXWrapped = (minTileX % tilesAtZoom + tilesAtZoom) % tilesAtZoom;
 			const maxTileXWrapped = maxTileX % tilesAtZoom;
+			const minWrap = Math.floor(minTileX / tilesAtZoom);
+			const maxWrap = Math.floor(maxTileX / tilesAtZoom);
 			ranges[z] = {
-				minWrap: Math.floor(minTileX / tilesAtZoom),
-				maxWrap: Math.floor(maxTileX / tilesAtZoom),
+				minWrap,
+				maxWrap,
 				minTileXWrapped,
 				maxTileXWrapped,
 				minTileY,
@@ -3894,6 +4136,83 @@ function hasWrongWindingOrder(coords) {
 	const e0y = coords[1].y - coords[0].y;
 	const e1x = coords[2].x - coords[0].x;
 	return e0x * (coords[2].y - coords[0].y) - e0y * e1x < 0;
+}
+const perspectiveEpsilon = Number.EPSILON;
+const perspectiveErrorFactor = 8;
+/**
+* Calculates the inverse-homography denominator used to sample non-affine
+* image-source texture coordinates. Image source tile coordinates are rounded
+* to integers before this runs, so singularity checks use exact zero or
+* Number.EPSILON scaled to the corner denominators.
+*
+* Based on Paul S. Heckbert, "Fundamentals of Texture Mapping and Image
+* Warping", UCB/CSD-89-516, 1989, section 2.2.3 and appendix A.2.
+*
+* @see https://www2.eecs.berkeley.edu/Pubs/TechRpts/1989/5504.html
+* @see https://www.cs.cmu.edu/~ph/texfund/texfund.pdf
+*/
+function calculateRasterPerspectiveTransform(cornerCoords) {
+	if (isParallelogram(cornerCoords)) return identityPerspectiveTransform;
+	const [topLeft, topRight, bottomRight, bottomLeft] = cornerCoords;
+	const sx = topLeft.x - topRight.x + bottomRight.x - bottomLeft.x;
+	const sy = topLeft.y - topRight.y + bottomRight.y - bottomLeft.y;
+	const dx1 = topRight.x - bottomRight.x;
+	const dy1 = topRight.y - bottomRight.y;
+	const dx2 = bottomLeft.x - bottomRight.x;
+	const dy2 = bottomLeft.y - bottomRight.y;
+	const determinant$1 = determinant([
+		dx1,
+		dy1,
+		dx2,
+		dy2
+	]);
+	if (Math.abs(determinant$1) < perspectiveEpsilon) return identityPerspectiveTransform;
+	const perspectiveX = (sx * dy2 - dx2 * sy) / determinant$1;
+	const perspectiveY = (dx1 * sy - sx * dy1) / determinant$1;
+	const forwardDenominators = [
+		1,
+		1 + perspectiveX,
+		1 + perspectiveX + perspectiveY,
+		1 + perspectiveY
+	];
+	const forwardDenominatorScale = Math.max(...forwardDenominators.map((value) => Math.abs(value)));
+	const hasInvalidForwardDenominator = forwardDenominators.some((value) => !Number.isFinite(value) || value <= perspectiveErrorFactor * perspectiveEpsilon * forwardDenominatorScale);
+	if (!Number.isFinite(forwardDenominatorScale) || forwardDenominatorScale === 0 || hasInvalidForwardDenominator) return identityPerspectiveTransform;
+	const a = topRight.x - topLeft.x + perspectiveX * topRight.x;
+	const b = bottomLeft.x - topLeft.x + perspectiveY * bottomLeft.x;
+	const d = topRight.y - topLeft.y + perspectiveX * topRight.y;
+	const e = bottomLeft.y - topLeft.y + perspectiveY * bottomLeft.y;
+	const inverseDenominator = [
+		0,
+		0,
+		0
+	];
+	cross(inverseDenominator, [
+		a,
+		d,
+		perspectiveX
+	], [
+		b,
+		e,
+		perspectiveY
+	]);
+	const normalizationScale = Math.max(...inverseDenominator.map((value) => Math.abs(value)));
+	const cornerDenominators = cornerCoords.map(({ x, y }) => dot(inverseDenominator, [
+		x,
+		y,
+		1
+	]));
+	const cornerDenominatorErrors = cornerCoords.map(({ x, y }) => perspectiveErrorFactor * perspectiveEpsilon * (Math.abs(inverseDenominator[0] * x) + Math.abs(inverseDenominator[1] * y) + Math.abs(inverseDenominator[2])));
+	const denominatorScale = Math.max(...cornerDenominators.map((value) => Math.abs(value)));
+	const denominatorSign = Math.sign(cornerDenominators[0]);
+	const hasInvalidDenominator = cornerDenominators.some((value, index) => !Number.isFinite(value) || Math.abs(value) <= Math.max(perspectiveEpsilon * denominatorScale, cornerDenominatorErrors[index]) || Math.sign(value) !== denominatorSign);
+	if (!Number.isFinite(normalizationScale) || normalizationScale === 0 || !Number.isFinite(denominatorScale) || denominatorScale === 0 || hasInvalidDenominator) return identityPerspectiveTransform;
+	const transform = inverseDenominator.map((value) => value / normalizationScale);
+	return transform.every(Number.isFinite) ? transform : identityPerspectiveTransform;
+}
+function isParallelogram(cornerCoords) {
+	const [tl, tr, br, bl] = cornerCoords;
+	return Math.abs(tl.x + br.x - tr.x - bl.x) < perspectiveEpsilon && Math.abs(tl.y + br.y - tr.y - bl.y) < perspectiveEpsilon;
 }
 //#endregion
 //#region src/source/video_source.ts
@@ -4133,7 +4452,8 @@ var CanvasSource = class extends ImageSource {
 		}
 	}
 	onRemove() {
-		this.pause();
+		this._playing = false;
+		super.onRemove();
 	}
 	prepare() {
 		let resize = false;
@@ -4276,11 +4596,12 @@ var RTLMainThreadPlugin = class extends Evented {
 		if (this.url) throw new Error("setRTLTextPlugin cannot be called multiple times.");
 		this.url = browser.resolveURL(url);
 		if (!this.url) throw new Error(`requested url ${url} is invalid`);
-		if (this.status === "unavailable") if (deferred) {
-			this.status = "deferred";
-			this._syncState(this.status);
-		} else return this._requestImport();
-		else if (this.status === "requested") return this._requestImport();
+		if (this.status === "unavailable") {
+			if (deferred) {
+				this.status = "deferred";
+				this._syncState(this.status);
+			} else return this._requestImport();
+		} else if (this.status === "requested") return this._requestImport();
 	}
 	/** Send a message to worker which will import the RTL plugin script */
 	async _requestImport() {
@@ -4525,7 +4846,8 @@ var Tile = class {
 				const evaluationFeature = toEvaluationFeature(feature, true);
 				if (!filter.filter(new EvaluationParameters(this.tileID.overscaledZ), evaluationFeature, this.tileID.canonical)) continue;
 			} else if (!filter.filter(new EvaluationParameters(this.tileID.overscaledZ), feature)) continue;
-			const geojsonFeature = new GeoJSONFeature(feature, z, x, y, featureIndex.getId(feature, sourceLayer));
+			const id = featureIndex.getId(feature, sourceLayer);
+			const geojsonFeature = new GeoJSONFeature(feature, z, x, y, id);
 			geojsonFeature.tile = coord;
 			result.push(geojsonFeature);
 		}
@@ -4560,8 +4882,10 @@ var Tile = class {
 		}
 	}
 	getExpiryTimeout() {
-		if (this.expirationTime) if (this.expiredRequestCount) return 1e3 * (1 << Math.min(this.expiredRequestCount - 1, 31));
-		else return Math.min(this.expirationTime - (/* @__PURE__ */ new Date()).getTime(), Math.pow(2, 31) - 1);
+		if (this.expirationTime) {
+			if (this.expiredRequestCount) return 1e3 * (1 << Math.min(this.expiredRequestCount - 1, 31));
+			else return Math.min(this.expirationTime - (/* @__PURE__ */ new Date()).getTime(), Math.pow(2, 31) - 1);
+		}
 	}
 	setFeatureState(states, painter, revision) {
 		if (!this.latestFeatureIndex?.rawTileData || Object.keys(states).length === 0) return;
@@ -4658,11 +4982,12 @@ var SourceFeatureState = class {
 				this.deletedStates[sourceLayer][feature] ||= {};
 				this.deletedStates[sourceLayer][feature][key] = null;
 			}
-		} else if (featureId !== void 0) if (this.stateChanges[sourceLayer]?.[feature]) {
-			this.deletedStates[sourceLayer][feature] = {};
-			for (key in this.stateChanges[sourceLayer][feature]) this.deletedStates[sourceLayer][feature][key] = null;
-		} else this.deletedStates[sourceLayer][feature] = null;
-		else this.deletedStates[sourceLayer] = null;
+		} else if (featureId !== void 0) {
+			if (this.stateChanges[sourceLayer]?.[feature]) {
+				this.deletedStates[sourceLayer][feature] = {};
+				for (key in this.stateChanges[sourceLayer][feature]) this.deletedStates[sourceLayer][feature][key] = null;
+			} else this.deletedStates[sourceLayer][feature] = null;
+		} else this.deletedStates[sourceLayer] = null;
 	}
 	getState(sourceLayer, featureId) {
 		const feature = String(featureId);
@@ -4715,86 +5040,6 @@ var SourceFeatureState = class {
 		inViewTiles.setFeatureState(featuresChanged, painter, this.revision);
 	}
 };
-//#endregion
-//#region src/geo/projection/mercator_utils.ts
-const maxMercatorHorizonAngle = 89.25;
-/**
-* Returns mercator coordinates in range 0..1 for given coordinates inside a specified tile.
-* @param inTileX - X coordinate in tile units - range [0..EXTENT].
-* @param inTileY - Y coordinate in tile units - range [0..EXTENT].
-* @param canonicalTileID - Tile canonical ID - mercator X, Y and zoom.
-* @returns Mercator coordinates of the specified point in range [0..1].
-*/
-function tileCoordinatesToMercatorCoordinates(inTileX, inTileY, canonicalTileID) {
-	const scale = 1 / (1 << canonicalTileID.z);
-	return new MercatorCoordinate(inTileX / EXTENT * scale + canonicalTileID.x * scale, inTileY / EXTENT * scale + canonicalTileID.y * scale);
-}
-/**
-* Convert from LngLat to world coordinates (Mercator coordinates scaled by world size).
-* @param worldSize - Mercator world size computed from zoom level and tile size.
-* @param lnglat - The location to convert.
-* @returns Point
-*/
-function projectToWorldCoordinates(worldSize, lnglat) {
-	const lat = clamp(lnglat.lat, -MAX_VALID_LATITUDE, MAX_VALID_LATITUDE);
-	return new Point(mercatorXfromLng(lnglat.lng) * worldSize, mercatorYfromLat(lat) * worldSize);
-}
-/**
-* Convert from world coordinates (mercator coordinates scaled by world size) to LngLat.
-* @param worldSize - Mercator world size computed from zoom level and tile size.
-* @param point - World coordinate.
-* @returns LngLat
-*/
-function unprojectFromWorldCoordinates(worldSize, point) {
-	return new MercatorCoordinate(point.x / worldSize, point.y / worldSize).toLngLat();
-}
-/**
-* Calculate pixel height of the visible horizon in relation to map-center (e.g. height/2),
-* multiplied by a static factor to simulate the earth-radius.
-* The calculated value is the horizontal line from the camera-height to sea-level.
-* @returns Horizon above center in pixels.
-*/
-function getMercatorHorizon(transform) {
-	return transform.cameraToCenterDistance * Math.min(Math.tan(degreesToRadians(90 - transform.pitch)) * .85, Math.tan(degreesToRadians(maxMercatorHorizonAngle - transform.pitch)));
-}
-function calculateTileMatrix(unwrappedTileID, worldSize) {
-	const canonical = unwrappedTileID.canonical;
-	const scale$5 = worldSize / zoomScale(canonical.z);
-	const unwrappedX = canonical.x + Math.pow(2, canonical.z) * unwrappedTileID.wrap;
-	const worldMatrix = /* @__PURE__ */ new Float64Array(16);
-	identity(worldMatrix);
-	translate(worldMatrix, worldMatrix, [
-		unwrappedX * scale$5,
-		canonical.y * scale$5,
-		0
-	]);
-	scale(worldMatrix, worldMatrix, [
-		scale$5 / EXTENT,
-		scale$5 / EXTENT,
-		1
-	]);
-	return worldMatrix;
-}
-function cameraMercatorCoordinateFromCenterAndRotation(center, elevation, pitch, bearing, distance) {
-	const centerMercator = MercatorCoordinate.fromLngLat(center, elevation);
-	const dMercator = distance * mercatorZfromAltitude(1, center.lat);
-	const { x, y, z } = cameraDirectionFromPitchBearing(pitch, bearing);
-	const dxMercator = dMercator * -x;
-	const dyMercator = dMercator * -y;
-	const dzMercator = dMercator * -z;
-	return new MercatorCoordinate(centerMercator.x + dxMercator, centerMercator.y + dyMercator, centerMercator.z + dzMercator);
-}
-function cameraDirectionFromPitchBearing(pitch, bearing) {
-	const pitchRadians = degreesToRadians(pitch);
-	const bearingRadians = degreesToRadians(bearing);
-	const z = Math.cos(-pitchRadians);
-	const h = Math.sin(pitchRadians);
-	return {
-		x: h * Math.sin(bearingRadians),
-		y: -h * Math.cos(bearingRadians),
-		z
-	};
-}
 //#endregion
 //#region src/geo/projection/covering_tiles.ts
 /**
@@ -4861,6 +5106,35 @@ function coveringZoomLevel(transform, options) {
 	return Math.max(0, z);
 }
 /**
+* Without terrain, `getTileBoundingVolume` has no knowledge of extruded features
+* (eg. 3D buildings): every tile's bounding box is flat at the camera's `elevation`.
+* That's a fine approximation of what's visible for most views, but it breaks down
+* as the frustum's bottom edge approaches horizontal (which depends on both `pitch`
+* and `fov`, not pitch alone) - a tall building can still be poking up into view
+* long after its tile's ground point has dropped out of the frustum.
+*
+* This is an assumed upper bound on real-world feature height (in metres), used to
+* grow the elevation used for tile culling as that bottom edge nears horizontal, so
+* such tiles are not dropped too early. It has no effect away from that edge case.
+*/
+const ASSUMED_MAX_FEATURE_HEIGHT_METERS = 500;
+/**
+* Angle between the frustum's bottom edge and the mercator horizon below which
+* the culling elevation starts to grow.
+*/
+const TILE_CULLING_HORIZON_ONSET_DEGREES = 15;
+/**
+* Returns the elevation to use when computing tile bounding volumes for culling:
+* `transform.elevation`, growing by up to `ASSUMED_MAX_FEATURE_HEIGHT_METERS` as
+* the frustum's bottom edge approaches the horizon, where a ground-level bounding
+* box would cull tiles whose extruded features are still visible.
+*/
+function getElevationForTileCulling(transform) {
+	const bottomEdgeDegreesAboveHorizontal = maxMercatorHorizonAngle - transform.pitch - transform.fov / 2;
+	const proximityToHorizon = clamp((TILE_CULLING_HORIZON_ONSET_DEGREES - bottomEdgeDegreesAboveHorizontal) / TILE_CULLING_HORIZON_ONSET_DEGREES, 0, 1);
+	return transform.elevation + proximityToHorizon * ASSUMED_MAX_FEATURE_HEIGHT_METERS;
+}
+/**
 * Returns a list of tiles that optimally covers the screen. Adapted for globe projection.
 * Correctly handles LOD when moving over the antimeridian.
 * @param transform - The transform instance.
@@ -4878,6 +5152,7 @@ function coveringTiles(transform, options) {
 	const cameraCoord = transform.screenPointToMercatorCoordinate(transform.getCameraPoint());
 	const centerCoord = MercatorCoordinate.fromLngLat(transform.center, transform.elevation);
 	cameraCoord.z = centerCoord.z + Math.cos(transform.pitchInRadians) * transform.cameraToCenterDistance / transform.worldSize;
+	const elevationForTileCulling = getElevationForTileCulling(transform);
 	const detailsProvider = transform.getCoveringTilesDetailsProvider();
 	const allowVariableZoom = detailsProvider.allowVariableZoom(transform, options);
 	const desiredZ = coveringZoomLevel(transform, options);
@@ -4924,7 +5199,7 @@ function coveringTiles(transform, options) {
 			y,
 			z: it.zoom
 		};
-		const boundingVolume = detailsProvider.getTileBoundingVolume(tileID, it.wrap, transform.elevation, options);
+		const boundingVolume = detailsProvider.getTileBoundingVolume(tileID, it.wrap, elevationForTileCulling, options);
 		if (!fullyVisible) {
 			const intersectResult = isTileVisible(frustum, boundingVolume, plane);
 			if (intersectResult === 0) continue;
@@ -4965,12 +5240,6 @@ function coveringTiles(transform, options) {
 	}
 	return result.sort((a, b) => a.distanceSq - b.distanceSq).map((a) => a.tileID);
 }
-//#endregion
-//#region src/data/extent_bounds.ts
-/**
-* The bounding box covering the entire extent of a tile.
-*/
-const EXTENT_BOUNDS = Bounds.fromPoints([new Point(0, 0), new Point(EXTENT, EXTENT)]);
 //#endregion
 //#region src/tile/tile_manager_raster.ts
 function isRasterType(type) {
@@ -5289,10 +5558,10 @@ var TileManager = class TileManager extends Evented {
 		if (shouldReload) this.reload();
 		if (this.transform) this.update(this.transform, this.terrain);
 	}
-	async _loadTile(tile, id, state) {
+	async _loadTile(tile, id, state, hadData) {
 		try {
 			const result = await this._source.loadTile(tile);
-			this._tileLoaded(tile, id, state, result);
+			this._tileLoaded(tile, id, state, hadData, result);
 		} catch (err) {
 			tile.state = "errored";
 			if (err.status !== 404) this._source.fire(new ErrorEvent(ensureError(err), { tile }));
@@ -5339,7 +5608,7 @@ var TileManager = class TileManager extends Evented {
 	}
 	/**
 	* Reload tiles based on the current state of the source.
-	* @param sourceDataChanged - If `true`, reload all tiles using a state of 'expired', otherwise reload only non-errored tiles using state of 'reloading'.
+	* @param sourceDataChanged - If `true`, reload all tiles using a state of 'expired' (errored tiles use 'loading' since they have nothing to show yet), otherwise reload only non-errored tiles using state of 'reloading'.
 	* @param shouldReloadTileOptions - Set of options associated with a `MapSourceDataChangedEvent` that can be passed back to the associated `Source` determine whether a tile should be reloaded.
 	*/
 	reload(sourceDataChanged, shouldReloadTileOptions = void 0) {
@@ -5351,19 +5620,22 @@ var TileManager = class TileManager extends Evented {
 		for (const id of this._inViewTiles.getAllIds()) {
 			const tile = this._inViewTiles.getTileById(id);
 			if (shouldReloadTileOptions && !this._source.shouldReloadTile(tile, shouldReloadTileOptions)) continue;
-			else if (sourceDataChanged) this._reloadTile(id, "expired");
+			else if (sourceDataChanged) this._reloadTile(id, tile.state === "errored" ? "loading" : "expired");
 			else if (tile.state !== "errored") this._reloadTile(id, "reloading");
 		}
 	}
 	async _reloadTile(id, state) {
 		const tile = this._inViewTiles.getTileById(id);
 		if (!tile) return;
+		const hadData = tile.hasData();
 		if (tile.state !== "loading") tile.state = state;
-		await this._loadTile(tile, id, state);
+		await this._loadTile(tile, id, state, hadData);
 	}
-	_tileLoaded(tile, id, previousState, result) {
-		tile.timeAdded = now();
-		if (tile.selfFading) tile.fadeEndTime = tile.timeAdded + this._rasterFadeDuration;
+	_tileLoaded(tile, id, previousState, hadData, result) {
+		if (!hadData) {
+			tile.timeAdded = now();
+			if (tile.selfFading) tile.fadeEndTime = tile.timeAdded + this._rasterFadeDuration;
+		}
 		if (previousState === "expired") tile.refreshedUponExpiration = true;
 		this._setTileReloadTimer(id, tile);
 		if (result?.unmodified) return;
@@ -5614,7 +5886,7 @@ var TileManager = class TileManager extends Evented {
 		const cached = tile;
 		if (!tile) {
 			tile = new Tile(tileID, this._source.tileSize * tileID.overscaleFactor());
-			this._loadTile(tile, tileID.key, tile.state);
+			this._loadTile(tile, tileID.key, tile.state, false);
 		}
 		tile.uses++;
 		this._inViewTiles.setTile(tileID.key, tile);
@@ -6843,12 +7115,13 @@ var CollisionIndex = class {
 			const featureKey = feature.key;
 			if (seenFeatures[featureKey.bucketInstanceId] === void 0) seenFeatures[featureKey.bucketInstanceId] = {};
 			if (seenFeatures[featureKey.bucketInstanceId][featureKey.featureIndex]) continue;
-			if (!polygonIntersectsPolygon(query, [
+			const bbox = [
 				new Point(feature.x1, feature.y1),
 				new Point(feature.x2, feature.y1),
 				new Point(feature.x2, feature.y2),
 				new Point(feature.x1, feature.y2)
-			])) continue;
+			];
+			if (!polygonIntersectsPolygon(query, bbox)) continue;
 			seenFeatures[featureKey.bucketInstanceId][featureKey.featureIndex] = true;
 			if (result[featureKey.bucketInstanceId] === void 0) result[featureKey.bucketInstanceId] = [];
 			result[featureKey.bucketInstanceId].push(featureKey.featureIndex);
@@ -6971,7 +7244,8 @@ var CollisionIndex = class {
 			distanceMultiplier = Math.pow(2, -zoomFraction);
 			distanceMultiplier *= this.transform.getPitchedTextCorrection(translatedAnchorX, translatedAnchorY, unwrappedTileID);
 			if (!shift) {
-				const perspectiveRatio = clamp(.5 + .5 * (projectedPoint.signedDistanceFromCamera / this.transform.cameraToCenterDistance), 0, 4);
+				const distanceRatio = projectedPoint.signedDistanceFromCamera / this.transform.cameraToCenterDistance;
+				const perspectiveRatio = clamp(.5 + .5 * distanceRatio, 0, 4);
 				distanceMultiplier *= perspectiveRatio;
 			}
 		}
@@ -7394,8 +7668,10 @@ var Placement = class {
 			else if (!iconWithoutText) placeIcon &&= placeText;
 			const hasTextBox = placeText && placedGlyphBoxes.placeable;
 			const hasIconBox = placeIcon && placedIconBoxes.placeable;
-			if (hasTextBox) if (placedVerticalText && placedVerticalText.placeable && verticalTextFeatureIndex) this.collisionIndex.insertCollisionBox(placedGlyphBoxes.box, textOverlapMode, layout.get("text-ignore-placement"), bucket.bucketInstanceId, verticalTextFeatureIndex, collisionGroup.ID);
-			else this.collisionIndex.insertCollisionBox(placedGlyphBoxes.box, textOverlapMode, layout.get("text-ignore-placement"), bucket.bucketInstanceId, textFeatureIndex, collisionGroup.ID);
+			if (hasTextBox) {
+				if (placedVerticalText && placedVerticalText.placeable && verticalTextFeatureIndex) this.collisionIndex.insertCollisionBox(placedGlyphBoxes.box, textOverlapMode, layout.get("text-ignore-placement"), bucket.bucketInstanceId, verticalTextFeatureIndex, collisionGroup.ID);
+				else this.collisionIndex.insertCollisionBox(placedGlyphBoxes.box, textOverlapMode, layout.get("text-ignore-placement"), bucket.bucketInstanceId, textFeatureIndex, collisionGroup.ID);
+			}
 			if (hasIconBox) this.collisionIndex.insertCollisionBox(placedIconBoxes.box, iconOverlapMode, layout.get("icon-ignore-placement"), bucket.bucketInstanceId, iconFeatureIndex, collisionGroup.ID);
 			if (placedGlyphCircles) {
 				if (placeText) this.collisionIndex.insertCollisionCircles(placedGlyphCircles.circles, textOverlapMode, layout.get("text-ignore-placement"), bucket.bucketInstanceId, textFeatureIndex, collisionGroup.ID);
@@ -7464,8 +7740,10 @@ var Placement = class {
 			symbolInstance.rightJustifiedTextSymbolIndex,
 			symbolInstance.verticalPlacedTextSymbolIndex
 		];
-		for (const index of indexes) if (index >= 0) if (autoIndex >= 0 && index !== autoIndex) bucket.text.placedSymbolArray.get(index).crossTileID = 0;
-		else bucket.text.placedSymbolArray.get(index).crossTileID = symbolInstance.crossTileID;
+		for (const index of indexes) if (index >= 0) {
+			if (autoIndex >= 0 && index !== autoIndex) bucket.text.placedSymbolArray.get(index).crossTileID = 0;
+			else bucket.text.placedSymbolArray.get(index).crossTileID = symbolInstance.crossTileID;
+		}
 	}
 	markUsedOrientation(bucket, orientation, symbolInstance) {
 		const horizontal = orientation === 1 || orientation === 3 ? orientation : 0;
@@ -7829,7 +8107,7 @@ var KDBush = class KDBush {
 			this.coords = new ArrayType(data, HEADER_SIZE + idsByteSize + padCoords, numItems * 2);
 			this._pos = 0;
 			this._finished = false;
-			new Uint8Array(data, 0, 2).set([219, (VERSION << 4) + arrayTypeIndex]);
+			new Uint8Array(data, 0, 2).set([219, 16 + arrayTypeIndex]);
 			new Uint16Array(data, 2, 1)[0] = nodeSize;
 			new Uint32Array(data, 4, 1)[0] = numItems;
 		}
@@ -8104,24 +8382,54 @@ var TileLayerIndex = class {
 			const entry = this._symbolsByKey[symbolInstance.key];
 			if (!entry) continue;
 			const scaledSymbolCoord = this.getScaledCoordinates(symbolInstance, newTileID);
-			if (entry.index) {
-				const indexes = entry.index.range(scaledSymbolCoord.x - tolerance, scaledSymbolCoord.y - tolerance, scaledSymbolCoord.x + tolerance, scaledSymbolCoord.y + tolerance).sort();
-				for (const i of indexes) {
-					const crossTileID = entry.crossTileIDs[i];
-					if (!zoomCrossTileIDs[crossTileID]) {
-						zoomCrossTileIDs[crossTileID] = true;
-						symbolInstance.crossTileID = crossTileID;
-						break;
-					}
-				}
-			} else if (entry.positions) for (let i = 0; i < entry.positions.length; i++) {
-				const thisTileSymbol = entry.positions[i];
-				const crossTileID = entry.crossTileIDs[i];
-				if (Math.abs(thisTileSymbol.x - scaledSymbolCoord.x) <= tolerance && Math.abs(thisTileSymbol.y - scaledSymbolCoord.y) <= tolerance && !zoomCrossTileIDs[crossTileID]) {
-					zoomCrossTileIDs[crossTileID] = true;
-					symbolInstance.crossTileID = crossTileID;
-					break;
-				}
+			if (entry.index) this.findMatchesForIndexedEntry(entry, symbolInstance, scaledSymbolCoord, tolerance, zoomCrossTileIDs);
+			else if (entry.positions) this.findMatchesForNonIndexedEntry(entry, symbolInstance, scaledSymbolCoord, tolerance, zoomCrossTileIDs);
+		}
+	}
+	/**
+	* Matches a symbol instance against an entry backed by a KDBush spatial index
+	* (used for keys with more than {@link KDBUSH_THRESHHOLD} symbols).
+	*
+	* Matches any symbol with the same key whose coordinates are within one grid
+	* unit (with a 4px grid, this covers a 12px by 12px area). The lowest-index
+	* unclaimed candidate is claimed in a single pass rather than sorting the
+	* whole result set on every query: `range()` can return many candidates where
+	* symbols are coincident (e.g. stacked point markers), so a per-query sort
+	* would dominate placement cost on dense layers.
+	*
+	* Once a symbol is marked duplicate against a parent symbol, no other symbol
+	* at the same zoom level may duplicate against the same parent (see issue #5993).
+	*/
+	findMatchesForIndexedEntry(entry, symbolInstance, scaledSymbolCoord, tolerance, zoomCrossTileIDs) {
+		const indexes = entry.index.range(scaledSymbolCoord.x - tolerance, scaledSymbolCoord.y - tolerance, scaledSymbolCoord.x + tolerance, scaledSymbolCoord.y + tolerance);
+		let bestIndex = Infinity;
+		for (const candidate of indexes) if (candidate < bestIndex && !zoomCrossTileIDs[entry.crossTileIDs[candidate]]) bestIndex = candidate;
+		if (bestIndex !== Infinity) {
+			const crossTileID = entry.crossTileIDs[bestIndex];
+			zoomCrossTileIDs[crossTileID] = true;
+			symbolInstance.crossTileID = crossTileID;
+		}
+	}
+	/**
+	* Matches a symbol instance against an entry that stores its positions as a
+	* plain array (used for keys with at most {@link KDBUSH_THRESHHOLD} symbols).
+	*
+	* Matches any symbol with the same key whose coordinates are within one grid
+	* unit (with a 4px grid, this covers a 12px by 12px area). Positions are
+	* stored in symbol-instance order, so the first unclaimed match is also the
+	* lowest-index one.
+	*
+	* Once a symbol is marked duplicate against a parent symbol, no other symbol
+	* at the same zoom level may duplicate against the same parent (see issue #5993).
+	*/
+	findMatchesForNonIndexedEntry(entry, symbolInstance, scaledSymbolCoord, tolerance, zoomCrossTileIDs) {
+		for (let i = 0; i < entry.positions.length; i++) {
+			const thisTileSymbol = entry.positions[i];
+			const crossTileID = entry.crossTileIDs[i];
+			if (Math.abs(thisTileSymbol.x - scaledSymbolCoord.x) <= tolerance && Math.abs(thisTileSymbol.y - scaledSymbolCoord.y) <= tolerance && !zoomCrossTileIDs[crossTileID]) {
+				zoomCrossTileIDs[crossTileID] = true;
+				symbolInstance.crossTileID = crossTileID;
+				break;
 			}
 		}
 	}
@@ -8158,8 +8466,10 @@ var CrossTileSymbolLayerIndex = class {
 		this.lng = lng;
 	}
 	addBucket(tileID, bucket, crossTileIDs) {
-		if (this.indexes[tileID.overscaledZ]?.[tileID.key]) if (this.indexes[tileID.overscaledZ][tileID.key].bucketInstanceId === bucket.bucketInstanceId) return false;
-		else this.removeBucketCrossTileIDs(tileID.overscaledZ, this.indexes[tileID.overscaledZ][tileID.key]);
+		if (this.indexes[tileID.overscaledZ]?.[tileID.key]) {
+			if (this.indexes[tileID.overscaledZ][tileID.key].bucketInstanceId === bucket.bucketInstanceId) return false;
+			else this.removeBucketCrossTileIDs(tileID.overscaledZ, this.indexes[tileID.overscaledZ][tileID.key]);
+		}
 		for (let i = 0; i < bucket.symbolInstances.length; i++) {
 			const symbolInstance = bucket.symbolInstances.get(i);
 			symbolInstance.crossTileID = 0;
@@ -8241,7 +8551,7 @@ var CrossTileSymbolIndex = class {
 var _prelude_fragment_glsl_g_default = "#ifdef GL_ES\nprecision mediump float;\n#else\n#if !defined(lowp)\n#define lowp\n#endif\n#if !defined(mediump)\n#define mediump\n#endif\n#if !defined(highp)\n#define highp\n#endif\n#endif\nout highp vec4 fragColor;";
 //#endregion
 //#region src/shaders/glsl/_prelude.vertex.glsl.g.ts
-var _prelude_vertex_glsl_g_default = "#ifdef GL_ES\nprecision highp float;\n#else\n#if !defined(lowp)\n#define lowp\n#endif\n#if !defined(mediump)\n#define mediump\n#endif\n#if !defined(highp)\n#define highp\n#endif\n#endif\nvec2 unpack_float(const float packedValue) {int packedIntValue=int(packedValue);int v0=packedIntValue/256;return vec2(v0,packedIntValue-v0*256);}vec2 unpack_opacity(const float packedOpacity) {int intOpacity=int(packedOpacity)/2;return vec2(float(intOpacity)/127.0,mod(packedOpacity,2.0));}vec4 decode_color(const vec2 encodedColor) {return vec4(unpack_float(encodedColor[0])/255.0,unpack_float(encodedColor[1])/255.0\n);}float unpack_mix_vec2(const vec2 packedValue,const float t) {return mix(packedValue[0],packedValue[1],t);}vec4 unpack_mix_color(const vec4 packedColors,const float t) {vec4 minColor=decode_color(vec2(packedColors[0],packedColors[1]));vec4 maxColor=decode_color(vec2(packedColors[2],packedColors[3]));return mix(minColor,maxColor,t);}vec2 get_pattern_pos(const vec2 pixel_coord_upper,const vec2 pixel_coord_lower,const vec2 pattern_size,const float tile_units_to_pixels,const vec2 pos) {vec2 offset=mod(mod(mod(pixel_coord_upper,pattern_size)*256.0,pattern_size)*256.0+pixel_coord_lower,pattern_size);return (tile_units_to_pixels*pos+offset)/pattern_size;}mat3 rotationMatrixFromAxisAngle(vec3 u,float angle) {float c=cos(angle);float s=sin(angle);float c2=1.0-c;return mat3(u.x*u.x*c2+      c,u.x*u.y*c2-u.z*s,u.x*u.z*c2+u.y*s,u.y*u.x*c2+u.z*s,u.y*u.y*c2+    c,u.y*u.z*c2-u.x*s,u.z*u.x*c2-u.y*s,u.z*u.y*c2+u.x*s,u.z*u.z*c2+    c\n);}\n#ifdef TERRAIN3D\nuniform sampler2D u_terrain;uniform float u_terrain_dim;uniform mat4 u_terrain_matrix;uniform vec4 u_terrain_unpack;uniform float u_terrain_exaggeration;uniform highp sampler2D u_depth;\n#endif\nconst highp vec4 bitSh=vec4(256.*256.*256.,256.*256.,256.,1.);const highp vec4 bitShifts=vec4(1.)/bitSh;highp float unpack(highp vec4 color) {return dot(color,bitShifts);}highp float depthOpacity(vec3 frag) {\n#ifdef TERRAIN3D\nhighp float d=unpack(texture(u_depth,frag.xy*0.5+0.5))+0.0001-frag.z;return 1.0-max(0.0,min(1.0,-d*500.0));\n#else\nreturn 1.0;\n#endif\n}float calculate_visibility(vec4 pos) {\n#ifdef TERRAIN3D\nvec3 frag=pos.xyz/pos.w;highp float d=depthOpacity(frag);if (d > 0.95) return 1.0;return (d+depthOpacity(frag+vec3(0.0,0.01,0.0)))/2.0;\n#else\nreturn 1.0;\n#endif\n}float ele(vec2 pos) {\n#ifdef TERRAIN3D\nvec4 rgb=(texture(u_terrain,pos)*255.0)*u_terrain_unpack;return rgb.r+rgb.g+rgb.b-u_terrain_unpack.a;\n#else\nreturn 0.0;\n#endif\n}float get_elevation(vec2 pos) {\n#ifdef TERRAIN3D\n#ifdef GLOBE\nif ((pos.y <-32767.5) || (pos.y > 32766.5)) {return 0.0;}\n#endif\nvec2 coord=(u_terrain_matrix*vec4(pos,0.0,1.0)).xy*u_terrain_dim+1.0;vec2 f=fract(coord);vec2 c=(floor(coord)+0.5)/(u_terrain_dim+2.0);float d=1.0/(u_terrain_dim+2.0);float tl=ele(c);float tr=ele(c+vec2(d,0.0));float bl=ele(c+vec2(0.0,d));float br=ele(c+vec2(d,d));float elevation=mix(mix(tl,tr,f.x),mix(bl,br,f.x),f.y);return elevation*u_terrain_exaggeration;\n#else\nreturn 0.0;\n#endif\n}const float PI=3.141592653589793;uniform mat4 u_projection_matrix;";
+var _prelude_vertex_glsl_g_default = "#ifdef GL_ES\nprecision highp float;\n#else\n#if !defined(lowp)\n#define lowp\n#endif\n#if !defined(mediump)\n#define mediump\n#endif\n#if !defined(highp)\n#define highp\n#endif\n#endif\nvec2 unpack_float(const float packedValue) {int packedIntValue=int(packedValue);int v0=packedIntValue/256;return vec2(v0,packedIntValue-v0*256);}vec2 unpack_opacity(const uint packedOpacity) {return vec2(float(packedOpacity >> 1u)/127.0,float(packedOpacity & 1u));}vec4 decode_color(const vec2 encodedColor) {return vec4(unpack_float(encodedColor[0])/255.0,unpack_float(encodedColor[1])/255.0\n);}float unpack_mix_vec2(const vec2 packedValue,const float t) {return mix(packedValue[0],packedValue[1],t);}vec4 unpack_mix_color(const vec4 packedColors,const float t) {vec4 minColor=decode_color(vec2(packedColors[0],packedColors[1]));vec4 maxColor=decode_color(vec2(packedColors[2],packedColors[3]));return mix(minColor,maxColor,t);}vec2 get_pattern_pos(const vec2 pixel_coord_upper,const vec2 pixel_coord_lower,const vec2 pattern_size,const float tile_units_to_pixels,const vec2 pos) {vec2 offset=mod(mod(mod(pixel_coord_upper,pattern_size)*256.0,pattern_size)*256.0+pixel_coord_lower,pattern_size);return (tile_units_to_pixels*pos+offset)/pattern_size;}mat3 rotationMatrixFromAxisAngle(vec3 u,float angle) {float c=cos(angle);float s=sin(angle);float c2=1.0-c;return mat3(u.x*u.x*c2+      c,u.x*u.y*c2-u.z*s,u.x*u.z*c2+u.y*s,u.y*u.x*c2+u.z*s,u.y*u.y*c2+    c,u.y*u.z*c2-u.x*s,u.z*u.x*c2-u.y*s,u.z*u.y*c2+u.x*s,u.z*u.z*c2+    c\n);}\n#ifdef TERRAIN3D\nuniform sampler2D u_terrain;uniform float u_terrain_dim;uniform mat4 u_terrain_matrix;uniform vec4 u_terrain_unpack;uniform float u_terrain_exaggeration;uniform highp sampler2D u_depth;\n#endif\nconst highp vec4 bitSh=vec4(256.*256.*256.,256.*256.,256.,1.);const highp vec4 bitShifts=vec4(1.)/bitSh;highp float unpack(highp vec4 color) {return dot(color,bitShifts);}highp float depthOpacity(vec3 frag) {\n#ifdef TERRAIN3D\nhighp float d=unpack(texture(u_depth,frag.xy*0.5+0.5))+0.0001-frag.z;return 1.0-max(0.0,min(1.0,-d*500.0));\n#else\nreturn 1.0;\n#endif\n}float calculate_visibility(vec4 pos) {\n#ifdef TERRAIN3D\nvec3 frag=pos.xyz/pos.w;highp float d=depthOpacity(frag);if (d > 0.95) return 1.0;return (d+depthOpacity(frag+vec3(0.0,0.01,0.0)))/2.0;\n#else\nreturn 1.0;\n#endif\n}float ele(ivec2 pos) {\n#ifdef TERRAIN3D\nvec4 rgb=(texelFetch(u_terrain,pos,0)*255.0)*u_terrain_unpack;return rgb.r+rgb.g+rgb.b-u_terrain_unpack.a;\n#else\nreturn 0.0;\n#endif\n}float get_elevation(vec2 pos) {\n#ifdef TERRAIN3D\n#ifdef GLOBE\nif ((pos.y <-32767.5) || (pos.y > 32766.5)) {return 0.0;}\n#endif\nvec2 coord=(u_terrain_matrix*vec4(pos,0.0,1.0)).xy*u_terrain_dim+1.0;vec2 f=fract(coord);ivec2 c=ivec2(floor(coord));ivec2 hi=textureSize(u_terrain,0)-1;float tl=ele(clamp(c,ivec2(0),hi));float tr=ele(clamp(c+ivec2(1,0),ivec2(0),hi));float bl=ele(clamp(c+ivec2(0,1),ivec2(0),hi));float br=ele(clamp(c+ivec2(1,1),ivec2(0),hi));float elevation=mix(mix(tl,tr,f.x),mix(bl,br,f.x),f.y);return elevation*u_terrain_exaggeration;\n#else\nreturn 0.0;\n#endif\n}const float PI=3.141592653589793;uniform mat4 u_projection_matrix;";
 //#endregion
 //#region src/shaders/glsl/background.fragment.glsl.g.ts
 var background_fragment_glsl_g_default = "uniform vec4 u_color;uniform float u_opacity;void main() {fragColor=u_color*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}";
@@ -8259,7 +8569,7 @@ var background_pattern_vertex_glsl_g_default = "uniform vec2 u_pattern_size_a;un
 var circle_fragment_glsl_g_default = "in vec3 v_data;flat in float v_visibility;\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define mediump float radius\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 stroke_color\n#pragma maplibre: define mediump float stroke_width\n#pragma maplibre: define lowp float stroke_opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump float radius\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 stroke_color\n#pragma maplibre: initialize mediump float stroke_width\n#pragma maplibre: initialize lowp float stroke_opacity\nvec2 extrude=v_data.xy;float extrude_length=length(extrude);float antialiased_blur=v_data.z;float opacity_t=smoothstep(0.0,antialiased_blur,extrude_length-1.0);float color_t=stroke_width < 0.01 ? 0.0 : smoothstep(antialiased_blur,0.0,extrude_length-radius/(radius+stroke_width));fragColor=v_visibility*opacity_t*mix(color*opacity,stroke_color*stroke_opacity,color_t);const float epsilon=0.5/255.0;if (fragColor.r < epsilon && fragColor.g < epsilon && fragColor.b < epsilon && fragColor.a < epsilon) {discard;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}";
 //#endregion
 //#region src/shaders/glsl/circle.vertex.glsl.g.ts
-var circle_vertex_glsl_g_default = "uniform bool u_scale_with_map;uniform bool u_pitch_with_map;uniform vec2 u_extrude_scale;uniform highp float u_globe_extrude_scale;uniform lowp float u_device_pixel_ratio;uniform highp float u_camera_to_center_distance;uniform vec2 u_translate;layout(location=0) in vec2 a_pos;out vec3 v_data;flat out float v_visibility;\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define mediump float radius\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 stroke_color\n#pragma maplibre: define mediump float stroke_width\n#pragma maplibre: define lowp float stroke_opacity\nvoid main(void) {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump float radius\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 stroke_color\n#pragma maplibre: initialize mediump float stroke_width\n#pragma maplibre: initialize lowp float stroke_opacity\nvec2 pos_raw=a_pos+32768.0;vec2 extrude=vec2(mod(pos_raw,8.0)/7.0*2.0-1.0);vec2 circle_center=floor(pos_raw/8.0)+u_translate;float ele=get_elevation(circle_center);v_visibility=calculate_visibility(projectTileWithElevation(circle_center,ele));if (u_pitch_with_map) {\n#ifdef GLOBE\nvec3 center_vector=projectToSphere(circle_center);\n#endif\nfloat angle_scale=u_globe_extrude_scale;vec2 corner_position=circle_center;if (u_scale_with_map) {angle_scale*=(radius+stroke_width);corner_position+=extrude*u_extrude_scale*(radius+stroke_width);} else {\n#ifdef GLOBE\nvec4 projected_center=interpolateProjection(circle_center,center_vector,ele);\n#else\nvec4 projected_center=projectTileWithElevation(circle_center,ele);\n#endif\ncorner_position+=extrude*u_extrude_scale*(radius+stroke_width)*(projected_center.w/u_camera_to_center_distance);angle_scale*=(radius+stroke_width)*(projected_center.w/u_camera_to_center_distance);}\n#ifdef GLOBE\nvec2 angles=extrude*angle_scale;vec3 corner_vector=globeRotateVector(center_vector,angles);gl_Position=interpolateProjection(corner_position,corner_vector,ele);\n#else\ngl_Position=projectTileWithElevation(corner_position,ele);\n#endif\n} else {gl_Position=projectTileWithElevation(circle_center,ele);if (gl_Position.z/gl_Position.w > 1.0) {gl_Position.xy=vec2(10000.0);}if (u_scale_with_map) {gl_Position.xy+=extrude*(radius+stroke_width)*u_extrude_scale*u_camera_to_center_distance;} else {gl_Position.xy+=extrude*(radius+stroke_width)*u_extrude_scale*gl_Position.w;}}float antialiasblur=-max(1.0/u_device_pixel_ratio/(radius+stroke_width),blur);v_data=vec3(extrude.x,extrude.y,antialiasblur);}";
+var circle_vertex_glsl_g_default = "uniform bool u_scale_with_map;uniform bool u_pitch_with_map;uniform vec2 u_extrude_scale;uniform highp float u_globe_extrude_scale;uniform lowp float u_device_pixel_ratio;uniform highp float u_camera_to_center_distance;uniform vec2 u_translate;layout(location=0) in ivec2 a_pos;out vec3 v_data;flat out float v_visibility;\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define mediump float radius\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 stroke_color\n#pragma maplibre: define mediump float stroke_width\n#pragma maplibre: define lowp float stroke_opacity\nvoid main(void) {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump float radius\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 stroke_color\n#pragma maplibre: initialize mediump float stroke_width\n#pragma maplibre: initialize lowp float stroke_opacity\nivec2 pos_raw=a_pos+32768;vec2 extrude=vec2(pos_raw & 7)/7.0*2.0-1.0;vec2 circle_center=vec2(pos_raw >> 3)+u_translate;float ele=get_elevation(circle_center);v_visibility=calculate_visibility(projectTileWithElevation(circle_center,ele));if (u_pitch_with_map) {\n#ifdef GLOBE\nvec3 center_vector=projectToSphere(circle_center);\n#endif\nfloat angle_scale=u_globe_extrude_scale;vec2 corner_position=circle_center;if (u_scale_with_map) {angle_scale*=(radius+stroke_width);corner_position+=extrude*u_extrude_scale*(radius+stroke_width);} else {\n#ifdef GLOBE\nvec4 projected_center=interpolateProjection(circle_center,center_vector,ele);\n#else\nvec4 projected_center=projectTileWithElevation(circle_center,ele);\n#endif\ncorner_position+=extrude*u_extrude_scale*(radius+stroke_width)*(projected_center.w/u_camera_to_center_distance);angle_scale*=(radius+stroke_width)*(projected_center.w/u_camera_to_center_distance);}\n#ifdef GLOBE\nvec2 angles=extrude*angle_scale;vec3 corner_vector=globeRotateVector(center_vector,angles);gl_Position=interpolateProjection(corner_position,corner_vector,ele);\n#else\ngl_Position=projectTileWithElevation(corner_position,ele);\n#endif\n} else {gl_Position=projectTileWithElevation(circle_center,ele);if (gl_Position.z/gl_Position.w > 1.0) {gl_Position.xy=vec2(10000.0);}if (u_scale_with_map) {gl_Position.xy+=extrude*(radius+stroke_width)*u_extrude_scale*u_camera_to_center_distance;} else {gl_Position.xy+=extrude*(radius+stroke_width)*u_extrude_scale*gl_Position.w;}}float antialiasblur=-max(1.0/u_device_pixel_ratio/(radius+stroke_width),blur);v_data=vec3(extrude.x,extrude.y,antialiasblur);}";
 //#endregion
 //#region src/shaders/glsl/clipping_mask.fragment.glsl.g.ts
 var clipping_mask_fragment_glsl_g_default = "void main() {fragColor=vec4(1.0);}";
@@ -8267,41 +8577,40 @@ var clipping_mask_fragment_glsl_g_default = "void main() {fragColor=vec4(1.0);}"
 //#region src/shaders/shaders.ts
 const shaders = {
 	prelude: prepare(_prelude_fragment_glsl_g_default, _prelude_vertex_glsl_g_default),
-	projectionMercator: prepare("", "float projectLineThickness(float tileY) {return 1.0;}float projectCircleRadius(float tileY) {return 1.0;}vec4 projectTile(vec2 p) {vec4 result=u_projection_matrix*vec4(p,0.0,1.0);return result;}vec4 projectTile(vec2 p,vec2 rawPos) {vec4 result=u_projection_matrix*vec4(p,0.0,1.0);if (rawPos.y <-32767.5 || rawPos.y > 32766.5) {result.z=-10000000.0;}return result;}vec4 projectTileWithElevation(vec2 posInTile,float elevation) {return u_projection_matrix*vec4(posInTile,elevation,1.0);}vec4 projectTileFor3D(vec2 posInTile,float elevation) {return projectTileWithElevation(posInTile,elevation);}"),
-	projectionGlobe: prepare("", "#define GLOBE_RADIUS 6371008.8\nuniform highp vec4 u_projection_tile_mercator_coords;uniform highp vec4 u_projection_clipping_plane;uniform highp float u_projection_transition;uniform mat4 u_projection_fallback_matrix;vec3 globeRotateVector(vec3 vec,vec2 angles) {vec3 axisRight=vec3(vec.z,0.0,-vec.x);vec3 axisUp=cross(axisRight,vec);axisRight=normalize(axisRight);axisUp=normalize(axisUp);vec2 t=tan(angles);return normalize(vec+axisRight*t.x+axisUp*t.y);}mat3 globeGetRotationMatrix(vec3 spherePos) {vec3 axisRight=vec3(spherePos.z,0.0,-spherePos.x);vec3 axisDown=cross(axisRight,spherePos);axisRight=normalize(axisRight);axisDown=normalize(axisDown);return mat3(axisRight,axisDown,spherePos\n);}float circumferenceRatioAtTileY(float tileY) {float mercator_pos_y=u_projection_tile_mercator_coords.y+u_projection_tile_mercator_coords.w*tileY;float spherical_y=2.0*atan(exp(PI-(mercator_pos_y*PI*2.0)))-PI*0.5;return cos(spherical_y);}float projectLineThickness(float tileY) {float thickness=1.0/circumferenceRatioAtTileY(tileY); \nif (u_projection_transition < 0.999) {return mix(1.0,thickness,u_projection_transition);} else {return thickness;}}vec3 projectToSphere(vec2 translatedPos,vec2 rawPos) {vec2 mercator_pos=u_projection_tile_mercator_coords.xy+u_projection_tile_mercator_coords.zw*translatedPos;vec2 spherical;spherical.x=mercator_pos.x*PI*2.0+PI;spherical.y=2.0*atan(exp(PI-(mercator_pos.y*PI*2.0)))-PI*0.5;float len=cos(spherical.y);vec3 pos=vec3(sin(spherical.x)*len,sin(spherical.y),cos(spherical.x)*len\n);if (rawPos.y <-32767.5) {pos=vec3(0.0,1.0,0.0);}if (rawPos.y > 32766.5) {pos=vec3(0.0,-1.0,0.0);}return pos;}vec3 projectToSphere(vec2 posInTile) {return projectToSphere(posInTile,vec2(0.0,0.0));}float globeComputeClippingZ(vec3 spherePos) {return (1.0-(dot(spherePos,u_projection_clipping_plane.xyz)+u_projection_clipping_plane.w));}vec4 interpolateProjection(vec2 posInTile,vec3 spherePos,float elevation) {vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);vec4 globePosition=u_projection_matrix*vec4(elevatedPos,1.0);globePosition.z=globeComputeClippingZ(elevatedPos)*globePosition.w;if (u_projection_transition > 0.999) {return globePosition;}vec4 flatPosition=u_projection_fallback_matrix*vec4(posInTile,elevation,1.0);const float z_globeness_threshold=0.2;vec4 result=globePosition;result.z=mix(0.0,globePosition.z,clamp((u_projection_transition-z_globeness_threshold)/(1.0-z_globeness_threshold),0.0,1.0));result.xyw=mix(flatPosition.xyw,globePosition.xyw,u_projection_transition);if ((posInTile.y <-32767.5) || (posInTile.y > 32766.5)) {result=globePosition;const float poles_hidden_anim_percentage=0.02;result.z=mix(globePosition.z,100.0,pow(max((1.0-u_projection_transition)/poles_hidden_anim_percentage,0.0),8.0));}return result;}vec4 interpolateProjectionFor3D(vec2 posInTile,vec3 spherePos,float elevation) {vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);vec4 globePosition=u_projection_matrix*vec4(elevatedPos,1.0);if (u_projection_transition > 0.999) {return globePosition;}vec4 fallbackPosition=u_projection_fallback_matrix*vec4(posInTile,elevation,1.0);return mix(fallbackPosition,globePosition,u_projection_transition);}vec4 projectTile(vec2 posInTile) {return interpolateProjection(posInTile,projectToSphere(posInTile),0.0);}vec4 projectTile(vec2 posInTile,vec2 rawPos) {return interpolateProjection(posInTile,projectToSphere(posInTile,rawPos),0.0);}vec4 projectTileWithElevation(vec2 posInTile,float elevation) {return interpolateProjection(posInTile,projectToSphere(posInTile),elevation);}vec4 projectTileFor3D(vec2 posInTile,float elevation) {vec3 spherePos=projectToSphere(posInTile,posInTile);return interpolateProjectionFor3D(posInTile,spherePos,elevation);}"),
+	projectionMercator: prepare("\nvoid clipAntimeridian() {}", "float projectLineThickness(float tileY) {return 1.0;}float projectCircleRadius(float tileY) {return 1.0;}vec4 projectTile(vec2 p) {vec4 result=u_projection_matrix*vec4(p,0.0,1.0);return result;}vec4 projectTile(vec2 p,vec2 rawPos) {vec4 result=u_projection_matrix*vec4(p,0.0,1.0);if (rawPos.y <-32767.5 || rawPos.y > 32766.5) {result.z=-10000000.0;}return result;}vec4 projectTileWithElevation(vec2 posInTile,float elevation) {return u_projection_matrix*vec4(posInTile,elevation,1.0);}vec4 projectTileFor3D(vec2 posInTile,float elevation) {return projectTileWithElevation(posInTile,elevation);}"),
+	projectionGlobe: prepare("uniform bool u_projection_clip_antimeridian;in highp float v_projection_tile_x;void clipAntimeridian() {if (u_projection_clip_antimeridian && (v_projection_tile_x < 0.0 || v_projection_tile_x >=8192.0)) {discard;}}", "#define GLOBE_RADIUS 6371008.8\nuniform highp vec4 u_projection_tile_mercator_coords;uniform highp vec4 u_projection_clipping_plane;uniform highp float u_projection_transition;uniform mat4 u_projection_fallback_matrix;out highp float v_projection_tile_x;vec3 globeRotateVector(vec3 vec,vec2 angles) {vec3 axisRight=vec3(vec.z,0.0,-vec.x);vec3 axisUp=cross(axisRight,vec);axisRight=normalize(axisRight);axisUp=normalize(axisUp);vec2 t=tan(angles);return normalize(vec+axisRight*t.x+axisUp*t.y);}mat3 globeGetRotationMatrix(vec3 spherePos) {vec3 axisRight=vec3(spherePos.z,0.0,-spherePos.x);vec3 axisDown=cross(axisRight,spherePos);axisRight=normalize(axisRight);axisDown=normalize(axisDown);return mat3(axisRight,axisDown,spherePos\n);}float circumferenceRatioAtTileY(float tileY) {float mercator_pos_y=u_projection_tile_mercator_coords.y+u_projection_tile_mercator_coords.w*tileY;float t=exp(PI-(mercator_pos_y*PI*2.0));return (2.0*t)/(t*t+1.0);}float projectLineThickness(float tileY) {float thickness=1.0/circumferenceRatioAtTileY(tileY);if (u_projection_transition < 0.999) {return mix(1.0,thickness,u_projection_transition);} else {return thickness;}}vec3 projectToSphere(vec2 translatedPos,vec2 rawPos) {vec2 mercator_pos=u_projection_tile_mercator_coords.xy+u_projection_tile_mercator_coords.zw*translatedPos;float spherical_x=mercator_pos.x*PI*2.0+PI;float t=exp(PI-(mercator_pos.y*PI*2.0));float t2=t*t;float denom=t2+1.0;float sin_sy=(t2-1.0)/denom;float cos_sy=(2.0*t)/denom;vec3 pos=vec3(sin(spherical_x)*cos_sy,sin_sy,cos(spherical_x)*cos_sy\n);if (rawPos.y <-32767.5) {pos=vec3(0.0,1.0,0.0);}if (rawPos.y > 32766.5) {pos=vec3(0.0,-1.0,0.0);}return pos;}vec3 projectToSphere(vec2 posInTile) {return projectToSphere(posInTile,vec2(0.0,0.0));}float globeComputeClippingZ(vec3 spherePos) {return (1.0-(dot(spherePos,u_projection_clipping_plane.xyz)+u_projection_clipping_plane.w));}vec4 interpolateProjection(vec2 posInTile,vec3 spherePos,float elevation) {v_projection_tile_x=posInTile.x;vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);vec4 globePosition=u_projection_matrix*vec4(elevatedPos,1.0);globePosition.z=globeComputeClippingZ(elevatedPos)*globePosition.w;if (u_projection_transition > 0.999) {return globePosition;}vec4 flatPosition=u_projection_fallback_matrix*vec4(posInTile,elevation,1.0);const float z_globeness_threshold=0.2;vec4 result=globePosition;result.z=mix(0.0,globePosition.z,clamp((u_projection_transition-z_globeness_threshold)/(1.0-z_globeness_threshold),0.0,1.0));result.xyw=mix(flatPosition.xyw,globePosition.xyw,u_projection_transition);if ((posInTile.y <-32767.5) || (posInTile.y > 32766.5)) {result=globePosition;const float poles_hidden_anim_percentage=0.02;result.z=mix(globePosition.z,100.0,pow(max((1.0-u_projection_transition)/poles_hidden_anim_percentage,0.0),8.0));}return result;}vec4 interpolateProjectionFor3D(vec2 posInTile,vec3 spherePos,float elevation) {v_projection_tile_x=posInTile.x;vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);vec4 globePosition=u_projection_matrix*vec4(elevatedPos,1.0);if (u_projection_transition > 0.999) {return globePosition;}vec4 fallbackPosition=u_projection_fallback_matrix*vec4(posInTile,elevation,1.0);return mix(fallbackPosition,globePosition,u_projection_transition);}vec4 projectTile(vec2 posInTile) {return interpolateProjection(posInTile,projectToSphere(posInTile),0.0);}vec4 projectTile(vec2 posInTile,vec2 rawPos) {return interpolateProjection(posInTile,projectToSphere(posInTile,rawPos),0.0);}vec4 projectTileWithElevation(vec2 posInTile,float elevation) {return interpolateProjection(posInTile,projectToSphere(posInTile),elevation);}vec4 projectTileFor3D(vec2 posInTile,float elevation) {vec3 spherePos=projectToSphere(posInTile,posInTile);return interpolateProjectionFor3D(posInTile,spherePos,elevation);}"),
 	background: prepare(background_fragment_glsl_g_default, background_vertex_glsl_g_default),
 	backgroundPattern: prepare(background_pattern_fragment_glsl_g_default, background_pattern_vertex_glsl_g_default),
 	circle: prepare(circle_fragment_glsl_g_default, circle_vertex_glsl_g_default),
 	clippingMask: prepare(clipping_mask_fragment_glsl_g_default, "layout(location=0) in vec2 a_pos;void main() {gl_Position=projectTile(a_pos);}"),
-	heatmap: prepare("uniform highp float u_intensity;in vec2 v_extrude;\n#pragma maplibre: define highp float weight\n#define GAUSS_COEF 0.3989422804014327\nvoid main() {\n#pragma maplibre: initialize highp float weight\nfloat d=-0.5*3.0*3.0*dot(v_extrude,v_extrude);float val=weight*u_intensity*GAUSS_COEF*exp(d);fragColor=vec4(val,1.0,1.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform float u_extrude_scale;uniform float u_opacity;uniform float u_intensity;uniform highp float u_globe_extrude_scale;layout(location=0) in vec2 a_pos;out vec2 v_extrude;\n#pragma maplibre: define highp float weight\n#pragma maplibre: define mediump float radius\nconst highp float ZERO=1.0/255.0/16.0;\n#define GAUSS_COEF 0.3989422804014327\nvoid main(void) {\n#pragma maplibre: initialize highp float weight\n#pragma maplibre: initialize mediump float radius\nvec2 pos_raw=a_pos+32768.0;vec2 unscaled_extrude=vec2(mod(pos_raw,8.0)/7.0*2.0-1.0);float S=sqrt(-2.0*log(ZERO/weight/u_intensity/GAUSS_COEF))/3.0;v_extrude=S*unscaled_extrude;vec2 extrude=v_extrude*radius*u_extrude_scale;vec2 circle_center=floor(pos_raw/8.0);\n#ifdef GLOBE\nvec2 angles=v_extrude*radius*u_globe_extrude_scale;vec3 center_vector=projectToSphere(circle_center);vec3 corner_vector=globeRotateVector(center_vector,angles);gl_Position=interpolateProjection(circle_center+extrude,corner_vector,0.0);\n#else\ngl_Position=projectTileFor3D(circle_center+extrude,get_elevation(circle_center));\n#endif\n}"),
+	heatmap: prepare("uniform highp float u_intensity;in vec2 v_extrude;\n#pragma maplibre: define highp float weight\n#define GAUSS_COEF 0.3989422804014327\nvoid main() {\n#pragma maplibre: initialize highp float weight\nfloat d=-0.5*3.0*3.0*dot(v_extrude,v_extrude);float val=weight*u_intensity*GAUSS_COEF*exp(d);fragColor=vec4(val,1.0,1.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform float u_extrude_scale;uniform float u_opacity;uniform float u_intensity;uniform highp float u_globe_extrude_scale;layout(location=0) in ivec2 a_pos;out vec2 v_extrude;\n#pragma maplibre: define highp float weight\n#pragma maplibre: define mediump float radius\nconst highp float ZERO=1.0/255.0/16.0;\n#define GAUSS_COEF 0.3989422804014327\nvoid main(void) {\n#pragma maplibre: initialize highp float weight\n#pragma maplibre: initialize mediump float radius\nivec2 pos_raw=a_pos+32768;vec2 unscaled_extrude=vec2(pos_raw & 7)/7.0*2.0-1.0;float S=sqrt(-2.0*log(ZERO/weight/u_intensity/GAUSS_COEF))/3.0;v_extrude=S*unscaled_extrude;vec2 extrude=v_extrude*radius*u_extrude_scale;vec2 circle_center=vec2(pos_raw >> 3);\n#ifdef GLOBE\nvec2 angles=v_extrude*radius*u_globe_extrude_scale;vec3 center_vector=projectToSphere(circle_center);vec3 corner_vector=globeRotateVector(center_vector,angles);gl_Position=interpolateProjection(circle_center+extrude,corner_vector,0.0);\n#else\ngl_Position=projectTileFor3D(circle_center+extrude,get_elevation(circle_center));\n#endif\n}"),
 	heatmapTexture: prepare("uniform sampler2D u_image;uniform sampler2D u_color_ramp;uniform float u_opacity;in vec2 v_pos;void main() {float t=texture(u_image,v_pos).r;vec4 color=texture(u_color_ramp,vec2(t,0.5));fragColor=color*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(0.0);\n#endif\n}", "uniform mat4 u_matrix;uniform vec2 u_world;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=u_matrix*vec4(a_pos*u_world,0,1);v_pos.x=a_pos.x;v_pos.y=1.0-a_pos.y;}"),
 	collisionBox: prepare("flat in float v_placed;flat in float v_notUsed;void main() {float alpha=0.5;fragColor=vec4(1.0,0.0,0.0,1.0)*alpha;if (v_placed > 0.5) {fragColor=vec4(0.0,0.0,1.0,0.5)*alpha;}if (v_notUsed > 0.5) {fragColor*=.1;}}", "layout(location=0) in vec2 a_anchor_pos;layout(location=1) in vec2 a_placed;layout(location=2) in vec2 a_box_real;uniform vec2 u_pixel_extrude_scale;flat out float v_placed;flat out float v_notUsed;void main() {gl_Position=projectTileWithElevation(a_anchor_pos,get_elevation(a_anchor_pos));gl_Position.xy=((a_box_real+0.5)*u_pixel_extrude_scale*2.0-1.0)*vec2(1.0,-1.0)*gl_Position.w;if (gl_Position.z/gl_Position.w < 1.1) {gl_Position.z=0.5;}v_placed=a_placed.x;v_notUsed=a_placed.y;}"),
 	collisionCircle: prepare("flat in float v_radius;in vec2 v_extrude;flat in float v_collision;void main() {float alpha=0.5;float stroke_radius=0.9;float distance_to_center=length(v_extrude);float distance_to_edge=abs(distance_to_center-v_radius);float opacity_t=smoothstep(-stroke_radius,0.0,-distance_to_edge);vec4 color=mix(vec4(0.0,0.0,1.0,0.5),vec4(1.0,0.0,0.0,1.0),v_collision);fragColor=color*alpha*opacity_t;}", "layout(location=0) in vec2 a_pos;layout(location=1) in float a_radius;layout(location=2) in vec2 a_flags;uniform vec2 u_viewport_size;flat out float v_radius;out vec2 v_extrude;flat out float v_collision;void main() {float radius=a_radius;float collision=a_flags.x;float vertexIdx=a_flags.y;vec2 quadVertexOffset=vec2(mix(-1.0,1.0,float(vertexIdx >=2.0)),mix(-1.0,1.0,float(vertexIdx >=1.0 && vertexIdx <=2.0)));vec2 quadVertexExtent=quadVertexOffset*radius;float padding_factor=1.2;v_radius=radius;v_extrude=quadVertexExtent*padding_factor;v_collision=collision;gl_Position=vec4((a_pos/u_viewport_size*2.0-1.0)*vec2(1.0,-1.0),0.0,1.0)+vec4(quadVertexExtent*padding_factor/u_viewport_size*2.0,0.0,0.0);}"),
-	colorRelief: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D u_image;uniform vec4 u_unpack;uniform sampler2D u_elevation_stops;uniform sampler2D u_color_stops;uniform int u_color_ramp_size;uniform float u_opacity;in vec2 v_pos;float getElevation(vec2 coord) {vec4 data=texture(u_image,coord)*255.0;data.a=-1.0;return dot(data,u_unpack);}float getElevationStop(int stop) {float x=(float(stop)+0.5)/float(u_color_ramp_size);vec4 data=texture(u_elevation_stops,vec2(x,0))*255.0;data.a=-1.0;return dot(data,u_unpack);}void main() {float el=getElevation(v_pos);int r=(u_color_ramp_size-1);int l=0;float el_l=getElevationStop(l);float el_r=getElevationStop(r);while(r-l > 1){int m=(r+l)/2;float el_m=getElevationStop(m);if(el < el_m){r=m;el_r=el_m;}else\n{l=m;el_l=el_m;}}float x=(float(l)+(el-el_l)/(el_r-el_l)+0.5)/float(u_color_ramp_size);fragColor=u_opacity*texture(u_color_stops,vec2(x,0));\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_dimension;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=projectTile(a_pos,a_pos);highp vec2 epsilon=1.0/u_dimension;float scale=(u_dimension.x-2.0)/u_dimension.x;v_pos=(a_pos/8192.0)*scale+epsilon;if (a_pos.y <-32767.5) {v_pos.y=0.0;}if (a_pos.y > 32766.5) {v_pos.y=1.0;}}"),
+	colorRelief: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D u_image;uniform vec4 u_unpack;uniform sampler2D u_elevation_stops;uniform sampler2D u_color_stops;uniform int u_color_ramp_size;uniform float u_opacity;in vec2 v_pos;float getElevation(vec2 coord) {vec4 data=texture(u_image,coord)*255.0;data.a=-1.0;return dot(data,u_unpack);}float getElevationStop(int stop) {vec4 data=texelFetch(u_elevation_stops,ivec2(stop,0),0)*255.0;data.a=-1.0;return dot(data,u_unpack);}void main() {float el=getElevation(v_pos);int r=(u_color_ramp_size-1);int l=0;float el_l=getElevationStop(l);float el_r=getElevationStop(r);while(r-l > 1){int m=(r+l)/2;float el_m=getElevationStop(m);if(el < el_m){r=m;el_r=el_m;}else\n{l=m;el_l=el_m;}}float x=(float(l)+(el-el_l)/(el_r-el_l)+0.5)/float(u_color_ramp_size);fragColor=u_opacity*texture(u_color_stops,vec2(x,0));\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_dimension;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=projectTile(a_pos,a_pos);highp vec2 epsilon=1.0/u_dimension;float scale=(u_dimension.x-2.0)/u_dimension.x;v_pos=(a_pos/8192.0)*scale+epsilon;if (a_pos.y <-32767.5) {v_pos.y=0.0;}if (a_pos.y > 32766.5) {v_pos.y=1.0;}}"),
 	debug: prepare("uniform highp vec4 u_color;uniform sampler2D u_overlay;in vec2 v_uv;void main() {vec4 overlay_color=texture(u_overlay,v_uv);fragColor=mix(u_color,overlay_color,overlay_color.a);}", "layout(location=0) in vec2 a_pos;out vec2 v_uv;uniform float u_overlay_scale;void main() {v_uv=a_pos/8192.0;gl_Position=projectTileWithElevation(a_pos*u_overlay_scale,get_elevation(a_pos));}"),
 	depth: prepare(clipping_mask_fragment_glsl_g_default, "layout(location=0) in vec2 a_pos;void main() {\n#ifdef GLOBE\ngl_Position=projectTileFor3D(a_pos,0.0);\n#else\ngl_Position=u_projection_matrix*vec4(a_pos,0.0,1.0);\n#endif\n}"),
 	fill: prepare("#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float opacity\nfragColor=color*opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float opacity\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}gl_Position=projectTile(a_pos+u_fill_translate,a_pos);}"),
 	fillOutline: prepare("in vec2 v_pos;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 outline_color\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 outline_color\n#pragma maplibre: initialize lowp float opacity\nfloat dist=length(v_pos-gl_FragCoord.xy);float alpha=1.0-smoothstep(0.0,1.0,dist);fragColor=outline_color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_world;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;out vec2 v_pos;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 outline_color\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 outline_color\n#pragma maplibre: initialize lowp float opacity\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}gl_Position=projectTile(a_pos+u_fill_translate,a_pos);v_pos=(gl_Position.xy/gl_Position.w+1.0)/2.0*u_world;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n}"),
 	fillOutlinePattern: prepare("uniform vec2 u_texsize;uniform sampler2D u_image;uniform float u_fade;in vec2 v_pos_a;in vec2 v_pos_b;in vec2 v_pos;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);float dist=length(v_pos-gl_FragCoord.xy);float alpha=1.0-smoothstep(0.0,1.0,dist);fragColor=mix(color1,color2,u_fade)*alpha*opacity;\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_world;uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform vec3 u_scale;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;out vec2 v_pos_a;out vec2 v_pos_b;out vec2 v_pos;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;gl_Position=projectTile(a_pos+u_fill_translate,a_pos);vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileRatio,a_pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileRatio,a_pos);v_pos=(gl_Position.xy/gl_Position.w+1.0)/2.0*u_world;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n}"),
 	fillPattern: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform vec2 u_texsize;uniform float u_fade;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);fragColor=mix(color1,color2,u_fade)*opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform vec3 u_scale;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;out vec2 v_pos_a;out vec2 v_pos_b;\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileZoomRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;gl_Position=projectTile(a_pos+u_fill_translate,a_pos);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileZoomRatio,a_pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileZoomRatio,a_pos);}"),
-	fillExtrusion: prepare("in vec4 v_color;void main() {fragColor=v_color;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;layout(location=1) in vec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\nout vec4 v_color;\n#pragma maplibre: define highp float base\n#pragma maplibre: define highp float height\n#pragma maplibre: define highp vec4 color\nvoid main() {\n#pragma maplibre: initialize highp float base\n#pragma maplibre: initialize highp float height\n#pragma maplibre: initialize highp vec4 color\nvec3 normal=a_normal_ed.xyz;\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=mod(normal.x,2.0);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nfloat colorvalue=color.r*0.2126+color.g*0.7152+color.b*0.0722;v_color=vec4(0.0,0.0,0.0,1.0);vec4 ambientlight=vec4(0.03,0.03,0.03,1.0);color+=ambientlight;vec3 normalForLighting=normal/16384.0;float directional=clamp(dot(normalForLighting,u_lightpos),0.0,1.0);\n#ifdef GLOBE\nmat3 rotMatrix=globeGetRotationMatrix(spherePos);normalForLighting=rotMatrix*normalForLighting;directional=mix(directional,clamp(dot(normalForLighting,u_lightpos_globe),0.0,1.0),u_projection_transition);\n#endif\ndirectional=mix((1.0-u_lightintensity),max((1.0-colorvalue+u_lightintensity),1.0),directional);if (normal.y !=0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+base)*pow(height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_color.r+=clamp(color.r*directional*u_lightcolor.r,mix(0.0,0.3,1.0-u_lightcolor.r),1.0);v_color.g+=clamp(color.g*directional*u_lightcolor.g,mix(0.0,0.3,1.0-u_lightcolor.g),1.0);v_color.b+=clamp(color.b*directional*u_lightcolor.b,mix(0.0,0.3,1.0-u_lightcolor.b),1.0);v_color*=u_opacity;}"),
-	fillExtrusionPattern: prepare("uniform vec2 u_texsize;uniform float u_fade;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;in vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);vec4 mixedColor=mix(color1,color2,u_fade);fragColor=mixedColor*v_lighting;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform float u_height_factor;uniform vec3 u_scale;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;layout(location=0) in vec2 a_pos;layout(location=1) in vec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\n#ifdef GLOBE\nout vec3 v_sphere_pos;\n#endif\nout vec2 v_pos_a;out vec2 v_pos_b;out vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec3 normal=a_normal_ed.xyz;float edgedistance=a_normal_ed.w;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=mod(normal.x,2.0);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);v_sphere_pos=elevatedPos;gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nvec2 pos=normal.x==1.0 && normal.y==0.0 && normal.z==16384.0\n? a_pos\n: vec2(edgedistance,elevation*u_height_factor);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileRatio,pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileRatio,pos);v_lighting=vec4(0.0,0.0,0.0,1.0);float directional=clamp(dot(normal/16383.0,u_lightpos),0.0,1.0);directional=mix((1.0-u_lightintensity),max((0.5+u_lightintensity),1.0),directional);if (normal.y !=0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+base)*pow(height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_lighting.rgb+=clamp(directional*u_lightcolor,mix(vec3(0.0),vec3(0.3),1.0-u_lightcolor),vec3(1.0));v_lighting*=u_opacity;}"),
-	hillshadePrepare: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D u_image;in vec2 v_pos;uniform vec2 u_dimension;uniform float u_zoom;uniform vec4 u_unpack;float getElevation(vec2 coord,float bias) {vec4 data=texture(u_image,coord)*255.0;data.a=-1.0;return dot(data,u_unpack);}void main() {vec2 epsilon=1.0/u_dimension;float tileSize=u_dimension.x-2.0;float a=getElevation(v_pos+vec2(-epsilon.x,-epsilon.y),0.0);float b=getElevation(v_pos+vec2(0,-epsilon.y),0.0);float c=getElevation(v_pos+vec2(epsilon.x,-epsilon.y),0.0);float d=getElevation(v_pos+vec2(-epsilon.x,0),0.0);float e=getElevation(v_pos,0.0);float f=getElevation(v_pos+vec2(epsilon.x,0),0.0);float g=getElevation(v_pos+vec2(-epsilon.x,epsilon.y),0.0);float h=getElevation(v_pos+vec2(0,epsilon.y),0.0);float i=getElevation(v_pos+vec2(epsilon.x,epsilon.y),0.0);float exaggerationFactor=u_zoom < 2.0 ? 0.4 : u_zoom < 4.5 ? 0.35 : 0.3;float exaggeration=u_zoom < 15.0 ? (u_zoom-15.0)*exaggerationFactor : 0.0;vec2 deriv=vec2((c+f+f+i)-(a+d+d+g),(g+h+h+i)-(a+b+b+c))*tileSize/pow(2.0,exaggeration+(28.2562-u_zoom));fragColor=clamp(vec4(deriv.x/8.0+0.5,deriv.y/8.0+0.5,1.0,1.0),0.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;uniform vec2 u_dimension;layout(location=0) in vec2 a_pos;layout(location=1) in vec2 a_texture_pos;out vec2 v_pos;void main() {gl_Position=u_matrix*vec4(a_pos,0,1);highp vec2 epsilon=1.0/u_dimension;float scale=(u_dimension.x-2.0)/u_dimension.x;v_pos=(a_texture_pos/8192.0)*scale+epsilon;}"),
+	fillExtrusion: prepare("in vec4 v_color;void main() {fragColor=v_color;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;layout(location=1) in ivec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\nout vec4 v_color;\n#pragma maplibre: define highp float base\n#pragma maplibre: define highp float height\n#pragma maplibre: define highp vec4 color\nvoid main() {\n#pragma maplibre: initialize highp float base\n#pragma maplibre: initialize highp float height\n#pragma maplibre: initialize highp vec4 color\nvec3 normal=vec3(a_normal_ed.xyz);\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=float(a_normal_ed.x & 1);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nfloat colorvalue=color.r*0.2126+color.g*0.7152+color.b*0.0722;v_color=vec4(0.0,0.0,0.0,1.0);vec4 ambientlight=vec4(0.03,0.03,0.03,1.0);color+=ambientlight;vec3 normalForLighting=normal/16384.0;float directional=clamp(dot(normalForLighting,u_lightpos),0.0,1.0);\n#ifdef GLOBE\nmat3 rotMatrix=globeGetRotationMatrix(spherePos);normalForLighting=rotMatrix*normalForLighting;directional=mix(directional,clamp(dot(normalForLighting,u_lightpos_globe),0.0,1.0),u_projection_transition);\n#endif\ndirectional=mix((1.0-u_lightintensity),max((1.0-colorvalue+u_lightintensity),1.0),directional);if (normal.y !=0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+base)*pow(height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_color.r+=clamp(color.r*directional*u_lightcolor.r,mix(0.0,0.3,1.0-u_lightcolor.r),1.0);v_color.g+=clamp(color.g*directional*u_lightcolor.g,mix(0.0,0.3,1.0-u_lightcolor.g),1.0);v_color.b+=clamp(color.b*directional*u_lightcolor.b,mix(0.0,0.3,1.0-u_lightcolor.b),1.0);v_color*=u_opacity;}"),
+	fillExtrusionPattern: prepare("uniform vec2 u_texsize;uniform float u_fade;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;in vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);vec4 mixedColor=mix(color1,color2,u_fade);fragColor=mixedColor*v_lighting;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform float u_height_factor;uniform vec3 u_scale;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;layout(location=0) in vec2 a_pos;layout(location=1) in ivec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\n#ifdef GLOBE\nout vec3 v_sphere_pos;\n#endif\nout vec2 v_pos_a;out vec2 v_pos_b;out vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec3 normal=vec3(a_normal_ed.xyz);float edgedistance=float(a_normal_ed.w);vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=float(a_normal_ed.x & 1);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);v_sphere_pos=elevatedPos;gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nvec2 pos=a_normal_ed.x==1 && a_normal_ed.y==0 && a_normal_ed.z==16384\n? a_pos\n: vec2(edgedistance,elevation*u_height_factor);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileRatio,pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileRatio,pos);v_lighting=vec4(0.0,0.0,0.0,1.0);float directional=clamp(dot(normal/16383.0,u_lightpos),0.0,1.0);directional=mix((1.0-u_lightintensity),max((0.5+u_lightintensity),1.0),directional);if (normal.y !=0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+base)*pow(height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_lighting.rgb+=clamp(directional*u_lightcolor,mix(vec3(0.0),vec3(0.3),1.0-u_lightcolor),vec3(1.0));v_lighting*=u_opacity;}"),
+	hillshadePrepare: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D u_image;in vec2 v_pos;uniform vec2 u_dimension;uniform float u_zoom;uniform vec4 u_unpack;float getElevation(ivec2 texel) {vec4 data=texelFetch(u_image,texel,0)*255.0;data.a=-1.0;return dot(data,u_unpack);}void main() {ivec2 pos=ivec2(gl_FragCoord.xy)+ivec2(1);float tileSize=u_dimension.x-2.0;float a=getElevation(pos+ivec2(-1,-1));float b=getElevation(pos+ivec2(0,-1));float c=getElevation(pos+ivec2(1,-1));float d=getElevation(pos+ivec2(-1,0));float e=getElevation(pos);float f=getElevation(pos+ivec2(1,0));float g=getElevation(pos+ivec2(-1,1));float h=getElevation(pos+ivec2(0,1));float i=getElevation(pos+ivec2(1,1));float exaggerationFactor=u_zoom < 2.0 ? 0.4 : u_zoom < 4.5 ? 0.35 : 0.3;float exaggeration=u_zoom < 15.0 ? (u_zoom-15.0)*exaggerationFactor : 0.0;vec2 deriv=vec2((c+f+f+i)-(a+d+d+g),(g+h+h+i)-(a+b+b+c))*tileSize/pow(2.0,exaggeration+(28.2562-u_zoom));fragColor=clamp(vec4(deriv.x/8.0+0.5,deriv.y/8.0+0.5,1.0,1.0),0.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;uniform vec2 u_dimension;layout(location=0) in vec2 a_pos;layout(location=1) in vec2 a_texture_pos;out vec2 v_pos;void main() {gl_Position=u_matrix*vec4(a_pos,0,1);highp vec2 epsilon=1.0/u_dimension;float scale=(u_dimension.x-2.0)/u_dimension.x;v_pos=(a_texture_pos/8192.0)*scale+epsilon;}"),
 	hillshade: prepare("uniform sampler2D u_image;in vec2 v_pos;uniform vec2 u_latrange;uniform float u_exaggeration;uniform vec4 u_accent;uniform int u_method;uniform float u_altitudes[NUM_ILLUMINATION_SOURCES];uniform float u_azimuths[NUM_ILLUMINATION_SOURCES];uniform vec4 u_shadows[NUM_ILLUMINATION_SOURCES];uniform vec4 u_highlights[NUM_ILLUMINATION_SOURCES];\n#define PI 3.141592653589793\n#define STANDARD 0\n#define COMBINED 1\n#define IGOR 2\n#define MULTIDIRECTIONAL 3\n#define BASIC 4\nfloat get_aspect(vec2 deriv){return deriv.x !=0.0 ? atan(deriv.y,-deriv.x) : PI/2.0*(deriv.y > 0.0 ? 1.0 :-1.0);}void igor_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float aspect=get_aspect(deriv);float azimuth=u_azimuths[0]+PI;float slope_stength=atan(length(deriv))*2.0/PI;float aspect_strength=1.0-abs(mod((aspect+azimuth)/PI+0.5,2.0)-1.0);float shadow_strength=slope_stength*aspect_strength;float highlight_strength=slope_stength*(1.0-aspect_strength);fragColor=u_shadows[0]*shadow_strength+u_highlights[0]*highlight_strength;}void standard_hillshade(vec2 deriv){float azimuth=u_azimuths[0]+PI;float slope=atan(0.625*length(deriv));float aspect=get_aspect(deriv);float intensity=u_exaggeration;float base=1.875-intensity*1.75;float maxValue=0.5*PI;float scaledSlope=intensity !=0.5 ? ((pow(base,slope)-1.0)/(pow(base,maxValue)-1.0))*maxValue : slope;float accent=cos(scaledSlope);vec4 accent_color=(1.0-accent)*u_accent*clamp(intensity*2.0,0.0,1.0);float shade=abs(mod((aspect+azimuth)/PI+0.5,2.0)-1.0);vec4 shade_color=mix(u_shadows[0],u_highlights[0],shade)*sin(scaledSlope)*clamp(intensity*2.0,0.0,1.0);fragColor=accent_color*(1.0-shade_color.a)+shade_color;}void basic_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float azimuth=u_azimuths[0]+PI;float cos_az=cos(azimuth);float sin_az=sin(azimuth);float cos_alt=cos(u_altitudes[0]);float sin_alt=sin(u_altitudes[0]);float cang=(sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv));float shade=clamp(cang,0.0,1.0);if(shade > 0.5){fragColor=u_highlights[0]*(2.0*shade-1.0);}else\n{fragColor=u_shadows[0]*(1.0-2.0*shade);}}void multidirectional_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;fragColor=vec4(0,0,0,0);for(int i=0; i < NUM_ILLUMINATION_SOURCES; i++){float cos_alt=cos(u_altitudes[i]);float sin_alt=sin(u_altitudes[i]);float cos_az=-cos(u_azimuths[i]);float sin_az=-sin(u_azimuths[i]);float cang=(sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv));float shade=clamp(cang,0.0,1.0);if(shade > 0.5){fragColor+=u_highlights[i]*(2.0*shade-1.0)/float(NUM_ILLUMINATION_SOURCES);}else\n{fragColor+=u_shadows[i]*(1.0-2.0*shade)/float(NUM_ILLUMINATION_SOURCES);}}}void combined_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float azimuth=u_azimuths[0]+PI;float cos_az=cos(azimuth);float sin_az=sin(azimuth);float cos_alt=cos(u_altitudes[0]);float sin_alt=sin(u_altitudes[0]);float cang=acos((sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv)));cang=clamp(cang,0.0,PI/2.0);float shade=cang*atan(length(deriv))*4.0/PI/PI;float highlight=(PI/2.0-cang)*atan(length(deriv))*4.0/PI/PI;fragColor=u_shadows[0]*shade+u_highlights[0]*highlight;}void main() {vec4 pixel=texture(u_image,v_pos);float scaleFactor=cos(radians((u_latrange[0]-u_latrange[1])*(1.0-v_pos.y)+u_latrange[1]));vec2 deriv=((pixel.rg*8.0)-4.0)/scaleFactor;if (u_method==BASIC) {basic_hillshade(deriv);} else if (u_method==COMBINED) {combined_hillshade(deriv);} else if (u_method==IGOR) {igor_hillshade(deriv);} else if (u_method==MULTIDIRECTIONAL) {multidirectional_hillshade(deriv);} else if (u_method==STANDARD) {standard_hillshade(deriv);} else {standard_hillshade(deriv);}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=projectTile(a_pos,a_pos);v_pos=a_pos/8192.0;if (a_pos.y <-32767.5) {v_pos.y=0.0;}if (a_pos.y > 32766.5) {v_pos.y=1.0;}}"),
-	line: prepare("uniform lowp float u_device_pixel_ratio;flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nfloat dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in vec2 a_pos_normal;layout(location=1) in vec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;uniform vec2 u_units_to_pixels;uniform lowp float u_device_pixel_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp float v_linesofar;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=a_data.xy-128.0;float a_direction=mod(a_data.z,4.0)-1.0;v_linesofar=(floor(a_data.z/4.0)+a_data.w*64.0)*2.0;vec2 pos=floor(a_pos_normal*0.5);mediump vec2 normal=a_pos_normal-2.0*pos;normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
-	lineGradient: prepare("uniform lowp float u_device_pixel_ratio;uniform sampler2D u_image;flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nfloat dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in vec2 a_pos_normal;layout(location=1) in vec4 a_data;layout(location=2) in float a_uv_x;layout(location=3) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;uniform vec2 u_units_to_pixels;uniform float u_image_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=a_data.xy-128.0;float a_direction=mod(a_data.z,4.0)-1.0;highp float texel_height=1.0/u_image_height;highp float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=floor(a_pos_normal*0.5);mediump vec2 normal=a_pos_normal-2.0*pos;normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
-	linePattern: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform lowp float u_device_pixel_ratio;uniform vec2 u_texsize;uniform float u_fade;uniform mediump vec3 u_scale;uniform sampler2D u_image;in vec2 v_normal;flat in vec2 v_width2;in float v_linesofar;in float v_gamma_scale;flat in float v_width;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileZoomRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;vec2 pattern_size_a=vec2(display_size_a.x*fromScale/tileZoomRatio,display_size_a.y);vec2 pattern_size_b=vec2(display_size_b.x*toScale/tileZoomRatio,display_size_b.y);float aspect_a=display_size_a.y/v_width;float aspect_b=display_size_b.y/v_width;float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float x_a=mod(v_linesofar/pattern_size_a.x*aspect_a,1.0);float x_b=mod(v_linesofar/pattern_size_b.x*aspect_b,1.0);float y=0.5*v_normal.y+0.5;vec2 texel_size=1.0/u_texsize;vec2 pos_a=mix(pattern_tl_a*texel_size-texel_size,pattern_br_a*texel_size+texel_size,vec2(x_a,y));vec2 pos_b=mix(pattern_tl_b*texel_size-texel_size,pattern_br_b*texel_size+texel_size,vec2(x_b,y));vec4 color=mix(texture(u_image,pos_a),texture(u_image,pos_b),u_fade);fragColor=color*alpha*opacity;\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in vec2 a_pos_normal;layout(location=1) in vec4 a_data;uniform vec2 u_translation;uniform vec2 u_units_to_pixels;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_linesofar;out float v_gamma_scale;flat out float v_width;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=a_data.xy-128.0;float a_direction=mod(a_data.z,4.0)-1.0;float a_linesofar=(floor(a_data.z/4.0)+a_data.w*64.0)*LINE_DISTANCE_SCALE;vec2 pos=floor(a_pos_normal*0.5);mediump vec2 normal=a_pos_normal-2.0*pos;normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_linesofar=a_linesofar;v_width2=vec2(outset,inset);v_width=floorwidth;}"),
-	lineSDF: prepare("uniform lowp float u_device_pixel_ratio;uniform lowp float u_lineatlas_width;uniform sampler2D u_image;uniform float u_mix;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nfloat dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float sdfdist_a=texture(u_image,v_tex_a).a;float sdfdist_b=texture(u_image,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0/u_device_pixel_ratio)/min(dasharray_from.w,dasharray_to.w);alpha*=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in vec2 a_pos_normal;layout(location=1) in vec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;uniform vec2 u_units_to_pixels;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out vec2 v_tex_a;out vec2 v_tex_b;out float v_gamma_scale;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=a_data.xy-128.0;float a_direction=mod(a_data.z,4.0)-1.0;float a_linesofar=(floor(a_data.z/4.0)+a_data.w*64.0)*LINE_DISTANCE_SCALE;vec2 pos=floor(a_pos_normal*0.5);mediump vec2 normal=a_pos_normal-2.0*pos;normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
-	lineGradientSDF: prepare("uniform lowp float u_device_pixel_ratio;uniform sampler2D u_image;uniform sampler2D u_image_dash;uniform float u_mix;uniform lowp float u_lineatlas_width;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nfloat dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);float sdfdist_a=texture(u_image_dash,v_tex_a).a;float sdfdist_b=texture(u_image_dash,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0)/min(dasharray_from.w,dasharray_to.w);float dash_alpha=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*dash_alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in vec2 a_pos_normal;layout(location=1) in vec4 a_data;layout(location=2) in float a_uv_x;layout(location=3) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;uniform vec2 u_units_to_pixels;uniform float u_image_height;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;out vec2 v_tex_a;out vec2 v_tex_b;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=a_data.xy-128.0;float a_direction=mod(a_data.z,4.0)-1.0;float a_linesofar=(floor(a_data.z/4.0)+a_data.w*64.0)*LINE_DISTANCE_SCALE;float texel_height=1.0/u_image_height;float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=floor(a_pos_normal*0.5);mediump vec2 normal=a_pos_normal-2.0*pos;normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
+	line: prepare("uniform lowp float u_device_pixel_ratio;flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;uniform vec2 u_units_to_pixels;uniform lowp float u_device_pixel_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp float v_linesofar;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);v_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*2.0;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
+	lineGradient: prepare("uniform lowp float u_device_pixel_ratio;uniform sampler2D u_image;flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in float a_uv_x;layout(location=3) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;uniform vec2 u_units_to_pixels;uniform float u_image_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);highp float texel_height=1.0/u_image_height;highp float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
+	linePattern: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform lowp float u_device_pixel_ratio;uniform vec2 u_texsize;uniform float u_fade;uniform mediump vec3 u_scale;uniform sampler2D u_image;in vec2 v_normal;flat in vec2 v_width2;in float v_linesofar;in float v_gamma_scale;flat in float v_width;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileZoomRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;vec2 pattern_size_a=vec2(display_size_a.x*fromScale/tileZoomRatio,display_size_a.y);vec2 pattern_size_b=vec2(display_size_b.x*toScale/tileZoomRatio,display_size_b.y);float aspect_a=display_size_a.y/v_width;float aspect_b=display_size_b.y/v_width;float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float x_a=mod(v_linesofar/pattern_size_a.x*aspect_a,1.0);float x_b=mod(v_linesofar/pattern_size_b.x*aspect_b,1.0);float y=0.5*v_normal.y+0.5;vec2 texel_size=1.0/u_texsize;vec2 pos_a=mix(pattern_tl_a*texel_size-texel_size,pattern_br_a*texel_size+texel_size,vec2(x_a,y));vec2 pos_b=mix(pattern_tl_b*texel_size-texel_size,pattern_br_b*texel_size+texel_size,vec2(x_b,y));vec4 color=mix(texture(u_image,pos_a),texture(u_image,pos_b),u_fade);fragColor=color*alpha*opacity;\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;uniform vec2 u_translation;uniform vec2 u_units_to_pixels;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_linesofar;out float v_gamma_scale;flat out float v_width;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_linesofar=a_linesofar;v_width2=vec2(outset,inset);v_width=floorwidth;}"),
+	lineSDF: prepare("uniform lowp float u_device_pixel_ratio;uniform lowp float u_lineatlas_width;uniform sampler2D u_image;uniform float u_mix;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float sdfdist_a=texture(u_image,v_tex_a).a;float sdfdist_b=texture(u_image,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0/u_device_pixel_ratio)/min(dasharray_from.w,dasharray_to.w);alpha*=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;uniform vec2 u_units_to_pixels;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out vec2 v_tex_a;out vec2 v_tex_b;out float v_gamma_scale;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
+	lineGradientSDF: prepare("uniform lowp float u_device_pixel_ratio;uniform sampler2D u_image;uniform sampler2D u_image_dash;uniform float u_mix;uniform lowp float u_lineatlas_width;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);float sdfdist_a=texture(u_image_dash,v_tex_a).a;float sdfdist_b=texture(u_image_dash,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0)/min(dasharray_from.w,dasharray_to.w);float dash_alpha=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*dash_alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in float a_uv_x;layout(location=3) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform lowp float u_device_pixel_ratio;uniform vec2 u_units_to_pixels;uniform float u_image_height;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;out vec2 v_tex_a;out vec2 v_tex_b;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;float texel_height=1.0/u_image_height;float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
 	layerOpacity: prepare("uniform sampler2D u_image;uniform float u_opacity;in vec2 v_pos;void main() {fragColor=texture(u_image,v_pos)*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(0.0);\n#endif\n}", "layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=vec4(a_pos.x*2.0-1.0,1.0-a_pos.y*2.0,0.0,1.0);v_pos.x=a_pos.x;v_pos.y=1.0-a_pos.y;}"),
-	raster: prepare("uniform float u_fade_t;uniform float u_opacity;uniform sampler2D u_image0;uniform sampler2D u_image1;in vec2 v_pos0;in vec2 v_pos1;uniform float u_brightness_low;uniform float u_brightness_high;uniform float u_saturation_factor;uniform float u_contrast_factor;uniform vec3 u_spin_weights;void main() {vec4 color0=texture(u_image0,v_pos0);vec4 color1=texture(u_image1,v_pos1);if (color0.a > 0.0) {color0.rgb=color0.rgb/color0.a;}if (color1.a > 0.0) {color1.rgb=color1.rgb/color1.a;}vec4 color=mix(color0,color1,u_fade_t);color.a*=u_opacity;vec3 rgb=color.rgb;rgb=vec3(dot(rgb,u_spin_weights.xyz),dot(rgb,u_spin_weights.zxy),dot(rgb,u_spin_weights.yzx));float average=(color.r+color.g+color.b)/3.0;rgb+=(average-rgb)*u_saturation_factor;rgb=(rgb-0.5)*u_contrast_factor+0.5;vec3 u_high_vec=vec3(u_brightness_low,u_brightness_low,u_brightness_low);vec3 u_low_vec=vec3(u_brightness_high,u_brightness_high,u_brightness_high);fragColor=vec4(mix(u_high_vec,u_low_vec,rgb)*color.a,color.a);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_tl_parent;uniform float u_scale_parent;uniform float u_buffer_scale;uniform vec4 u_coords_top;uniform vec4 u_coords_bottom;layout(location=0) in vec2 a_pos;out vec2 v_pos0;out vec2 v_pos1;void main() {vec2 fractionalPos=a_pos/8192.0;vec2 position=mix(mix(u_coords_top.xy,u_coords_top.zw,fractionalPos.x),mix(u_coords_bottom.xy,u_coords_bottom.zw,fractionalPos.x),fractionalPos.y);gl_Position=projectTile(position,position);v_pos0=((fractionalPos-0.5)/u_buffer_scale)+0.5;\n#ifdef GLOBE\nif (a_pos.y <-32767.5) {v_pos0.y=0.0;}if (a_pos.y > 32766.5) {v_pos0.y=1.0;}\n#endif\nv_pos1=(v_pos0*u_scale_parent)+u_tl_parent;}"),
-	symbolIcon: prepare("uniform sampler2D u_texture;in vec2 v_tex;flat in float v_total_opacity;void main() {fragColor=texture(u_texture,v_tex)*v_total_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in vec4 a_data;layout(location=2) in vec4 a_pixeloffset;layout(location=3) in vec3 a_projected_pos;layout(location=4) in float a_fade_opacity;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform highp float u_camera_to_center_distance;uniform highp float u_pitch;uniform bool u_rotate_symbol;uniform highp float u_aspect_ratio;uniform float u_fade_change;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform vec2 u_texsize;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;out vec2 v_tex;flat out float v_total_opacity;\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=a_data.xy;vec2 a_size=a_data.zw;float a_size_min=floor(a_size[0]*0.5);vec2 a_pxoffset=a_pixeloffset.xy;vec2 a_minFontScale=a_pixeloffset.zw/256.0;float ele=get_elevation(a_pos);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float fade_change=fade_opacity[1] > 0.5 ? u_fade_change :-u_fade_change;float visibility=calculate_visibility(projectedPoint);v_total_opacity=opacity*max(0.0,min(visibility,fade_opacity[0]+fade_change));if (v_total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=u_is_text ? size/24.0 : size;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*max(a_minFontScale,fontScale)+a_pxoffset/16.0)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}gl_Position=finalPos;v_tex=a_tex/u_texsize;}"),
-	symbolSDF: prepare("#define SDF_PX 8.0\nuniform bool u_is_halo;uniform bool u_is_plain;uniform sampler2D u_texture;uniform highp float u_gamma_scale;uniform lowp float u_device_pixel_ratio;uniform bool u_is_text;in vec2 v_data0;in vec3 v_data1;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nfloat EDGE_GAMMA=0.105/u_device_pixel_ratio;vec2 tex=v_data0.xy;float gamma_scale=v_data1.x;float size=v_data1.y;float total_opacity=v_data1[2];float fontScale=u_is_text ? size/24.0 : size;highp float gamma=EDGE_GAMMA/(fontScale*u_gamma_scale);lowp float inner_edge=(256.0-64.0)/256.0;lowp float dist=texture(u_texture,tex).a;lowp vec4 color_alpha_out_text,color_alpha_out_halo;if (u_is_plain){highp float gamma_scaled=gamma*gamma_scale;highp float alpha=smoothstep(inner_edge-gamma_scaled,inner_edge+gamma_scaled,dist);color_alpha_out_text=total_opacity*alpha*fill_color;}if (u_is_halo) {float gamma_halo=(halo_blur*1.19/SDF_PX+EDGE_GAMMA)/(fontScale*u_gamma_scale);float inner_edge_halo=inner_edge+gamma_halo*gamma_scale;highp float gamma_scaled_halo=gamma_halo*gamma_scale;highp float alpha_halo=smoothstep(inner_edge_halo-gamma_scaled_halo,inner_edge_halo+gamma_scaled_halo,dist);highp float halo_edge=(6.0-halo_width/fontScale)/SDF_PX;alpha_halo= min(smoothstep(halo_edge-gamma_scaled_halo,halo_edge+gamma_scaled_halo,dist),1.0-alpha_halo);color_alpha_out_halo=total_opacity*alpha_halo*halo_color;}if (u_is_plain && u_is_halo) {fragColor=color_alpha_out_text+(1.-color_alpha_out_text.a)*color_alpha_out_halo;} else if (u_is_halo){fragColor=color_alpha_out_halo;} else {fragColor=color_alpha_out_text;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in vec4 a_data;layout(location=2) in vec4 a_pixeloffset;layout(location=3) in vec3 a_projected_pos;layout(location=4) in float a_fade_opacity;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform highp float u_pitch;uniform bool u_rotate_symbol;uniform highp float u_aspect_ratio;uniform highp float u_camera_to_center_distance;uniform float u_fade_change;uniform vec2 u_texsize;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;out vec2 v_data0;out vec3 v_data1;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=a_data.xy;vec2 a_size=a_data.zw;float a_size_min=floor(a_size[0]*0.5);vec2 a_pxoffset=a_pixeloffset.xy/16.0;vec2 a_minFontScale=a_pixeloffset.zw/256.0;float ele=get_elevation(a_pos);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float visibility=calculate_visibility(projectedPoint);float fade_change=fade_opacity[1] > 0.5 ? u_fade_change :-u_fade_change;float interpolated_fade_opacity=max(0.0,min(visibility,fade_opacity[0]+fade_change));float total_opacity=opacity*interpolated_fade_opacity;if (total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=u_is_text ? size/24.0 : size;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*max(a_minFontScale,fontScale)+a_pxoffset)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}float gamma_scale=finalPos.w;gl_Position=finalPos;v_data0=a_tex/u_texsize;v_data1=vec3(gamma_scale,size,total_opacity);}"),
-	symbolTextAndIcon: prepare("#define SDF_PX 8.0\n#define SDF 1.0\n#define ICON 0.0\nuniform bool u_is_halo;uniform bool u_is_text;uniform sampler2D u_texture;uniform sampler2D u_texture_icon;uniform highp float u_gamma_scale;uniform lowp float u_device_pixel_ratio;in vec4 v_data0;in vec3 v_data1;flat in float v_is_sdf;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nfloat total_opacity=v_data1[2];if (v_is_sdf==ICON) {vec2 tex_icon=v_data0.zw;fragColor=texture(u_texture_icon,tex_icon)*total_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\nreturn;}vec2 tex=v_data0.xy;float EDGE_GAMMA=0.105/u_device_pixel_ratio;float gamma_scale=v_data1.x;float size=v_data1.y;float fontScale=size/24.0;highp float gamma=EDGE_GAMMA/(fontScale*u_gamma_scale);lowp float buff=(256.0-64.0)/256.0;lowp float dist=texture(u_texture,tex).a;lowp vec4 color_alpha_out,color_alpha_out_halo;if (u_is_text) {highp float gamma_scaled=gamma*gamma_scale;highp float alpha=smoothstep(buff-gamma_scaled,buff+gamma_scaled,dist);color_alpha_out=fill_color*(alpha*total_opacity);}if (u_is_halo) {highp float gamma_halo=(halo_blur*1.19/SDF_PX+EDGE_GAMMA)/(fontScale*u_gamma_scale);lowp float buff_halo=(6.0-halo_width/fontScale)/SDF_PX;highp float gamma_scaled_halo=gamma_halo*gamma_scale;highp float alpha_halo=smoothstep(buff_halo-gamma_scaled_halo,buff_halo+gamma_scaled_halo,dist);color_alpha_out_halo=halo_color*(alpha_halo*total_opacity);}if (u_is_text && u_is_halo) {fragColor=color_alpha_out+(1.-color_alpha_out.a)*color_alpha_out_halo;} else if (u_is_halo) {fragColor=color_alpha_out_halo;} else {fragColor=color_alpha_out;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in vec4 a_data;layout(location=2) in vec3 a_projected_pos;layout(location=3) in float a_fade_opacity;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform highp float u_pitch;uniform bool u_rotate_symbol;uniform highp float u_aspect_ratio;uniform highp float u_camera_to_center_distance;uniform float u_fade_change;uniform vec2 u_texsize;uniform vec2 u_texsize_icon;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;out vec4 v_data0;out vec3 v_data1;flat out float v_is_sdf;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=a_data.xy;vec2 a_size=a_data.zw;float a_size_min=floor(a_size[0]*0.5);float is_sdf=a_size[0]-2.0*a_size_min;float ele=get_elevation(a_pos);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float visibility=calculate_visibility(projectedPoint);float fade_change=fade_opacity[1] > 0.5 ? u_fade_change :-u_fade_change;float interpolated_fade_opacity=max(0.0,min(visibility,fade_opacity[0]+fade_change));float total_opacity=opacity*interpolated_fade_opacity;if (total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=size/24.0;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map && !u_is_along_line) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*fontScale)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}float gamma_scale=finalPos.w;gl_Position=finalPos;v_data0.xy=a_tex/u_texsize;v_data0.zw=a_tex/u_texsize_icon;v_data1=vec3(gamma_scale,size,total_opacity);v_is_sdf=is_sdf;}"),
+	raster: prepare("uniform float u_fade_t;uniform float u_opacity;uniform sampler2D u_image0;uniform sampler2D u_image1;in vec3 v_pos0;in vec3 v_pos1;uniform float u_brightness_low;uniform float u_brightness_high;uniform float u_saturation_factor;uniform float u_contrast_factor;uniform vec3 u_spin_weights;void main() {vec4 color0=texture(u_image0,v_pos0.xy/v_pos0.z);vec4 color1=texture(u_image1,v_pos1.xy/v_pos1.z);if (color0.a > 0.0) {color0.rgb=color0.rgb/color0.a;}if (color1.a > 0.0) {color1.rgb=color1.rgb/color1.a;}vec4 color=mix(color0,color1,u_fade_t);color.a*=u_opacity;vec3 rgb=color.rgb;rgb=vec3(dot(rgb,u_spin_weights.xyz),dot(rgb,u_spin_weights.zxy),dot(rgb,u_spin_weights.yzx));float average=(color.r+color.g+color.b)/3.0;rgb+=(average-rgb)*u_saturation_factor;rgb=(rgb-0.5)*u_contrast_factor+0.5;vec3 u_high_vec=vec3(u_brightness_low,u_brightness_low,u_brightness_low);vec3 u_low_vec=vec3(u_brightness_high,u_brightness_high,u_brightness_high);fragColor=vec4(mix(u_high_vec,u_low_vec,rgb)*color.a,color.a);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_tl_parent;uniform float u_scale_parent;uniform float u_buffer_scale;uniform vec3 u_perspective_transform;uniform vec4 u_coords_top;uniform vec4 u_coords_bottom;layout(location=0) in vec2 a_pos;out vec3 v_pos0;out vec3 v_pos1;void main() {vec2 fractionalPos=a_pos/8192.0;vec2 position=mix(mix(u_coords_top.xy,u_coords_top.zw,fractionalPos.x),mix(u_coords_bottom.xy,u_coords_bottom.zw,fractionalPos.x),fractionalPos.y);gl_Position=projectTile(position,position);vec2 texturePos=((fractionalPos-0.5)/u_buffer_scale)+0.5;\n#ifdef GLOBE\nif (a_pos.y <-32767.5) {texturePos.y=0.0;}if (a_pos.y > 32766.5) {texturePos.y=1.0;}\n#endif\nfloat perspectiveRatio=dot(u_perspective_transform,vec3(position,1.0));v_pos0=vec3(texturePos*perspectiveRatio,perspectiveRatio);vec2 parentPos=(texturePos*u_scale_parent)+u_tl_parent;v_pos1=vec3(parentPos*perspectiveRatio,perspectiveRatio);}"),
+	symbolIcon: prepare("uniform sampler2D u_texture;in vec2 v_tex;flat in float v_total_opacity;void main() {fragColor=texture(u_texture,v_tex)*v_total_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in uvec4 a_data;layout(location=2) in vec4 a_pixeloffset;layout(location=3) in vec3 a_projected_pos;layout(location=4) in uint a_fade_opacity;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform highp float u_camera_to_center_distance;uniform highp float u_pitch;uniform bool u_rotate_symbol;uniform highp float u_aspect_ratio;uniform float u_fade_change;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform vec2 u_texsize;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;out vec2 v_tex;flat out float v_total_opacity;\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=vec2(a_data.xy);vec2 a_size=vec2(a_data.zw);float a_size_min=float(a_data.z >> 1u);vec2 a_pxoffset=a_pixeloffset.xy;vec2 a_minFontScale=a_pixeloffset.zw/256.0;float ele=get_elevation(a_pos);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float fade_change=fade_opacity[1] > 0.5 ? u_fade_change :-u_fade_change;float visibility=calculate_visibility(projectedPoint);v_total_opacity=opacity*max(0.0,min(visibility,fade_opacity[0]+fade_change));if (v_total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=u_is_text ? size/24.0 : size;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*max(a_minFontScale,fontScale)+a_pxoffset/16.0)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}gl_Position=finalPos;v_tex=a_tex/u_texsize;}"),
+	symbolSDF: prepare("#define SDF_PX 8.0\nuniform bool u_is_halo;uniform bool u_is_plain;uniform sampler2D u_texture;uniform highp float u_gamma_scale;uniform lowp float u_device_pixel_ratio;uniform bool u_is_text;in vec2 v_data0;in vec3 v_data1;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nfloat EDGE_GAMMA=0.105/u_device_pixel_ratio;vec2 tex=v_data0.xy;float gamma_scale=v_data1.x;float size=v_data1.y;float total_opacity=v_data1[2];float fontScale=u_is_text ? size/24.0 : size;highp float gamma=EDGE_GAMMA/(fontScale*u_gamma_scale);lowp float inner_edge=(256.0-64.0)/256.0;lowp float dist=texture(u_texture,tex).a;lowp vec4 color_alpha_out_text,color_alpha_out_halo;if (u_is_plain){highp float gamma_scaled=gamma*gamma_scale;highp float alpha=smoothstep(inner_edge-gamma_scaled,inner_edge+gamma_scaled,dist);color_alpha_out_text=total_opacity*alpha*fill_color;}if (u_is_halo) {float gamma_halo=(halo_blur*1.19/SDF_PX+EDGE_GAMMA)/(fontScale*u_gamma_scale);float inner_edge_halo=inner_edge+gamma_halo*gamma_scale;highp float gamma_scaled_halo=gamma_halo*gamma_scale;highp float alpha_halo=smoothstep(inner_edge_halo-gamma_scaled_halo,inner_edge_halo+gamma_scaled_halo,dist);highp float halo_edge=(6.0-halo_width/fontScale)/SDF_PX;alpha_halo= min(smoothstep(halo_edge-gamma_scaled_halo,halo_edge+gamma_scaled_halo,dist),1.0-alpha_halo);color_alpha_out_halo=total_opacity*alpha_halo*halo_color;}if (u_is_plain && u_is_halo) {fragColor=color_alpha_out_text+(1.-color_alpha_out_text.a)*color_alpha_out_halo;} else if (u_is_halo){fragColor=color_alpha_out_halo;} else {fragColor=color_alpha_out_text;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in uvec4 a_data;layout(location=2) in vec4 a_pixeloffset;layout(location=3) in vec3 a_projected_pos;layout(location=4) in uint a_fade_opacity;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform highp float u_pitch;uniform bool u_rotate_symbol;uniform highp float u_aspect_ratio;uniform highp float u_camera_to_center_distance;uniform float u_fade_change;uniform vec2 u_texsize;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;out vec2 v_data0;out vec3 v_data1;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=vec2(a_data.xy);vec2 a_size=vec2(a_data.zw);float a_size_min=float(a_data.z >> 1u);vec2 a_pxoffset=a_pixeloffset.xy/16.0;vec2 a_minFontScale=a_pixeloffset.zw/256.0;float ele=get_elevation(a_pos);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float visibility=calculate_visibility(projectedPoint);float fade_change=fade_opacity[1] > 0.5 ? u_fade_change :-u_fade_change;float interpolated_fade_opacity=max(0.0,min(visibility,fade_opacity[0]+fade_change));float total_opacity=opacity*interpolated_fade_opacity;if (total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=u_is_text ? size/24.0 : size;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*max(a_minFontScale,fontScale)+a_pxoffset)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}float gamma_scale=finalPos.w;gl_Position=finalPos;v_data0=a_tex/u_texsize;v_data1=vec3(gamma_scale,size,total_opacity);}"),
+	symbolTextAndIcon: prepare("#define SDF_PX 8.0\n#define SDF 1.0\n#define ICON 0.0\nuniform bool u_is_halo;uniform bool u_is_text;uniform sampler2D u_texture;uniform sampler2D u_texture_icon;uniform highp float u_gamma_scale;uniform lowp float u_device_pixel_ratio;in vec4 v_data0;in vec3 v_data1;flat in float v_is_sdf;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nfloat total_opacity=v_data1[2];if (v_is_sdf==ICON) {vec2 tex_icon=v_data0.zw;fragColor=texture(u_texture_icon,tex_icon)*total_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\nreturn;}vec2 tex=v_data0.xy;float EDGE_GAMMA=0.105/u_device_pixel_ratio;float gamma_scale=v_data1.x;float size=v_data1.y;float fontScale=size/24.0;highp float gamma=EDGE_GAMMA/(fontScale*u_gamma_scale);lowp float buff=(256.0-64.0)/256.0;lowp float dist=texture(u_texture,tex).a;lowp vec4 color_alpha_out,color_alpha_out_halo;if (u_is_text) {highp float gamma_scaled=gamma*gamma_scale;highp float alpha=smoothstep(buff-gamma_scaled,buff+gamma_scaled,dist);color_alpha_out=fill_color*(alpha*total_opacity);}if (u_is_halo) {highp float gamma_halo=(halo_blur*1.19/SDF_PX+EDGE_GAMMA)/(fontScale*u_gamma_scale);lowp float buff_halo=(6.0-halo_width/fontScale)/SDF_PX;highp float gamma_scaled_halo=gamma_halo*gamma_scale;highp float alpha_halo=smoothstep(buff_halo-gamma_scaled_halo,buff_halo+gamma_scaled_halo,dist);color_alpha_out_halo=halo_color*(alpha_halo*total_opacity);}if (u_is_text && u_is_halo) {fragColor=color_alpha_out+(1.-color_alpha_out.a)*color_alpha_out_halo;} else if (u_is_halo) {fragColor=color_alpha_out_halo;} else {fragColor=color_alpha_out;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in uvec4 a_data;layout(location=2) in vec3 a_projected_pos;layout(location=3) in uint a_fade_opacity;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform highp float u_pitch;uniform bool u_rotate_symbol;uniform highp float u_aspect_ratio;uniform highp float u_camera_to_center_distance;uniform float u_fade_change;uniform vec2 u_texsize;uniform vec2 u_texsize_icon;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;out vec4 v_data0;out vec3 v_data1;flat out float v_is_sdf;\n#pragma maplibre: define highp vec4 fill_color\n#pragma maplibre: define highp vec4 halo_color\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float halo_width\n#pragma maplibre: define lowp float halo_blur\nvoid main() {\n#pragma maplibre: initialize highp vec4 fill_color\n#pragma maplibre: initialize highp vec4 halo_color\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float halo_width\n#pragma maplibre: initialize lowp float halo_blur\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=vec2(a_data.xy);vec2 a_size=vec2(a_data.zw);float a_size_min=float(a_data.z >> 1u);float is_sdf=float(a_data.z & 1u);float ele=get_elevation(a_pos);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float visibility=calculate_visibility(projectedPoint);float fade_change=fade_opacity[1] > 0.5 ? u_fade_change :-u_fade_change;float interpolated_fade_opacity=max(0.0,min(visibility,fade_opacity[0]+fade_change));float total_opacity=opacity*interpolated_fade_opacity;if (total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=size/24.0;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map && !u_is_along_line) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*fontScale)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}float gamma_scale=finalPos.w;gl_Position=finalPos;v_data0.xy=a_tex/u_texsize;v_data0.zw=a_tex/u_texsize_icon;v_data1=vec3(gamma_scale,size,total_opacity);v_is_sdf=is_sdf;}"),
 	terrain: prepare("uniform sampler2D u_texture;uniform vec4 u_fog_color;uniform vec4 u_horizon_color;uniform float u_fog_ground_blend;uniform float u_fog_ground_blend_opacity;uniform float u_horizon_fog_blend;uniform bool u_is_globe_mode;in vec2 v_texture_pos;in float v_fog_depth;const float gamma=2.2;vec4 gammaToLinear(vec4 color) {return pow(color,vec4(gamma));}vec4 linearToGamma(vec4 color) {return pow(color,vec4(1.0/gamma));}void main() {vec4 surface_color=texture(u_texture,vec2(v_texture_pos.x,1.0-v_texture_pos.y));if (!u_is_globe_mode && u_fog_ground_blend_opacity > 0.0 && v_fog_depth > u_fog_ground_blend) {vec4 surface_color_linear=gammaToLinear(surface_color);float blend_color=smoothstep(0.0,1.0,max((v_fog_depth-u_horizon_fog_blend)/(1.0-u_horizon_fog_blend),0.0));vec4 fog_horizon_color_linear=mix(gammaToLinear(u_fog_color),gammaToLinear(u_horizon_color),blend_color);float factor_fog=max(v_fog_depth-u_fog_ground_blend,0.0)/(1.0-u_fog_ground_blend);fragColor=linearToGamma(mix(surface_color_linear,fog_horizon_color_linear,pow(factor_fog,2.0)*u_fog_ground_blend_opacity));} else {fragColor=surface_color;}}", "layout(location=0) in vec3 a_pos3d;uniform mat4 u_fog_matrix;uniform float u_ele_delta;out vec2 v_texture_pos;out float v_fog_depth;void main() {float ele=get_elevation(a_pos3d.xy);float ele_delta=a_pos3d.z==1.0 ? u_ele_delta : 0.0;v_texture_pos=a_pos3d.xy/8192.0;gl_Position=projectTileFor3D(a_pos3d.xy,ele-ele_delta);vec4 pos=u_fog_matrix*vec4(a_pos3d.xy,ele,1.0);v_fog_depth=pos.z/pos.w*0.5+0.5;}"),
 	terrainDepth: prepare("in float v_depth;const highp vec4 bitSh=vec4(256.*256.*256.,256.*256.,256.,1.);const highp vec4 bitMsk=vec4(0.,vec3(1./256.0));highp vec4 pack(highp float value) {highp vec4 comp=fract(value*bitSh);comp-=comp.xxyz*bitMsk;return comp;}void main() {fragColor=pack(v_depth);}", "layout(location=0) in vec3 a_pos3d;uniform float u_ele_delta;out float v_depth;void main() {float ele=get_elevation(a_pos3d.xy);float ele_delta=a_pos3d.z==1.0 ? u_ele_delta : 0.0;gl_Position=projectTileFor3D(a_pos3d.xy,ele-ele_delta);v_depth=gl_Position.z/gl_Position.w;}"),
 	terrainCoords: prepare("precision mediump float;uniform sampler2D u_texture;uniform float u_terrain_coords_id;in vec2 v_texture_pos;void main() {vec4 rgba=texture(u_texture,v_texture_pos);fragColor=vec4(rgba.r,rgba.g,rgba.b,u_terrain_coords_id);}", "layout(location=0) in vec3 a_pos3d;uniform float u_ele_delta;out vec2 v_texture_pos;void main() {float ele=get_elevation(a_pos3d.xy);float ele_delta=a_pos3d.z==1.0 ? u_ele_delta : 0.0;v_texture_pos=a_pos3d.xy/8192.0;gl_Position=projectTileFor3D(a_pos3d.xy,ele-ele_delta);}"),
-	projectionErrorMeasurement: prepare("flat in vec4 v_output_error_encoded;void main() {fragColor=v_output_error_encoded;}", "layout(location=0) in vec2 a_pos;uniform highp float u_input;uniform highp float u_output_expected;flat out vec4 v_output_error_encoded;void main() {float real_output=2.0*atan(exp(PI-(u_input*PI*2.0)))-PI*0.5;float error=real_output-u_output_expected;float abs_error=abs(error)*128.0;v_output_error_encoded.x=min(floor(abs_error*256.0),255.0)/255.0;abs_error-=v_output_error_encoded.x;v_output_error_encoded.y=min(floor(abs_error*65536.0),255.0)/255.0;abs_error-=v_output_error_encoded.x/255.0;v_output_error_encoded.z=min(floor(abs_error*16777216.0),255.0)/255.0;v_output_error_encoded.w=error >=0.0 ? 1.0 : 0.0;gl_Position=vec4(a_pos,0.0,1.0);}"),
 	atmosphere: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nin vec3 view_direction;uniform vec3 u_sun_pos;uniform vec3 u_globe_position;uniform float u_globe_radius;uniform float u_atmosphere_blend;/**Shader use from https:*Made some change to adapt to MapLibre Globe geometry*/const float PI=3.141592653589793;const int iSteps=5;const int jSteps=3;/*radius of the planet*/const float EARTH_RADIUS=6371e3;/*radius of the atmosphere*/const float ATMOS_RADIUS=6471e3;vec2 rsi(vec3 r0,vec3 rd,float sr) {float a=dot(rd,rd);float b=2.0*dot(rd,r0);float c=dot(r0,r0)-(sr*sr);float d=(b*b)-4.0*a*c;if (d < 0.0) return vec2(1e5,-1e5);return vec2((-b-sqrt(d))/(2.0*a),(-b+sqrt(d))/(2.0*a));}vec4 atmosphere(vec3 r,vec3 r0,vec3 pSun,float iSun,float rPlanet,float rAtmos,vec3 kRlh,float kMie,float shRlh,float shMie,float g) {pSun=normalize(pSun);r=normalize(r);vec2 p=rsi(r0,r,rAtmos);if (p.x > p.y) {return vec4(0.0,0.0,0.0,1.0);}if (p.x < 0.0) {p.x=0.0;}vec3 pos=r0+r*p.x;vec2 p2=rsi(r0,r,rPlanet);if (p2.x <=p2.y && p2.x > 0.0) {p.y=min(p.y,p2.x);}float iStepSize=(p.y-p.x)/float(iSteps);float iTime=p.x+iStepSize*0.5;vec3 totalRlh=vec3(0,0,0);vec3 totalMie=vec3(0,0,0);float iOdRlh=0.0;float iOdMie=0.0;float mu=dot(r,pSun);float mumu=mu*mu;float gg=g*g;float pRlh=3.0/(16.0*PI)*(1.0+mumu);float pMie=3.0/(8.0*PI)*((1.0-gg)*(mumu+1.0))/(pow(1.0+gg-2.0*mu*g,1.5)*(2.0+gg));for (int i=0; i < iSteps; i++) {vec3 iPos=r0+r*iTime;float iHeight=length(iPos)-rPlanet;float odStepRlh=exp(-iHeight/shRlh)*iStepSize;float odStepMie=exp(-iHeight/shMie)*iStepSize;iOdRlh+=odStepRlh;iOdMie+=odStepMie;float jStepSize=rsi(iPos,pSun,rAtmos).y/float(jSteps);float jTime=jStepSize*0.5;float jOdRlh=0.0;float jOdMie=0.0;for (int j=0; j < jSteps; j++) {vec3 jPos=iPos+pSun*jTime;float jHeight=length(jPos)-rPlanet;jOdRlh+=exp(-jHeight/shRlh)*jStepSize;jOdMie+=exp(-jHeight/shMie)*jStepSize;jTime+=jStepSize;}vec3 attn=exp(-(kMie*(iOdMie+jOdMie)+kRlh*(iOdRlh+jOdRlh)));totalRlh+=odStepRlh*attn;totalMie+=odStepMie*attn;iTime+=iStepSize;}float opacity=exp(-(length(kRlh)*length(totalRlh)+kMie*length(totalMie)));vec3 color=iSun*(pRlh*kRlh*totalRlh+pMie*kMie*totalMie);return vec4(color,opacity);}void main() {vec3 scale_camera_pos=-u_globe_position*EARTH_RADIUS/u_globe_radius;vec4 color=atmosphere(normalize(view_direction),scale_camera_pos,u_sun_pos,22.0,EARTH_RADIUS,ATMOS_RADIUS,vec3(5.5e-6,13.0e-6,22.4e-6),21e-6,8e3,1.2e3,0.758\n);color.rgb=1.0-exp(-1.0*color.rgb);color=pow(color,vec4(1.0/2.2));fragColor=vec4(color.rgb,1.0-color.a)*u_atmosphere_blend;}", "layout(location=0) in vec2 a_pos;uniform mat4 u_inv_proj_matrix;out vec3 view_direction;void main() {view_direction=(u_inv_proj_matrix*vec4(a_pos,0.0,1.0)).xyz;gl_Position=vec4(a_pos,0.0,1.0);}"),
 	sky: prepare("uniform vec4 u_sky_color;uniform vec4 u_horizon_color;uniform vec2 u_horizon;uniform vec2 u_horizon_normal;uniform float u_sky_horizon_blend;uniform float u_sky_blend;void main() {float x=gl_FragCoord.x;float y=gl_FragCoord.y;float blend=(y-u_horizon.y)*u_horizon_normal.y+(x-u_horizon.x)*u_horizon_normal.x;if (blend > 0.0) {if (blend < u_sky_horizon_blend) {fragColor=mix(u_sky_color,u_horizon_color,pow(1.0-blend/u_sky_horizon_blend,2.0));} else {fragColor=u_sky_color;}}fragColor=mix(fragColor,vec4(vec3(0.0),0.0),u_sky_blend);}", "layout(location=0) in vec2 a_pos;void main() {gl_Position=vec4(a_pos,1.0,1.0);}")
 };
@@ -8332,7 +8641,8 @@ uniform ${precision} ${type} u_${name};
 	vertexSource = vertexSource.replace(re, (match, operation, precision, type, name) => {
 		const attrType = type === "float" ? "vec2" : "vec4";
 		const unpackType = name.match(/color/) ? "color" : attrType;
-		if (fragmentPragmas[name]) if (operation === "define") return `
+		if (fragmentPragmas[name]) {
+			if (operation === "define") return `
 #ifndef HAS_UNIFORM_u_${name}
 uniform lowp float u_${name}_t;
 layout(location = ${locationCounter++}) in ${precision} ${attrType} a_${name};
@@ -8341,21 +8651,21 @@ out ${precision} ${type} ${name};
 uniform ${precision} ${type} u_${name};
 #endif
 `;
-		else if (unpackType === "vec4") return `
+			else if (unpackType === "vec4") return `
 #ifndef HAS_UNIFORM_u_${name}
     ${name} = a_${name};
 #else
     ${precision} ${type} ${name} = u_${name};
 #endif
 `;
-		else return `
+			else return `
 #ifndef HAS_UNIFORM_u_${name}
     ${name} = unpack_mix_${unpackType}(a_${name}, u_${name}_t);
 #else
     ${precision} ${type} ${name} = u_${name};
 #endif
 `;
-		else if (operation === "define") return `
+		} else if (operation === "define") return `
 #ifndef HAS_UNIFORM_u_${name}
 uniform lowp float u_${name}_t;
 layout(location = ${locationCounter++}) in ${precision} ${attrType} a_${name};
@@ -8444,11 +8754,7 @@ var MercatorProjection = class {
 	get transitionState() {
 		return 0;
 	}
-	get latitudeErrorCorrectionRadians() {
-		return 0;
-	}
 	destroy() {}
-	updateGPUdependent(_) {}
 	getMeshFromTileID(context, _tileID, _hasBorder, _allowPoles, _usage) {
 		if (this._cachedMesh) return this._cachedMesh;
 		const tileExtentArray = new PosArray();
@@ -8469,7 +8775,6 @@ var MercatorProjection = class {
 	hasTransition() {
 		return false;
 	}
-	setErrorQueryLatitudeDegrees(_value) {}
 };
 //#endregion
 //#region src/geo/edge_insets.ts
@@ -8512,7 +8817,9 @@ var EdgeInsets = class EdgeInsets {
 	* @returns the point
 	*/
 	getCenter(width, height) {
-		return new Point(clamp((this.left + width - this.right) / 2, 0, width), clamp((this.top + height - this.bottom) / 2, 0, height));
+		const x = clamp((this.left + width - this.right) / 2, 0, width);
+		const y = clamp((this.top + height - this.bottom) / 2, 0, height);
+		return new Point(x, y);
 	}
 	equals(other) {
 		return this.top === other.top && this.bottom === other.bottom && this.left === other.left && this.right === other.right;
@@ -9164,13 +9471,13 @@ var MercatorCoveringTilesDetailsProvider = class {
 	* @param tileID - Tile x, y and z for zoom.
 	*/
 	getTileBoundingVolume(tileID, wrap, elevation, options) {
-		let minElevation = 0;
-		let maxElevation = 0;
+		let minElevation = Math.min(0, elevation);
+		let maxElevation = Math.max(0, elevation);
 		if (options?.terrain) {
 			const overscaledTileID = new OverscaledTileID(tileID.z, wrap, tileID.z, tileID.x, tileID.y);
 			const minMax = options.terrain.getMinMaxElevation(overscaledTileID);
-			minElevation = minMax.minElevation ?? Math.min(0, elevation);
-			maxElevation = minMax.maxElevation ?? Math.max(0, elevation);
+			minElevation = minMax.minElevation ?? minElevation;
+			maxElevation = minMax.maxElevation ?? maxElevation;
 		}
 		const numTiles = 1 << tileID.z;
 		return new Aabb([
@@ -9184,7 +9491,8 @@ var MercatorCoveringTilesDetailsProvider = class {
 		]);
 	}
 	allowVariableZoom(transform, options) {
-		const maxConstantZoomPitch = clamp(78.5 - transform.fov * (Math.abs(Math.cos(transform.rollInRadians)) * transform.height + Math.abs(Math.sin(transform.rollInRadians)) * transform.width) / transform.height / 2, 0, 60);
+		const zfov = transform.fov * (Math.abs(Math.cos(transform.rollInRadians)) * transform.height + Math.abs(Math.sin(transform.rollInRadians)) * transform.width) / transform.height;
+		const maxConstantZoomPitch = clamp(78.5 - zfov / 2, 0, 60);
 		return !!options.terrain || transform.pitch > maxConstantZoomPitch;
 	}
 	allowWorldCopies() {
@@ -9318,7 +9626,9 @@ var Frustum = class Frustum {
 		const frustumCoords = clipSpaceCorners.map((v) => unprojectClipSpacePoint(v, invProj, worldSize, scale));
 		if (horizonPlane) adjustFarPlaneByHorizonPlane(frustumCoords, frustumPlanePointIndices[0], horizonPlane, flippedNearFar);
 		const frustumPlanes = frustumPlanePointIndices.map((p) => {
-			const n = normalize([], cross([], sub([], frustumCoords[p[0]], frustumCoords[p[1]]), sub([], frustumCoords[p[2]], frustumCoords[p[1]])));
+			const a = sub([], frustumCoords[p[0]], frustumCoords[p[1]]);
+			const b = sub([], frustumCoords[p[2]], frustumCoords[p[1]]);
+			const n = normalize([], cross([], a, b));
 			const d = -dot(n, frustumCoords[p[1]]);
 			return n.concat(d);
 		});
@@ -9412,12 +9722,15 @@ function getNormalizedNearPlane(frustumCoords, nearPlanePointsIndices) {
 * Returns the ideal distance between the frustum's near and far plane so that the far plane only lies as far as the horizon.
 */
 function getIdealNearFarPlaneDistance(horizonPlane, nearPlaneNormalized) {
-	const normalizedHorizonPlane = scale$3([], horizonPlane, 1 / len(horizonPlane));
+	const horizonPlaneLen = len(horizonPlane);
+	const normalizedHorizonPlane = scale$3([], horizonPlane, 1 / horizonPlaneLen);
 	const projectedViewDirection = sub([], nearPlaneNormalized, scale$2([], normalizedHorizonPlane, dot(nearPlaneNormalized, normalizedHorizonPlane)));
 	const projectedViewLength = len(projectedViewDirection);
 	if (projectedViewLength > 0) {
 		const horizonCircleRadius = Math.sqrt(1 - normalizedHorizonPlane[3] * normalizedHorizonPlane[3]);
-		return pointPlaneSignedDistance(nearPlaneNormalized, add([], scale$2([], normalizedHorizonPlane, -normalizedHorizonPlane[3]), scale$2([], projectedViewDirection, horizonCircleRadius / projectedViewLength)));
+		const horizonCircleCenter = scale$2([], normalizedHorizonPlane, -normalizedHorizonPlane[3]);
+		const pointFurthestOnHorizonCircle = add([], horizonCircleCenter, scale$2([], projectedViewDirection, horizonCircleRadius / projectedViewLength));
+		return pointPlaneSignedDistance(nearPlaneNormalized, pointFurthestOnHorizonCircle);
 	} else return null;
 }
 //#endregion
@@ -9612,7 +9925,7 @@ var MercatorTransform = class MercatorTransform {
 	get autoCalculateNearFarZ() {
 		return this._helper.autoCalculateNearFarZ;
 	}
-	setTransitionState(_value, _error) {}
+	setTransitionState(_value) {}
 	constructor(options) {
 		this._posMatrixCache = /* @__PURE__ */ new Map();
 		this._alignedPosMatrixCache = /* @__PURE__ */ new Map();
@@ -9624,7 +9937,7 @@ var MercatorTransform = class MercatorTransform {
 				zoom
 			};
 			let lngRange = this._helper._lngRange;
-			if (!this._helper._renderWorldCopies && lngRange === null) lngRange = [-179.9999999999, 179.9999999999];
+			if (!this._helper._renderWorldCopies && lngRange === null) lngRange = [-179.9999999999, 180 - 1e-10];
 			const worldSize = this.tileSize * zoomScale(result.zoom);
 			let minY = 0;
 			let maxY = worldSize;
@@ -9649,7 +9962,8 @@ var MercatorTransform = class MercatorTransform {
 			let modifiedX, modifiedY;
 			const scale = Math.max(scaleX || 0, scaleY || 0);
 			if (scale) {
-				result.center = unprojectFromWorldCoordinates(worldSize, new Point(scaleX ? (maxX + minX) / 2 : originalX, scaleY ? (maxY + minY) / 2 : originalY)).wrap();
+				const newPoint = new Point(scaleX ? (maxX + minX) / 2 : originalX, scaleY ? (maxY + minY) / 2 : originalY);
+				result.center = unprojectFromWorldCoordinates(worldSize, newPoint).wrap();
 				result.zoom += scaleZoom(scale);
 				return result;
 			}
@@ -9666,7 +9980,10 @@ var MercatorTransform = class MercatorTransform {
 				if (wrappedX - w2 < minX) modifiedX = minX + w2;
 				if (wrappedX + w2 > maxX) modifiedX = maxX - w2;
 			}
-			if (modifiedX !== void 0 || modifiedY !== void 0) result.center = unprojectFromWorldCoordinates(worldSize, new Point(modifiedX ?? originalX, modifiedY ?? originalY)).wrap();
+			if (modifiedX !== void 0 || modifiedY !== void 0) {
+				const newPoint = new Point(modifiedX ?? originalX, modifiedY ?? originalY);
+				result.center = unprojectFromWorldCoordinates(worldSize, newPoint).wrap();
+			}
 			return result;
 		};
 		this.applyConstrain = (lngLat, zoom) => {
@@ -9734,10 +10051,18 @@ var MercatorTransform = class MercatorTransform {
 		const elevation = terrain ? terrain.getElevationForLngLatZoom(center, this._helper._tileZoom) : 0;
 		this._helper.recalculateZoomAndCenter(elevation);
 	}
-	setLocationAtPoint(lnglat, point) {
-		const z = mercatorZfromAltitude(this.elevation, this.center.lat);
+	/**
+	* Moves the center so that `lnglat`, on the ground at `elevation` meters, renders
+	* at the screen `point`. Both rays are cast through the same inverse pixel matrix
+	* so its inversion error cancels out of their difference; the current-center ray
+	* must be intersected at the center's own elevation (z=0) — intersecting it with
+	* the elevated plane would land `(elevation - centerElevation)·tan(pitch)` away
+	* from the center and make repeated calls drift.
+	*/
+	setLocationAtPoint(lnglat, point, elevation = this.elevation) {
+		const z = elevation - this.elevation;
 		const a = this.screenPointToMercatorCoordinateAtZ(point, z);
-		const b = this.screenPointToMercatorCoordinateAtZ(this.centerPoint, z);
+		const b = this.screenPointToMercatorCoordinateAtZ(this.centerPoint, 0);
 		const loc = MercatorCoordinate.fromLngLat(lnglat);
 		const newCenter = new MercatorCoordinate(loc.x - (a.x - b.x), loc.y - (a.y - b.y));
 		this.setCenter(newCenter?.toLngLat());
@@ -9749,6 +10074,9 @@ var MercatorTransform = class MercatorTransform {
 	screenPointToLocation(p, terrain) {
 		return this.screenPointToMercatorCoordinate(p, terrain)?.toLngLat();
 	}
+	screenPointToLocationAtElevation(p, elevation) {
+		return this.screenPointToMercatorCoordinateAtZ(p, elevation - this.elevation)?.toLngLat();
+	}
 	screenPointToMercatorCoordinate(p, terrain) {
 		if (terrain) {
 			const coordinate = terrain.pointCoordinate(p);
@@ -9756,8 +10084,12 @@ var MercatorTransform = class MercatorTransform {
 		}
 		return this.screenPointToMercatorCoordinateAtZ(p);
 	}
-	screenPointToMercatorCoordinateAtZ(p, mercatorZ) {
-		const targetZ = mercatorZ ? mercatorZ : 0;
+	/**
+	* Intersects the ray through a screen point with the horizontal plane at `z`,
+	* given in meters relative to the plane at the center's elevation (not mercator units).
+	*/
+	screenPointToMercatorCoordinateAtZ(p, z) {
+		const targetZ = z ? z : 0;
 		const coord0 = [
 			p.x,
 			p.y,
@@ -10020,7 +10352,8 @@ var MercatorTransform = class MercatorTransform {
 				0
 			],
 			projectionTransition: 0,
-			fallbackMatrix: mainMatrix
+			fallbackMatrix: mainMatrix,
+			clipAntimeridian: false
 		};
 	}
 	isLocationOccluded(_) {
@@ -10115,21 +10448,22 @@ function cameraBoundsWarning() {
 * Set a transform's rotation to a value interpolated between startEulerAngles and endEulerAngles
 */
 function updateRotation(args) {
-	if (args.useSlerp) if (args.k < 1) {
-		const startRotation = rollPitchBearingToQuat(args.startEulerAngles.roll, args.startEulerAngles.pitch, args.startEulerAngles.bearing);
-		const endRotation = rollPitchBearingToQuat(args.endEulerAngles.roll, args.endEulerAngles.pitch, args.endEulerAngles.bearing);
-		const rotation = /* @__PURE__ */ new Float64Array(4);
-		slerp(rotation, startRotation, endRotation, args.k);
-		const eulerAngles = getRollPitchBearing(rotation);
-		args.tr.setRoll(eulerAngles.roll);
-		args.tr.setPitch(eulerAngles.pitch);
-		args.tr.setBearing(eulerAngles.bearing);
+	if (args.useSlerp) {
+		if (args.k < 1) {
+			const startRotation = rollPitchBearingToQuat(args.startEulerAngles.roll, args.startEulerAngles.pitch, args.startEulerAngles.bearing);
+			const endRotation = rollPitchBearingToQuat(args.endEulerAngles.roll, args.endEulerAngles.pitch, args.endEulerAngles.bearing);
+			const rotation = /* @__PURE__ */ new Float64Array(4);
+			slerp(rotation, startRotation, endRotation, args.k);
+			const eulerAngles = getRollPitchBearing(rotation);
+			args.tr.setRoll(eulerAngles.roll);
+			args.tr.setPitch(eulerAngles.pitch);
+			args.tr.setBearing(eulerAngles.bearing);
+		} else {
+			args.tr.setRoll(args.endEulerAngles.roll);
+			args.tr.setPitch(args.endEulerAngles.pitch);
+			args.tr.setBearing(args.endEulerAngles.bearing);
+		}
 	} else {
-		args.tr.setRoll(args.endEulerAngles.roll);
-		args.tr.setPitch(args.endEulerAngles.pitch);
-		args.tr.setBearing(args.endEulerAngles.bearing);
-	}
-	else {
 		args.tr.setRoll(interpolateFactory.number(args.startEulerAngles.roll, args.endEulerAngles.roll, args.k));
 		args.tr.setPitch(interpolateFactory.number(args.startEulerAngles.pitch, args.endEulerAngles.pitch, args.k));
 		args.tr.setBearing(interpolateFactory.number(args.startEulerAngles.bearing, args.endEulerAngles.bearing, args.k));
@@ -10159,7 +10493,9 @@ function cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
 	}
 	const zoom = Math.min(scaleZoom(tr.scale * Math.min(scaleX, scaleY)), options.maxZoom);
 	const offset = Point.convert(options.offset);
-	const rotatedPaddingOffset = new Point((padding.left - padding.right) / 2, (padding.top - padding.bottom) / 2).rotate(degreesToRadians(bearing));
+	const paddingOffsetX = (padding.left - padding.right) / 2;
+	const paddingOffsetY = (padding.top - padding.bottom) / 2;
+	const rotatedPaddingOffset = new Point(paddingOffsetX, paddingOffsetY).rotate(degreesToRadians(bearing));
 	const offsetAtFinalZoom = offset.add(rotatedPaddingOffset).mult(tr.scale / zoomScale(zoom));
 	return {
 		center: unprojectFromWorldCoordinates(tr.worldSize, nwWorld.add(seWorld).div(2).sub(offsetAtFinalZoom)),
@@ -10192,7 +10528,7 @@ var MercatorCameraHelper = class {
 	}
 	handleMapControlsPan(deltas, tr, preZoomAroundLoc) {
 		if (deltas.around.distSqr(tr.centerPoint) < .01) return;
-		tr.setLocationAtPoint(preZoomAroundLoc, deltas.around);
+		tr.setLocationAtPoint(preZoomAroundLoc, deltas.around, deltas.aroundElevation);
 	}
 	cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
 		return cameraForBoxAndBearing(options, padding, bounds, bearing, tr);
@@ -10289,238 +10625,6 @@ var MercatorCameraHelper = class {
 //#region src/style/projection_properties.g.ts
 let properties;
 const getProperties = () => properties = properties || new Properties({ "type": new DataConstantProperty(latest["projection"]["type"], "type") });
-//#endregion
-//#region src/webgl/color_mode.ts
-const ZERO = 0;
-const ONE = 1;
-const ONE_MINUS_SRC_ALPHA = 771;
-var ColorMode = class {
-	constructor(blendFunction, blendColor, mask) {
-		this.blendFunction = blendFunction;
-		this.blendColor = blendColor;
-		this.mask = mask;
-	}
-};
-ColorMode.Replace = [ONE, ZERO];
-ColorMode.disabled = new ColorMode(ColorMode.Replace, Color.transparent, [
-	false,
-	false,
-	false,
-	false
-]);
-ColorMode.unblended = new ColorMode(ColorMode.Replace, Color.transparent, [
-	true,
-	true,
-	true,
-	true
-]);
-ColorMode.alphaBlended = new ColorMode([ONE, ONE_MINUS_SRC_ALPHA], Color.transparent, [
-	true,
-	true,
-	true,
-	true
-]);
-//#endregion
-//#region src/webgl/cull_face_mode.ts
-const FRONT = 1028;
-const BACK = 1029;
-const CCW = 2305;
-var CullFaceMode = class {
-	constructor(enable, mode, frontFace) {
-		this.enable = enable;
-		this.mode = mode;
-		this.frontFace = frontFace;
-	}
-};
-CullFaceMode.disabled = new CullFaceMode(false, BACK, CCW);
-CullFaceMode.backCCW = new CullFaceMode(true, BACK, CCW);
-CullFaceMode.frontCCW = new CullFaceMode(true, FRONT, CCW);
-//#endregion
-//#region src/webgl/depth_mode.ts
-const ALWAYS$1 = 519;
-var DepthMode = class {
-	constructor(depthFunc, depthMask, depthRange) {
-		this.func = depthFunc;
-		this.mask = depthMask;
-		this.range = depthRange;
-	}
-};
-DepthMode.ReadOnly = false;
-DepthMode.ReadWrite = true;
-DepthMode.disabled = new DepthMode(ALWAYS$1, DepthMode.ReadOnly, [0, 1]);
-//#endregion
-//#region src/webgl/stencil_mode.ts
-const ALWAYS = 519;
-const KEEP = 7680;
-var StencilMode = class {
-	constructor(test, ref, mask, fail, depthFail, pass) {
-		this.test = test;
-		this.ref = ref;
-		this.mask = mask;
-		this.fail = fail;
-		this.depthFail = depthFail;
-		this.pass = pass;
-	}
-};
-StencilMode.disabled = new StencilMode({
-	func: ALWAYS,
-	mask: 0
-}, 0, 0, KEEP, KEEP, KEEP);
-//#endregion
-//#region src/webgl/program/projection_error_measurement_program.ts
-const projectionErrorMeasurementUniforms = (context, locations) => ({
-	"u_input": new Uniform1f(context, locations.u_input),
-	"u_output_expected": new Uniform1f(context, locations.u_output_expected)
-});
-const projectionErrorMeasurementUniformValues = (input, outputExpected) => ({
-	"u_input": input,
-	"u_output_expected": outputExpected
-});
-//#endregion
-//#region src/geo/projection/globe_projection_error_measurement.ts
-/**
-* For vector globe the vertex shader projects mercator coordinates to angular coordinates on a sphere.
-* This projection requires some inverse trigonometry `atan(exp(...))`, which is inaccurate on some GPUs (mainly on AMD and Nvidia).
-* The inaccuracy is severe enough to require a workaround. The uncorrected map is shifted north-south by up to several hundred meters in some latitudes.
-* Since the inaccuracy is hardware-dependant and may change in the future, we need to measure the error at runtime.
-*
-* Our approach relies on several assumptions:
-*
-* - the error is only present in the "latitude" component (longitude doesn't need any inverse trigonometry)
-* - the error is continuous and changes slowly with latitude
-* - at zoom levels where the error is noticeable, the error is more-or-less the same across the entire visible map area (and thus can be described with a single number)
-*
-* Solution:
-*
-* Every few frames, launch a GPU shader that measures the error for the current map center latitude, and writes it to a 1x1 texture.
-* Read back that texture, and offset the globe projection matrix according to the error (interpolating smoothly from old error to new error if needed).
-* The texture readback is done asynchronously using Pixel Pack Buffers (WebGL2) when possible, and has a few frames of latency, but that should not be a problem.
-*
-* General operation of this class each frame is:
-*
-* - render the error shader into a fbo, read that pixel into a PBO, place a fence
-* - wait a few frames to allow the GPU (and driver) to actually execute the shader
-* - wait for the fence to be signalled (guaranteeing the shader to actually be executed)
-* - read back the PBO's contents
-* - wait a few more frames
-* - repeat
-*/
-var ProjectionErrorMeasurement = class ProjectionErrorMeasurement {
-	get awaitingQuery() {
-		return !!this._readbackQueue;
-	}
-	constructor(renderContext) {
-		this._readbackWaitFrames = 4;
-		this._measureWaitFrames = 6;
-		this._texWidth = 1;
-		this._texHeight = 1;
-		this._measuredError = 0;
-		this._updateCount = 0;
-		this._lastReadbackFrame = -1e3;
-		this._readbackQueue = null;
-		this._cachedRenderContext = renderContext;
-		const context = renderContext.context;
-		const gl = context.gl;
-		this._texFormat = gl.RGBA;
-		this._texType = gl.UNSIGNED_BYTE;
-		const vertexArray = new PosArray();
-		vertexArray.emplaceBack(-1, -1);
-		vertexArray.emplaceBack(2, -1);
-		vertexArray.emplaceBack(-1, 2);
-		const indexArray = new TriangleIndexArray();
-		indexArray.emplaceBack(0, 1, 2);
-		this._fullscreenTriangle = new Mesh(context.createVertexBuffer(vertexArray, posAttributes.members), context.createIndexBuffer(indexArray), SegmentVector.simpleSegment(0, 0, vertexArray.length, indexArray.length));
-		this._resultBuffer = /* @__PURE__ */ new Uint8Array(4);
-		context.activeTexture.set(gl.TEXTURE1);
-		const texture = gl.createTexture();
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-		gl.texStorage2D(gl.TEXTURE_2D, 1, gl.RGBA8, this._texWidth, this._texHeight);
-		this._fbo = context.createFramebuffer(this._texWidth, this._texHeight, false, false);
-		this._fbo.colorAttachment.set(texture);
-		this._pbo = gl.createBuffer();
-		gl.bindBuffer(gl.PIXEL_PACK_BUFFER, this._pbo);
-		gl.bufferData(gl.PIXEL_PACK_BUFFER, 4, gl.STREAM_READ);
-		gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
-	}
-	destroy() {
-		const gl = this._cachedRenderContext.context.gl;
-		this._fullscreenTriangle.destroy();
-		this._fbo.destroy();
-		gl.deleteBuffer(this._pbo);
-		this._fullscreenTriangle = null;
-		this._fbo = null;
-		this._pbo = null;
-		this._resultBuffer = null;
-	}
-	updateErrorLoop(normalizedMercatorY, expectedAngleY) {
-		const currentFrame = this._updateCount;
-		if (this._readbackQueue) {
-			if (currentFrame >= this._readbackQueue.frameNumberIssued + this._readbackWaitFrames) this._tryReadback();
-		} else if (currentFrame >= this._lastReadbackFrame + this._measureWaitFrames) this._renderErrorTexture(normalizedMercatorY, expectedAngleY);
-		this._updateCount++;
-		return this._measuredError;
-	}
-	_bindFramebuffer() {
-		const context = this._cachedRenderContext.context;
-		const gl = context.gl;
-		context.activeTexture.set(gl.TEXTURE1);
-		gl.bindTexture(gl.TEXTURE_2D, this._fbo.colorAttachment.get());
-		context.bindFramebuffer.set(this._fbo.framebuffer);
-	}
-	_renderErrorTexture(input, outputExpected) {
-		const context = this._cachedRenderContext.context;
-		const gl = context.gl;
-		this._bindFramebuffer();
-		context.viewport.set([
-			0,
-			0,
-			this._texWidth,
-			this._texHeight
-		]);
-		context.clear({ color: Color.transparent });
-		this._cachedRenderContext.useProgram("projectionErrorMeasurement").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, ColorMode.unblended, CullFaceMode.disabled, projectionErrorMeasurementUniformValues(input, outputExpected), null, null, "$clipping", this._fullscreenTriangle.vertexBuffer, this._fullscreenTriangle.indexBuffer, this._fullscreenTriangle.segments);
-		gl.bindBuffer(gl.PIXEL_PACK_BUFFER, this._pbo);
-		gl.readBuffer(gl.COLOR_ATTACHMENT0);
-		gl.readPixels(0, 0, this._texWidth, this._texHeight, this._texFormat, this._texType, 0);
-		gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
-		const sync = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
-		gl.flush();
-		this._readbackQueue = {
-			frameNumberIssued: this._updateCount,
-			sync
-		};
-	}
-	_tryReadback() {
-		const gl = this._cachedRenderContext.context.gl;
-		if (!this._readbackQueue) return;
-		const waitResult = gl.clientWaitSync(this._readbackQueue.sync, 0, 0);
-		if (waitResult === gl.WAIT_FAILED) {
-			warnOnce("WebGL2 clientWaitSync failed.");
-			this._readbackQueue = null;
-			this._lastReadbackFrame = this._updateCount;
-			return;
-		}
-		if (waitResult === gl.TIMEOUT_EXPIRED) return;
-		gl.bindBuffer(gl.PIXEL_PACK_BUFFER, this._pbo);
-		gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, this._resultBuffer, 0, 4);
-		gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
-		this._readbackQueue = null;
-		this._measuredError = ProjectionErrorMeasurement._parseRGBA8float(this._resultBuffer);
-		this._lastReadbackFrame = this._updateCount;
-	}
-	static _parseRGBA8float(buffer) {
-		let result = 0;
-		result += buffer[0] / 256;
-		result += buffer[1] / 65536;
-		result += buffer[2] / 16777216;
-		if (buffer[3] < 127) result = -result;
-		return result / 128;
-	}
-};
 //#endregion
 //#region src/util/create_tile_mesh.ts
 /**
@@ -10622,7 +10726,6 @@ function createTileMesh(options, forceIndicesSize) {
 //#region src/geo/projection/vertical_perspective_projection.ts
 const VerticalPerspectiveShaderDefine = "#define GLOBE";
 const VerticalPerspectiveShaderVariantKey = "globe";
-const globeConstants = { errorTransitionTimeSeconds: .5 };
 const granularitySettingsGlobe = new SubdivisionGranularitySetting({
 	fill: new SubdivisionGranularityExpression(128, 2),
 	line: new SubdivisionGranularityExpression(512, 0),
@@ -10633,10 +10736,6 @@ const granularitySettingsGlobe = new SubdivisionGranularitySetting({
 var VerticalPerspectiveProjection = class {
 	constructor() {
 		this._tileMeshCache = {};
-		this._errorCorrectionUsable = 0;
-		this._errorMeasurementLastValue = 0;
-		this._errorCorrectionPreviousValue = 0;
-		this._errorMeasurementLastChangeTime = -1e3;
 	}
 	get name() {
 		return "vertical-perspective";
@@ -10665,35 +10764,7 @@ var VerticalPerspectiveProjection = class {
 	get useGlobeControls() {
 		return true;
 	}
-	/**
-	* @internal
-	* Globe projection periodically measures the error of the GPU's
-	* projection from mercator to globe and computes how much to correct
-	* the globe's latitude alignment.
-	* This stores the correction that should be applied to the projection matrix.
-	*/
-	get latitudeErrorCorrectionRadians() {
-		return this._errorCorrectionUsable;
-	}
-	destroy() {
-		if (this._errorMeasurement) this._errorMeasurement.destroy();
-	}
-	updateGPUdependent(renderContext) {
-		this._errorMeasurement ||= new ProjectionErrorMeasurement(renderContext);
-		const mercatorY = mercatorYfromLat(this._errorQueryLatitudeDegrees);
-		const expectedResult = 2 * Math.atan(Math.exp(Math.PI - mercatorY * Math.PI * 2)) - Math.PI * .5;
-		const newValue = this._errorMeasurement.updateErrorLoop(mercatorY, expectedResult);
-		const currentTime = now();
-		if (newValue !== this._errorMeasurementLastValue) {
-			this._errorCorrectionPreviousValue = this._errorCorrectionUsable;
-			this._errorMeasurementLastValue = newValue;
-			this._errorMeasurementLastChangeTime = currentTime;
-		}
-		const sinceUpdateSeconds = (currentTime - this._errorMeasurementLastChangeTime) / 1e3;
-		const mix = Math.min(Math.max(sinceUpdateSeconds / globeConstants.errorTransitionTimeSeconds, 0), 1);
-		const newCorrection = -this._errorMeasurementLastValue;
-		this._errorCorrectionUsable = lerp(this._errorCorrectionPreviousValue, newCorrection, easeCubicInOut(mix));
-	}
+	destroy() {}
 	_getMeshKey(options) {
 		return `${options.granularity.toString(36)}_${options.generateBorders ? "b" : ""}${options.extendToNorthPole ? "n" : ""}${options.extendToSouthPole ? "s" : ""}`;
 	}
@@ -10717,22 +10788,15 @@ var VerticalPerspectiveProjection = class {
 	}
 	recalculate(_params) {}
 	hasTransition() {
-		const currentTime = now();
-		let dirty = false;
-		dirty ||= (currentTime - this._errorMeasurementLastChangeTime) / 1e3 < globeConstants.errorTransitionTimeSeconds + .2;
-		dirty ||= this._errorMeasurement?.awaitingQuery;
-		return dirty;
-	}
-	setErrorQueryLatitudeDegrees(value) {
-		this._errorQueryLatitudeDegrees = value;
+		return false;
 	}
 };
 //#endregion
 //#region src/geo/projection/globe_projection.ts
 var GlobeProjection = class extends Evented {
-	constructor(projection) {
+	constructor(projection, globalState) {
 		super();
-		this._transitionable = new Transitionable(getProperties(), "projection", void 0);
+		this._transitionable = new Transitionable(getProperties(), "projection", globalState);
 		this.setProjection(projection);
 		this._transitioning = this._transitionable.untransitioned();
 		this.recalculate(new EvaluationParameters(0));
@@ -10744,6 +10808,7 @@ var GlobeProjection = class extends Evented {
 		if (typeof currentProjectionSpecValue === "string" && currentProjectionSpecValue === "mercator") return 0;
 		if (typeof currentProjectionSpecValue === "string" && currentProjectionSpecValue === "vertical-perspective") return 1;
 		if (currentProjectionSpecValue instanceof ProjectionDefinition) {
+			if (currentProjectionSpecValue.from === currentProjectionSpecValue.to) return currentProjectionSpecValue.from === "mercator" ? 0 : 1;
 			if (currentProjectionSpecValue.from === "vertical-perspective" && currentProjectionSpecValue.to === "mercator") return 1 - currentProjectionSpecValue.transition;
 			if (currentProjectionSpecValue.from === "mercator" && currentProjectionSpecValue.to === "vertical-perspective") return currentProjectionSpecValue.transition;
 		}
@@ -10751,9 +10816,6 @@ var GlobeProjection = class extends Evented {
 	}
 	get useGlobeRendering() {
 		return this.transitionState > 0;
-	}
-	get latitudeErrorCorrectionRadians() {
-		return this._verticalPerspectiveProjection.latitudeErrorCorrectionRadians;
 	}
 	get currentProjection() {
 		return this.useGlobeRendering ? this._verticalPerspectiveProjection : this._mercatorProjection;
@@ -10786,10 +10848,6 @@ var GlobeProjection = class extends Evented {
 		this._mercatorProjection.destroy();
 		this._verticalPerspectiveProjection.destroy();
 	}
-	updateGPUdependent(context) {
-		this._mercatorProjection.updateGPUdependent(context);
-		this._verticalPerspectiveProjection.updateGPUdependent(context);
-	}
 	getMeshFromTileID(context, _tileID, _hasBorder, _allowPoles, _usage) {
 		return this.currentProjection.getMeshFromTileID(context, _tileID, _hasBorder, _allowPoles, _usage);
 	}
@@ -10805,10 +10863,6 @@ var GlobeProjection = class extends Evented {
 	recalculate(parameters) {
 		this.properties = this._transitioning.possiblyEvaluate(parameters);
 	}
-	setErrorQueryLatitudeDegrees(value) {
-		this._verticalPerspectiveProjection.setErrorQueryLatitudeDegrees(value);
-		this._mercatorProjection.setErrorQueryLatitudeDegrees(value);
-	}
 };
 //#endregion
 //#region src/geo/projection/globe_utils.ts
@@ -10817,7 +10871,9 @@ function getGlobeCircumferencePixels(transform) {
 	return 2 * Math.PI * radius;
 }
 function globeDistanceOfLocationsPixels(transform, a, b) {
-	const dot$2 = dot(angularCoordinatesToSurfaceVector(a), angularCoordinatesToSurfaceVector(b));
+	const vecA = angularCoordinatesToSurfaceVector(a);
+	const vecB = angularCoordinatesToSurfaceVector(b);
+	const dot$2 = dot(vecA, vecB);
 	const radians = Math.acos(dot$2);
 	const circumference = getGlobeCircumferencePixels(transform);
 	return radians / (2 * Math.PI) * circumference;
@@ -10883,8 +10939,148 @@ function sphereSurfacePointToCoordinates(surface) {
 		const projX = surface[0] / lengthXZ;
 		const projZ = surface[2] / lengthXZ;
 		const acosZ = Math.acos(projZ);
-		return new LngLat(wrap((projX > 0 ? acosZ : -acosZ) / Math.PI * 180, -180, 180), latDegrees);
+		const lngDegrees = (projX > 0 ? acosZ : -acosZ) / Math.PI * 180;
+		return new LngLat(wrap(lngDegrees, -180, 180), latDegrees);
 	} else return new LngLat(0, latDegrees);
+}
+/**
+* Returns the globe orientation quaternion for the given map center and bearing.
+* The inverse of {@link lngLatBearingFromOrientation}.
+*/
+function orientationFromLngLatBearing(lngLat, bearing) {
+	return fromEuler(createVec4f64(), -lngLat.lng, -lngLat.lat, bearing);
+}
+/**
+* Given a globe orientation quaternion, returns the corresponding map center and bearing.
+* The inverse of {@link orientationFromLngLatBearing}.
+*/
+function lngLatBearingFromOrientation(q) {
+	const x = q[0], y = q[1], z = q[2], w = q[3];
+	return {
+		lng: -Math.atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y)) * 180 / Math.PI,
+		lat: -Math.asin(clamp(2 * (w * y - z * x), -1, 1)) * 180 / Math.PI,
+		bearing: Math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z)) * 180 / Math.PI
+	};
+}
+/** Kept just below a half turn so the center cannot land exactly on the far side of the globe. */
+const PAN_MAX_ANGLE = Math.PI * .98;
+/**
+* Returns the point on the globe that a drag towards `point` should aim at.
+*
+* Exact tracking breaks down at the silhouette: the ray meets the globe at `asin(D sin a) - a`,
+* whose slope runs away to infinity as the ray goes tangent, and past it there is no intersection
+* at all. So the exact curve is left {@link PAN_FALLOFF_BAND} early and continued with a hyperbola
+* matching it in value and slope, easing off and saturating short of the far side. Bell's virtual
+* trackball takes the same idea of easing a sphere into a hyperbola before the rim, though it fits
+* the curve differently: SGI's `trackball.c`, described in Henriksen, Sporring and Hornbæk,
+* "Virtual Trackballs Revisited", IEEE TVCG 10(2):206-216, 2004.
+*
+* The angle comes from atan2, so a ray pointing away from the globe is a wide angle the falloff
+* saturates rather than a case to reject.
+* @param tr - The transform being dragged.
+* @param point - The cursor position.
+*/
+function panSurfaceLocation(tr, point) {
+	const origin = tr.cameraPosition;
+	const distance = length$1(origin);
+	if (distance <= 1) return tr.screenPointToLocation(point);
+	const u = createVec3f64();
+	normalize(u, origin);
+	const direction = tr.getRayDirectionFromPixel(point);
+	const c = -dot(direction, u);
+	const lateral = createVec3f64();
+	scaleAndAdd(lateral, direction, u, c);
+	const s = length$1(lateral);
+	if (s < 1e-9) return tr.screenPointToLocation(point);
+	const angle = Math.atan2(s, c);
+	const handoverAngle = Math.asin(1 / distance) * .9;
+	if (angle < handoverAngle) return tr.screenPointToLocation(point);
+	const sinHandover = distance * Math.sin(handoverAngle);
+	const targetAtHandover = Math.asin(clamp(sinHandover, -1, 1)) - handoverAngle;
+	const slopeAtHandover = distance * Math.cos(handoverAngle) / Math.sqrt(Math.max(1 - sinHandover * sinHandover, 1e-12)) - 1;
+	const room = PAN_MAX_ANGLE - targetAtHandover;
+	const excess = angle - handoverAngle;
+	const target = targetAtHandover + room * (slopeAtHandover * excess) / (room + slopeAtHandover * excess);
+	const e = createVec3f64();
+	scale$2(e, lateral, 1 / s);
+	const surface = createVec3f64();
+	scale$2(surface, u, Math.cos(clamp(target, 0, PAN_MAX_ANGLE)));
+	scaleAndAdd(surface, surface, e, Math.sin(clamp(target, 0, PAN_MAX_ANGLE)));
+	normalize(surface, surface);
+	return sphereSurfacePointToCoordinates(surface);
+}
+/**
+* Rotates the globe so that the given location appears at the given screen point, by composing
+* versors, the unit quaternions that represent rotations. Unlike the bearing-preserving
+* {@link ITransform.setLocationAtPoint}, this stays smooth near and across the poles, and keeps
+* panning once the cursor leaves the globe.
+*
+* Note: the delta rotation's axis is in the surface-vector frame of
+* {@link angularCoordinatesToSurfaceVector}, while the orientation quaternion uses the Euler frame
+* of {@link orientationFromLngLatBearing}, hence the component swizzle where they combine. Zoom is
+* adjusted to keep the planet the same size, as `setLocationAtPoint` does.
+* @param tr - The transform to rotate.
+* @param lnglat - The location to bring under `point`.
+* @param point - The screen point that `lnglat` should appear at.
+* @param panDelta - The drag's pixel delta. Used to re-derive the previous cursor location through
+* {@link panSurfaceLocation}, since both ends of the rotation must come from the same mapping.
+* @param fixedBearing - Applies the swing only, keeping the bearing fixed, which is what dragging
+* the globe does. Pass `false` to apply the twist about the view axis as well, so that the grabbed
+* location tracks the cursor exactly and the bearing drifts with it.
+*/
+function versorSetLocationAtPoint(tr, lnglat, point, panDelta, fixedBearing = true) {
+	const pointLngLat = panSurfaceLocation(tr, point);
+	let sourceLngLat = lnglat;
+	if (panDelta) sourceLngLat = panSurfaceLocation(tr, point.sub(panDelta));
+	else if (!tr.isPointOnMapSurface(point)) return;
+	const vecToPixelCurrent = angularCoordinatesToSurfaceVector(pointLngLat);
+	const vecToTarget = angularCoordinatesToSurfaceVector(sourceLngLat);
+	const centerQuat = orientationFromLngLatBearing(tr.center, tr.bearing);
+	const w = cross(createVec3f64(), vecToTarget, vecToPixelCurrent);
+	const l = Math.sqrt(dot(w, w));
+	const t = Math.acos(clamp(dot(vecToTarget, vecToPixelCurrent), -1, 1)) / 2;
+	const s = Math.sin(t);
+	const delta = l ? fromValues(w[1] / l * s, -w[0] / l * s, w[2] / l * s, Math.cos(t)) : fromValues(0, 0, 0, 1);
+	const { lng: newCenterLng, lat: newCenterLat, bearing: newBearing } = lngLatBearingFromOrientation(multiply$1(createVec4f64(), centerQuat, delta));
+	const oldLat = tr.center.lat;
+	const finalLat = clamp(newCenterLat, -90, 90);
+	const finalLng = fixedBearing ? fixedBearingLongitude(tr, point, panDelta, newCenterLng) : newCenterLng;
+	tr.setCenter(new LngLat(wrap(finalLng, -180, 180), finalLat));
+	if (!fixedBearing) tr.setBearing(newBearing);
+	tr.setZoom(tr.zoom + getZoomAdjustment(oldLat, tr.center.lat));
+}
+/**
+* Returns the center longitude for a bearing-preserving drag.
+*
+* The swing longitude becomes ill-conditioned near the pole and the grabbed location slips away
+* from the cursor, so within the last ~12 degrees of latitude the cursor is treated as turning a
+* dial around the pole, blended in with a smoothstep anchored on {@link MAX_VALID_LATITUDE}, the
+* highest latitude the center can reach. The sweep comes from the raw pixel delta rather than a
+* round-tripped previous cursor position, which would lose its sign to cancellation at the pole,
+* and is damped within {@link DIAL_MIN_RADIUS_PIXELS} so it eases to nothing there instead of
+* being dropped, which would leave a spot where the drag could not move at all.
+* @param tr - The transform being dragged.
+* @param point - The cursor position.
+* @param panDelta - The drag's pixel delta, or undefined to use the swing longitude only.
+* @param newCenterLng - The swing target longitude.
+* @returns the center longitude to apply.
+*/
+function fixedBearingLongitude(tr, point, panDelta, newCenterLng) {
+	const oldLng = tr.center.lng;
+	const oldLat = tr.center.lat;
+	const poleLat = oldLat >= 0 ? 90 : -90;
+	const polePoint = tr.locationToScreenPoint(new LngLat(0, poleLat));
+	const rx = point.x - polePoint.x, ry = point.y - polePoint.y;
+	const r2 = rx * rx + ry * ry;
+	const tRamp = clamp(1 - (MAX_VALID_LATITUDE - Math.abs(oldLat)) / 12, 0, 1);
+	const dial = tRamp * tRamp * (3 - 2 * tRamp);
+	const dLngSwing = mod(newCenterLng - oldLng + 180, 360) - 180;
+	let dLngDial = 0;
+	if (dial > 0 && panDelta) {
+		const dTheta = (rx * panDelta.y - ry * panDelta.x) / Math.max(r2, 400);
+		dLngDial = (poleLat > 0 ? 1 : -1) * dTheta * 180 / Math.PI;
+	}
+	return oldLng + (1 - dial) * dLngSwing + dial * dLngDial;
 }
 /**
 * Given a normalized horizon plane in Ax+By+Cz+D=0 format, compute the center and radius of
@@ -10929,7 +11125,8 @@ function planetScaleAtLatitude(latitudeDegrees) {
 */
 function getZoomAdjustment(oldLat, newLat) {
 	const oldCircumference = planetScaleAtLatitude(oldLat);
-	return scaleZoom(planetScaleAtLatitude(newLat) / oldCircumference);
+	const newCircumference = planetScaleAtLatitude(newLat);
+	return scaleZoom(newCircumference / oldCircumference);
 }
 function getDegreesPerPixel(worldSize, lat) {
 	return 360 / getGlobeCircumferencePixels({
@@ -10977,8 +11174,12 @@ function interpolateLngLatForGlobe(start, deltaLng, deltaLat, t) {
 		const valueStart = integrateSecX(samplePointStart);
 		const valueEnd = integrateSecX(samplePointEnd);
 		const newT = (valueT - valueStart) / (valueEnd - valueStart);
-		return new LngLat(start.lng + deltaLng * newT, interpolatedLat);
-	} else return new LngLat(start.lng + deltaLng * t, interpolatedLat);
+		const interpolatedLng = start.lng + deltaLng * newT;
+		return new LngLat(interpolatedLng, interpolatedLat);
+	} else {
+		const interpolatedLng = start.lng + deltaLng * t;
+		return new LngLat(interpolatedLng, interpolatedLat);
+	}
 }
 //#endregion
 //#region src/util/primitives/bounding_volume_cache.ts
@@ -11006,7 +11207,7 @@ var BoundingVolumeCache = class {
 	* @param tileID - Tile x, y and z for zoom.
 	*/
 	getTileBoundingVolume(tileID, wrap, elevation, options) {
-		const key = `${tileID.z}_${tileID.x}_${tileID.y}_${options?.terrain ? "t" : ""}`;
+		const key = `${tileID.z}_${tileID.x}_${tileID.y}_${options?.terrain ? "t" : ""}_${Math.round(elevation)}`;
 		const cached = this._cache.get(key);
 		if (cached) return cached;
 		const cachedPrevious = this._cachePrevious.get(key);
@@ -11244,9 +11445,8 @@ var GlobeCoveringTilesDetailsProvider = class {
 		const tileMercatorSize = 1 / scale;
 		const tileCornerX = tileID.x / scale;
 		const tileCornerY = tileID.y / scale;
-		const worldSize = 1;
-		const halfWorld = .5 * worldSize;
-		let smallestDistance = 2 * worldSize;
+		const halfWorld = .5;
+		let smallestDistance = 2;
 		smallestDistance = Math.min(smallestDistance, distanceToTileWrapX(pointX, pointY, tileCornerX, tileCornerY, tileMercatorSize));
 		smallestDistance = Math.min(smallestDistance, distanceToTileWrapX(pointX, pointY, tileCornerX + halfWorld, -tileCornerY - tileMercatorSize, tileMercatorSize));
 		smallestDistance = Math.min(smallestDistance, distanceToTileWrapX(pointX, pointY, tileCornerX + halfWorld, 2 - tileCornerY - tileMercatorSize, tileMercatorSize));
@@ -11277,13 +11477,13 @@ var GlobeCoveringTilesDetailsProvider = class {
 		return this._boundingVolumeCache.getTileBoundingVolume(tileID, wrap, elevation, options);
 	}
 	_computeTileBoundingVolume(tileID, wrap, elevation, options) {
-		let minElevation = 0;
-		let maxElevation = 0;
+		let minElevation = Math.min(0, elevation);
+		let maxElevation = Math.max(0, elevation);
 		if (options?.terrain) {
 			const overscaledTileID = new OverscaledTileID(tileID.z, wrap, tileID.z, tileID.x, tileID.y);
 			const minMax = options.terrain.getMinMaxElevation(overscaledTileID);
-			minElevation = minMax.minElevation ?? Math.min(0, elevation);
-			maxElevation = minMax.maxElevation ?? Math.max(0, elevation);
+			minElevation = minMax.minElevation ?? minElevation;
+			maxElevation = minMax.maxElevation ?? maxElevation;
 		}
 		minElevation /= earthRadius;
 		maxElevation /= earthRadius;
@@ -11608,11 +11808,10 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		this._cachedClippingPlane = createVec4f64();
 		this._projectionMatrix = createIdentityMat4f64();
 		this._globeViewProjMatrix32f = createIdentityMat4f32();
-		this._globeViewProjMatrixNoCorrection = createIdentityMat4f64();
-		this._globeViewProjMatrixNoCorrectionInverted = createIdentityMat4f64();
+		this._globeViewProjMatrixF64 = createIdentityMat4f64();
+		this._globeViewProjMatrixF64Inverted = createIdentityMat4f64();
 		this._globeProjMatrixInverted = createIdentityMat4f64();
 		this._cameraPosition = createVec3f64();
-		this._globeLatitudeErrorCorrectionRadians = 0;
 		this.defaultConstrain = (lngLat, zoom) => {
 			const constrainedLat = clamp(lngLat.lat, -MAX_VALID_LATITUDE, MAX_VALID_LATITUDE);
 			const constrainedZoom = clamp(+zoom, this.minZoom + getZoomAdjustment(0, constrainedLat), this.maxZoom);
@@ -11637,15 +11836,14 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		clone.apply(this, false);
 		return clone;
 	}
-	apply(that, constrain, globeLatitudeErrorCorrectionRadians) {
-		this._globeLatitudeErrorCorrectionRadians = globeLatitudeErrorCorrectionRadians || 0;
+	apply(that, constrain) {
 		this._helper.apply(that, constrain);
 	}
 	get projectionMatrix() {
 		return this._projectionMatrix;
 	}
 	get modelViewProjectionMatrix() {
-		return this._globeViewProjMatrixNoCorrection;
+		return this._globeViewProjMatrixF64;
 	}
 	get inverseProjectionMatrix() {
 		return this._globeProjMatrixInverted;
@@ -11668,7 +11866,8 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 			tileMercatorCoords: mercatorTileCoordinates,
 			clippingPlane: this._cachedClippingPlane,
 			projectionTransition: applyGlobeMatrix ? 1 : 0,
-			fallbackMatrix: this._globeViewProjMatrix32f
+			fallbackMatrix: this._globeViewProjMatrix32f,
+			clipAntimeridian: overscaledTileID?.canonical.z === 0
 		};
 	}
 	_computeClippingPlane(globeRadiusPixels) {
@@ -11766,7 +11965,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 			spherePos[2] * vectorMultiplier,
 			1
 		];
-		transformMat4(pos, pos, this._globeViewProjMatrixNoCorrection);
+		transformMat4(pos, pos, this._globeViewProjMatrixF64);
 		const plane = this._cachedClippingPlane;
 		const isOccluded = plane[0] * spherePos[0] + plane[1] * spherePos[1] + plane[2] * spherePos[2] + plane[3] < 0;
 		return {
@@ -11779,7 +11978,6 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		if (!this._helper._width || !this._helper._height) return;
 		const globeRadiusPixels = getGlobeRadiusPixels(this.worldSize, this.center.lat);
 		const globeMatrix = createMat4f64();
-		const globeMatrixUncorrected = createMat4f64();
 		if (this._helper.autoCalculateNearFarZ) {
 			this._helper._nearZ = .5;
 			this._helper._farZ = this.cameraToCenterDistance + globeRadiusPixels * 2;
@@ -11808,16 +12006,13 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		scaleVec[0] = globeRadiusPixels;
 		scaleVec[1] = globeRadiusPixels;
 		scaleVec[2] = globeRadiusPixels;
-		rotateX(globeMatrixUncorrected, globeMatrix, this.center.lat * Math.PI / 180);
-		rotateY$1(globeMatrixUncorrected, globeMatrixUncorrected, -this.center.lng * Math.PI / 180);
-		scale(globeMatrixUncorrected, globeMatrixUncorrected, scaleVec);
-		this._globeViewProjMatrixNoCorrection = globeMatrixUncorrected;
-		rotateX(globeMatrix, globeMatrix, this.center.lat * Math.PI / 180 - this._globeLatitudeErrorCorrectionRadians);
+		rotateX(globeMatrix, globeMatrix, this.center.lat * Math.PI / 180);
 		rotateY$1(globeMatrix, globeMatrix, -this.center.lng * Math.PI / 180);
 		scale(globeMatrix, globeMatrix, scaleVec);
+		this._globeViewProjMatrixF64 = globeMatrix;
 		this._globeViewProjMatrix32f = new Float32Array(globeMatrix);
-		this._globeViewProjMatrixNoCorrectionInverted = createMat4f64();
-		invert$1(this._globeViewProjMatrixNoCorrectionInverted, globeMatrixUncorrected);
+		this._globeViewProjMatrixF64Inverted = createMat4f64();
+		invert$1(this._globeViewProjMatrixF64Inverted, globeMatrix);
 		const zero = createVec3f64();
 		this._cameraPosition = createVec3f64();
 		this._cameraPosition[2] = this.cameraToCenterDistance / globeRadiusPixels;
@@ -11832,7 +12027,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		rotateX$1(this._cameraPosition, this._cameraPosition, zero, -this.center.lat * Math.PI / 180);
 		rotateY(this._cameraPosition, this._cameraPosition, zero, this.center.lng * Math.PI / 180);
 		this._cachedClippingPlane = this._computeClippingPlane(globeRadiusPixels);
-		const matrix = clone$1(this._globeViewProjMatrixNoCorrectionInverted);
+		const matrix = clone$1(this._globeViewProjMatrixF64Inverted);
 		scale(matrix, matrix, [
 			1,
 			1,
@@ -11878,7 +12073,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		return this._helper.getCameraLngLat();
 	}
 	lngLatToCameraDepth(lngLat, elevation) {
-		if (!this._globeViewProjMatrixNoCorrection) return 1;
+		if (!this._globeViewProjMatrixF64) return 1;
 		const vec = angularCoordinatesToSurfaceVector(lngLat);
 		scale$2(vec, vec, 1 + elevation / earthRadius);
 		const result = createVec4f64();
@@ -11887,7 +12082,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 			vec[1],
 			vec[2],
 			1
-		], this._globeViewProjMatrixNoCorrection);
+		], this._globeViewProjMatrixF64);
 		return result[2] / result[3];
 	}
 	populateCache(_coords) {}
@@ -11949,7 +12144,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 	* Note: automatically adjusts zoom to keep planet size consistent
 	* (same size before and after a {@link setLocationAtPoint} call).
 	*/
-	setLocationAtPoint(lnglat, point) {
+	setLocationAtPoint(lnglat, point, _elevation) {
 		const vecToPixelCurrent = angularCoordinatesToSurfaceVector(this.unprojectScreenPoint(point));
 		const vecToTarget = angularCoordinatesToSurfaceVector(lnglat);
 		const zero = createVec3f64();
@@ -12004,7 +12199,10 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 	}
 	locationToScreenPoint(lnglat, terrain) {
 		const pos = angularCoordinatesToSurfaceVector(lnglat);
-		if (terrain) scale$2(pos, pos, 1 + terrain.getElevationForLngLatZoom(lnglat, this._helper._tileZoom) / earthRadius);
+		if (terrain) {
+			const elevation = terrain.getElevationForLngLatZoom(lnglat, this._helper._tileZoom);
+			scale$2(pos, pos, 1 + elevation / earthRadius);
+		}
 		return this._projectSurfacePointToScreen(pos);
 	}
 	/**
@@ -12013,7 +12211,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 	*/
 	_projectSurfacePointToScreen(pos) {
 		const projected = createVec4f64();
-		transformMat4(projected, [...pos, 1], this._globeViewProjMatrixNoCorrection);
+		transformMat4(projected, [...pos, 1], this._globeViewProjMatrixF64);
 		projected[0] /= projected[3];
 		projected[1] /= projected[3];
 		return new Point((projected[0] * .5 + .5) * this.width, (-projected[1] * .5 + .5) * this.height);
@@ -12027,6 +12225,9 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 	}
 	screenPointToLocation(p, terrain) {
 		return this.screenPointToMercatorCoordinate(p, terrain)?.toLngLat();
+	}
+	screenPointToLocationAtElevation(p, _elevation) {
+		return this.screenPointToLocation(p);
 	}
 	isPointOnMapSurface(p, _terrain) {
 		const rayOrigin = this._cameraPosition;
@@ -12042,7 +12243,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 		pos[1] = (p.y / this.height * 2 - 1) * -1;
 		pos[2] = 1;
 		pos[3] = 1;
-		transformMat4(pos, pos, this._globeViewProjMatrixNoCorrectionInverted);
+		transformMat4(pos, pos, this._globeViewProjMatrixF64Inverted);
 		pos[0] /= pos[3];
 		pos[1] /= pos[3];
 		pos[2] /= pos[3];
@@ -12069,7 +12270,7 @@ var VerticalPerspectiveTransform = class VerticalPerspectiveTransform {
 	isSurfacePointOnScreen(vec) {
 		if (!this.isSurfacePointVisible(vec)) return false;
 		const projected = createVec4f64();
-		transformMat4(projected, [...vec, 1], this._globeViewProjMatrixNoCorrection);
+		transformMat4(projected, [...vec, 1], this._globeViewProjMatrixF64);
 		projected[0] /= projected[3];
 		projected[1] /= projected[3];
 		projected[2] /= projected[3];
@@ -12370,9 +12571,8 @@ var GlobeTransform = class GlobeTransform {
 	get isGlobeRendering() {
 		return this._globeness > 0;
 	}
-	setTransitionState(globeness, errorCorrectionValue) {
+	setTransitionState(globeness) {
 		this._globeness = globeness;
-		this._globeLatitudeErrorCorrectionRadians = errorCorrectionValue;
 		this._calcMatrices();
 		this._verticalPerspectiveTransform.getCoveringTilesDetailsProvider().prepareNextFrame();
 		this._mercatorTransform.getCoveringTilesDetailsProvider().prepareNextFrame();
@@ -12381,7 +12581,6 @@ var GlobeTransform = class GlobeTransform {
 		return this.isGlobeRendering ? this._verticalPerspectiveTransform : this._mercatorTransform;
 	}
 	constructor(options) {
-		this._globeLatitudeErrorCorrectionRadians = 0;
 		this._globeness = 1;
 		this.defaultConstrain = (lngLat, zoom) => {
 			return this.currentTransform.defaultConstrain(lngLat, zoom);
@@ -12402,14 +12601,13 @@ var GlobeTransform = class GlobeTransform {
 	clone() {
 		const clone = new GlobeTransform();
 		clone._globeness = this._globeness;
-		clone._globeLatitudeErrorCorrectionRadians = this._globeLatitudeErrorCorrectionRadians;
 		clone.apply(this, false);
 		return clone;
 	}
 	apply(that, constrain) {
 		this._helper.apply(that, constrain);
 		this._mercatorTransform.apply(this, false);
-		this._verticalPerspectiveTransform.apply(this, false, this._globeLatitudeErrorCorrectionRadians);
+		this._verticalPerspectiveTransform.apply(this, false);
 	}
 	get projectionMatrix() {
 		return this.currentTransform.projectionMatrix;
@@ -12431,7 +12629,8 @@ var GlobeTransform = class GlobeTransform {
 			clippingPlane: verticalPerspectiveProjectionData.clippingPlane,
 			tileMercatorCoords: verticalPerspectiveProjectionData.tileMercatorCoords,
 			projectionTransition: params.applyGlobeMatrix ? this._globeness : 0,
-			fallbackMatrix: mercatorProjectionData.fallbackMatrix
+			fallbackMatrix: mercatorProjectionData.fallbackMatrix,
+			clipAntimeridian: verticalPerspectiveProjectionData.clipAntimeridian
 		};
 	}
 	isLocationOccluded(location) {
@@ -12447,14 +12646,16 @@ var GlobeTransform = class GlobeTransform {
 		return lerp(this._mercatorTransform.getCircleRadiusCorrection(), this._verticalPerspectiveTransform.getCircleRadiusCorrection(), this._globeness);
 	}
 	getPitchedTextCorrection(textAnchorX, textAnchorY, tileID) {
-		return lerp(this._mercatorTransform.getPitchedTextCorrection(textAnchorX, textAnchorY, tileID), this._verticalPerspectiveTransform.getPitchedTextCorrection(textAnchorX, textAnchorY, tileID), this._globeness);
+		const mercatorCorrection = this._mercatorTransform.getPitchedTextCorrection(textAnchorX, textAnchorY, tileID);
+		const verticalCorrection = this._verticalPerspectiveTransform.getPitchedTextCorrection(textAnchorX, textAnchorY, tileID);
+		return lerp(mercatorCorrection, verticalCorrection, this._globeness);
 	}
 	projectTileCoordinates(x, y, unwrappedTileID, getElevation) {
 		return this.currentTransform.projectTileCoordinates(x, y, unwrappedTileID, getElevation);
 	}
 	_calcMatrices() {
 		if (!this._helper._width || !this._helper._height) return;
-		this._verticalPerspectiveTransform.apply(this, false, this._globeLatitudeErrorCorrectionRadians);
+		this._verticalPerspectiveTransform.apply(this, false);
 		this._helper._nearZ = this._verticalPerspectiveTransform.nearZ;
 		this._helper._farZ = this._verticalPerspectiveTransform.farZ;
 		this._mercatorTransform.apply(this, true, this.isGlobeRendering);
@@ -12508,13 +12709,13 @@ var GlobeTransform = class GlobeTransform {
 	* Note: automatically adjusts zoom to keep planet size consistent
 	* (same size before and after a {@link setLocationAtPoint} call).
 	*/
-	setLocationAtPoint(lnglat, point) {
+	setLocationAtPoint(lnglat, point, elevation) {
 		if (!this.isGlobeRendering) {
-			this._mercatorTransform.setLocationAtPoint(lnglat, point);
+			this._mercatorTransform.setLocationAtPoint(lnglat, point, elevation);
 			this.apply(this._mercatorTransform, false);
 			return;
 		}
-		this._verticalPerspectiveTransform.setLocationAtPoint(lnglat, point);
+		this._verticalPerspectiveTransform.setLocationAtPoint(lnglat, point, elevation);
 		this.apply(this._verticalPerspectiveTransform, false);
 	}
 	locationToScreenPoint(lnglat, terrain) {
@@ -12525,6 +12726,9 @@ var GlobeTransform = class GlobeTransform {
 	}
 	screenPointToLocation(p, terrain) {
 		return this.currentTransform.screenPointToLocation(p, terrain);
+	}
+	screenPointToLocationAtElevation(p, elevation) {
+		return this.currentTransform.screenPointToLocationAtElevation(p, elevation);
 	}
 	isPointOnMapSurface(p, terrain) {
 		return this.currentTransform.isPointOnMapSurface(p, terrain);
@@ -12540,6 +12744,7 @@ var GlobeTransform = class GlobeTransform {
 		if (!this.isGlobeRendering) return mercatorData;
 		const globeData = this._verticalPerspectiveTransform.getProjectionDataForCustomLayer(applyGlobeMatrix);
 		globeData.fallbackMatrix = mercatorData.mainMatrix;
+		globeData.projectionTransition = this._globeness;
 		return globeData;
 	}
 	getFastPathSimpleProjectionMatrix(tileID) {
@@ -12548,6 +12753,35 @@ var GlobeTransform = class GlobeTransform {
 };
 //#endregion
 //#region src/geo/projection/vertical_perspective_camera_helper.ts
+/**
+* Zoom movement slowing starts when the mouse ray passes further than this above the planet surface,
+* so a cursor off the globe does not move the map unnaturally. Globe radius is 1, so 0.3 is ~2000 km.
+*/
+const RAY_SURFACE_DISTANCE_FOR_SLOWING_START = .3;
+/** How sharply zoom movement slows as the mouse ray rises above the planet surface. Lower is more gradual. */
+const SLOWING_MULTIPLIER = .5;
+/** Longitude difference between zoom location and map center at which the blend from exact to heuristic zooming starts, in degrees. */
+const INTERPOLATE_TO_HEURISTIC_START_LNG = 45;
+/** Longitude difference at which the blend to heuristic zooming is complete, in degrees. */
+const INTERPOLATE_TO_HEURISTIC_END_LNG = 85;
+/** Exponent applied to the blend factor: below 1, so the blend leans towards heuristic zooming and flattens as it completes. */
+const INTERPOLATE_TO_HEURISTIC_EXPONENT = .25;
+/**
+* Distance of the mouse ray from the globe center at which the blend from exact to heuristic zooming
+* starts. Globe radius is 1, so 1 is a ray grazing the horizon.
+*/
+const INTERPOLATE_TO_HEURISTIC_START_HORIZON = .95;
+/** Ray distance at which the blend to heuristic zooming is complete. */
+const INTERPOLATE_TO_HEURISTIC_END_HORIZON = .999;
+/**
+* Globe radius relative to the smaller viewport dimension below which zoom movement near the horizon
+* starts being inhibited, avoiding unnatural movements when the map is zoomed out a lot.
+*/
+const SLOWING_RADIUS_START = .9;
+/** Globe radius relative to the smaller viewport dimension at which that inhibition is at full strength. */
+const SLOWING_RADIUS_STOP = .5;
+/** Fraction of the zoom movement that remains once the globe has shrunk to `SLOWING_RADIUS_STOP`. */
+const SLOWING_RADIUS_SLOW_FACTOR = .25;
 /**
 * @internal
 */
@@ -12563,6 +12797,13 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 			easingOffset: new Point(0, 0)
 		};
 	}
+	/**
+	* Zooms around the pointer.
+	*
+	* `setLocationAtPoint` is exact but degenerates when called repeatedly for a
+	* location whose longitude is far from the center's, or one near the horizon,
+	* so those cases blend towards a heuristic.
+	*/
 	handleMapControlsRollPitchBearingZoom(deltas, tr) {
 		const zoomPixel = deltas.around;
 		const zoomLoc = tr.screenPointToLocation(zoomPixel);
@@ -12573,16 +12814,6 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 		if (deltas.zoomDelta) tr.setZoom(tr.zoom + deltas.zoomDelta);
 		const actualZoomDelta = tr.zoom - oldZoomPreZoomDelta;
 		if (actualZoomDelta === 0) return;
-		const raySurfaceDistanceForSlowingStart = .3;
-		const slowingMultiplier = .5;
-		const interpolateToHeuristicStartLng = 45;
-		const interpolateToHeuristicEndLng = 85;
-		const interpolateToHeuristicExponent = .25;
-		const interpolateToHeuristicStartRadius = .75;
-		const interpolateToHeuristicEndRadius = .35;
-		const slowingRadiusStart = .9;
-		const slowingRadiusStop = .5;
-		const slowingRadiusSlowFactor = .25;
 		const dLngRaw = differenceOfAnglesDegrees(tr.center.lng, zoomLoc.lng);
 		const dLng = dLngRaw / (Math.abs(dLngRaw / 180) + 1);
 		const dLat = differenceOfAnglesDegrees(tr.center.lat, zoomLoc.lat);
@@ -12595,30 +12826,37 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 			rayDirection[1] * distanceToClosestPoint,
 			rayDirection[2] * distanceToClosestPoint
 		]);
-		const distanceFromSurface = length$1(closestPoint) - 1;
-		const distanceFactor = Math.exp(-Math.max(distanceFromSurface - raySurfaceDistanceForSlowingStart, 0) * slowingMultiplier);
+		const rayDistanceFromGlobeCenter = length$1(closestPoint);
+		const distanceFromSurface = rayDistanceFromGlobeCenter - 1;
+		const distanceFactor = Math.exp(-Math.max(distanceFromSurface - RAY_SURFACE_DISTANCE_FOR_SLOWING_START, 0) * SLOWING_MULTIPLIER);
+		const interpolationFactorHorizon = remapSaturate(rayDistanceFromGlobeCenter, INTERPOLATE_TO_HEURISTIC_START_HORIZON, INTERPOLATE_TO_HEURISTIC_END_HORIZON, 0, 1);
 		const radius = getGlobeRadiusPixels(tr.worldSize, tr.center.lat) / Math.min(tr.width, tr.height);
-		const radiusFactor = remapSaturate(radius, slowingRadiusStart, slowingRadiusStop, 1, slowingRadiusSlowFactor);
-		const factor = (1 - zoomScale(-actualZoomDelta)) * Math.min(distanceFactor, radiusFactor);
+		const radiusFactor = remapSaturate(radius, SLOWING_RADIUS_START, SLOWING_RADIUS_STOP, 1, SLOWING_RADIUS_SLOW_FACTOR);
+		const slowingFactor = Math.min(distanceFactor, lerp(1, radiusFactor, interpolationFactorHorizon));
+		const factor = (1 - zoomScale(-actualZoomDelta)) * slowingFactor;
 		const oldCenterLat = tr.center.lat;
 		const oldZoom = tr.zoom;
 		const heuristicCenter = new LngLat(tr.center.lng + dLng * factor, clamp(tr.center.lat + dLat * factor, -MAX_VALID_LATITUDE, MAX_VALID_LATITUDE));
 		tr.setLocationAtPoint(zoomLoc, zoomPixel);
 		const exactCenter = tr.center;
-		const interpolationFactorLongitude = remapSaturate(Math.abs(dLngRaw), interpolateToHeuristicStartLng, interpolateToHeuristicEndLng, 0, 1);
-		const interpolationFactorRadius = remapSaturate(radius, interpolateToHeuristicStartRadius, interpolateToHeuristicEndRadius, 0, 1);
-		const heuristicFactor = Math.pow(Math.max(interpolationFactorLongitude, interpolationFactorRadius), interpolateToHeuristicExponent);
+		const interpolationFactorLongitude = remapSaturate(Math.abs(dLngRaw), INTERPOLATE_TO_HEURISTIC_START_LNG, INTERPOLATE_TO_HEURISTIC_END_LNG, 0, 1);
+		const heuristicFactor = Math.pow(Math.max(interpolationFactorLongitude, interpolationFactorHorizon), INTERPOLATE_TO_HEURISTIC_EXPONENT);
 		const lngExactToHeuristic = differenceOfAnglesDegrees(exactCenter.lng, heuristicCenter.lng);
 		const latExactToHeuristic = differenceOfAnglesDegrees(exactCenter.lat, heuristicCenter.lat);
 		tr.setCenter(new LngLat(exactCenter.lng + lngExactToHeuristic * heuristicFactor, exactCenter.lat + latExactToHeuristic * heuristicFactor).wrap());
 		tr.setZoom(oldZoom + getZoomAdjustment(oldCenterLat, tr.center.lat));
 	}
-	handleMapControlsPan(deltas, tr, _preZoomAroundLoc) {
+	/**
+	* Pans the globe by rotating it with a single quaternion that brings the grabbed location back
+	* under the cursor. This stays consistent near and across the poles, where the previous
+	* bearing-preserving mapping inverted and stalled (#5296).
+	* @param deltas - The deltas accumulated for this frame.
+	* @param tr - The transform to pan.
+	* @param preZoomAroundLoc - The location that was under the cursor before this frame.
+	*/
+	handleMapControlsPan(deltas, tr, preZoomAroundLoc) {
 		if (!deltas.panDelta) return;
-		const oldLat = tr.center.lat;
-		const oldZoom = tr.zoom;
-		tr.setCenter(computeGlobePanCenter(deltas.panDelta, tr).wrap());
-		tr.setZoom(oldZoom + getZoomAdjustment(oldLat, tr.center.lat));
+		versorSetLocationAtPoint(tr, preZoomAroundLoc, deltas.around, deltas.panDelta);
 	}
 	cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
 		const result = cameraForBoxAndBearing(options, padding, bounds, bearing, tr);
@@ -12760,7 +12998,8 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 		const requestedMinZoom = typeof options.minZoom === "number" ? +options.minZoom : tr.minZoom;
 		const normalizedEffectiveMinZoom = Math.max(requestedMinZoom, tr.minZoom) + getZoomAdjustment(targetCenter.lat, 0);
 		const minZoomPreConstrain = Math.min(normalizedEffectiveMinZoom, normalizedStartZoom, normalizedTargetZoom) + getZoomAdjustment(0, targetCenter.lat);
-		const scaleOfMinZoom = zoomScale(tr.applyConstrain(targetCenter, minZoomPreConstrain).zoom + getZoomAdjustment(targetCenter.lat, 0) - normalizedStartZoom);
+		const normalizedMinZoom = tr.applyConstrain(targetCenter, minZoomPreConstrain).zoom + getZoomAdjustment(targetCenter.lat, 0);
+		const scaleOfMinZoom = zoomScale(normalizedMinZoom - normalizedStartZoom);
 		const deltaLng = differenceOfAnglesDegrees(startCenter.lng, targetCenter.lng);
 		const deltaLat = differenceOfAnglesDegrees(startCenter.lat, targetCenter.lat);
 		const easeFunc = (k, scale, centerFactor, _pointAtOffset) => {
@@ -12875,10 +13114,10 @@ var GlobeCameraHelper = class {
 };
 //#endregion
 //#region src/geo/projection/projection_factory.ts
-function createProjectionFromName(name, transformConstrain) {
+function createProjectionFromName(name, transformConstrain, globalState) {
 	const transformOptions = { constrainOverride: transformConstrain };
 	if (Array.isArray(name)) {
-		const globeProjection = new GlobeProjection({ type: name });
+		const globeProjection = new GlobeProjection({ type: name }, globalState);
 		return {
 			projection: globeProjection,
 			transform: new GlobeTransform(transformOptions),
@@ -12900,7 +13139,7 @@ function createProjectionFromName(name, transformConstrain) {
 				"vertical-perspective",
 				12,
 				"mercator"
-			] });
+			] }, {});
 			return {
 				projection: globeProjection,
 				transform: new GlobeTransform(transformOptions),
@@ -12950,6 +13189,7 @@ var Style = class extends Evented {
 		this.imageManager = new ImageManager();
 		this.imageManager.setEventedParent(this);
 		this.imageManager.setMissingImageResolver(map._missingStyleImageResolver);
+		this.patternAtlas = new PatternAtlas(this.imageManager);
 		const glyphLang = map._container?.lang || typeof document !== "undefined" && document.documentElement?.lang || void 0;
 		this.glyphManager = new GlyphManager(map._requestManager, options.localIdeographFontFamily, glyphLang);
 		this.lineAtlas = new LineAtlas(256, 512);
@@ -12971,12 +13211,10 @@ var Style = class extends Evented {
 		});
 	}
 	_setInitialValues() {
-		this._spritesImagesIds = {};
 		this._layers = {};
 		this._order = [];
 		this.tileManagers = {};
 		this.zoomHistory = new ZoomHistory();
-		this._availableImages = [];
 		this._imagesListDirty = false;
 		this._globalState = {};
 		this._serializedLayers = {};
@@ -13090,9 +13328,9 @@ var Style = class extends Evented {
 		else this.imageManager.setLoaded(true);
 		this.glyphManager.setURL(nextState.glyphs);
 		this._createLayers();
-		this.light = new Light(this.stylesheet.light);
+		this.light = new Light(this.stylesheet.light ?? {}, this._globalState);
 		this._setProjectionInternal(this.stylesheet.projection?.type || "mercator");
-		this.sky = new Sky(this.stylesheet.sky);
+		this.sky = new Sky(this.stylesheet.sky, this._globalState);
 		this.map.setTerrain(this.stylesheet.terrain ?? null, { validate: false });
 		this.fire(new MapStyleDataEvent("data"));
 		this.fire(new MapStyleLoadEvent());
@@ -13114,48 +13352,33 @@ var Style = class extends Evented {
 			}
 		}
 	}
-	_loadSprite(sprite, isUpdate = false, completion = void 0) {
+	async _loadSprite(sprite, isUpdate = false, completion = void 0) {
 		this.imageManager.setLoaded(false);
 		const abortController = new AbortController();
 		this._spriteRequest = abortController;
 		let err;
-		loadSprite(sprite, this.map._requestManager, this.map.getPixelRatio(), this._spriteRequest).then((images) => {
-			this._spriteRequest = null;
-			if (images) for (const spriteId in images) {
-				this._spritesImagesIds[spriteId] = [];
-				const imagesToRemove = this._spritesImagesIds[spriteId] ? this._spritesImagesIds[spriteId].filter((id) => !(id in images)) : [];
-				for (const id of imagesToRemove) {
-					this.imageManager.removeImage(id);
-					this._changedImages[id] = true;
-				}
-				for (const id in images[spriteId]) {
-					const imageId = spriteId === "default" ? id : `${spriteId}:${id}`;
-					this._spritesImagesIds[spriteId].push(imageId);
-					if (imageId in this.imageManager.images) this.imageManager.updateImage(imageId, images[spriteId][id], false);
-					else this.imageManager.addImage(imageId, images[spriteId][id]);
-					if (isUpdate) this._changedImages[imageId] = true;
-				}
+		try {
+			const images = await loadSprite(sprite, this.map._requestManager, this.map.getPixelRatio(), abortController);
+			if (!images) return;
+			for (const spriteId in images) {
+				const { loaded, removed } = this.imageManager.setSpriteImages(spriteId, images[spriteId]);
+				this._markImagesChanged(removed);
+				if (isUpdate) this._markImagesChanged(loaded);
 			}
-		}).catch((error) => {
-			this._spriteRequest = null;
+		} catch (error) {
 			err = error;
 			if (!abortController.signal.aborted) this.fire(new ErrorEvent(err));
-		}).finally(() => {
+		} finally {
+			this._spriteRequest = null;
 			this.imageManager.setLoaded(true);
-			this._availableImages = this.imageManager.listImages();
 			if (isUpdate) this._changed = true;
-			this.dispatcher.broadcast("SI", this._availableImages);
+			this.dispatcher.broadcast("SI", this.imageManager.listImages());
 			this.fire(new MapStyleDataEvent("data"));
-			if (completion) completion(err);
-		});
+			completion?.(err);
+		}
 	}
 	_unloadSprite() {
-		for (const id of Object.values(this._spritesImagesIds).flat()) {
-			this.imageManager.removeImage(id);
-			this._changedImages[id] = true;
-		}
-		this._spritesImagesIds = {};
-		this._availableImages = this.imageManager.listImages();
+		this._markImagesChanged(this.imageManager.removeAllSpriteImages());
 		this._imagesListDirty = true;
 		this._changed = true;
 		this.fire(new MapStyleDataEvent("data"));
@@ -13227,7 +13450,7 @@ var Style = class extends Evented {
 		const changed = this._changed;
 		if (changed) {
 			if (this._imagesListDirty) {
-				this.dispatcher.broadcast("SI", this._availableImages);
+				this.dispatcher.broadcast("SI", this.imageManager.listImages());
 				this._imagesListDirty = false;
 			}
 			const updatedIds = Object.keys(this._updatedLayers);
@@ -13252,9 +13475,10 @@ var Style = class extends Evented {
 			managersUsedBefore[id] = tileManager.used;
 			tileManager.used = false;
 		}
+		const availableImages = this.imageManager.listImages();
 		for (const layerId of this._order) {
 			const layer = this._layers[layerId];
-			layer.recalculate(parameters, this._availableImages);
+			layer.recalculate(parameters, availableImages);
 			if (!layer.isHidden(parameters.zoom) && layer.source) this.tileManagers[layer.source].used = true;
 		}
 		for (const id in managersUsedBefore) {
@@ -13384,9 +13608,7 @@ var Style = class extends Evented {
 			case "setTransition":
 				operations.push(() => {});
 				break;
-			default:
-				unimplemented.push(op.command);
-				break;
+			default: unimplemented.push(op.command);
 		}
 		return {
 			operations,
@@ -13418,8 +13640,14 @@ var Style = class extends Evented {
 		this.imageManager.removeImage(id);
 		this._afterImageUpdated(id);
 	}
+	/**
+	* Queues the tiles that depend on these images to be reloaded on the next update, which is
+	* needed whenever an image appears, disappears or changes size.
+	*/
+	_markImagesChanged(ids) {
+		for (const id of ids) this._changedImages[id] = true;
+	}
 	_afterImageUpdated(id) {
-		this._availableImages = this.imageManager.listImages();
 		this._changedImages[id] = true;
 		this._imagesListDirty = true;
 		this._changed = true;
@@ -13852,7 +14080,7 @@ var Style = class extends Evented {
 			}
 		}
 		const sourceResults = [];
-		params.availableImages = this._availableImages;
+		params.availableImages = this.imageManager.listImages();
 		const serializedLayers = this._serializedAllLayers();
 		const layersAsSet = params.layers instanceof Set ? params.layers : Array.isArray(params.layers) ? new Set(params.layers) : null;
 		const paramsStrict = {
@@ -13938,7 +14166,7 @@ var Style = class extends Evented {
 		this.sky.updateTransitions(parameters);
 	}
 	_setProjectionInternal(name) {
-		const projectionObjects = createProjectionFromName(name, this.map._camera?.transform.constrainOverride);
+		const projectionObjects = createProjectionFromName(name, this.map._camera?.transform.constrainOverride, this._globalState);
 		this.projection = projectionObjects.projection;
 		this.map.migrateProjection(projectionObjects.transform, projectionObjects.cameraHelper);
 		for (const key in this.tileManagers) this.tileManagers[key].reload();
@@ -14089,14 +14317,10 @@ var Style = class extends Evented {
 			this.fire(new ErrorEvent(/* @__PURE__ */ new Error(`Sprite "${id}" doesn't exists on this map.`)));
 			return;
 		}
-		if (this._spritesImagesIds[id]) for (const imageId of this._spritesImagesIds[id]) {
-			this.imageManager.removeImage(imageId);
-			this._changedImages[imageId] = true;
-		}
+		const changedImages = this.imageManager.removeSpriteImages(id);
+		this._markImagesChanged(changedImages);
 		internalSpriteRepresentation.splice(internalSpriteRepresentation.findIndex((sprite) => sprite.id === id), 1);
 		this.stylesheet.sprite = internalSpriteRepresentation.length > 0 ? internalSpriteRepresentation : void 0;
-		delete this._spritesImagesIds[id];
-		this._availableImages = this.imageManager.listImages();
 		this._imagesListDirty = true;
 		this._changed = true;
 		this.fire(new MapStyleDataEvent("data"));
@@ -14151,8 +14375,7 @@ var Style = class extends Evented {
 		if (this.imageManager) {
 			this.imageManager.setEventedParent(null);
 			this.imageManager.destroy();
-			this._availableImages = [];
-			this._spritesImagesIds = {};
+			this.patternAtlas.destroy();
 		}
 		if (this.glyphManager) this.glyphManager.destroy();
 		for (const layerId in this._layers) {
@@ -14309,18 +14532,20 @@ const projectionUniforms = (context, locations) => ({
 	"u_projection_tile_mercator_coords": new Uniform4f(context, locations.u_projection_tile_mercator_coords),
 	"u_projection_clipping_plane": new Uniform4f(context, locations.u_projection_clipping_plane),
 	"u_projection_transition": new Uniform1f(context, locations.u_projection_transition),
-	"u_projection_fallback_matrix": new UniformMatrix4f(context, locations.u_projection_fallback_matrix)
+	"u_projection_fallback_matrix": new UniformMatrix4f(context, locations.u_projection_fallback_matrix),
+	"u_projection_clip_antimeridian": new Uniform1i(context, locations.u_projection_clip_antimeridian)
 });
 /**
-* Maps a field name in {@link ProjectionData} to its corresponding uniform name in {@link ProjectionPreludeUniformsType}.
+* Converts a {@link ProjectionData} object into the values expected by the projection prelude's uniforms.
 */
-const projectionObjectToUniformMap = {
-	mainMatrix: "u_projection_matrix",
-	tileMercatorCoords: "u_projection_tile_mercator_coords",
-	clippingPlane: "u_projection_clipping_plane",
-	projectionTransition: "u_projection_transition",
-	fallbackMatrix: "u_projection_fallback_matrix"
-};
+const projectionUniformValues = (projectionData) => ({
+	"u_projection_matrix": projectionData.mainMatrix,
+	"u_projection_tile_mercator_coords": projectionData.tileMercatorCoords,
+	"u_projection_clipping_plane": projectionData.clippingPlane,
+	"u_projection_transition": projectionData.projectionTransition,
+	"u_projection_fallback_matrix": projectionData.fallbackMatrix,
+	"u_projection_clip_antimeridian": projectionData.clipAntimeridian ? 1 : 0
+});
 //#endregion
 //#region src/webgl/program.ts
 function getTokenizedAttributesAndUniforms(array) {
@@ -14331,6 +14556,25 @@ function getTokenizedAttributesAndUniforms(array) {
 		result.push(token.pop());
 	}
 	return result;
+}
+function getIntegerAttributeNames(gl, program) {
+	const integerTypes = /* @__PURE__ */ new Set([
+		gl.INT,
+		gl.INT_VEC2,
+		gl.INT_VEC3,
+		gl.INT_VEC4,
+		gl.UNSIGNED_INT,
+		gl.UNSIGNED_INT_VEC2,
+		gl.UNSIGNED_INT_VEC3,
+		gl.UNSIGNED_INT_VEC4
+	]);
+	const names = /* @__PURE__ */ new Set();
+	const numActiveAttributes = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
+	for (let i = 0; i < numActiveAttributes; i++) {
+		const attribute = gl.getActiveAttrib(program, i);
+		if (attribute && integerTypes.has(attribute.type)) names.add(attribute.name);
+	}
+	return names;
 }
 /**
 * @internal
@@ -14379,13 +14623,17 @@ var Program = class {
 		this.attributes = {};
 		const uniformLocations = {};
 		this.numAttributes = allAttrInfo.length;
-		for (let i = 0; i < this.numAttributes; i++) if (allAttrInfo[i]) this.attributes[allAttrInfo[i]] = i;
 		gl.linkProgram(this.program);
-		for (const name in this.attributes) {
-			const actual = gl.getAttribLocation(this.program, name);
-			if (actual >= 0) this.attributes[name] = actual;
-		}
 		if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) throw new Error(`Program failed to link: ${gl.getProgramInfoLog(this.program)}`);
+		const integerAttributeNames = getIntegerAttributeNames(gl, this.program);
+		for (const name of allAttrInfo) {
+			if (!name) continue;
+			const location = gl.getAttribLocation(this.program, name);
+			if (location >= 0) this.attributes[name] = {
+				location,
+				isInteger: integerAttributeNames.has(name)
+			};
+		}
 		gl.deleteShader(vertexShader);
 		gl.deleteShader(fragmentShader);
 		for (const uniform of allUniformsInfo) if (uniform && !uniformLocations[uniform]) {
@@ -14412,9 +14660,9 @@ var Program = class {
 			gl.bindTexture(gl.TEXTURE_2D, terrain.texture);
 			for (const name in this.terrainUniforms) this.terrainUniforms[name].set(terrain[name]);
 		}
-		if (projectionData) for (const fieldName in projectionData) {
-			const uniformName = projectionObjectToUniformMap[fieldName];
-			this.projectionUniforms[uniformName].set(projectionData[fieldName]);
+		if (projectionData) {
+			const values = projectionUniformValues(projectionData);
+			for (const name in this.projectionUniforms) this.projectionUniforms[name].set(values[name]);
 		}
 		if (uniformValues) for (const name in this.fixedUniforms) this.fixedUniforms[name].set(uniformValues[name]);
 		if (configuration) configuration.setUniforms(context, this.binderUniforms, currentProperties, { zoom });
@@ -14426,9 +14674,7 @@ var Program = class {
 			case gl.TRIANGLES:
 				primitiveSize = 3;
 				break;
-			case gl.LINE_STRIP:
-				primitiveSize = 1;
-				break;
+			case gl.LINE_STRIP: primitiveSize = 1;
 		}
 		for (const segment of segments.get()) {
 			segment.vaos ||= {};
@@ -14460,9 +14706,9 @@ function patternUniformValues(crossfade, painter, tile) {
 	};
 }
 function bgPatternUniformValues(image, crossfade, painter, tile) {
-	const imagePosA = painter.imageManager.getPattern(image.from.toString());
-	const imagePosB = painter.imageManager.getPattern(image.to.toString());
-	const { width, height } = painter.imageManager.getPixelSize();
+	const imagePosA = painter.patternAtlas.getPattern(image.from.toString());
+	const imagePosB = painter.patternAtlas.getPattern(image.to.toString());
+	const { width, height } = painter.patternAtlas.getPixelSize();
 	const numTiles = Math.pow(2, tile.tileID.overscaledZ);
 	const tileSizeAtNearestZoom = tile.tileSize * Math.pow(2, painter.transform.tileZoom) / numTiles;
 	const pixelX = tileSizeAtNearestZoom * (tile.tileID.canonical.x + tile.tileID.wrap * numTiles);
@@ -14695,9 +14941,7 @@ const hillshadeUniformValues = (painter, tile, layer) => {
 		case "multidirectional":
 			method = 3;
 			break;
-		default:
-			method = 0;
-			break;
+		default: method = 0;
 	}
 	const illumination = layer.getIlluminationProperties();
 	for (let i = 0; i < illumination.directionRadians.length; i++) if (layer.paint.get("hillshade-illumination-anchor") === "viewport") illumination.directionRadians[i] += painter.transform.bearingInRadians;
@@ -14888,66 +15132,6 @@ const layerOpacityUniformValues = (opacity, textureUnit) => ({
 	"u_image": textureUnit,
 	"u_opacity": opacity
 });
-//#endregion
-//#region src/webgl/program/raster_program.ts
-const rasterUniforms = (context, locations) => ({
-	"u_tl_parent": new Uniform2f(context, locations.u_tl_parent),
-	"u_scale_parent": new Uniform1f(context, locations.u_scale_parent),
-	"u_buffer_scale": new Uniform1f(context, locations.u_buffer_scale),
-	"u_fade_t": new Uniform1f(context, locations.u_fade_t),
-	"u_opacity": new Uniform1f(context, locations.u_opacity),
-	"u_image0": new Uniform1i(context, locations.u_image0),
-	"u_image1": new Uniform1i(context, locations.u_image1),
-	"u_brightness_low": new Uniform1f(context, locations.u_brightness_low),
-	"u_brightness_high": new Uniform1f(context, locations.u_brightness_high),
-	"u_saturation_factor": new Uniform1f(context, locations.u_saturation_factor),
-	"u_contrast_factor": new Uniform1f(context, locations.u_contrast_factor),
-	"u_spin_weights": new Uniform3f(context, locations.u_spin_weights),
-	"u_coords_top": new Uniform4f(context, locations.u_coords_top),
-	"u_coords_bottom": new Uniform4f(context, locations.u_coords_bottom)
-});
-const rasterUniformValues = (parentTL, parentScaleBy, fade, layer, cornerCoords) => ({
-	"u_tl_parent": parentTL,
-	"u_scale_parent": parentScaleBy,
-	"u_buffer_scale": 1,
-	"u_fade_t": fade.mix,
-	"u_opacity": fade.opacity * layer.paint.get("raster-opacity"),
-	"u_image0": 0,
-	"u_image1": 1,
-	"u_brightness_low": layer.paint.get("raster-brightness-min"),
-	"u_brightness_high": layer.paint.get("raster-brightness-max"),
-	"u_saturation_factor": saturationFactor(layer.paint.get("raster-saturation")),
-	"u_contrast_factor": contrastFactor(layer.paint.get("raster-contrast")),
-	"u_spin_weights": spinWeights(layer.paint.get("raster-hue-rotate")),
-	"u_coords_top": [
-		cornerCoords[0].x,
-		cornerCoords[0].y,
-		cornerCoords[1].x,
-		cornerCoords[1].y
-	],
-	"u_coords_bottom": [
-		cornerCoords[3].x,
-		cornerCoords[3].y,
-		cornerCoords[2].x,
-		cornerCoords[2].y
-	]
-});
-function spinWeights(angle) {
-	angle *= Math.PI / 180;
-	const s = Math.sin(angle);
-	const c = Math.cos(angle);
-	return [
-		(2 * c + 1) / 3,
-		(-Math.sqrt(3) * s - c + 1) / 3,
-		(Math.sqrt(3) * s - c + 1) / 3
-	];
-}
-function contrastFactor(contrast) {
-	return contrast > 0 ? 1 / (1 - contrast) : 1 + contrast;
-}
-function saturationFactor(saturation) {
-	return saturation > 0 ? 1 - 1 / (1.001 - saturation) : -saturation;
-}
 //#endregion
 //#region src/webgl/program/symbol_program.ts
 const symbolIconUniforms = (context, locations) => ({
@@ -15173,7 +15357,6 @@ const programUniforms = {
 	terrain: terrainUniforms,
 	terrainDepth: terrainDepthUniforms,
 	terrainCoords: terrainCoordsUniforms,
-	projectionErrorMeasurement: projectionErrorMeasurementUniforms,
 	atmosphere: atmosphereUniforms,
 	sky: skyUniforms
 };
@@ -15258,8 +15441,8 @@ var VertexBuffer = class {
 	}
 	enableAttributes(gl, program) {
 		for (const member of this.attributes) {
-			const attribIndex = program.attributes[member.name];
-			if (attribIndex !== void 0) gl.enableVertexAttribArray(attribIndex);
+			const attribute = program.attributes[member.name];
+			if (attribute !== void 0) gl.enableVertexAttribArray(attribute.location);
 		}
 	}
 	/**
@@ -15270,8 +15453,12 @@ var VertexBuffer = class {
 	*/
 	setVertexAttribPointers(gl, program, vertexOffset) {
 		for (const member of this.attributes) {
-			const attribIndex = program.attributes[member.name];
-			if (attribIndex !== void 0) gl.vertexAttribPointer(attribIndex, member.components, gl[AttributeType[member.type]], false, this.itemSize, member.offset + this.itemSize * (vertexOffset || 0));
+			const attribute = program.attributes[member.name];
+			if (attribute !== void 0) {
+				const offset = member.offset + this.itemSize * (vertexOffset || 0);
+				if (attribute.isInteger) gl.vertexAttribIPointer(attribute.location, member.components, gl[AttributeType[member.type]], this.itemSize, offset);
+				else gl.vertexAttribPointer(attribute.location, member.components, gl[AttributeType[member.type]], false, this.itemSize, offset);
+			}
 		}
 	}
 	/**
@@ -15762,6 +15949,37 @@ var Framebuffer = class {
 	}
 };
 //#endregion
+//#region src/webgl/color_mode.ts
+const ZERO = 0;
+const ONE = 1;
+const ONE_MINUS_SRC_ALPHA = 771;
+var ColorMode = class {
+	constructor(blendFunction, blendColor, mask) {
+		this.blendFunction = blendFunction;
+		this.blendColor = blendColor;
+		this.mask = mask;
+	}
+};
+ColorMode.Replace = [ONE, ZERO];
+ColorMode.disabled = new ColorMode(ColorMode.Replace, Color.transparent, [
+	false,
+	false,
+	false,
+	false
+]);
+ColorMode.unblended = new ColorMode(ColorMode.Replace, Color.transparent, [
+	true,
+	true,
+	true,
+	true
+]);
+ColorMode.alphaBlended = new ColorMode([ONE, ONE_MINUS_SRC_ALPHA], Color.transparent, [
+	true,
+	true,
+	true,
+	true
+]);
+//#endregion
 //#region src/webgl/context.ts
 /**
 * @internal
@@ -15868,6 +16086,24 @@ var Context = class {
 		this.pixelStoreUnpackPremultiplyAlpha.dirty = true;
 		this.pixelStoreUnpackFlipY.dirty = true;
 	}
+	/**
+	* Reset some GL state to default values before handing users the raw context, as we do for
+	* custom layers and WebGL style images, to avoid hard-to-debug bugs in their code.
+	*
+	* MapLibre restores all of its own state afterwards, so the only state worth resetting first
+	* is state users would be surprised to find dirty: `CULL_FACE`, `TEXTURE0` and the three
+	* `UNPACK_` settings, whose defaults are meaningful enough that most code assumes them.
+	* The vertex array is unbound rather than reset, so that MapLibre never has to track it and
+	* a user's `vertexAttribPointer` calls cannot land on one of ours.
+	*/
+	setCustomLayerDefaults() {
+		this.unbindVAO();
+		this.cullFace.setDefault();
+		this.activeTexture.setDefault();
+		this.pixelStoreUnpack.setDefault();
+		this.pixelStoreUnpackPremultiplyAlpha.setDefault();
+		this.pixelStoreUnpackFlipY.setDefault();
+	}
 	createIndexBuffer(array, dynamicDraw) {
 		return new IndexBuffer(this, array, dynamicDraw);
 	}
@@ -15964,6 +16200,52 @@ var Context = class {
 		this.bindVertexArray.set(null);
 	}
 };
+//#endregion
+//#region src/webgl/depth_mode.ts
+const ALWAYS$1 = 519;
+var DepthMode = class {
+	constructor(depthFunc, depthMask, depthRange) {
+		this.func = depthFunc;
+		this.mask = depthMask;
+		this.range = depthRange;
+	}
+};
+DepthMode.ReadOnly = false;
+DepthMode.ReadWrite = true;
+DepthMode.disabled = new DepthMode(ALWAYS$1, DepthMode.ReadOnly, [0, 1]);
+//#endregion
+//#region src/webgl/stencil_mode.ts
+const ALWAYS = 519;
+const KEEP = 7680;
+var StencilMode = class {
+	constructor(test, ref, mask, fail, depthFail, pass) {
+		this.test = test;
+		this.ref = ref;
+		this.mask = mask;
+		this.fail = fail;
+		this.depthFail = depthFail;
+		this.pass = pass;
+	}
+};
+StencilMode.disabled = new StencilMode({
+	func: ALWAYS,
+	mask: 0
+}, 0, 0, KEEP, KEEP, KEEP);
+//#endregion
+//#region src/webgl/cull_face_mode.ts
+const FRONT = 1028;
+const BACK = 1029;
+const CCW = 2305;
+var CullFaceMode = class {
+	constructor(enable, mode, frontFace) {
+		this.enable = enable;
+		this.mode = mode;
+		this.frontFace = frontFace;
+	}
+};
+CullFaceMode.disabled = new CullFaceMode(false, BACK, CCW);
+CullFaceMode.backCCW = new CullFaceMode(true, BACK, CCW);
+CullFaceMode.frontCCW = new CullFaceMode(true, FRONT, CCW);
 //#endregion
 //#region src/webgl/draw/draw_collision_debug.ts
 let quadTriangles;
@@ -16230,9 +16512,10 @@ function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate
 		const uLabelPlaneMatrix = alongLine || shaderVariableAnchor ? identityMat4 : combinedLabelPlaneMatrix;
 		const hasHalo = isSDF && layer.paint.get(isText ? "text-halo-width" : "icon-halo-width").constantOr(1) !== 0;
 		let uniformValues;
-		if (isSDF) if (!bucket.iconsInText) uniformValues = symbolSDFUniformValues(sizeData.kind, size, rotateInShader, pitchWithMap, alongLine, shaderVariableAnchor, painter, uLabelPlaneMatrix, glCoordMatrixForShader, translation, isText, texSize, hasHalo, pitchedTextRescaling, isOffset);
-		else uniformValues = symbolTextAndIconUniformValues(sizeData.kind, size, rotateInShader, pitchWithMap, alongLine, shaderVariableAnchor, painter, uLabelPlaneMatrix, glCoordMatrixForShader, translation, texSize, texSizeIcon, pitchedTextRescaling, isOffset);
-		else uniformValues = symbolIconUniformValues(sizeData.kind, size, rotateInShader, pitchWithMap, alongLine, shaderVariableAnchor, painter, uLabelPlaneMatrix, glCoordMatrixForShader, translation, isText, texSize, pitchedTextRescaling, isOffset);
+		if (isSDF) {
+			if (!bucket.iconsInText) uniformValues = symbolSDFUniformValues(sizeData.kind, size, rotateInShader, pitchWithMap, alongLine, shaderVariableAnchor, painter, uLabelPlaneMatrix, glCoordMatrixForShader, translation, isText, texSize, hasHalo, pitchedTextRescaling, isOffset);
+			else uniformValues = symbolTextAndIconUniformValues(sizeData.kind, size, rotateInShader, pitchWithMap, alongLine, shaderVariableAnchor, painter, uLabelPlaneMatrix, glCoordMatrixForShader, translation, texSize, texSizeIcon, pitchedTextRescaling, isOffset);
+		} else uniformValues = symbolIconUniformValues(sizeData.kind, size, rotateInShader, pitchWithMap, alongLine, shaderVariableAnchor, painter, uLabelPlaneMatrix, glCoordMatrixForShader, translation, isText, texSize, pitchedTextRescaling, isOffset);
 		const state = {
 			program,
 			buffers,
@@ -16314,7 +16597,9 @@ function drawCircles(painter, tileManager, layer, coords, renderOptions) {
 		const tile = tileManager.getTile(coord);
 		const bucket = tile.getBucket(layer);
 		if (!bucket) continue;
-		const translateForUniforms = translatePosition(transform, tile, layer.paint.get("circle-translate"), layer.paint.get("circle-translate-anchor"));
+		const styleTranslate = layer.paint.get("circle-translate");
+		const styleTranslateAnchor = layer.paint.get("circle-translate-anchor");
+		const translateForUniforms = translatePosition(transform, tile, styleTranslate, styleTranslateAnchor);
 		const programConfiguration = bucket.programConfigurations.get(layer.id);
 		const program = painter.useProgram("circle", programConfiguration);
 		const layoutVertexBuffer = bucket.layoutVertexBuffer;
@@ -16594,7 +16879,8 @@ function updateGradientTexture(painter, tileManager, context, gl, layer, bucket,
 	if (layer.stepInterpolant) {
 		const sourceMaxZoom = tileManager.getSource().maxzoom;
 		const potentialOverzoom = coord.canonical.z === sourceMaxZoom ? Math.ceil(1 << painter.transform.maxZoom - coord.canonical.z) : 1;
-		textureResolution = clamp(nextPowerOfTwo(bucket.maxLineLength / EXTENT * 1024 * potentialOverzoom), 256, context.maxTextureSize);
+		const maxTextureCoverage = bucket.maxLineLength / EXTENT * 1024 * potentialOverzoom;
+		textureResolution = clamp(nextPowerOfTwo(maxTextureCoverage), 256, context.maxTextureSize);
 	}
 	layerGradient.gradient = renderColorRamp({
 		expression: layer.gradientExpression(),
@@ -16914,13 +17200,15 @@ function drawHillshade(painter, tileManager, layer, tileIDs, renderOptions) {
 			painter.width,
 			painter.height
 		]);
-	} else if (painter.renderPass === "translucent") if (useSubdivision) {
-		const [stencilBorderless, stencilBorders, coords] = painter.stencilConfigForOverlapTwoPass(tileIDs);
-		renderHillshade(painter, tileManager, layer, coords, stencilBorderless, depthMode, colorMode, false, isRenderingToTexture);
-		renderHillshade(painter, tileManager, layer, coords, stencilBorders, depthMode, colorMode, true, isRenderingToTexture);
-	} else {
-		const [stencil, coords] = painter.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
-		renderHillshade(painter, tileManager, layer, coords, stencil, depthMode, colorMode, false, isRenderingToTexture);
+	} else if (painter.renderPass === "translucent") {
+		if (useSubdivision) {
+			const [stencilBorderless, stencilBorders, coords] = painter.stencilConfigForOverlapTwoPass(tileIDs);
+			renderHillshade(painter, tileManager, layer, coords, stencilBorderless, depthMode, colorMode, false, isRenderingToTexture);
+			renderHillshade(painter, tileManager, layer, coords, stencilBorders, depthMode, colorMode, true, isRenderingToTexture);
+		} else {
+			const [stencil, coords] = painter.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
+			renderHillshade(painter, tileManager, layer, coords, stencil, depthMode, colorMode, false, isRenderingToTexture);
+		}
 	}
 }
 function renderHillshade(painter, tileManager, layer, coords, stencilModes, depthMode, colorMode, useBorder, isRenderingToTexture) {
@@ -17077,17 +17365,17 @@ function drawRaster(painter, tileManager, layer, tileIDs, renderOptions) {
 	const { isRenderingToTexture } = renderOptions;
 	const source = tileManager.getSource();
 	const useSubdivision = painter.style.projection.useSubdivision;
-	if (source instanceof ImageSource) drawTiles(painter, tileManager, layer, tileIDs, null, false, false, source.tileCoords, source.flippedWindingOrder, isRenderingToTexture);
+	if (source instanceof ImageSource) drawTiles(painter, tileManager, layer, tileIDs, null, false, false, source.tileCoords, source.perspectiveTransform, source.flippedWindingOrder, isRenderingToTexture);
 	else if (useSubdivision) {
 		const [stencilBorderless, stencilBorders, coords] = painter.stencilConfigForOverlapTwoPass(tileIDs);
-		drawTiles(painter, tileManager, layer, coords, stencilBorderless, false, true, cornerCoords, false, isRenderingToTexture);
-		drawTiles(painter, tileManager, layer, coords, stencilBorders, true, true, cornerCoords, false, isRenderingToTexture);
+		drawTiles(painter, tileManager, layer, coords, stencilBorderless, false, true, cornerCoords, identityPerspectiveTransform, false, isRenderingToTexture);
+		drawTiles(painter, tileManager, layer, coords, stencilBorders, true, true, cornerCoords, identityPerspectiveTransform, false, isRenderingToTexture);
 	} else {
 		const [stencil, coords] = painter.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
-		drawTiles(painter, tileManager, layer, coords, stencil, false, true, cornerCoords, false, isRenderingToTexture);
+		drawTiles(painter, tileManager, layer, coords, stencil, false, true, cornerCoords, identityPerspectiveTransform, false, isRenderingToTexture);
 	}
 }
-function drawTiles(painter, tileManager, layer, coords, stencilModes, useBorder, allowPoles, corners, flipCullfaceMode = false, isRenderingToTexture = false) {
+function drawTiles(painter, tileManager, layer, coords, stencilModes, useBorder, allowPoles, corners, perspectiveTransform, flipCullfaceMode = false, isRenderingToTexture = false) {
 	const minTileZ = coords[coords.length - 1].overscaledZ;
 	const context = painter.context;
 	const gl = context.gl;
@@ -17120,7 +17408,7 @@ function drawTiles(painter, tileManager, layer, coords, stencilModes, useBorder,
 			applyGlobeMatrix: !isRenderingToTexture,
 			applyTerrainMatrix: true
 		});
-		const uniformValues = rasterUniformValues(parentTopLeft, parentScaleBy, fadeValues.fadeMix, layer, corners);
+		const uniformValues = rasterUniformValues(parentTopLeft, parentScaleBy, fadeValues.fadeMix, layer, corners, perspectiveTransform);
 		const mesh = projection.getMeshFromTileID(context, coord.canonical, useBorder, allowPoles, "raster");
 		const stencilMode = stencilModes ? stencilModes[coord.overscaledZ] : StencilMode.disabled;
 		program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, flipCullfaceMode ? CullFaceMode.frontCCW : CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
@@ -17187,7 +17475,8 @@ function getCrossFadeValues(tile, parentTile, fadeDuration) {
 * Simple fade-in values for tile without a parent (i.e. edge tiles)
 */
 function getSelfFadeValues(tile, fadeDuration) {
-	const tileOpacity = clamp((now() - tile.timeAdded) / fadeDuration, 0, 1);
+	const timeSinceTile = (now() - tile.timeAdded) / fadeDuration;
+	const tileOpacity = clamp(timeSinceTile, 0, 1);
 	return {
 		tileOpacity,
 		fadeMix: {
@@ -17222,7 +17511,7 @@ function drawBackground(painter, tileManager, layer, coords, renderOptions) {
 	});
 	if (image) {
 		context.activeTexture.set(gl.TEXTURE0);
-		painter.imageManager.bind(painter.context);
+		painter.patternAtlas.bind(painter.context);
 	}
 	const crossfade = layer.getCrossfadeParameters();
 	for (const tileID of tileIDs) {
@@ -17733,7 +18022,8 @@ var Painter = class Painter {
 				0
 			],
 			projectionTransition: 0,
-			fallbackMatrix: matrix
+			fallbackMatrix: matrix,
+			clipAntimeridian: false
 		};
 		this.useProgram("clippingMask", null, true).draw(context, gl.TRIANGLES, DepthMode.disabled, this.stencilClearMode, ColorMode.disabled, CullFaceMode.disabled, null, null, projectionData, "$clipping", this.viewportBuffer, this.quadTriangleIndexBuffer, this.viewportSegments);
 	}
@@ -17746,7 +18036,7 @@ var Painter = class Painter {
 		context.setDepthMode(DepthMode.disabled);
 		const stencilRefs = {};
 		for (const tileID of tileIDs) stencilRefs[tileID.key] = this.nextStencilID++;
-		this._renderTileMasks(stencilRefs, tileIDs, renderToTexture, true);
+		if (this.style.projection.useSubdivision) this._renderTileMasks(stencilRefs, tileIDs, renderToTexture, true);
 		this._renderTileMasks(stencilRefs, tileIDs, renderToTexture, false);
 		this._tileClippingMaskIDs = stencilRefs;
 	}
@@ -17902,6 +18192,7 @@ var Painter = class Painter {
 		this.options = options;
 		this.lineAtlas = style.lineAtlas;
 		this.imageManager = style.imageManager;
+		this.patternAtlas = style.patternAtlas;
 		this.glyphManager = style.glyphManager;
 		this.symbolFadeChange = style.placement.symbolFadeChange(now());
 		this.imageManager.beginFrame();
@@ -17942,10 +18233,6 @@ var Painter = class Painter {
 			if (layer.type !== "custom" && !coords.length) continue;
 			this.renderLayer(this, tileManagers[layer.source], layer, coords, renderOptions);
 		}
-		this.style.projection?.updateGPUdependent({
-			context: this.context,
-			useProgram: (name) => this.useProgram(name)
-		});
 		this.context.viewport.set([
 			0,
 			0,
@@ -18113,8 +18400,8 @@ var Painter = class Painter {
 	isPatternMissing(image) {
 		if (!image) return false;
 		if (!image.from || !image.to) return true;
-		const imagePosA = this.imageManager.getPattern(image.from.toString());
-		const imagePosB = this.imageManager.getPattern(image.to.toString());
+		const imagePosA = this.patternAtlas.getPattern(image.from.toString());
+		const imagePosB = this.patternAtlas.getPattern(image.to.toString());
 		return !imagePosA || !imagePosB;
 	}
 	/**
@@ -18142,12 +18429,7 @@ var Painter = class Painter {
 		return this.cache[key];
 	}
 	setCustomLayerDefaults() {
-		this.context.unbindVAO();
-		this.context.cullFace.setDefault();
-		this.context.activeTexture.setDefault();
-		this.context.pixelStoreUnpack.setDefault();
-		this.context.pixelStoreUnpackPremultiplyAlpha.setDefault();
-		this.context.pixelStoreUnpackFlipY.setDefault();
+		this.context.setCustomLayerDefaults();
 	}
 	setBaseState() {
 		const gl = this.context.gl;
@@ -18302,7 +18584,7 @@ var Hash = class {
 			location = location.replace("&&", "&");
 			window.history.replaceState(window.history.state, null, location);
 		};
-		this._updateHash = throttle(this._updateHashUnthrottled, 30 * 1e3 / 100);
+		this._updateHash = throttle(this._updateHashUnthrottled, 300);
 		this._hashName = hashName && encodeURIComponent(hashName);
 	}
 	/**
@@ -18380,6 +18662,14 @@ const defaultRollInertiaOptions = extend({
 	deceleration: 1e3,
 	maxSpeed: 360
 }, defaultInertiaOptions);
+/**
+* The maximum age of a recorded gesture update, in milliseconds.
+*/
+const BUFFER_CUTOFF = 160;
+/**
+* The time window the gesture velocity is measured over, in milliseconds.
+*/
+const VELOCITY_WINDOW = 60;
 var HandlerInertia = class {
 	constructor(map) {
 		this._map = map;
@@ -18396,12 +18686,41 @@ var HandlerInertia = class {
 		});
 	}
 	_drainInertiaBuffer() {
-		const inertia = this._inertiaBuffer, currentTime = now(), cutoff = 160;
-		while (inertia.length > 0 && currentTime - inertia[0].time > cutoff) inertia.shift();
+		const inertia = this._inertiaBuffer, currentTime = now();
+		while (inertia.length > 0 && currentTime - inertia[0].time > BUFFER_CUTOFF) inertia.shift();
 	}
+	/**
+	* Returns the entries the velocity is measured from: everything recorded within
+	* {@link VELOCITY_WINDOW} before now, but never fewer than the last two, so that
+	* inertia also works below two recorded updates per window.
+	*/
+	_getVelocityEntries() {
+		const inertia = this._inertiaBuffer;
+		const windowStart = now() - VELOCITY_WINDOW;
+		let firstIndex = Math.max(0, inertia.length - 2);
+		while (firstIndex > 0 && inertia[firstIndex - 1].time >= windowStart) firstIndex--;
+		return inertia.slice(firstIndex);
+	}
+	/**
+	* Returns the ease which continues the gesture that has just ended.
+	*
+	* The velocity is measured over the time up to the release and not up to the last
+	* recorded movement, so that a gesture held still before being released has a lower
+	* velocity, down to no inertia at all. The delta of an entry happened before it was
+	* recorded, so the first entry only marks the start of the measured interval; anchors
+	* are the exception, as they describe the state at the moment of their entry.
+	*
+	* @param panInertiaOptions - overrides for the pan inertia defaults
+	* @returns the ease options, or `undefined` when the measured interval holds no
+	* movement, which terrain gestures produce by recording updates without any delta
+	*/
 	_onMoveEnd(panInertiaOptions) {
 		this._drainInertiaBuffer();
-		if (this._inertiaBuffer.length < 2) return;
+		const entries = this._getVelocityEntries();
+		if (entries.length < 2) {
+			this.clear();
+			return;
+		}
 		const deltas = {
 			zoom: 0,
 			bearing: 0,
@@ -18411,16 +18730,22 @@ var HandlerInertia = class {
 			pinchAround: void 0,
 			around: void 0
 		};
-		for (const { settings } of this._inertiaBuffer) {
+		for (const { settings } of entries) {
+			if (settings.around) deltas.around = settings.around;
+			if (settings.pinchAround) deltas.pinchAround = settings.pinchAround;
+		}
+		for (const { settings } of entries.slice(1)) {
 			deltas.zoom += settings.zoomDelta || 0;
 			deltas.bearing += settings.bearingDelta || 0;
 			deltas.pitch += settings.pitchDelta || 0;
 			deltas.roll += settings.rollDelta || 0;
 			if (settings.panDelta) deltas.pan._add(settings.panDelta);
-			if (settings.around) deltas.around = settings.around;
-			if (settings.pinchAround) deltas.pinchAround = settings.pinchAround;
 		}
-		const duration = this._inertiaBuffer[this._inertiaBuffer.length - 1].time - this._inertiaBuffer[0].time;
+		if (!deltas.pan.mag() && !deltas.zoom && !deltas.bearing && !deltas.pitch && !deltas.roll) {
+			this.clear();
+			return;
+		}
+		const duration = now() - entries[0].time;
 		const easeOptions = {};
 		if (deltas.pan.mag()) {
 			const result = calculateEasing(deltas.pan.mag(), duration, extend({}, defaultPanInertiaOptions, panInertiaOptions || {}));
@@ -19037,13 +19362,13 @@ function generateMousePanHandler({ enable, clickTolerance }) {
 		assignEvents
 	});
 }
-function generateMouseRotationHandler({ enable, clickTolerance, aroundCenter = true, minPixelCenterThreshold = 100, rotateDegreesPerPixelMoved = .8 }, getCenter) {
+function generateMouseRotationHandler({ enable, clickTolerance, aroundCenter = true, minPixelCenterThreshold = 100, rotateSpeed = .8 }, getCenter) {
 	return new DragHandler({
 		clickTolerance,
 		move: (lastPoint, currentPoint) => {
 			const center = getCenter();
 			if (aroundCenter && Math.abs(center.y - lastPoint.y) > minPixelCenterThreshold) return { bearingDelta: getAngleDelta(new Point(lastPoint.x, currentPoint.y), currentPoint, center) };
-			let bearingDelta = (currentPoint.x - lastPoint.x) * rotateDegreesPerPixelMoved;
+			let bearingDelta = (currentPoint.x - lastPoint.x) * rotateSpeed;
 			if (aroundCenter && currentPoint.y < center.y) bearingDelta = -bearingDelta;
 			return { bearingDelta };
 		},
@@ -19052,10 +19377,10 @@ function generateMouseRotationHandler({ enable, clickTolerance, aroundCenter = t
 		assignEvents
 	});
 }
-function generateMousePitchHandler({ enable, clickTolerance, pitchDegreesPerPixelMoved = -.5 }) {
+function generateMousePitchHandler({ enable, clickTolerance, pitchSpeed = -.5 }) {
 	return new DragHandler({
 		clickTolerance,
-		move: (lastPoint, point) => ({ pitchDelta: (point.y - lastPoint.y) * pitchDegreesPerPixelMoved }),
+		move: (lastPoint, point) => ({ pitchDelta: (point.y - lastPoint.y) * pitchSpeed }),
 		moveStateManager: new MouseMoveStateManager({ checkCorrectEvent: (e) => e.button === LEFT_BUTTON && e.ctrlKey || e.button === RIGHT_BUTTON }),
 		enable,
 		assignEvents
@@ -19781,7 +20106,8 @@ var ScrollZoomHandler = class {
 			const t = (now() - currentEase.start) / currentEase.duration;
 			const speed = currentEase.easing(t + .01) - currentEase.easing(t);
 			const x = .27 / Math.sqrt(speed * speed + 1e-4) * .01;
-			easing = bezier(x, Math.sqrt(.27 * .27 - x * x), .25, 1);
+			const y = Math.sqrt(.0729 - x * x);
+			easing = bezier(x, y, .25, 1);
 		}
 		this._prevEase = {
 			start: now(),
@@ -20338,6 +20664,11 @@ var TransformProvider = class {
 //#endregion
 //#region src/ui/handler_manager.ts
 const isMoving = (p) => p.zoom || p.drag || p.roll || p.pitch || p.rotate;
+/**
+* A terrain gesture's anchor plane must stay below this fraction of the camera's
+* altitude over the center-elevation plane, or the ray-plane solve degenerates.
+*/
+const TERRAIN_ANCHOR_MAX_CAMERA_ALTITUDE_FRACTION = .9;
 var RenderFrameEvent = class extends Event {};
 function hasChange(result) {
 	return result.panDelta?.mag() || result.zoomDelta || result.bearingDelta || result.pitchDelta || result.rollDelta;
@@ -20358,6 +20689,7 @@ var HandlerManager = class {
 		return this._el?.ownerDocument?.defaultView || window;
 	}
 	constructor(map, camera, options) {
+		this._terrainGestureAnchorElevation = null;
 		this.handleWindowEvent = (e) => {
 			this.handleEvent(e, `${e.type}Window`);
 		};
@@ -20655,20 +20987,20 @@ var HandlerManager = class {
 			return;
 		}
 		this._camera.stop(true);
-		let { panDelta, zoomDelta, bearingDelta, pitchDelta, rollDelta, around, pinchAround } = combinedResult;
-		if (pinchAround !== void 0) around = pinchAround;
-		around ||= this._camera.transform.centerPoint;
-		if (terrain && !tr.isPointOnMapSurface(around)) around = tr.centerPoint;
+		const { panDelta, zoomDelta, bearingDelta, pitchDelta, rollDelta } = combinedResult;
+		let { around, aroundOnSurface } = this._resolveAround(combinedResult, terrain, tr);
+		const aroundElevation = terrain ? this._terrainGestureElevation(terrain, around, aroundOnSurface, tr, combinedEventsInProgress) : void 0;
 		const deltasForHelper = {
 			panDelta,
 			zoomDelta,
 			rollDelta,
 			pitchDelta,
 			bearingDelta,
-			around
+			around,
+			aroundElevation
 		};
 		if (this._camera.cameraHelper.useGlobeControls && !tr.isPointOnMapSurface(around)) around = tr.centerPoint;
-		const preZoomAroundLoc = around.distSqr(tr.centerPoint) < .01 ? tr.center : tr.screenPointToLocation(panDelta ? around.sub(panDelta) : around);
+		const preZoomAroundLoc = this._computePreZoomAroundLoc(tr, around, panDelta, aroundElevation);
 		this._handleMapControls({
 			terrain,
 			tr,
@@ -20681,6 +21013,54 @@ var HandlerManager = class {
 		this._map._update();
 		if (!combinedResult.noInertia) this._inertia.record(combinedResult);
 		this._fireEvents(combinedEventsInProgress, deactivatedHandlers, true);
+	}
+	/**
+	* The gesture's anchor point: the pinch midpoint when pinching, otherwise the
+	* pan's anchor, clamped to the center point when it does not lie on the map.
+	*/
+	_resolveAround(combinedResult, terrain, tr) {
+		let around = combinedResult.pinchAround !== void 0 ? combinedResult.pinchAround : combinedResult.around;
+		around ||= this._camera.transform.centerPoint;
+		if (terrain && !tr.isPointOnMapSurface(around)) return {
+			around: tr.centerPoint,
+			aroundOnSurface: false
+		};
+		return {
+			around,
+			aroundOnSurface: true
+		};
+	}
+	/**
+	* The elevation of the plane a terrain gesture is solved on: the elevation of the
+	* terrain point grabbed at gesture start, captured here on the gesture's first
+	* frame. Undefined means the gesture is solved at the center's elevation instead —
+	* when the grabbed terrain is not loaded, the anchor is the center point (a
+	* center-point anchor is skipped by the camera helper and would lose the pan), or
+	* the anchor plane is too close to the camera for a stable ray-plane solve.
+	*/
+	_terrainGestureElevation(terrain, around, aroundOnSurface, tr, combinedEventsInProgress) {
+		if (!aroundOnSurface) return;
+		if (!this._terrainMovement && (combinedEventsInProgress.drag || combinedEventsInProgress.zoom)) {
+			const anchor = terrain.pointCoordinate(around);
+			this._terrainGestureAnchorElevation = anchor ? anchor.z : null;
+		}
+		if (this._terrainGestureAnchorElevation === null) return;
+		const elevation = this._terrainGestureAnchorElevation;
+		if (around.distSqr(tr.centerPoint) < .01) return;
+		if (elevation - tr.elevation >= TERRAIN_ANCHOR_MAX_CAMERA_ALTITUDE_FRACTION * (tr.getCameraAltitude() - tr.elevation)) return;
+		return elevation;
+	}
+	/**
+	* The location that was under `around` before this frame's deltas — the point the
+	* camera helper re-anchors after zooming — solved at `aroundElevation` when a
+	* terrain gesture provides one. When rotating about the center point, the
+	* transform's center is used directly to avoid numerical issues near the horizon.
+	*/
+	_computePreZoomAroundLoc(tr, around, panDelta, aroundElevation) {
+		if (around.distSqr(tr.centerPoint) < .01) return tr.center;
+		const aroundPreviousPoint = panDelta ? around.sub(panDelta) : around;
+		if (aroundElevation !== void 0) return tr.screenPointToLocationAtElevation(aroundPreviousPoint, aroundElevation);
+		return tr.screenPointToLocation(aroundPreviousPoint);
 	}
 	_handleMapControls({ terrain, tr, deltasForHelper, preZoomAroundLoc, combinedEventsInProgress, panDelta }) {
 		const cameraHelper = this._camera.cameraHelper;
@@ -20703,7 +21083,7 @@ var HandlerManager = class {
 			cameraHelper.handleMapControlsPan(deltasForHelper, tr, preZoomAroundLoc);
 			return;
 		}
-		if (combinedEventsInProgress.drag && this._terrainMovement && panDelta) {
+		if (deltasForHelper.aroundElevation === void 0 && combinedEventsInProgress.drag && this._terrainMovement && panDelta) {
 			tr.setCenter(tr.screenPointToLocation(tr.centerPoint.sub(panDelta)));
 			return;
 		}
@@ -20741,6 +21121,7 @@ var HandlerManager = class {
 		if (finishedMoving && this._terrainMovement) {
 			this._camera.elevationFreeze = false;
 			this._terrainMovement = false;
+			this._terrainGestureAnchorElevation = null;
 			const tr = this._camera.getTransformForUpdate();
 			if (this._map.getCenterClampedToGround()) tr.recalculateZoomAndCenter(this._map.terrain);
 			this._camera.applyUpdatedTransform(tr);
@@ -21416,12 +21797,14 @@ var AttributionControl = class {
 	*/
 	constructor(options = defaultAttributionControlOptions) {
 		this._toggleAttribution = () => {
-			if (this._container.classList.contains("maplibregl-compact")) if (this._container.classList.contains("maplibregl-compact-show")) {
-				this._container.setAttribute("open", "");
-				this._container.classList.remove("maplibregl-compact-show");
-			} else {
-				this._container.classList.add("maplibregl-compact-show");
-				this._container.removeAttribute("open");
+			if (this._container.classList.contains("maplibregl-compact")) {
+				if (this._container.classList.contains("maplibregl-compact-show")) {
+					this._container.setAttribute("open", "");
+					this._container.classList.remove("maplibregl-compact-show");
+				} else {
+					this._container.classList.add("maplibregl-compact-show");
+					this._container.removeAttribute("open");
+				}
 			}
 		};
 		this._updateData = (e) => {
@@ -21925,7 +22308,8 @@ var Terrain = class {
 		this._terrainSkirtLength = terrainSkirtLength;
 		this.qualityFactor = 2;
 		this.meshSize = 128;
-		this._demMatrixCache = {};
+		this._demMatrixCache = /* @__PURE__ */ new Map();
+		this._elevationSamplerCache = /* @__PURE__ */ new Map();
 		this.coordsIndex = [];
 		this._coordsTextureSize = 1024;
 	}
@@ -21971,12 +22355,8 @@ var Terrain = class {
 	getDEMElevation(tileID, x, y, extent = EXTENT) {
 		const normalized = tileID.normalizeCoordinates(x, y, extent);
 		if (!normalized) return 0;
-		const terrain = this.getTerrainData(normalized.tileID);
-		const dem = terrain.tile?.dem;
-		if (!dem) return 0;
-		const pos = transformMat4$2([], [normalized.x / extent * EXTENT, normalized.y / extent * EXTENT], terrain.u_terrain_matrix);
-		const coord = [pos[0] * dem.dim, pos[1] * dem.dim];
-		return dem.sampleBilinear(coord[0], coord[1]);
+		const sampler = this._getElevationSampler(normalized.tileID);
+		return sampler ? sampler(normalized.x, normalized.y, extent) : 0;
 	}
 	/**
 	* Get the elevation for given {@link LngLat} in respect of exaggeration.
@@ -22018,6 +22398,57 @@ var Terrain = class {
 		return this.getDEMElevation(tileID, x, y, extent) * this.exaggeration;
 	}
 	/**
+	* Clear CPU elevation samplers that may retain a previously selected DEM tile.
+	* @internal
+	*/
+	resetElevationCache() {
+		this._elevationSamplerCache.clear();
+	}
+	_getElevationSampler(tileID) {
+		const key = tileID.key;
+		const cachedSampler = this._elevationSamplerCache.get(key);
+		if (cachedSampler) return cachedSampler;
+		const sourceTile = this.tileManager.getSourceTile(tileID, true);
+		const dem = sourceTile?.dem;
+		if (!sourceTile || !dem) return null;
+		const matrix = this._getDEMTileMatrix(tileID, sourceTile);
+		const demPixelScaleX = matrix[0] * dem.dim;
+		const demPixelScaleY = matrix[5] * dem.dim;
+		const demPixelOffsetX = matrix[12] * dem.dim;
+		const demPixelOffsetY = matrix[13] * dem.dim;
+		const sampler = (x, y, extent) => {
+			const extentScale = extent === 8192 ? 1 : EXTENT / extent;
+			return dem.sampleBilinear(x * extentScale * demPixelScaleX + demPixelOffsetX, y * extentScale * demPixelScaleY + demPixelOffsetY);
+		};
+		this._elevationSamplerCache.set(key, sampler);
+		return sampler;
+	}
+	_getDEMTileMatrix(tileID, sourceTile) {
+		const matrixKey = `${sourceTile.tileID.key}/${tileID.key}`;
+		const cachedMatrix = this._demMatrixCache.get(matrixKey);
+		if (cachedMatrix) return cachedMatrix;
+		const maxzoom = this.tileManager.getSource().maxzoom;
+		let dz = tileID.canonical.z - sourceTile.tileID.canonical.z;
+		if (tileID.overscaledZ > tileID.canonical.z) {
+			if (tileID.canonical.z >= maxzoom) dz = tileID.canonical.z - maxzoom;
+			else warnOnce("cannot calculate elevation if elevation maxzoom > source.maxzoom");
+		}
+		const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz);
+		const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
+		const demMatrix = fromScaling(/* @__PURE__ */ new Float64Array(16), [
+			1 / (EXTENT << dz),
+			1 / (EXTENT << dz),
+			0
+		]);
+		translate(demMatrix, demMatrix, [
+			dx * EXTENT,
+			dy * EXTENT,
+			0
+		]);
+		this._demMatrixCache.set(matrixKey, demMatrix);
+		return demMatrix;
+	}
+	/**
 	* returns a Terrain Object for a tile. Unless the tile corresponds to data (e.g. tile is loading), return a flat dem object
 	* @param tileID - the tile to get the terrain for
 	* @returns the terrain data to use in the program
@@ -22052,34 +22483,12 @@ var Terrain = class {
 			sourceTile.demTexture.bind(context.gl.NEAREST, context.gl.CLAMP_TO_EDGE);
 			sourceTile.needsTerrainPrepare = false;
 		}
-		const matrixKey = sourceTile && sourceTile.toString() + sourceTile.tileID.key + tileID.key;
-		if (matrixKey && !this._demMatrixCache[matrixKey]) {
-			const maxzoom = this.tileManager.getSource().maxzoom;
-			let dz = tileID.canonical.z - sourceTile.tileID.canonical.z;
-			if (tileID.overscaledZ > tileID.canonical.z) if (tileID.canonical.z >= maxzoom) dz = tileID.canonical.z - maxzoom;
-			else warnOnce("cannot calculate elevation if elevation maxzoom > source.maxzoom");
-			const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz);
-			const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
-			const demMatrix = fromScaling(/* @__PURE__ */ new Float64Array(16), [
-				1 / (EXTENT << dz),
-				1 / (EXTENT << dz),
-				0
-			]);
-			translate(demMatrix, demMatrix, [
-				dx * EXTENT,
-				dy * EXTENT,
-				0
-			]);
-			this._demMatrixCache[matrixKey] = {
-				matrix: demMatrix,
-				coord: tileID
-			};
-		}
+		const terrainMatrix = sourceTile ? this._getDEMTileMatrix(tileID, sourceTile) : this._emptyDemMatrix;
 		return {
 			"u_depth": 2,
 			"u_terrain": 3,
 			"u_terrain_dim": sourceTile?.dem?.dim || 1,
-			"u_terrain_matrix": matrixKey ? this._demMatrixCache[matrixKey].matrix : this._emptyDemMatrix,
+			"u_terrain_matrix": terrainMatrix,
 			"u_terrain_unpack": sourceTile?.dem?.getUnpackVector() || this._emptyDemUnpack,
 			"u_terrain_exaggeration": this.exaggeration,
 			texture: (sourceTile?.demTexture || this._emptyDemTexture).texture,
@@ -22147,10 +22556,11 @@ var Terrain = class {
 			data[i + 2] = x >> 8 << 4 | y >> 8;
 			data[i + 3] = 0;
 		}
-		const texture = new Texture(context, new RGBAImage({
+		const image = new RGBAImage({
 			width: this._coordsTextureSize,
 			height: this._coordsTextureSize
-		}, new Uint8Array(data.buffer)), context.gl.RGBA, { premultiply: false });
+		}, new Uint8Array(data.buffer));
+		const texture = new Texture(context, image, context.gl.RGBA, { premultiply: false });
 		texture.bind(context.gl.NEAREST, context.gl.CLAMP_TO_EDGE);
 		this._coordsTexture = texture;
 		return texture;
@@ -22191,7 +22601,7 @@ var Terrain = class {
 		context.bindFramebuffer.set(this.getFramebuffer("depth").framebuffer);
 		gl.readPixels(p.x, this.painter.height / devicePixelRatio - p.y - 1, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, rgba);
 		context.bindFramebuffer.set(null);
-		return (rgba[0] / (256 * 256 * 256) + rgba[1] / (256 * 256) + rgba[2] / 256 + rgba[3]) / 256;
+		return (rgba[0] / 16777216 + rgba[1] / 65536 + rgba[2] / 256 + rgba[3]) / 256;
 	}
 	/**
 	* create a regular mesh which will be used by all terrain-tiles
@@ -22258,8 +22668,9 @@ var Terrain = class {
 		const worldSize = (1 << zoom) * EXTENT;
 		const mercatorX = mercatorCoordinate.x * worldSize;
 		const mercatorY = mercatorCoordinate.y * worldSize;
+		const tileX = Math.floor(mercatorX / EXTENT), tileY = Math.floor(mercatorY / EXTENT);
 		return {
-			tileID: new OverscaledTileID(zoom, 0, zoom, Math.floor(mercatorX / EXTENT), Math.floor(mercatorY / EXTENT)),
+			tileID: new OverscaledTileID(zoom, 0, zoom, tileX, tileY),
 			mercatorX,
 			mercatorY
 		};
@@ -22508,6 +22919,8 @@ const defaultOptions$4 = {
 	localIdeographFontFamily: "sans-serif",
 	pitchWithRotate: true,
 	rollEnabled: false,
+	rotateSpeed: .8,
+	pitchSpeed: -.5,
 	reduceMotion: void 0,
 	validateStyle: true,
 	/**Because GL MAX_TEXTURE_SIZE is usually at least 4096px. */
@@ -22592,7 +23005,13 @@ var Map$1 = class extends Evented {
 		};
 		this._contextRestored = (event) => {
 			if (this._lostContextStyle.style) this.setStyle(this._lostContextStyle.style, { diff: false });
-			if (this._lostContextStyle.images && this.style) this.style.imageManager.images = this._lostContextStyle.images;
+			if (this._lostContextStyle.images && this.style) {
+				this.style.imageManager.images = this._lostContextStyle.images;
+				for (const id in this._lostContextStyle.images) {
+					const image = this._lostContextStyle.images[id];
+					if (image.isWebGLImage) this.style.imageManager.updateImage(id, image, false);
+				}
+			}
 			this._lostContextStyle = {
 				style: null,
 				images: null
@@ -22774,8 +23193,10 @@ var Map$1 = class extends Evented {
 	* @see [Display map navigation controls](https://maplibre.org/maplibre-gl-js/docs/examples/display-map-navigation-controls/)
 	*/
 	addControl(control, position) {
-		if (position === void 0) if (control.getDefaultPosition) position = control.getDefaultPosition();
-		else position = "top-right";
+		if (position === void 0) {
+			if (control.getDefaultPosition) position = control.getDefaultPosition();
+			else position = "top-right";
+		}
 		if (!control?.onAdd) return this.fire(new ErrorEvent(/* @__PURE__ */ new Error("Invalid argument to map.addControl(). Argument must be a control with onAdd and onRemove methods.")));
 		const controlElement = control.onAdd(this);
 		this._controls.push(control);
@@ -24439,26 +24860,35 @@ var Map$1 = class extends Evented {
 				if (thisLayer.type === "hillshade" && thisLayer.source === options.source) warnOnce("You are using the same source for a hillshade layer and for 3D terrain. Please consider using two separate sources to improve rendering quality.");
 				if (thisLayer.type === "color-relief" && thisLayer.source === options.source) warnOnce("You are using the same source for a color-relief layer and for 3D terrain. Please consider using two separate sources to improve rendering quality.");
 			}
+			if (this.terrain) this.terrain.destroy();
 			this.terrain = new Terrain(this.painter, tileManager, options, this._terrainSkirtLength);
 			this.painter.renderToTexture = new RenderToTexture(this.painter, this.terrain);
 			this._camera.terrain = this.terrain;
 			this._camera.transform.setMinElevationForCurrentTile(this.terrain.getMinTileElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
 			this._camera.transform.setElevation(this.terrain.getElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
-			this._terrainDataCallback = (e) => {
-				if (e.dataType === "style") this.terrain.tileManager.releaseAllRTT();
-				else if (e.dataType === "source" && e.tile) {
-					if (e.sourceId === options.source && !this._camera.elevationFreeze) {
-						this._camera.transform.setMinElevationForCurrentTile(this.terrain.getMinTileElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
-						if (this.getCenterClampedToGround()) this._camera.transform.setElevation(this.terrain.getElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
-					}
-					if (e.source?.type === "image") this.terrain.tileManager.releaseAllRTT();
-					else this.terrain.tileManager.releaseRTT(e.tile.tileID);
-				}
-			};
+			this._terrainDataCallback = (e) => this._handleTerrainDataEvent(e, options.source);
 			this.style.on("data", this._terrainDataCallback);
 		}
 		this.fire(new MapTerrainEvent({ terrain: options }));
 		return this;
+	}
+	_handleTerrainDataEvent(event, terrainSourceId) {
+		if (event.dataType === "style") {
+			this.terrain.tileManager.releaseAllRTT();
+			return;
+		}
+		const isTerrainSourceEvent = event.sourceId === terrainSourceId;
+		if (isTerrainSourceEvent) this.terrain.resetElevationCache();
+		if (isTerrainSourceEvent && event.tile && !this._camera.elevationFreeze) {
+			this._camera.transform.setMinElevationForCurrentTile(this.terrain.getMinTileElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
+			if (this.getCenterClampedToGround()) this._camera.transform.setElevation(this.terrain.getElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
+		}
+		if (!event.tile) return;
+		if (event.source?.type === "image") {
+			this.terrain.tileManager.releaseAllRTT();
+			return;
+		}
+		this.terrain.tileManager.releaseRTT(event.tile.tileID);
 	}
 	/**
 	* Get the terrain-options if terrain is loaded
@@ -24660,8 +25090,12 @@ var Map$1 = class extends Evented {
 		} else {
 			const { width, height, data } = image;
 			const userImage = image;
+			const isWebGLImage = isStyleImageWebGLData(userImage.data);
 			return {
-				data: new RGBAImage({
+				data: isWebGLImage ? new RGBAImage({
+					width,
+					height
+				}) : new RGBAImage({
 					width,
 					height
 				}, new Uint8Array(data)),
@@ -24673,6 +25107,7 @@ var Map$1 = class extends Evented {
 				textFitHeight,
 				sdf,
 				version,
+				isWebGLImage,
 				userImage
 			};
 		}
@@ -24703,8 +25138,12 @@ var Map$1 = class extends Evented {
 		const { width, height, data } = image instanceof HTMLImageElement || isImageBitmap(image) ? browser.getImageData(image) : image;
 		if (width === void 0 || height === void 0) return this.fire(new ErrorEvent(/* @__PURE__ */ new Error("Invalid arguments to map.updateImage(). The second argument must be an `HTMLImageElement`, `ImageData`, `ImageBitmap`, or object with `width`, `height`, and `data` properties with the same format as `ImageData`")));
 		if (width !== existingImage.data.width || height !== existingImage.data.height) return this.fire(new ErrorEvent(/* @__PURE__ */ new Error("The width and height of the updated image must be that same as the previous version of the image")));
-		const copy = !(image instanceof HTMLImageElement || isImageBitmap(image));
-		existingImage.data.replace(data, copy);
+		existingImage.isWebGLImage = isStyleImageWebGLData(data);
+		if (existingImage.isWebGLImage) existingImage.userImage = image;
+		else {
+			const copy = !(image instanceof HTMLImageElement || isImageBitmap(image));
+			existingImage.data.replace(data, copy);
+		}
 		this.style.updateImage(id, existingImage);
 		return this;
 	}
@@ -25546,14 +25985,14 @@ var Map$1 = class extends Evented {
 			this.style.update(parameters);
 		}
 		const globeRenderingChanged = this.style.projection?.transitionState > 0 !== isGlobeRendering;
-		this.style.projection?.setErrorQueryLatitudeDegrees(this._camera.transform.center.lat);
-		this._camera.transform.setTransitionState(this.style.projection?.transitionState, this.style.projection?.latitudeErrorCorrectionRadians);
+		this._camera.transform.setTransitionState(this.style.projection?.transitionState);
 		if (this.style && (this._sourcesDirty || globeRenderingChanged)) {
 			this._sourcesDirty = false;
 			this.style._updateSources(this._camera.transform);
 		}
 		if (this.terrain) {
 			this.terrain.tileManager.update(this._camera.transform, this.terrain);
+			this.terrain.resetElevationCache();
 			this._camera.transform.setMinElevationForCurrentTile(this.terrain.getMinTileElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
 			if (!this._camera.elevationFreeze && this.getCenterClampedToGround()) this._camera.transform.setElevation(this.terrain.getElevationForLngLatZoom(this._camera.transform.center, this._camera.transform.tileZoom));
 		} else {
@@ -26060,6 +26499,17 @@ function applyAnchorClass(element, anchor, prefix) {
 //#endregion
 //#region src/ui/marker.ts
 /**
+* Screen-pixel deltas applied when a focused draggable marker is moved with the arrow keys.
+*/
+const ARROW_KEY_DELTAS = {
+	ArrowLeft: [-1, 0],
+	ArrowRight: [1, 0],
+	ArrowUp: [0, -1],
+	ArrowDown: [0, 1]
+};
+const KEYBOARD_DRAG_SMALL_STEP = 1;
+const KEYBOARD_DRAG_LARGE_STEP = 10;
+/**
 * The event class for marker drag events (`dragstart`, `drag` and `dragend`).
 *
 * @group Event Related
@@ -26134,6 +26584,30 @@ var Marker = class extends Evented {
 		this._onKeyPress = (e) => {
 			if (e.code === "Space" || e.code === "Enter") this.togglePopup();
 		};
+		this._onKeyDown = (e) => {
+			if (!this._defaultMarker || !this._draggable || !this._map || !this._lngLat) return;
+			if (e.composedPath()[0] !== this._element) return;
+			if (e.altKey || e.ctrlKey || e.metaKey) return;
+			const delta = ARROW_KEY_DELTAS[e.key];
+			if (!delta) return;
+			e.preventDefault();
+			e.stopPropagation();
+			const step = e.shiftKey ? KEYBOARD_DRAG_LARGE_STEP : KEYBOARD_DRAG_SMALL_STEP;
+			const pos = this._map.project(this._lngLat);
+			this.setLngLat(this._map.unproject(new Point(pos.x + delta[0] * step, pos.y + delta[1] * step)));
+			if (!this._keyboardDragActive) {
+				this._keyboardDragActive = true;
+				this.fire(new MarkerDragEvent("dragstart"));
+			}
+			this.fire(new MarkerDragEvent("drag"));
+		};
+		this._onKeyUp = (e) => {
+			if (!ARROW_KEY_DELTAS[e.key]) return;
+			this._endKeyboardDrag();
+		};
+		this._onBlur = () => {
+			this._endKeyboardDrag();
+		};
 		this._onMapClick = (e) => {
 			const targetElement = e.originalEvent.target;
 			const element = this._element;
@@ -26203,6 +26677,9 @@ var Marker = class extends Evented {
 		this._clickTolerance = options?.clickTolerance || 0;
 		this._subpixelPositioning = options?.subpixelPositioning || false;
 		this._isDragging = false;
+		this._roleManaged = false;
+		this._tabIndexManaged = false;
+		this._keyboardDragActive = false;
 		this._state = "inactive";
 		this._rotation = options?.rotation || 0;
 		this._rotationAlignment = options?.rotationAlignment || "auto";
@@ -26337,8 +26814,8 @@ var Marker = class extends Evented {
 	addTo(map) {
 		this.remove();
 		this._map = map;
-		if (!this._element.hasAttribute("aria-label")) this._element.setAttribute("aria-label", map._getUIString("Marker.Title"));
-		if (!this._element.hasAttribute("role")) this._element.setAttribute("role", "button");
+		if (this._defaultMarker && !this._element.hasAttribute("aria-label")) this._element.setAttribute("aria-label", map._getUIString("Marker.Title"));
+		this._updateAccessibilityRole();
 		map.getCanvasContainer().appendChild(this._element);
 		map.on("move", this._update);
 		map.on("moveend", this._update);
@@ -26378,6 +26855,11 @@ var Marker = class extends Evented {
 			delete this._map;
 		}
 		this._element.removeEventListener("click", this._onClick);
+		this._element.removeEventListener("keydown", this._onKeyDown);
+		this._element.removeEventListener("keyup", this._onKeyUp);
+		this._element.removeEventListener("blur", this._onBlur);
+		this._element.removeEventListener("keypress", this._onKeyPress);
+		this._keyboardDragActive = false;
 		this._element.remove();
 		if (this._popup) this._popup.remove();
 		return this;
@@ -26447,11 +26929,9 @@ var Marker = class extends Evented {
 			this._popup.remove();
 			this._popup = null;
 			this._element.removeEventListener("keypress", this._onKeyPress);
-			if (!this._originalTabIndex) this._element.removeAttribute("tabindex");
 		}
 		if (popup) {
 			if (!("offset" in popup.options)) {
-				const markerHeight = 41 - 5.8 / 2;
 				const markerRadius = 13.5;
 				const linearOffset = Math.abs(markerRadius) / Math.SQRT2;
 				popup.options.offset = this._defaultMarker ? {
@@ -26459,17 +26939,17 @@ var Marker = class extends Evented {
 					"top-left": [0, 0],
 					"top-right": [0, 0],
 					"bottom": [0, -38.1],
-					"bottom-left": [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-					"bottom-right": [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-					"left": [markerRadius, (markerHeight - markerRadius) * -1],
-					"right": [-13.5, (markerHeight - markerRadius) * -1]
+					"bottom-left": [linearOffset, (24.6 + linearOffset) * -1],
+					"bottom-right": [-linearOffset, (24.6 + linearOffset) * -1],
+					"left": [markerRadius, -24.6],
+					"right": [-13.5, -24.6]
 				} : this._offset;
 			}
 			this._popup = popup;
-			this._originalTabIndex = this._element.getAttribute("tabindex");
-			if (!this._originalTabIndex) this._element.setAttribute("tabindex", "0");
 			this._element.addEventListener("keypress", this._onKeyPress);
 		}
+		this._updateTabIndex();
+		this._updateAccessibilityRole();
 		return this;
 	}
 	/**
@@ -26486,6 +26966,12 @@ var Marker = class extends Evented {
 	setSubpixelPositioning(value) {
 		this._subpixelPositioning = value;
 		return this;
+	}
+	_endKeyboardDrag() {
+		if (this._keyboardDragActive) {
+			this._keyboardDragActive = false;
+			this.fire(new MarkerDragEvent("dragend"));
+		}
 	}
 	/**
 	* Returns the {@link Popup} instance that is bound to the {@link Marker}.
@@ -26623,18 +27109,38 @@ var Marker = class extends Evented {
 		return this._element.classList.toggle(className);
 	}
 	/**
-	* Sets the `draggable` property and functionality of the marker
+	* Sets the `draggable` property and functionality of the marker.
+	* A draggable default marker is also keyboard focusable and movable with the
+	* arrow keys (see {@link MarkerOptions.draggable}); custom marker elements keep
+	* their focusability and keyboard behavior application-owned.
 	* @param shouldBeDraggable - Turns drag functionality on/off
 	*/
 	setDraggable(shouldBeDraggable) {
 		this._draggable = !!shouldBeDraggable;
-		if (this._map) if (shouldBeDraggable) {
-			this._map.on("mousedown", this._addDragHandler);
-			this._map.on("touchstart", this._addDragHandler);
-		} else {
-			this._map.off("mousedown", this._addDragHandler);
-			this._map.off("touchstart", this._addDragHandler);
+		this._element.classList.toggle("maplibregl-marker-draggable", this._draggable);
+		if (this._map) {
+			if (shouldBeDraggable) {
+				this._map.on("mousedown", this._addDragHandler);
+				this._map.on("touchstart", this._addDragHandler);
+			} else {
+				this._map.off("mousedown", this._addDragHandler);
+				this._map.off("touchstart", this._addDragHandler);
+			}
 		}
+		if (this._defaultMarker) {
+			if (this._draggable) {
+				this._element.addEventListener("keydown", this._onKeyDown);
+				this._element.addEventListener("keyup", this._onKeyUp);
+				this._element.addEventListener("blur", this._onBlur);
+			} else {
+				this._element.removeEventListener("keydown", this._onKeyDown);
+				this._element.removeEventListener("keyup", this._onKeyUp);
+				this._element.removeEventListener("blur", this._onBlur);
+				this._endKeyboardDrag();
+			}
+		}
+		this._updateTabIndex();
+		this._updateAccessibilityRole();
 		return this;
 	}
 	/**
@@ -26643,6 +27149,39 @@ var Marker = class extends Evented {
 	*/
 	isDraggable() {
 		return this._draggable;
+	}
+	/**
+	* Keep the marker element focusable while it has built-in keyboard behavior.
+	* A popup makes any marker element interactive; dragging only manages
+	* focusability for the default marker so custom elements stay
+	* application-owned (#7790). A tabindex supplied by the application is
+	* never added, changed, or removed here.
+	*/
+	_updateTabIndex() {
+		if (!!this._popup || this._defaultMarker && this._draggable) {
+			if (!this._element.hasAttribute("tabindex")) {
+				this._element.setAttribute("tabindex", "0");
+				this._tabIndexManaged = true;
+			}
+		} else if (this._tabIndexManaged) {
+			if (this._element.getAttribute("tabindex") === "0") this._element.removeAttribute("tabindex");
+			this._tabIndexManaged = false;
+		}
+	}
+	/**
+	* Keep the default marker role aligned with interactivity.
+	* Default markers need a role because `aria-label` is set in {@link Marker.addTo}.
+	* Non-interactive markers use `role=img`; interactive ones (draggable or with a popup) use `role=button`.
+	* Click listeners are application-owned and do not automatically change the role.
+	* Custom marker elements are left alone so applications own their a11y tree.
+	* Explicit roles set by the application are preserved.
+	*/
+	_updateAccessibilityRole() {
+		if (!this._defaultMarker) return;
+		if (this._element.hasAttribute("role") && !this._roleManaged) return;
+		const role = this._draggable || !!this._popup ? "button" : "img";
+		this._element.setAttribute("role", role);
+		this._roleManaged = true;
 	}
 	/**
 	* Sets the `rotation` property of the marker.
@@ -26970,7 +27509,8 @@ var GeolocateControl = class extends Evented {
 		this._updateCamera = (position) => {
 			const center = new LngLat(position.coords.longitude, position.coords.latitude);
 			const radius = position.coords.accuracy;
-			const options = extend({ bearing: this._map.getBearing() }, this.options.fitBoundsOptions);
+			const bearing = this._map.getBearing();
+			const options = extend({ bearing }, this.options.fitBoundsOptions);
 			const newBounds = LngLatBounds.fromLngLat(center, radius);
 			this._map.fitBounds(newBounds, options, { geolocateSource: true });
 		};
@@ -27378,8 +27918,10 @@ var FullscreenControl = class extends Evented {
 		};
 		this._fullscreen = false;
 		this._pseudo = options.pseudo ?? false;
-		if (options?.container) if (options.container instanceof HTMLElement) this._container = options.container;
-		else warnOnce("Full screen control 'container' must be a DOM element.");
+		if (options?.container) {
+			if (options.container instanceof HTMLElement) this._container = options.container;
+			else warnOnce("Full screen control 'container' must be a DOM element.");
+		}
 		if ("onfullscreenchange" in document) this._fullscreenchange = "fullscreenchange";
 		else if ("onmozfullscreenchange" in document) this._fullscreenchange = "mozfullscreenchange";
 		else if ("onwebkitfullscreenchange" in document) this._fullscreenchange = "webkitfullscreenchange";

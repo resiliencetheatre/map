@@ -1,6 +1,6 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.4.1/LICENSE.txt
 */
 //#region \0rolldown/runtime.js
 var __create = Object.create;
@@ -20,7 +20,7 @@ var __copyProps = (to, from, except, desc) => {
 	}
 	return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule || !__hasOwnProp.call(mod, "default") ? __defProp(target, "default", {
 	value: mod,
 	enumerable: true
 }) : target, mod));
@@ -380,13 +380,13 @@ function isOffscreenCanvasDistorted() {
 			const size = 5;
 			const context = new OffscreenCanvas(size, size).getContext("2d", { willReadFrequently: true });
 			if (context) {
-				for (let i = 0; i < size * size; i++) {
+				for (let i = 0; i < 25; i++) {
 					const base = i * 4;
 					context.fillStyle = `rgb(${base},${base + 1},${base + 2})`;
 					context.fillRect(i % size, Math.floor(i / size), 1, 1);
 				}
 				const data = context.getImageData(0, 0, size, size).data;
-				for (let i = 0; i < size * size * 4; i++) if (i % 4 !== 3 && data[i] !== i) {
+				for (let i = 0; i < 100; i++) if (i % 4 !== 3 && data[i] !== i) {
 					offscreenCanvasDistorted = true;
 					break;
 				}
@@ -434,6 +434,15 @@ function invert$5(out, a) {
 	out[2] = -a2 * det;
 	out[3] = a0 * det;
 	return out;
+}
+/**
+* Calculates the determinant of a mat2
+*
+* @param {ReadonlyMat2} a the source matrix
+* @returns {Number} determinant of a
+*/
+function determinant$3(a) {
+	return a[0] * a[3] - a[2] * a[1];
 }
 /**
 * Rotates a mat2 by the given angle
@@ -1434,6 +1443,23 @@ function create$3() {
 	return out;
 }
 /**
+* Creates a new vec4 initialized with the given values
+*
+* @param {Number} x X component
+* @param {Number} y Y component
+* @param {Number} z Z component
+* @param {Number} w W component
+* @returns {vec4} a new 4D vector
+*/
+function fromValues$3(x, y, z, w) {
+	var out = new ARRAY_TYPE(4);
+	out[0] = x;
+	out[1] = y;
+	out[2] = z;
+	out[3] = w;
+	return out;
+}
+/**
 * Multiplies two vec4's
 *
 * @param {vec4} out the receiving vector
@@ -1561,6 +1587,23 @@ function setAxisAngle(out, axis, rad) {
 	out[1] = s * axis[1];
 	out[2] = s * axis[2];
 	out[3] = Math.cos(rad);
+	return out;
+}
+/**
+* Multiplies two quat's
+*
+* @param {quat} out the receiving quaternion
+* @param {ReadonlyQuat} a the first operand
+* @param {ReadonlyQuat} b the second operand
+* @returns {quat} out
+*/
+function multiply$2(out, a, b) {
+	var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+	var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+	out[0] = ax * bw + aw * bx + ay * bz - az * by;
+	out[1] = ay * bw + aw * by + az * bx - ax * bz;
+	out[2] = az * bw + aw * bz + ax * by - ay * bx;
+	out[3] = aw * bw - ax * bx - ay * by - az * bz;
 	return out;
 }
 /**
@@ -1699,6 +1742,17 @@ function fromEuler(out, x, y, z) {
 	return out;
 }
 /**
+* Creates a new quat initialized with the given values
+*
+* @param {Number} x X component
+* @param {Number} y Y component
+* @param {Number} z Z component
+* @param {Number} w W component
+* @returns {quat} a new quaternion
+* @function
+*/
+var fromValues$2 = fromValues$3;
+/**
 * Normalize a quat
 *
 * @param {quat} out the receiving quaternion
@@ -1832,23 +1886,6 @@ function squaredLength(a) {
 */
 function dot$1(a, b) {
 	return a[0] * b[0] + a[1] * b[1];
-}
-/**
-* Transforms the vec2 with a mat4
-* 3rd vector component is implicitly '0'
-* 4th vector component is implicitly '1'
-*
-* @param {vec2} out the receiving vector
-* @param {ReadonlyVec2} a the vector to transform
-* @param {ReadonlyMat4} m matrix to transform with
-* @returns {vec2} out
-*/
-function transformMat4(out, a, m) {
-	var x = a[0];
-	var y = a[1];
-	out[0] = m[0] * x + m[4] * y + m[12];
-	out[1] = m[1] * x + m[5] * y + m[13];
-	return out;
 }
 /**
 * Set the components of a vec2 to zero
@@ -3088,23 +3125,23 @@ var Evented = class {
 		return this;
 	}
 	fire(event, properties) {
-		if (typeof event === "string") event = new Event(event, properties || {});
-		const type = event.type;
+		const firedEvent = typeof event === "string" ? new Event(event, properties || {}) : event;
+		const type = firedEvent.type;
 		if (this.listens(type)) {
-			event.target = this;
-			const listeners = this._listeners?.[type] ? this._listeners[type].slice() : [];
-			for (const listener of listeners) listener.call(this, event);
-			const oneTimeListeners = this._oneTimeListeners?.[type] ? this._oneTimeListeners[type].slice() : [];
+			firedEvent.target = this;
+			const listeners = this._listeners?.[type]?.slice() ?? [];
+			for (const listener of listeners) listener.call(this, firedEvent);
+			const oneTimeListeners = this._oneTimeListeners?.[type]?.slice() ?? [];
 			for (const listener of oneTimeListeners) {
 				_removeEventListener(type, listener, this._oneTimeListeners);
-				listener.call(this, event);
+				listener.call(this, firedEvent);
 			}
 			const parent = this._eventedParent;
 			if (parent) {
-				extend(event, typeof this._eventedParentData === "function" ? this._eventedParentData() : this._eventedParentData);
-				parent.fire(event);
+				extend(firedEvent, typeof this._eventedParentData === "function" ? this._eventedParentData() : this._eventedParentData);
+				parent.fire(firedEvent);
 			}
-		} else if (event instanceof ErrorEvent) console.error(event.error);
+		} else if (firedEvent instanceof ErrorEvent) console.error(firedEvent.error);
 		return this;
 	}
 	/**
@@ -3114,7 +3151,7 @@ var Evented = class {
 	* @returns `true` if there is at least one registered listener for specified event type, `false` otherwise
 	*/
 	listens(type) {
-		return this._listeners?.[type]?.length > 0 || this._oneTimeListeners?.[type]?.length > 0 || this._eventedParent?.listens(type);
+		return Boolean(this._listeners?.[type]?.length || this._oneTimeListeners?.[type]?.length || this._eventedParent?.listens(type));
 	}
 	/**
 	* Bubble all events fired by this instance of Evented to this parent instance of Evented.
@@ -3573,19 +3610,28 @@ const latest = {
 		},
 		"property-type": "data-constant"
 	} },
-	"layout_fill-extrusion": { "visibility": {
-		"type": "enum",
-		"values": {
-			"visible": {},
-			"none": {}
+	"layout_fill-extrusion": {
+		"visibility": {
+			"type": "enum",
+			"values": {
+				"visible": {},
+				"none": {}
+			},
+			"default": "visible",
+			"expression": {
+				"interpolated": false,
+				"parameters": ["global-state"]
+			},
+			"property-type": "data-constant"
 		},
-		"default": "visible",
-		"expression": {
-			"interpolated": false,
-			"parameters": ["global-state"]
-		},
-		"property-type": "data-constant"
-	} },
+		"fill-extrusion-rounded-corner-distance": {
+			"type": "number",
+			"default": 0,
+			"minimum": 0,
+			"units": "meters",
+			"property-type": "constant"
+		}
+	},
 	layout_line: {
 		"line-cap": {
 			"type": "enum",
@@ -7501,14 +7547,12 @@ var Padding = class Padding {
 					input[1]
 				];
 				break;
-			case 3:
-				input = [
-					input[0],
-					input[1],
-					input[2],
-					input[1]
-				];
-				break;
+			case 3: input = [
+				input[0],
+				input[1],
+				input[2],
+				input[1]
+			];
 		}
 		return new Padding(input);
 	}
@@ -7937,7 +7981,11 @@ var Coercion = class Coercion {
 			}
 			case "formatted": return Formatted.fromString(valueToString(this.args[0].evaluate(ctx)));
 			case "resolvedImage": return ResolvedImage.fromString(valueToString(this.args[0].evaluate(ctx)));
-			case "projectionDefinition": return this.args[0].evaluate(ctx);
+			case "projectionDefinition": {
+				const input = this.args[0].evaluate(ctx);
+				if (ProjectionDefinition.parse(input)) return input;
+				throw new RuntimeError(`Could not parse projectionDefinition from value '${typeof input === "string" ? input : JSON.stringify(input)}'`, this.key);
+			}
 			default: return valueToString(this.args[0].evaluate(ctx));
 		}
 	}
@@ -8036,7 +8084,11 @@ var ParsingContext = class ParsingContext {
 					const expected = this.expectedType;
 					const actual = parsed.type;
 					if ((expected.kind === "string" || expected.kind === "number" || expected.kind === "boolean" || expected.kind === "object" || expected.kind === "array") && actual.kind === "value") parsed = annotate(parsed, expected, options.typeAnnotation || "assert");
-					else if ("projectionDefinition" === expected.kind && ["string", "array"].includes(actual.kind) || [
+					else if ("projectionDefinition" === expected.kind && [
+						"string",
+						"array",
+						"value"
+					].includes(actual.kind) || [
 						"color",
 						"formatted",
 						"resolvedImage"
@@ -9496,8 +9548,7 @@ function calculateSignedArea(ring) {
 	return sum;
 }
 const RE = 6378.137;
-const FE = 1 / 298.257223563;
-const E2 = FE * (2 - FE);
+const E2 = .0066943799901413165;
 const RAD = Math.PI / 180;
 var CheapRuler = class {
 	constructor(lat) {
@@ -9506,7 +9557,7 @@ var CheapRuler = class {
 		const w2 = 1 / (1 - E2 * (1 - coslat * coslat));
 		const w = Math.sqrt(w2);
 		this.kx = m * w * coslat;
-		this.ky = m * w * w2 * (1 - E2);
+		this.ky = m * w * w2 * .9933056200098587;
 	}
 	/**
 	* Given two points of the form [longitude, latitude], returns the distance.
@@ -9843,9 +9894,7 @@ function pointToGeometryDistance(ctx, geometries) {
 			case "LineString":
 				dist = Math.min(dist, pointSetToPointSetDistance(pointPosition, false, geometry.coordinates, true, ruler, dist));
 				break;
-			case "Polygon":
-				dist = Math.min(dist, pointsToPolygonDistance(pointPosition, false, geometry.coordinates, ruler, dist));
-				break;
+			case "Polygon": dist = Math.min(dist, pointsToPolygonDistance(pointPosition, false, geometry.coordinates, ruler, dist));
 		}
 		if (dist === 0) return dist;
 	}
@@ -9865,9 +9914,7 @@ function lineStringToGeometryDistance(ctx, geometries) {
 			case "LineString":
 				dist = Math.min(dist, pointSetToPointSetDistance(linePositions, true, geometry.coordinates, true, ruler, dist));
 				break;
-			case "Polygon":
-				dist = Math.min(dist, pointsToPolygonDistance(linePositions, true, geometry.coordinates, ruler, dist));
-				break;
+			case "Polygon": dist = Math.min(dist, pointsToPolygonDistance(linePositions, true, geometry.coordinates, ruler, dist));
 		}
 		if (dist === 0) return dist;
 	}
@@ -9891,9 +9938,7 @@ function polygonToGeometryDistance(ctx, geometries) {
 			case "LineString":
 				dist = Math.min(dist, pointsToPolygonDistance(geometry.coordinates, true, polygon, ruler, dist));
 				break;
-			case "Polygon":
-				dist = Math.min(dist, polygonToPolygonDistance(polygon, geometry.coordinates, ruler, dist));
-				break;
+			case "Polygon": dist = Math.min(dist, polygonToPolygonDistance(polygon, geometry.coordinates, ruler, dist));
 		}
 		if (dist === 0) return dist;
 	}
@@ -11210,12 +11255,10 @@ function findMixedLegacyFilter(filter, path = []) {
 			if (diagnostic) return diagnostic;
 			break;
 		}
-		case "case":
-			for (let i = 1; i < filter.length - 1; i += 2) {
-				const diagnostic = checkChild(i, path, filter);
-				if (diagnostic) return diagnostic;
-			}
-			break;
+		case "case": for (let i = 1; i < filter.length - 1; i += 2) {
+			const diagnostic = checkChild(i, path, filter);
+			if (diagnostic) return diagnostic;
+		}
 	}
 	return null;
 }
@@ -11318,148 +11361,6 @@ function convertHasOp$1(property) {
 }
 function convertNegation(filter) {
 	return ["!", filter];
-}
-function convertFilter(filter, expectedTypes = {}) {
-	if (isExpressionFilter(filter)) return filter;
-	if (!filter) return true;
-	const legacyFilter = filter;
-	const legacyOp = legacyFilter[0];
-	if (filter.length <= 1) return legacyOp !== "any";
-	switch (legacyOp) {
-		case "==":
-		case "!=":
-		case "<":
-		case ">":
-		case "<=":
-		case ">=": {
-			const [, property, value] = filter;
-			return convertComparisonOp(property, value, legacyOp, expectedTypes);
-		}
-		case "any": {
-			const [, ...conditions] = legacyFilter;
-			return ["any", ...conditions.map((f) => {
-				const types = {};
-				const child = convertFilter(f, types);
-				const typechecks = runtimeTypeChecks(types);
-				return typechecks === true ? child : [
-					"case",
-					typechecks,
-					child,
-					false
-				];
-			})];
-		}
-		case "all": {
-			const [, ...conditions] = legacyFilter;
-			const children = conditions.map((f) => convertFilter(f, expectedTypes));
-			return children.length > 1 ? ["all", ...children] : children[0];
-		}
-		case "none": {
-			const [, ...conditions] = legacyFilter;
-			return ["!", convertFilter(["any", ...conditions], {})];
-		}
-		case "in": {
-			const [, property, ...values] = legacyFilter;
-			return convertInOp(property, values);
-		}
-		case "!in": {
-			const [, property, ...values] = legacyFilter;
-			return convertInOp(property, values, true);
-		}
-		case "has": return convertHasOp(legacyFilter[1]);
-		case "!has": return ["!", convertHasOp(legacyFilter[1])];
-		default: return true;
-	}
-}
-function runtimeTypeChecks(expectedTypes) {
-	const conditions = [];
-	for (const property in expectedTypes) {
-		const get = property === "$id" ? ["id"] : ["get", property];
-		conditions.push([
-			"==",
-			["typeof", get],
-			expectedTypes[property]
-		]);
-	}
-	if (conditions.length === 0) return true;
-	if (conditions.length === 1) return conditions[0];
-	return ["all", ...conditions];
-}
-function convertComparisonOp(property, value, op, expectedTypes) {
-	let get;
-	if (property === "$type") return [
-		op,
-		["geometry-type"],
-		value
-	];
-	else if (property === "$id") get = ["id"];
-	else get = ["get", property];
-	if (expectedTypes && value !== null) expectedTypes[property] = typeof value;
-	if (op === "==" && property !== "$id" && value === null) return [
-		"all",
-		["has", property],
-		[
-			"==",
-			get,
-			null
-		]
-	];
-	else if (op === "!=" && property !== "$id" && value === null) return [
-		"any",
-		["!", ["has", property]],
-		[
-			"!=",
-			get,
-			null
-		]
-	];
-	return [
-		op,
-		get,
-		value
-	];
-}
-function convertInOp(property, values, negate = false) {
-	if (values.length === 0) return negate;
-	let get;
-	if (property === "$type") get = ["geometry-type"];
-	else if (property === "$id") get = ["id"];
-	else get = ["get", property];
-	let uniformTypes = true;
-	const type = typeof values[0];
-	for (const value of values) if (typeof value !== type) {
-		uniformTypes = false;
-		break;
-	}
-	if (uniformTypes && (type === "string" || type === "number")) {
-		const uniqueValues = values.sort().filter((v, i) => i === 0 || values[i - 1] !== v);
-		return [
-			"match",
-			get,
-			uniqueValues,
-			!negate,
-			negate
-		];
-	}
-	if (negate) return ["all", ...values.map((v) => [
-		"!=",
-		get,
-		v
-	])];
-	else return ["any", ...values.map((v) => [
-		"==",
-		get,
-		v
-	])];
-}
-function convertHasOp(property) {
-	if (property === "$type") return true;
-	else if (property === "$id") return [
-		"!=",
-		["id"],
-		null
-	];
-	else return ["has", property];
 }
 function stringify$1(obj) {
 	const type = typeof obj;
@@ -11864,7 +11765,6 @@ function validateNonExpressionFilter(options) {
 			type = getType(value[1]);
 			if (value.length !== 2) errors.push(new ValidationError(key, value, `filter array for "${value[0]}" operator must have 2 elements`));
 			else if (type !== "string") errors.push(new ValidationError(`${key}[1]`, value[1], `string expected, ${type} found`));
-			break;
 	}
 	return errors;
 }
@@ -12579,10 +12479,6 @@ function wrapCleanErrors(inner) {
 	return function(...args) {
 		return sortErrors(inner.apply(this, args));
 	};
-}
-function resolveConstant(style, value) {
-	if (typeof value === "string" && value[0] === "@") return resolveConstant(style, style.constants[value]);
-	else return value;
 }
 const visibilitySpec = {
 	type: "enum",
@@ -13506,6 +13402,22 @@ var PossiblyEvaluated = class {
 	}
 };
 /**
+* Returns the length of the array value, or undefined if the value is not an array or a style spec array wrapper.
+*/
+function getArrayValueLength(value) {
+	if (Array.isArray(value)) return value.length;
+	const values = value?.values;
+	return Array.isArray(values) ? values.length : void 0;
+}
+/**
+* Returns true if the two values are arrays of different length, either bare arrays or style spec array wrappers.
+*/
+function isNonInterpolableArrayChange(a, b) {
+	const lengthA = getArrayValueLength(a);
+	const lengthB = getArrayValueLength(b);
+	return lengthA !== void 0 && lengthB !== void 0 && lengthA !== lengthB;
+}
+/**
 * @internal
 * An implementation of `Property` for properties that do not permit data-driven (source or composite) expressions.
 * This restriction allows us to declare statically that the result of possibly evaluating this kind of property
@@ -13521,6 +13433,10 @@ var DataConstantProperty = class {
 		return value.expression.evaluate(parameters);
 	}
 	interpolate(a, b, t) {
+		if (isNonInterpolableArrayChange(a, b)) {
+			warnOnce(`Property "${this.name}" is trying to interpolate arrays of different lengths. Rendering may 'jump'.`);
+			return b;
+		}
 		const interpolationType = this.specification.type;
 		const interpolationFn = interpolateFactory[interpolationType];
 		if (interpolationFn) return interpolationFn(a, b, t);
@@ -13552,6 +13468,10 @@ var DataDrivenProperty = class {
 			kind: "constant",
 			value: void 0
 		}, a.parameters);
+		if (isNonInterpolableArrayChange(a.value.value, b.value.value)) {
+			warnOnce(`Property "${this.name}" is trying to interpolate arrays of different lengths. Rendering may 'jump'.`);
+			return b;
+		}
 		const interpolationType = this.specification.type;
 		const interpolationFn = interpolateFactory[interpolationType];
 		if (interpolationFn) {
@@ -15139,7 +15059,6 @@ var RasterBoundsArray = class extends StructArrayLayout4i8 {};
 var CircleLayoutArray = class extends StructArrayLayout2i4 {};
 var FillLayoutArray = class extends StructArrayLayout2i4 {};
 var FillExtrusionLayoutArray = class extends StructArrayLayout2i4i12 {};
-(class extends StructArrayLayout2i4 {});
 var LineLayoutArray = class extends StructArrayLayout2i4ub8 {};
 var LineExtLayoutArray = class extends StructArrayLayout2f8 {};
 var PatternLayoutArray = class extends StructArrayLayout10ui20 {};
@@ -15156,14 +15075,14 @@ var LineIndexArray = class extends StructArrayLayout2ui4 {};
 var LineStripIndexArray = class extends StructArrayLayout1ui2 {};
 //#endregion
 //#region src/data/bucket/circle_attributes.ts
-const layout$6 = createLayout([{
+const layout$7 = createLayout([{
 	name: "a_pos",
 	components: 2,
 	type: "Int16"
 }], 4);
-const members$4 = layout$6.members;
-layout$6.size;
-layout$6.alignment;
+const members$4 = layout$7.members;
+layout$7.size;
+layout$7.alignment;
 //#endregion
 //#region src/data/segment.ts
 /**
@@ -15709,8 +15628,10 @@ var SourceExpressionBinder = class {
 		}
 	}
 	upload(context) {
-		if (this.paintVertexArray?.arrayBuffer.byteLength) if (this.paintVertexBuffer?.buffer) this.paintVertexBuffer.updateData(this.paintVertexArray);
-		else this.paintVertexBuffer = context.createVertexBuffer(this.paintVertexArray, this.paintVertexAttributes, this.expression.isStateDependent);
+		if (this.paintVertexArray?.arrayBuffer.byteLength) {
+			if (this.paintVertexBuffer?.buffer) this.paintVertexBuffer.updateData(this.paintVertexArray);
+			else this.paintVertexBuffer = context.createVertexBuffer(this.paintVertexArray, this.paintVertexAttributes, this.expression.isStateDependent);
+		}
 	}
 	destroy() {
 		if (this.paintVertexBuffer) this.paintVertexBuffer.destroy();
@@ -15755,8 +15676,10 @@ var CompositeExpressionBinder = class {
 		}
 	}
 	upload(context) {
-		if (this.paintVertexArray?.arrayBuffer.byteLength) if (this.paintVertexBuffer?.buffer) this.paintVertexBuffer.updateData(this.paintVertexArray);
-		else this.paintVertexBuffer = context.createVertexBuffer(this.paintVertexArray, this.paintVertexAttributes, this.expression.isStateDependent);
+		if (this.paintVertexArray?.arrayBuffer.byteLength) {
+			if (this.paintVertexBuffer?.buffer) this.paintVertexBuffer.updateData(this.paintVertexArray);
+			else this.paintVertexBuffer = context.createVertexBuffer(this.paintVertexArray, this.paintVertexAttributes, this.expression.isStateDependent);
+		}
 	}
 	destroy() {
 		if (this.paintVertexBuffer) this.paintVertexBuffer.destroy();
@@ -16184,10 +16107,11 @@ var CircleBucket = class {
 			subdivide ||= circleStyle.paint.get("circle-pitch-alignment") === "map";
 		}
 		const granularity = subdivide ? options.subdivisionGranularity.circle : 1;
+		const globalProperties = new EvaluationParameters(this.zoom);
+		const needGeometry = this.layers[0]._featureFilter.needGeometry;
 		for (const { feature, id, index, sourceLayerIndex } of features) {
-			const needGeometry = this.layers[0]._featureFilter.needGeometry;
 			const evaluationFeature = toEvaluationFeature(feature, needGeometry);
-			if (!this.layers[0]._featureFilter.filter(new EvaluationParameters(this.zoom), evaluationFeature, canonical)) continue;
+			if (!this.layers[0]._featureFilter.filter(globalProperties, evaluationFeature, canonical)) continue;
 			const sortKey = sortFeaturesByKey ? circleSortKey.evaluate(evaluationFeature, {}, canonical) : void 0;
 			const bucketFeature = {
 				id,
@@ -16507,8 +16431,8 @@ function projectQueryGeometry$1(queryGeometry, transform, unwrappedTileID, getEl
 }
 //#endregion
 //#region src/style/style_layer/circle_style_layer_properties.g.ts
-let layout$5;
-const getLayout$3 = () => layout$5 = layout$5 || new Properties({ "circle-sort-key": new DataDrivenProperty(latest["layout_circle"]["circle-sort-key"], "circle-sort-key") });
+let layout$6;
+const getLayout$4 = () => layout$6 = layout$6 || new Properties({ "circle-sort-key": new DataDrivenProperty(latest["layout_circle"]["circle-sort-key"], "circle-sort-key") });
 let paint$8;
 const getPaint$8 = () => paint$8 = paint$8 || new Properties({
 	"circle-radius": new DataDrivenProperty(latest["paint_circle"]["circle-radius"], "circle-radius"),
@@ -16528,7 +16452,7 @@ var circle_style_layer_properties_g_default = {
 		return getPaint$8();
 	},
 	get layout() {
-		return getLayout$3();
+		return getLayout$4();
 	}
 };
 //#endregion
@@ -16869,6 +16793,8 @@ var Texture = class {
 			gl.deleteTexture(this.texture);
 			this.texture = gl.createTexture();
 			this._ownedHandle = this.texture;
+			this.filter = void 0;
+			this.wrap = void 0;
 		}
 		gl.bindTexture(gl.TEXTURE_2D, this.texture);
 		context.pixelStoreUnpackFlipY.set(false);
@@ -17014,7 +16940,6 @@ var DEMData = class DEMData {
 				this.greenFactor = 25.6;
 				this.blueFactor = .1;
 				this.baseShift = 1e4;
-				break;
 		}
 		for (let x = 0; x < dim; x++) {
 			this.data[this._idx(-1, x)] = this.data[this._idx(0, x)];
@@ -17087,17 +17012,13 @@ var DEMData = class DEMData {
 			case -1:
 				xMin = xMax - 1;
 				break;
-			case 1:
-				xMax = xMin + 1;
-				break;
+			case 1: xMax = xMin + 1;
 		}
 		switch (dy) {
 			case -1:
 				yMin = yMax - 1;
 				break;
-			case 1:
-				yMax = yMin + 1;
-				break;
+			case 1: yMax = yMin + 1;
 		}
 		const ox = -dx * this.dim;
 		const oy = -dy * this.dim;
@@ -17210,14 +17131,14 @@ var ColorReliefStyleLayer = class extends StyleLayer {
 };
 //#endregion
 //#region src/data/bucket/fill_attributes.ts
-const layout$4 = createLayout([{
+const layout$5 = createLayout([{
 	name: "a_pos",
 	components: 2,
 	type: "Int16"
 }], 4);
-const members$3 = layout$4.members;
-layout$4.size;
-layout$4.alignment;
+const members$3 = layout$5.members;
+layout$5.size;
+layout$5.alignment;
 //#endregion
 //#region src/data/bucket/pattern_bucket_features.ts
 function hasPattern(type, layers, options) {
@@ -18093,7 +18014,7 @@ var Subdivider = class {
 		for (let i = 0; i < flattened.length; i += 2) {
 			const vy = flattened[i + 1];
 			if (vy === -32768) flattened[i + 1] = -32767;
-			if (vy === 32767) flattened[i + 1] = SOUTH_POLE_Y - 1;
+			if (vy === 32767) flattened[i + 1] = 32766;
 		}
 	}
 	/**
@@ -18190,11 +18111,49 @@ var Subdivider = class {
 		if (generateOutlineLines) subdividedLines = this._generateOutline(polygon);
 		this._ensureNoPoleVertices();
 		this._handlePoles(subdividedTriangles);
+		if (this._granularity >= 2 && this._canonical?.z === 0) {
+			subdividedTriangles = this._removeTrianglesOutsideTileX(subdividedTriangles);
+			subdividedLines = subdividedLines.map((lines) => this._removeLinesOutsideTileX(lines));
+		}
 		return {
 			verticesFlattened: this._vertexBuffer,
 			indicesTriangles: subdividedTriangles,
 			indicesLineList: subdividedLines
 		};
+	}
+	_vertexOutsideTileX(index) {
+		const x = this._vertexBuffer[index * 2];
+		return x < 0 || x > 8192;
+	}
+	/**
+	* Drops all triangles that reach beyond the tile's X extent.
+	*
+	* On globe the z0 tile's buffer wraps around the planet onto the tile itself, drawing buffered geometry twice.
+	* Only globe uses subdivision (`granularity >= 2`), so mercator is never affected.
+	* @param indices - Triangle indices into `this._vertexBuffer`.
+	* @returns The indices with every triangle that has a vertex outside the tile's X extent removed.
+	*/
+	_removeTrianglesOutsideTileX(indices) {
+		const filtered = [];
+		for (let i = 0; i < indices.length; i += 3) {
+			if (this._vertexOutsideTileX(indices[i]) || this._vertexOutsideTileX(indices[i + 1]) || this._vertexOutsideTileX(indices[i + 2])) continue;
+			filtered.push(indices[i], indices[i + 1], indices[i + 2]);
+		}
+		return filtered;
+	}
+	/**
+	* Drops all outline line segments that reach beyond the tile's X extent,
+	* for the same reason as {@link Subdivider._removeTrianglesOutsideTileX}.
+	* @param indices - Line segment indices into `this._vertexBuffer`.
+	* @returns The indices with every segment that has a vertex outside the tile's X extent removed.
+	*/
+	_removeLinesOutsideTileX(indices) {
+		const filtered = [];
+		for (let i = 0; i < indices.length; i += 2) {
+			if (this._vertexOutsideTileX(indices[i]) || this._vertexOutsideTileX(indices[i + 1])) continue;
+			filtered.push(indices[i], indices[i + 1]);
+		}
+		return filtered;
 	}
 	/**
 	* Sometimes the supplies vertex and index array has duplicate vertices - same coordinates that are referenced by multiple different indices.
@@ -18285,8 +18244,10 @@ function subdivideVertexLine(linePoints, granularity, isRing = false) {
 	const first = linePoints[0];
 	const last = linePoints[linePoints.length - 1];
 	const addLastToFirstSegment = isRing && (first.x !== last.x || first.y !== last.y);
-	if (granularity < 2) if (addLastToFirstSegment) return [...linePoints, linePoints[0]];
-	else return [...linePoints];
+	if (granularity < 2) {
+		if (addLastToFirstSegment) return [...linePoints, linePoints[0]];
+		else return [...linePoints];
+	}
 	const cellSize = Math.floor(EXTENT$1 / granularity);
 	const finalLineVertices = [];
 	finalLineVertices.push(new Point(linePoints[0].x, linePoints[0].y));
@@ -18599,10 +18560,11 @@ var FillBucket = class {
 		const fillSortKey = this.layers[0].layout.get("fill-sort-key");
 		const sortFeaturesByKey = !fillSortKey.isConstant();
 		const bucketFeatures = [];
+		const globalProperties = new EvaluationParameters(this.zoom);
+		const needGeometry = this.layers[0]._featureFilter.needGeometry;
 		for (const { feature, id, index, sourceLayerIndex } of features) {
-			const needGeometry = this.layers[0]._featureFilter.needGeometry;
 			const evaluationFeature = toEvaluationFeature(feature, needGeometry);
-			if (!this.layers[0]._featureFilter.filter(new EvaluationParameters(this.zoom), evaluationFeature, canonical)) continue;
+			if (!this.layers[0]._featureFilter.filter(globalProperties, evaluationFeature, canonical)) continue;
 			const sortKey = sortFeaturesByKey ? fillSortKey.evaluate(evaluationFeature, {}, canonical, options.availableImages) : void 0;
 			const bucketFeature = {
 				id,
@@ -18675,8 +18637,8 @@ var FillBucket = class {
 register("FillBucket", FillBucket, { omit: ["layers", "patternFeatures"] });
 //#endregion
 //#region src/style/style_layer/fill_style_layer_properties.g.ts
-let layout$3;
-const getLayout$2 = () => layout$3 = layout$3 || new Properties({ "fill-sort-key": new DataDrivenProperty(latest["layout_fill"]["fill-sort-key"], "fill-sort-key") });
+let layout$4;
+const getLayout$3 = () => layout$4 = layout$4 || new Properties({ "fill-sort-key": new DataDrivenProperty(latest["layout_fill"]["fill-sort-key"], "fill-sort-key") });
 let paint$4;
 const getPaint$4 = () => paint$4 = paint$4 || new Properties({
 	"fill-antialias": new DataConstantProperty(latest["paint_fill"]["fill-antialias"], "fill-antialias"),
@@ -18693,7 +18655,7 @@ var fill_style_layer_properties_g_default = {
 		return getPaint$4();
 	},
 	get layout() {
-		return getLayout$2();
+		return getLayout$3();
 	}
 };
 //#endregion
@@ -18723,7 +18685,7 @@ var FillStyleLayer = class extends StyleLayer {
 };
 //#endregion
 //#region src/data/bucket/fill_extrusion_attributes.ts
-const layout$2 = createLayout([{
+const layout$3 = createLayout([{
 	name: "a_pos",
 	components: 2,
 	type: "Int16"
@@ -18737,9 +18699,131 @@ const centroidAttributes = createLayout([{
 	components: 2,
 	type: "Int16"
 }], 4);
-const members$2 = layout$2.members;
-layout$2.size;
-layout$2.alignment;
+const members$2 = layout$3.members;
+layout$3.size;
+layout$3.alignment;
+//#endregion
+//#region src/geo/bounds.ts
+/** A 2-d bounding box covering an X and Y range. */
+var Bounds = class Bounds {
+	constructor() {
+		this.minX = Infinity;
+		this.maxX = -Infinity;
+		this.minY = Infinity;
+		this.maxY = -Infinity;
+	}
+	/**
+	* Expands this bounding box to include point.
+	*
+	* @param point - The point to include in this bounding box
+	* @returns This mutated bounding box
+	*/
+	extend(point) {
+		this.minX = Math.min(this.minX, point.x);
+		this.minY = Math.min(this.minY, point.y);
+		this.maxX = Math.max(this.maxX, point.x);
+		this.maxY = Math.max(this.maxY, point.y);
+		return this;
+	}
+	/**
+	* Expands this bounding box by a fixed amount in each direction.
+	*
+	* @param amount - The amount to expand the box by, or contract if negative
+	* @returns This mutated bounding box
+	*/
+	expandBy(amount) {
+		this.minX -= amount;
+		this.minY -= amount;
+		this.maxX += amount;
+		this.maxY += amount;
+		if (this.minX > this.maxX || this.minY > this.maxY) {
+			this.minX = Infinity;
+			this.maxX = -Infinity;
+			this.minY = Infinity;
+			this.maxY = -Infinity;
+		}
+		return this;
+	}
+	/**
+	* Shrinks this bounding box by a fixed amount in each direction.
+	*
+	* @param amount - The amount to shrink the box by
+	* @returns This mutated bounding box
+	*/
+	shrinkBy(amount) {
+		return this.expandBy(-amount);
+	}
+	/**
+	* Returns a new bounding box that contains all of the corners of this bounding
+	* box with a transform applied. Does not modify this bounding box.
+	*
+	* @param fn - The function to apply to each corner
+	* @returns A new bounding box containing all of the mapped points.
+	*/
+	map(fn) {
+		const result = new Bounds();
+		result.extend(fn(new Point(this.minX, this.minY)));
+		result.extend(fn(new Point(this.maxX, this.minY)));
+		result.extend(fn(new Point(this.minX, this.maxY)));
+		result.extend(fn(new Point(this.maxX, this.maxY)));
+		return result;
+	}
+	/**
+	* Creates a new bounding box that includes all points provided.
+	*
+	* @param points - The points to include inside the bounding box
+	* @returns The new bounding box
+	*/
+	static fromPoints(points) {
+		const result = new Bounds();
+		for (const p of points) result.extend(p);
+		return result;
+	}
+	contains(point) {
+		return point.x >= this.minX && point.x <= this.maxX && point.y >= this.minY && point.y <= this.maxY;
+	}
+	empty() {
+		return this.minX > this.maxX;
+	}
+	width() {
+		return this.maxX - this.minX;
+	}
+	height() {
+		return this.maxY - this.minY;
+	}
+	covers(other) {
+		return !this.empty() && !other.empty() && other.minX >= this.minX && other.maxX <= this.maxX && other.minY >= this.minY && other.maxY <= this.maxY;
+	}
+	intersects(other) {
+		return !this.empty() && !other.empty() && other.minX <= this.maxX && other.maxX >= this.minX && other.minY <= this.maxY && other.maxY >= this.minY;
+	}
+};
+//#endregion
+//#region src/data/extent_bounds.ts
+/**
+* The bounding box covering the entire extent of a tile.
+*/
+const EXTENT_BOUNDS = Bounds.fromPoints([new Point(0, 0), new Point(EXTENT$1, EXTENT$1)]);
+/**
+* Whether an edge runs along one of the lines the tile was cut out of the world at. Clipping happens
+* on the buffer rectangle, outside the tile, so an axis parallel edge out there belongs to the cut
+* rather than to the feature. Such an edge is shared with the neighbouring tile, which cuts the same
+* feature somewhere else, so geometry derived from it has to stay identical in both tiles.
+* @param p1 - First vertex of the edge
+* @param p2 - Second vertex of the edge
+* @returns True when the edge lies on a clip line.
+*/
+function isBoundaryEdge(p1, p2) {
+	return p1.x === p2.x && (p1.x < 0 || p1.x > 8192) || p1.y === p2.y && (p1.y < 0 || p1.y > 8192);
+}
+/**
+* Whether a ring lies completely off one side of the tile, and so cannot contribute a visible pixel.
+* @param ring - Ring to test
+* @returns True when every vertex is beyond the same edge of the tile.
+*/
+function isEntirelyOutside(ring) {
+	return ring.every((p) => p.x < 0) || ring.every((p) => p.x > 8192) || ring.every((p) => p.y < 0) || ring.every((p) => p.y > 8192);
+}
 //#endregion
 //#region node_modules/@mapbox/vector-tile/index.js
 /** @import {PbfReader} from 'pbf' */
@@ -19027,6 +19111,442 @@ var VectorTile = class {
 	}
 };
 //#endregion
+//#region src/geo/lng_lat.ts
+const earthRadius = 6371008.8;
+/**
+* A `LngLat` object represents a given longitude and latitude coordinate, measured in degrees.
+* These coordinates are based on the [WGS84 (EPSG:4326) standard](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS84).
+*
+* MapLibre GL JS uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match the
+* [GeoJSON specification](https://tools.ietf.org/html/rfc7946).
+*
+* Note that any MapLibre GL JS method that accepts a `LngLat` object as an argument or option
+* can also accept an `Array` of two numbers and will perform an implicit conversion.
+* This flexible type is documented as {@link LngLatLike}.
+*
+* @group Geography and Geometry
+*
+* @example
+* ```ts
+* let ll = new LngLat(-123.9749, 40.7736);
+* ll.lng; // = -123.9749
+* ```
+* @see [Get coordinates of the mouse pointer](https://maplibre.org/maplibre-gl-js/docs/examples/get-coordinates-of-the-mouse-pointer/)
+*/
+var LngLat = class LngLat {
+	/**
+	* @param lng - Longitude, measured in degrees.
+	* @param lat - Latitude, measured in degrees.
+	*/
+	constructor(lng, lat) {
+		if (isNaN(lng) || isNaN(lat)) throw new Error(`Invalid LngLat object: (${lng}, ${lat})`);
+		this.lng = +lng;
+		this.lat = +lat;
+		if (this.lat > 90 || this.lat < -90) throw new Error("Invalid LngLat latitude value: must be between -90 and 90");
+	}
+	/**
+	* Returns a new `LngLat` object whose longitude is wrapped to the range (-180, 180).
+	*
+	* @returns The wrapped `LngLat` object.
+	* @example
+	* ```ts
+	* let ll = new LngLat(286.0251, 40.7736);
+	* let wrapped = ll.wrap();
+	* wrapped.lng; // = -73.9749
+	* ```
+	*/
+	wrap() {
+		return new LngLat(wrap$1(this.lng, -180, 180), this.lat);
+	}
+	/**
+	* Returns the coordinates represented as an array of two numbers.
+	*
+	* @returns The coordinates represented as an array of longitude and latitude.
+	* @example
+	* ```ts
+	* let ll = new LngLat(-73.9749, 40.7736);
+	* ll.toArray(); // = [-73.9749, 40.7736]
+	* ```
+	*/
+	toArray() {
+		return [this.lng, this.lat];
+	}
+	/**
+	* Returns the coordinates represent as a string.
+	*
+	* @returns The coordinates represented as a string of the format `'LngLat(lng, lat)'`.
+	* @example
+	* ```ts
+	* let ll = new LngLat(-73.9749, 40.7736);
+	* ll.toString(); // = "LngLat(-73.9749, 40.7736)"
+	* ```
+	*/
+	toString() {
+		return `LngLat(${this.lng}, ${this.lat})`;
+	}
+	/**
+	* Returns the approximate distance between a pair of coordinates in meters
+	* Uses the Haversine Formula (from R.W. Sinnott, "Virtues of the Haversine", Sky and Telescope, vol. 68, no. 2, 1984, p. 159)
+	*
+	* @param lngLat - coordinates to compute the distance to
+	* @returns Distance in meters between the two coordinates.
+	* @example
+	* ```ts
+	* let new_york = new LngLat(-74.0060, 40.7128);
+	* let los_angeles = new LngLat(-118.2437, 34.0522);
+	* new_york.distanceTo(los_angeles); // = 3935751.690893987, "true distance" using a non-spherical approximation is ~3966km
+	* ```
+	*/
+	distanceTo(lngLat) {
+		const rad = Math.PI / 180;
+		const lat1 = this.lat * rad;
+		const lat2 = lngLat.lat * rad;
+		const a = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos((lngLat.lng - this.lng) * rad);
+		return earthRadius * Math.acos(Math.min(a, 1));
+	}
+	/**
+	* Converts an array of two numbers or an object with `lng` and `lat` or `lon` and `lat` properties
+	* to a `LngLat` object.
+	*
+	* If a `LngLat` object is passed in, the function returns it unchanged.
+	*
+	* @param input - An array of two numbers or object to convert, or a `LngLat` object to return.
+	* @returns A new `LngLat` object, if a conversion occurred, or the original `LngLat` object.
+	* @example
+	* ```ts
+	* let arr = [-73.9749, 40.7736];
+	* let ll = LngLat.convert(arr);
+	* ll;   // = LngLat {lng: -73.9749, lat: 40.7736}
+	* ```
+	*/
+	static convert(input) {
+		if (input instanceof LngLat) return input;
+		if (Array.isArray(input) && (input.length === 2 || input.length === 3)) return new LngLat(Number(input[0]), Number(input[1]));
+		if (!Array.isArray(input) && typeof input === "object" && input !== null) return new LngLat(Number("lng" in input ? input.lng : input.lon), Number(input.lat));
+		throw new Error("`LngLatLike` argument must be specified as a LngLat instance, an object {lng: <lng>, lat: <lat>}, an object {lon: <lng>, lat: <lat>}, or an array of [<lng>, <lat>]");
+	}
+};
+//#endregion
+//#region src/geo/mercator_coordinate.ts
+const earthCircumference = 2 * Math.PI * earthRadius;
+function circumferenceAtLatitude(latitude) {
+	return earthCircumference * Math.cos(latitude * Math.PI / 180);
+}
+function mercatorXfromLng(lng) {
+	return (180 + lng) / 360;
+}
+function mercatorYfromLat(lat) {
+	return (180 - 180 / Math.PI * Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360))) / 360;
+}
+function mercatorZfromAltitude(altitude, lat) {
+	return altitude / circumferenceAtLatitude(lat);
+}
+function lngFromMercatorX(x) {
+	return x * 360 - 180;
+}
+function latFromMercatorY(y) {
+	const y2 = 180 - y * 360;
+	return 360 / Math.PI * Math.atan(Math.exp(y2 * Math.PI / 180)) - 90;
+}
+function altitudeFromMercatorZ(z, y) {
+	return z * circumferenceAtLatitude(latFromMercatorY(y));
+}
+/**
+* Determine the Mercator scale factor for a given latitude, see
+* https://en.wikipedia.org/wiki/Mercator_projection#Scale_factor
+*
+* At the equator the scale factor will be 1, which increases at higher latitudes.
+*
+* @param lat - Latitude
+* @returns scale factor
+*/
+function mercatorScale(lat) {
+	return 1 / Math.cos(lat * Math.PI / 180);
+}
+/**
+* A `MercatorCoordinate` object represents a projected three dimensional position.
+*
+* `MercatorCoordinate` uses the web mercator projection ([EPSG:3857](https://epsg.io/3857)) with slightly different units:
+*
+* - the size of 1 unit is the width of the projected world instead of the "mercator meter"
+* - the origin of the coordinate space is at the north-west corner instead of the middle
+*
+* For example, `MercatorCoordinate(0, 0, 0)` is the north-west corner of the mercator world and
+* `MercatorCoordinate(1, 1, 0)` is the south-east corner. If you are familiar with
+* [vector tiles](https://github.com/mapbox/vector-tile-spec) it may be helpful to think
+* of the coordinate space as the `0/0/0` tile with an extent of `1`.
+*
+* The `z` dimension of `MercatorCoordinate` is conformal. A cube in the mercator coordinate space would be rendered as a cube.
+*
+* @group Geography and Geometry
+*
+* @example
+* ```ts
+* let nullIsland = new MercatorCoordinate(0.5, 0.5, 0);
+* ```
+* @see [Add a custom style layer](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/)
+* @see [Add a 3D model using three.js](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-3d-model-using-threejs/)
+* @see [Add a simple custom layer on a globe](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-simple-custom-layer-on-a-globe/)
+*/
+var MercatorCoordinate = class MercatorCoordinate {
+	/**
+	* @param x - The x component of the position.
+	* @param y - The y component of the position.
+	* @param z - The z component of the position.
+	*/
+	constructor(x, y, z = 0) {
+		this.x = +x;
+		this.y = +y;
+		this.z = +z;
+	}
+	/**
+	* Project a `LngLat` to a `MercatorCoordinate`.
+	*
+	* @param lngLatLike - The location to project.
+	* @param altitude - The altitude in meters of the position.
+	* @returns The projected mercator coordinate.
+	* @example
+	* ```ts
+	* let coord = MercatorCoordinate.fromLngLat({ lng: 0, lat: 0}, 0);
+	* coord; // MercatorCoordinate(0.5, 0.5, 0)
+	* ```
+	*/
+	static fromLngLat(lngLatLike, altitude = 0) {
+		const lngLat = LngLat.convert(lngLatLike);
+		return new MercatorCoordinate(mercatorXfromLng(lngLat.lng), mercatorYfromLat(lngLat.lat), mercatorZfromAltitude(altitude, lngLat.lat));
+	}
+	/**
+	* Returns the `LngLat` for the coordinate.
+	*
+	* @returns The `LngLat` object.
+	* @example
+	* ```ts
+	* let coord = new MercatorCoordinate(0.5, 0.5, 0);
+	* let lngLat = coord.toLngLat(); // LngLat(0, 0)
+	* ```
+	*/
+	toLngLat() {
+		return new LngLat(lngFromMercatorX(this.x), latFromMercatorY(this.y));
+	}
+	/**
+	* Returns the altitude in meters of the coordinate.
+	*
+	* @returns The altitude in meters.
+	* @example
+	* ```ts
+	* let coord = new MercatorCoordinate(0, 0, 0.02);
+	* coord.toAltitude(); // 6914.281956295339
+	* ```
+	*/
+	toAltitude() {
+		return altitudeFromMercatorZ(this.z, this.y);
+	}
+	/**
+	* Returns the distance of 1 meter in `MercatorCoordinate` units at this latitude.
+	*
+	* For coordinates in real world units using meters, this naturally provides the scale
+	* to transform into `MercatorCoordinate`s.
+	*
+	* @returns Distance of 1 meter in `MercatorCoordinate` units.
+	*/
+	meterInMercatorCoordinateUnits() {
+		return 1 / earthCircumference * mercatorScale(latFromMercatorY(this.y));
+	}
+};
+//#endregion
+//#region src/geo/projection/mercator_utils.ts
+const maxMercatorHorizonAngle = 89.25;
+/**
+* Returns mercator coordinates in range 0..1 for given coordinates inside a specified tile.
+* @param inTileX - X coordinate in tile units - range [0..EXTENT].
+* @param inTileY - Y coordinate in tile units - range [0..EXTENT].
+* @param canonicalTileID - Tile canonical ID - mercator X, Y and zoom.
+* @returns Mercator coordinates of the specified point in range [0..1].
+*/
+function tileCoordinatesToMercatorCoordinates(inTileX, inTileY, canonicalTileID) {
+	const scale = 1 / (1 << canonicalTileID.z);
+	return new MercatorCoordinate(inTileX / EXTENT$1 * scale + canonicalTileID.x * scale, inTileY / EXTENT$1 * scale + canonicalTileID.y * scale);
+}
+/**
+* Returns LngLat for given in-tile coordinates and tile ID.
+* @param inTileX - X coordinate in tile units - range [0..EXTENT].
+* @param inTileY - Y coordinate in tile units - range [0..EXTENT].
+* @param canonicalTileID - Tile canonical ID - mercator X, Y and zoom.
+*/
+function tileCoordinatesToLocation(inTileX, inTileY, canonicalTileID) {
+	return tileCoordinatesToMercatorCoordinates(inTileX, inTileY, canonicalTileID).toLngLat();
+}
+/**
+* Convert from LngLat to world coordinates (Mercator coordinates scaled by world size).
+* @param worldSize - Mercator world size computed from zoom level and tile size.
+* @param lnglat - The location to convert.
+* @returns Point
+*/
+function projectToWorldCoordinates(worldSize, lnglat) {
+	const lat = clamp$2(lnglat.lat, -85.051129, MAX_VALID_LATITUDE);
+	return new Point(mercatorXfromLng(lnglat.lng) * worldSize, mercatorYfromLat(lat) * worldSize);
+}
+/**
+* Convert from world coordinates (mercator coordinates scaled by world size) to LngLat.
+* @param worldSize - Mercator world size computed from zoom level and tile size.
+* @param point - World coordinate.
+* @returns LngLat
+*/
+function unprojectFromWorldCoordinates(worldSize, point) {
+	return new MercatorCoordinate(point.x / worldSize, point.y / worldSize).toLngLat();
+}
+/**
+* Calculate pixel height of the visible horizon in relation to map-center (e.g. height/2),
+* multiplied by a static factor to simulate the earth-radius.
+* The calculated value is the horizontal line from the camera-height to sea-level.
+* @returns Horizon above center in pixels.
+*/
+function getMercatorHorizon(transform) {
+	return transform.cameraToCenterDistance * Math.min(Math.tan(degreesToRadians(90 - transform.pitch)) * .85, Math.tan(degreesToRadians(maxMercatorHorizonAngle - transform.pitch)));
+}
+function calculateTileMatrix(unwrappedTileID, worldSize) {
+	const canonical = unwrappedTileID.canonical;
+	const scale = worldSize / zoomScale(canonical.z);
+	const unwrappedX = canonical.x + Math.pow(2, canonical.z) * unwrappedTileID.wrap;
+	const worldMatrix = /* @__PURE__ */ new Float64Array(16);
+	identity$2(worldMatrix);
+	translate$2(worldMatrix, worldMatrix, [
+		unwrappedX * scale,
+		canonical.y * scale,
+		0
+	]);
+	scale$5(worldMatrix, worldMatrix, [
+		scale / EXTENT$1,
+		scale / EXTENT$1,
+		1
+	]);
+	return worldMatrix;
+}
+function cameraMercatorCoordinateFromCenterAndRotation(center, elevation, pitch, bearing, distance) {
+	const centerMercator = MercatorCoordinate.fromLngLat(center, elevation);
+	const dMercator = distance * mercatorZfromAltitude(1, center.lat);
+	const { x, y, z } = cameraDirectionFromPitchBearing(pitch, bearing);
+	const dxMercator = dMercator * -x;
+	const dyMercator = dMercator * -y;
+	const dzMercator = dMercator * -z;
+	return new MercatorCoordinate(centerMercator.x + dxMercator, centerMercator.y + dyMercator, centerMercator.z + dzMercator);
+}
+function cameraDirectionFromPitchBearing(pitch, bearing) {
+	const pitchRadians = degreesToRadians(pitch);
+	const bearingRadians = degreesToRadians(bearing);
+	const z = Math.cos(-pitchRadians);
+	const h = Math.sin(pitchRadians);
+	return {
+		x: h * Math.sin(bearingRadians),
+		y: -h * Math.cos(bearingRadians),
+		z
+	};
+}
+//#endregion
+//#region src/data/bucket/round_polygon_corners.ts
+/**
+* Rounds polygon corners by calculating arc points at each corner vertex.
+* @param polygon - Collection of polygon rings (outer ring and hole rings)
+* @param distanceInMeters - Desired corner rounding distance in meters
+* @param canonical - Canonical tile ID used for meter to tile unit conversion
+*/
+function roundPolygonCorners(polygon, distanceInMeters, canonical) {
+	if (distanceInMeters <= 0 || !polygon || polygon.length === 0) return polygon;
+	const distanceInTileUnits = getTileUnitsForMeters(distanceInMeters, canonical);
+	return polygon.map((ring) => roundRing(ring, distanceInTileUnits));
+}
+function getTileUnitsForMeters(distanceInMeters, canonical) {
+	const centerLocation = tileCoordinatesToLocation(EXTENT$1 / 2, EXTENT$1 / 2, canonical);
+	const meterInMercator = MercatorCoordinate.fromLngLat(centerLocation).meterInMercatorCoordinateUnits();
+	const tileUnitsPerMercator = (1 << canonical.z) * EXTENT$1;
+	return distanceInMeters * meterInMercator * tileUnitsPerMercator;
+}
+/**
+* Rounds the corners of a single ring.
+*
+* Corners that tile clipping created are left sharp: they belong to the cut rather than to the
+* feature, and the neighbouring tile cuts the same feature elsewhere, so rounding them would leave
+* the two halves out of step. Every vertex ends up on the integer tile grid, because triangulation,
+* subdivision and the vertex buffers snap and deduplicate vertices there - arcs finer than a tile
+* unit would otherwise be merged only after they were triangulated, turning the mesh into spikes.
+*
+* A ring that collapses into fewer than three distinct vertices is returned unchanged.
+* @param ring - Ring to round, closed or open
+* @param distanceInTileUnits - Corner rounding distance, already converted to tile units
+*/
+function roundRing(ring, distanceInTileUnits) {
+	if (!ring || ring.length < 3) return ring;
+	const isClosed = ring[0].x === ring[ring.length - 1].x && ring[0].y === ring[ring.length - 1].y;
+	const vertexCount = isClosed ? ring.length - 1 : ring.length;
+	if (vertexCount < 3) return ring;
+	const newRing = [];
+	for (let i = 0; i < vertexCount; i++) {
+		const previous = ring[(i - 1 + vertexCount) % vertexCount];
+		const current = ring[i];
+		const next = ring[(i + 1) % vertexCount];
+		if (isBoundaryEdge(previous, current) || isBoundaryEdge(current, next)) {
+			newRing.push(current.clone());
+			continue;
+		}
+		appendRoundCorner(newRing, previous, current, next, distanceInTileUnits);
+	}
+	const snapped = snapToIntegerGrid(newRing);
+	if (snapped.length < 3) return ring;
+	if (isClosed) snapped.push(snapped[0].clone());
+	return snapped;
+}
+/**
+* Rounds every vertex to the integer tile grid, dropping vertices that collapse onto their neighbour.
+* The ring is treated as closed, so the wrap-around duplicate is dropped as well.
+* @param ring - Ring to snap
+*/
+function snapToIntegerGrid(ring) {
+	const snapped = [];
+	for (const p of ring) {
+		const point = p.round();
+		const previous = snapped[snapped.length - 1];
+		if (previous?.x === point.x && previous?.y === point.y) continue;
+		snapped.push(point);
+	}
+	while (snapped.length > 1 && snapped[0].x === snapped[snapped.length - 1].x && snapped[0].y === snapped[snapped.length - 1].y) snapped.pop();
+	return snapped;
+}
+/**
+* Appends the arc that replaces one corner, or the corner itself when it is too shallow or too sharp
+* to round.
+* @param newRing - Ring being built, the arc points are appended to it
+* @param prev - Vertex before the corner
+* @param current - The corner
+* @param next - Vertex after the corner
+* @param distanceInTileUnits - Corner rounding distance, already converted to tile units
+*/
+function appendRoundCorner(newRing, prev, current, next, distanceInTileUnits) {
+	const ua = prev.sub(current);
+	const ub = next.sub(current);
+	const lenA = ua.mag();
+	const lenB = ub.mag();
+	if (lenA < 1e-6 || lenB < 1e-6) {
+		newRing.push(current.clone());
+		return;
+	}
+	ua._div(lenA);
+	ub._div(lenB);
+	const dot = ua.x * ub.x + ua.y * ub.y;
+	if (Math.abs(dot) > Math.cos(5 * Math.PI / 180)) {
+		newRing.push(current.clone());
+		return;
+	}
+	const maxEdgeLenPercent = .2;
+	const r = Math.min(distanceInTileUnits, lenA * maxEdgeLenPercent, lenB * maxEdgeLenPercent);
+	const tangentA = current.add(ua.mult(r));
+	const tangentB = current.add(ub.mult(r));
+	const cosHalfTheta = Math.sqrt((1 + dot) / 2);
+	const center = current.add(ua.add(ub)._unit()._mult(r / cosHalfTheta));
+	const sweepAngle = tangentA.sub(center).angleWith(tangentB.sub(center));
+	const numSegments = Math.max(2, Math.ceil(Math.abs(sweepAngle) / (Math.PI / 6) - 1e-6));
+	for (let s = 0; s <= numSegments; s++) newRing.push(tangentA.rotateAround(sweepAngle * (s / numSegments), center));
+}
+//#endregion
 //#region src/data/bucket/fill_extrusion_bucket.ts
 const EARCUT_MAX_RINGS = 500;
 const FACTOR = Math.pow(2, 13);
@@ -19051,15 +19571,19 @@ var FillExtrusionBucket = class {
 	populate(features, options, canonical) {
 		this.features = [];
 		this.hasDependencies = hasPattern("fill-extrusion", this.layers, options);
+		const globalProperties = new EvaluationParameters(this.zoom);
+		const layer = this.layers[0];
+		const roundedCornerDistance = layer.layout.get("fill-extrusion-rounded-corner-distance");
+		const needGeometry = layer._featureFilter.needGeometry;
 		for (const { feature, id, index, sourceLayerIndex } of features) {
-			const needGeometry = this.layers[0]._featureFilter.needGeometry;
 			const evaluationFeature = toEvaluationFeature(feature, needGeometry);
-			if (!this.layers[0]._featureFilter.filter(new EvaluationParameters(this.zoom), evaluationFeature, canonical)) continue;
+			if (!layer._featureFilter.filter(globalProperties, evaluationFeature, canonical)) continue;
+			const rawGeometry = needGeometry ? evaluationFeature.geometry : loadGeometry(feature);
 			const bucketFeature = {
 				id,
 				sourceLayerIndex,
 				index,
-				geometry: needGeometry ? evaluationFeature.geometry : loadGeometry(feature),
+				geometry: roundedCornerDistance > 0 ? roundPolygonCorners(rawGeometry, roundedCornerDistance, canonical) : rawGeometry,
 				properties: feature.properties,
 				type: feature.type,
 				patterns: {}
@@ -19103,7 +19627,10 @@ var FillExtrusionBucket = class {
 		this.centroidVertexBuffer.destroy();
 	}
 	addFeature(feature, geometry, index, canonical, imagePositions, subdivisionGranularity) {
-		for (const polygon of classifyRings$1(geometry, EARCUT_MAX_RINGS)) {
+		const layer = this.layers[0];
+		const roundedCornerDistance = layer.layout ? layer.layout.get("fill-extrusion-rounded-corner-distance") : 0;
+		const processedGeometry = roundedCornerDistance > 0 ? roundPolygonCorners(geometry, roundedCornerDistance, canonical) : geometry;
+		for (const polygon of classifyRings$1(processedGeometry, EARCUT_MAX_RINGS)) {
 			const centroid = {
 				x: 0,
 				y: 0,
@@ -19185,14 +19712,10 @@ function accumulatePointsToCentroid(centroid, geometry) {
 	}
 }
 register("FillExtrusionBucket", FillExtrusionBucket, { omit: ["layers", "features"] });
-function isBoundaryEdge(p1, p2) {
-	return p1.x === p2.x && (p1.x < 0 || p1.x > 8192) || p1.y === p2.y && (p1.y < 0 || p1.y > 8192);
-}
-function isEntirelyOutside(ring) {
-	return ring.every((p) => p.x < 0) || ring.every((p) => p.x > 8192) || ring.every((p) => p.y < 0) || ring.every((p) => p.y > 8192);
-}
 //#endregion
 //#region src/style/style_layer/fill_extrusion_style_layer_properties.g.ts
+let layout$2;
+const getLayout$2 = () => layout$2 = layout$2 || new Properties({ "fill-extrusion-rounded-corner-distance": new DataConstantProperty(latest["layout_fill-extrusion"]["fill-extrusion-rounded-corner-distance"], "fill-extrusion-rounded-corner-distance") });
 let paint$3;
 const getPaint$3 = () => paint$3 = paint$3 || new Properties({
 	"fill-extrusion-opacity": new DataConstantProperty(latest["paint_fill-extrusion"]["fill-extrusion-opacity"], "fill-extrusion-opacity"),
@@ -19204,9 +19727,14 @@ const getPaint$3 = () => paint$3 = paint$3 || new Properties({
 	"fill-extrusion-base": new DataDrivenProperty(latest["paint_fill-extrusion"]["fill-extrusion-base"], "fill-extrusion-base"),
 	"fill-extrusion-vertical-gradient": new DataConstantProperty(latest["paint_fill-extrusion"]["fill-extrusion-vertical-gradient"], "fill-extrusion-vertical-gradient")
 });
-var fill_extrusion_style_layer_properties_g_default = { get paint() {
-	return getPaint$3();
-} };
+var fill_extrusion_style_layer_properties_g_default = {
+	get paint() {
+		return getPaint$3();
+	},
+	get layout() {
+		return getLayout$2();
+	}
+};
 const isFillExtrusionStyleLayer = (layer) => layer.type === "fill-extrusion";
 var FillExtrusionStyleLayer = class extends StyleLayer {
 	constructor(layer, globalState) {
@@ -19449,9 +19977,7 @@ function createFeature(id, type, geom, tags) {
 		case "MultiLineString":
 			for (const line of data.geom) calcLineBBox(feature, line.points);
 			break;
-		case "MultiPolygon":
-			for (const polygon of data.geom) calcLineBBox(feature, polygon[0].points);
-			break;
+		case "MultiPolygon": for (const polygon of data.geom) calcLineBBox(feature, polygon[0].points);
 	}
 	return feature;
 }
@@ -20112,7 +20638,7 @@ var KDBush = class KDBush {
 			this.coords = new ArrayType(data, HEADER_SIZE + idsByteSize + padCoords, numItems * 2);
 			this._pos = 0;
 			this._finished = false;
-			new Uint8Array(data, 0, 2).set([219, (VERSION << 4) + arrayTypeIndex]);
+			new Uint8Array(data, 0, 2).set([219, 16 + arrayTypeIndex]);
 			new Uint16Array(data, 2, 1)[0] = nodeSize;
 			new Uint32Array(data, 4, 1)[0] = numItems;
 		}
@@ -21275,9 +21801,8 @@ const EXTRUDE_SCALE = 63;
 const COS_HALF_SHARP_CORNER = Math.cos(75 / 2 * (Math.PI / 180));
 const SHARP_CORNER_OFFSET = 15;
 const DEG_PER_TRIANGLE = 20;
-const LINE_DISTANCE_BUFFER_BITS = 15;
 const LINE_DISTANCE_SCALE = 1 / 2;
-const MAX_LINE_DISTANCE = Math.pow(2, LINE_DISTANCE_BUFFER_BITS - 1) / LINE_DISTANCE_SCALE;
+const MAX_LINE_DISTANCE = Math.pow(2, 14) / LINE_DISTANCE_SCALE;
 /**
 * @internal
 * Line bucket class
@@ -21307,10 +21832,11 @@ var LineBucket = class {
 		const lineSortKey = this.layers[0].layout.get("line-sort-key");
 		const sortFeaturesByKey = !lineSortKey.isConstant();
 		const bucketFeatures = [];
+		const globalProperties = new EvaluationParameters(this.zoom);
+		const needGeometry = this.layers[0]._featureFilter.needGeometry;
 		for (const { feature, id, index, sourceLayerIndex } of features) {
-			const needGeometry = this.layers[0]._featureFilter.needGeometry;
 			const evaluationFeature = toEvaluationFeature(feature, needGeometry);
-			if (!this.layers[0]._featureFilter.filter(new EvaluationParameters(this.zoom), evaluationFeature, canonical)) continue;
+			if (!this.layers[0]._featureFilter.filter(globalProperties, evaluationFeature, canonical)) continue;
 			const sortKey = sortFeaturesByKey ? lineSortKey.evaluate(evaluationFeature, {}, canonical) : void 0;
 			const bucketFeature = {
 				id,
@@ -22246,8 +22772,10 @@ function getGlyphAdvance(codePoint, section, glyphMap, imagePositions, spacing, 
 }
 function calculateBadness(lineWidth, targetWidth, penalty, isLastBreak) {
 	const raggedness = Math.pow(lineWidth - targetWidth, 2);
-	if (isLastBreak) if (lineWidth < targetWidth) return raggedness / 2;
-	else return raggedness * 2;
+	if (isLastBreak) {
+		if (lineWidth < targetWidth) return raggedness / 2;
+		else return raggedness * 2;
+	}
 	return raggedness + Math.abs(penalty) * penalty;
 }
 function calculatePenalty(codePoint, nextCodePoint, penalizableIdeographicBreak) {
@@ -22438,7 +22966,7 @@ var TaggedString = class TaggedString {
 };
 //#endregion
 //#region node_modules/pbf/index.js
-const SHIFT_LEFT_32 = 65536 * 65536;
+const SHIFT_LEFT_32 = 4294967296;
 const SHIFT_RIGHT_32 = 1 / SHIFT_LEFT_32;
 const TEXT_DECODER_MIN_LENGTH$1 = 12;
 const utf8TextDecoder$1 = typeof TextDecoder === "undefined" ? null : new TextDecoder("utf-8");
@@ -23173,25 +23701,27 @@ function readUtf8$1(buf, pos, end) {
 function writeUtf8(buf, str, pos) {
 	for (let i = 0, c, lead; i < str.length; i++) {
 		c = str.charCodeAt(i);
-		if (c > 55295 && c < 57344) if (lead) if (c < 56320) {
-			buf[pos++] = 239;
-			buf[pos++] = 191;
-			buf[pos++] = 189;
-			lead = c;
-			continue;
-		} else {
-			c = lead - 55296 << 10 | c - 56320 | 65536;
-			lead = null;
-		}
-		else {
-			if (c > 56319 || i + 1 === str.length) {
-				buf[pos++] = 239;
-				buf[pos++] = 191;
-				buf[pos++] = 189;
-			} else lead = c;
-			continue;
-		}
-		else if (lead) {
+		if (c > 55295 && c < 57344) {
+			if (lead) {
+				if (c < 56320) {
+					buf[pos++] = 239;
+					buf[pos++] = 191;
+					buf[pos++] = 189;
+					lead = c;
+					continue;
+				} else {
+					c = lead - 55296 << 10 | c - 56320 | 65536;
+					lead = null;
+				}
+			} else {
+				if (c > 56319 || i + 1 === str.length) {
+					buf[pos++] = 239;
+					buf[pos++] = 191;
+					buf[pos++] = 189;
+				} else lead = c;
+				continue;
+			}
+		} else if (lead) {
 			buf[pos++] = 239;
 			buf[pos++] = 191;
 			buf[pos++] = 189;
@@ -23213,9 +23743,6 @@ function writeUtf8(buf, str, pos) {
 	}
 	return pos;
 }
-//#endregion
-//#region src/style/parse_glyph_pbf.ts
-const border$1 = 3;
 function readFontstacks(tag, glyphs, pbf) {
 	if (tag === 1) pbf.readMessage(readFontstack, glyphs);
 }
@@ -23225,8 +23752,8 @@ function readFontstack(tag, glyphs, pbf) {
 		glyphs.push({
 			id,
 			bitmap: new AlphaImage({
-				width: width + 2 * border$1,
-				height: height + 2 * border$1
+				width: width + 6,
+				height: height + 6
 			}, bitmap),
 			metrics: {
 				width,
@@ -23250,15 +23777,15 @@ function readGlyph(tag, glyph, pbf) {
 function parseGlyphPbf(data) {
 	return new PbfReader(data).readFields(readFontstacks, []);
 }
+function isStyleImageWebGLData(data) {
+	return typeof data?.renderWithWebGL === "function";
+}
 function renderStyleImage(image) {
 	const { userImage } = image;
-	if (userImage?.render) {
-		if (userImage.render()) {
-			image.data.replace(new Uint8Array(userImage.data.buffer));
-			return true;
-		}
-	}
-	return false;
+	if (!userImage?.render) return false;
+	if (!userImage.render()) return false;
+	if (!isStyleImageWebGLData(userImage.data)) image.data.replace(new Uint8Array(userImage.data.buffer));
+	return true;
 }
 //#endregion
 //#region node_modules/potpack/index.js
@@ -23335,13 +23862,14 @@ function potpack(boxes) {
 	};
 }
 var ImagePosition = class {
-	constructor(paddedRect, { pixelRatio, version, stretchX, stretchY, content, textFitWidth, textFitHeight }) {
+	constructor(paddedRect, { pixelRatio, version, isWebGLImage = false, stretchX, stretchY, content, textFitWidth, textFitHeight }) {
 		this.paddedRect = paddedRect;
 		this.pixelRatio = pixelRatio;
 		this.stretchX = stretchX;
 		this.stretchY = stretchY;
 		this.content = content;
 		this.version = version;
+		this.needsFirstWebGLRender = isWebGLImage;
 		this.textFitWidth = textFitWidth;
 		this.textFitHeight = textFitHeight;
 	}
@@ -23359,12 +23887,17 @@ var ImagePosition = class {
 	}
 };
 /**
-* A class holding all the images
+* A single tile's packed copy of the icons and patterns its features reference, built in the
+* worker so that the symbol layout can bake the positions within it straight into the vertex
+* buffers. Each tile owns one, along with the texture it is uploaded to - as opposed to
+* {@link ImageManager}, which owns the images of the whole style.
+* @internal
 */
 var ImageAtlas = class {
 	constructor(icons, patterns) {
 		const iconPositions = {}, patternPositions = {};
 		this.haveRenderCallbacks = [];
+		this.patchedUpdateVersion = -1;
 		const bins = [];
 		this.addImages(icons, iconPositions, bins);
 		this.addImages(patterns, patternPositions, bins);
@@ -23375,6 +23908,7 @@ var ImageAtlas = class {
 		});
 		for (const id in icons) {
 			const src = icons[id];
+			if (src.isWebGLImage) continue;
 			const bin = iconPositions[id].paddedRect;
 			RGBAImage.copy(src.data, image, {
 				x: 0,
@@ -23454,22 +23988,52 @@ var ImageAtlas = class {
 			if (src.hasRenderCallback) this.haveRenderCallbacks.push(id);
 		}
 	}
+	/**
+	* Brings this atlas' texture back in sync with the images it was built from, re-uploading the
+	* ones that were replaced in the meantime.
+	*
+	* This runs for every in-view tile on every frame, so the common case of nothing having
+	* changed has to cost nothing: a single comparison against {@link ImageManager.updateVersion}
+	* ends the call. When something did change, only the images this atlas actually holds are
+	* looked at - a handful per tile - and {@link ImageAtlas.patchUpdatedImage} then skips the
+	* ones whose version still matches, leaving just the genuinely stale ones to upload.
+	*
+	* The render callbacks are dispatched first because they may update images themselves, and
+	* those updates have to be part of the version this call catches up with - otherwise an
+	* animated image would always be uploaded a frame late.
+	*/
 	patchUpdatedImages(imageManager, texture) {
 		imageManager.dispatchRenderCallbacks(this.haveRenderCallbacks);
-		for (const name in imageManager.updatedImages) {
-			this.patchUpdatedImage(this.iconPositions[name], imageManager.getImage(name), texture);
-			this.patchUpdatedImage(this.patternPositions[name], imageManager.getImage(name), texture);
-		}
+		if (this.patchedUpdateVersion === imageManager.updateVersion) return;
+		this.patchedUpdateVersion = imageManager.updateVersion;
+		for (const name in this.iconPositions) this.patchUpdatedImage(this.iconPositions[name], imageManager.getImage(name), texture);
+		for (const name in this.patternPositions) this.patchUpdatedImage(this.patternPositions[name], imageManager.getImage(name), texture);
 	}
 	patchUpdatedImage(position, image, texture) {
 		if (!position || !image) return;
-		if (position.version === image.version) return;
+		if (!position.needsFirstWebGLRender && position.version === image.version) return;
+		position.needsFirstWebGLRender = false;
 		position.version = image.version;
 		const [x, y] = position.tl;
-		texture.update(image.data, void 0, {
+		const data = image.userImage?.data;
+		if (!isStyleImageWebGLData(data)) {
+			texture.update(image.data, void 0, {
+				x,
+				y
+			});
+			return;
+		}
+		const { width, height } = image.data;
+		texture.context.setCustomLayerDefaults();
+		data.renderWithWebGL({
+			gl: texture.context.gl,
+			texture: texture.texture,
 			x,
-			y
+			y,
+			width,
+			height
 		});
+		texture.context.setDirty();
 	}
 };
 register("ImagePosition", ImagePosition);
@@ -23557,9 +24121,7 @@ function getAnchorAlignment(anchor) {
 			break;
 		case "left":
 		case "top-left":
-		case "bottom-left":
-			horizontalAlign = 0;
-			break;
+		case "bottom-left": horizontalAlign = 0;
 	}
 	switch (anchor) {
 		case "bottom":
@@ -23569,9 +24131,7 @@ function getAnchorAlignment(anchor) {
 			break;
 		case "top":
 		case "top-right":
-		case "top-left":
-			verticalAlign = 0;
-			break;
+		case "top-left": verticalAlign = 0;
 	}
 	return {
 		horizontalAlign,
@@ -24550,10 +25110,14 @@ var SymbolStyleLayer = class SymbolStyleLayer extends StyleLayer {
 	}
 	recalculate(parameters, availableImages) {
 		super.recalculate(parameters, availableImages);
-		if (this.layout.get("icon-rotation-alignment") === "auto") if (this.layout.get("symbol-placement") !== "point") this.layout._values["icon-rotation-alignment"] = "map";
-		else this.layout._values["icon-rotation-alignment"] = "viewport";
-		if (this.layout.get("text-rotation-alignment") === "auto") if (this.layout.get("symbol-placement") !== "point") this.layout._values["text-rotation-alignment"] = "map";
-		else this.layout._values["text-rotation-alignment"] = "viewport";
+		if (this.layout.get("icon-rotation-alignment") === "auto") {
+			if (this.layout.get("symbol-placement") !== "point") this.layout._values["icon-rotation-alignment"] = "map";
+			else this.layout._values["icon-rotation-alignment"] = "viewport";
+		}
+		if (this.layout.get("text-rotation-alignment") === "auto") {
+			if (this.layout.get("symbol-placement") !== "point") this.layout._values["text-rotation-alignment"] = "map";
+			else this.layout._values["text-rotation-alignment"] = "viewport";
+		}
 		if (this.layout.get("text-pitch-alignment") === "auto") this.layout._values["text-pitch-alignment"] = this.layout.get("text-rotation-alignment") === "map" ? "map" : "viewport";
 		if (this.layout.get("icon-pitch-alignment") === "auto") this.layout._values["icon-pitch-alignment"] = this.layout.get("icon-rotation-alignment");
 		if (this.layout.get("symbol-placement") === "point") {
@@ -24885,249 +25449,6 @@ var Actor = class {
 	}
 };
 //#endregion
-//#region src/geo/lng_lat.ts
-const earthRadius = 6371008.8;
-/**
-* A `LngLat` object represents a given longitude and latitude coordinate, measured in degrees.
-* These coordinates are based on the [WGS84 (EPSG:4326) standard](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS84).
-*
-* MapLibre GL JS uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match the
-* [GeoJSON specification](https://tools.ietf.org/html/rfc7946).
-*
-* Note that any MapLibre GL JS method that accepts a `LngLat` object as an argument or option
-* can also accept an `Array` of two numbers and will perform an implicit conversion.
-* This flexible type is documented as {@link LngLatLike}.
-*
-* @group Geography and Geometry
-*
-* @example
-* ```ts
-* let ll = new LngLat(-123.9749, 40.7736);
-* ll.lng; // = -123.9749
-* ```
-* @see [Get coordinates of the mouse pointer](https://maplibre.org/maplibre-gl-js/docs/examples/get-coordinates-of-the-mouse-pointer/)
-*/
-var LngLat = class LngLat {
-	/**
-	* @param lng - Longitude, measured in degrees.
-	* @param lat - Latitude, measured in degrees.
-	*/
-	constructor(lng, lat) {
-		if (isNaN(lng) || isNaN(lat)) throw new Error(`Invalid LngLat object: (${lng}, ${lat})`);
-		this.lng = +lng;
-		this.lat = +lat;
-		if (this.lat > 90 || this.lat < -90) throw new Error("Invalid LngLat latitude value: must be between -90 and 90");
-	}
-	/**
-	* Returns a new `LngLat` object whose longitude is wrapped to the range (-180, 180).
-	*
-	* @returns The wrapped `LngLat` object.
-	* @example
-	* ```ts
-	* let ll = new LngLat(286.0251, 40.7736);
-	* let wrapped = ll.wrap();
-	* wrapped.lng; // = -73.9749
-	* ```
-	*/
-	wrap() {
-		return new LngLat(wrap$1(this.lng, -180, 180), this.lat);
-	}
-	/**
-	* Returns the coordinates represented as an array of two numbers.
-	*
-	* @returns The coordinates represented as an array of longitude and latitude.
-	* @example
-	* ```ts
-	* let ll = new LngLat(-73.9749, 40.7736);
-	* ll.toArray(); // = [-73.9749, 40.7736]
-	* ```
-	*/
-	toArray() {
-		return [this.lng, this.lat];
-	}
-	/**
-	* Returns the coordinates represent as a string.
-	*
-	* @returns The coordinates represented as a string of the format `'LngLat(lng, lat)'`.
-	* @example
-	* ```ts
-	* let ll = new LngLat(-73.9749, 40.7736);
-	* ll.toString(); // = "LngLat(-73.9749, 40.7736)"
-	* ```
-	*/
-	toString() {
-		return `LngLat(${this.lng}, ${this.lat})`;
-	}
-	/**
-	* Returns the approximate distance between a pair of coordinates in meters
-	* Uses the Haversine Formula (from R.W. Sinnott, "Virtues of the Haversine", Sky and Telescope, vol. 68, no. 2, 1984, p. 159)
-	*
-	* @param lngLat - coordinates to compute the distance to
-	* @returns Distance in meters between the two coordinates.
-	* @example
-	* ```ts
-	* let new_york = new LngLat(-74.0060, 40.7128);
-	* let los_angeles = new LngLat(-118.2437, 34.0522);
-	* new_york.distanceTo(los_angeles); // = 3935751.690893987, "true distance" using a non-spherical approximation is ~3966km
-	* ```
-	*/
-	distanceTo(lngLat) {
-		const rad = Math.PI / 180;
-		const lat1 = this.lat * rad;
-		const lat2 = lngLat.lat * rad;
-		const a = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos((lngLat.lng - this.lng) * rad);
-		return earthRadius * Math.acos(Math.min(a, 1));
-	}
-	/**
-	* Converts an array of two numbers or an object with `lng` and `lat` or `lon` and `lat` properties
-	* to a `LngLat` object.
-	*
-	* If a `LngLat` object is passed in, the function returns it unchanged.
-	*
-	* @param input - An array of two numbers or object to convert, or a `LngLat` object to return.
-	* @returns A new `LngLat` object, if a conversion occurred, or the original `LngLat` object.
-	* @example
-	* ```ts
-	* let arr = [-73.9749, 40.7736];
-	* let ll = LngLat.convert(arr);
-	* ll;   // = LngLat {lng: -73.9749, lat: 40.7736}
-	* ```
-	*/
-	static convert(input) {
-		if (input instanceof LngLat) return input;
-		if (Array.isArray(input) && (input.length === 2 || input.length === 3)) return new LngLat(Number(input[0]), Number(input[1]));
-		if (!Array.isArray(input) && typeof input === "object" && input !== null) return new LngLat(Number("lng" in input ? input.lng : input.lon), Number(input.lat));
-		throw new Error("`LngLatLike` argument must be specified as a LngLat instance, an object {lng: <lng>, lat: <lat>}, an object {lon: <lng>, lat: <lat>}, or an array of [<lng>, <lat>]");
-	}
-};
-//#endregion
-//#region src/geo/mercator_coordinate.ts
-const earthCircumference = 2 * Math.PI * earthRadius;
-function circumferenceAtLatitude(latitude) {
-	return earthCircumference * Math.cos(latitude * Math.PI / 180);
-}
-function mercatorXfromLng(lng) {
-	return (180 + lng) / 360;
-}
-function mercatorYfromLat(lat) {
-	return (180 - 180 / Math.PI * Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360))) / 360;
-}
-function mercatorZfromAltitude(altitude, lat) {
-	return altitude / circumferenceAtLatitude(lat);
-}
-function lngFromMercatorX(x) {
-	return x * 360 - 180;
-}
-function latFromMercatorY(y) {
-	const y2 = 180 - y * 360;
-	return 360 / Math.PI * Math.atan(Math.exp(y2 * Math.PI / 180)) - 90;
-}
-function altitudeFromMercatorZ(z, y) {
-	return z * circumferenceAtLatitude(latFromMercatorY(y));
-}
-/**
-* Determine the Mercator scale factor for a given latitude, see
-* https://en.wikipedia.org/wiki/Mercator_projection#Scale_factor
-*
-* At the equator the scale factor will be 1, which increases at higher latitudes.
-*
-* @param lat - Latitude
-* @returns scale factor
-*/
-function mercatorScale(lat) {
-	return 1 / Math.cos(lat * Math.PI / 180);
-}
-/**
-* A `MercatorCoordinate` object represents a projected three dimensional position.
-*
-* `MercatorCoordinate` uses the web mercator projection ([EPSG:3857](https://epsg.io/3857)) with slightly different units:
-*
-* - the size of 1 unit is the width of the projected world instead of the "mercator meter"
-* - the origin of the coordinate space is at the north-west corner instead of the middle
-*
-* For example, `MercatorCoordinate(0, 0, 0)` is the north-west corner of the mercator world and
-* `MercatorCoordinate(1, 1, 0)` is the south-east corner. If you are familiar with
-* [vector tiles](https://github.com/mapbox/vector-tile-spec) it may be helpful to think
-* of the coordinate space as the `0/0/0` tile with an extent of `1`.
-*
-* The `z` dimension of `MercatorCoordinate` is conformal. A cube in the mercator coordinate space would be rendered as a cube.
-*
-* @group Geography and Geometry
-*
-* @example
-* ```ts
-* let nullIsland = new MercatorCoordinate(0.5, 0.5, 0);
-* ```
-* @see [Add a custom style layer](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/)
-* @see [Add a 3D model using three.js](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-3d-model-using-threejs/)
-* @see [Add a simple custom layer on a globe](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-simple-custom-layer-on-a-globe/)
-*/
-var MercatorCoordinate = class MercatorCoordinate {
-	/**
-	* @param x - The x component of the position.
-	* @param y - The y component of the position.
-	* @param z - The z component of the position.
-	*/
-	constructor(x, y, z = 0) {
-		this.x = +x;
-		this.y = +y;
-		this.z = +z;
-	}
-	/**
-	* Project a `LngLat` to a `MercatorCoordinate`.
-	*
-	* @param lngLatLike - The location to project.
-	* @param altitude - The altitude in meters of the position.
-	* @returns The projected mercator coordinate.
-	* @example
-	* ```ts
-	* let coord = MercatorCoordinate.fromLngLat({ lng: 0, lat: 0}, 0);
-	* coord; // MercatorCoordinate(0.5, 0.5, 0)
-	* ```
-	*/
-	static fromLngLat(lngLatLike, altitude = 0) {
-		const lngLat = LngLat.convert(lngLatLike);
-		return new MercatorCoordinate(mercatorXfromLng(lngLat.lng), mercatorYfromLat(lngLat.lat), mercatorZfromAltitude(altitude, lngLat.lat));
-	}
-	/**
-	* Returns the `LngLat` for the coordinate.
-	*
-	* @returns The `LngLat` object.
-	* @example
-	* ```ts
-	* let coord = new MercatorCoordinate(0.5, 0.5, 0);
-	* let lngLat = coord.toLngLat(); // LngLat(0, 0)
-	* ```
-	*/
-	toLngLat() {
-		return new LngLat(lngFromMercatorX(this.x), latFromMercatorY(this.y));
-	}
-	/**
-	* Returns the altitude in meters of the coordinate.
-	*
-	* @returns The altitude in meters.
-	* @example
-	* ```ts
-	* let coord = new MercatorCoordinate(0, 0, 0.02);
-	* coord.toAltitude(); // 6914.281956295339
-	* ```
-	*/
-	toAltitude() {
-		return altitudeFromMercatorZ(this.z, this.y);
-	}
-	/**
-	* Returns the distance of 1 meter in `MercatorCoordinate` units at this latitude.
-	*
-	* For coordinates in real world units using meters, this naturally provides the scale
-	* to transform into `MercatorCoordinate`s.
-	*
-	* @returns Distance of 1 meter in `MercatorCoordinate` units.
-	*/
-	meterInMercatorCoordinateUnits() {
-		return 1 / earthCircumference * mercatorScale(latFromMercatorY(this.y));
-	}
-};
-//#endregion
 //#region src/util/world_bounds.ts
 /**
 * Returns true if a given tile zoom (Z), X, and Y are in the bounds of the world.
@@ -25377,102 +25698,6 @@ function compareTileId(a, b) {
 }
 register("CanonicalTileID", CanonicalTileID);
 register("OverscaledTileID", OverscaledTileID, { omit: ["terrainRttPosMatrix32f"] });
-//#endregion
-//#region src/geo/bounds.ts
-/** A 2-d bounding box covering an X and Y range. */
-var Bounds = class Bounds {
-	constructor() {
-		this.minX = Infinity;
-		this.maxX = -Infinity;
-		this.minY = Infinity;
-		this.maxY = -Infinity;
-	}
-	/**
-	* Expands this bounding box to include point.
-	*
-	* @param point - The point to include in this bounding box
-	* @returns This mutated bounding box
-	*/
-	extend(point) {
-		this.minX = Math.min(this.minX, point.x);
-		this.minY = Math.min(this.minY, point.y);
-		this.maxX = Math.max(this.maxX, point.x);
-		this.maxY = Math.max(this.maxY, point.y);
-		return this;
-	}
-	/**
-	* Expands this bounding box by a fixed amount in each direction.
-	*
-	* @param amount - The amount to expand the box by, or contract if negative
-	* @returns This mutated bounding box
-	*/
-	expandBy(amount) {
-		this.minX -= amount;
-		this.minY -= amount;
-		this.maxX += amount;
-		this.maxY += amount;
-		if (this.minX > this.maxX || this.minY > this.maxY) {
-			this.minX = Infinity;
-			this.maxX = -Infinity;
-			this.minY = Infinity;
-			this.maxY = -Infinity;
-		}
-		return this;
-	}
-	/**
-	* Shrinks this bounding box by a fixed amount in each direction.
-	*
-	* @param amount - The amount to shrink the box by
-	* @returns This mutated bounding box
-	*/
-	shrinkBy(amount) {
-		return this.expandBy(-amount);
-	}
-	/**
-	* Returns a new bounding box that contains all of the corners of this bounding
-	* box with a transform applied. Does not modify this bounding box.
-	*
-	* @param fn - The function to apply to each corner
-	* @returns A new bounding box containing all of the mapped points.
-	*/
-	map(fn) {
-		const result = new Bounds();
-		result.extend(fn(new Point(this.minX, this.minY)));
-		result.extend(fn(new Point(this.maxX, this.minY)));
-		result.extend(fn(new Point(this.minX, this.maxY)));
-		result.extend(fn(new Point(this.maxX, this.maxY)));
-		return result;
-	}
-	/**
-	* Creates a new bounding box that includes all points provided.
-	*
-	* @param points - The points to include inside the bounding box
-	* @returns The new bounding box
-	*/
-	static fromPoints(points) {
-		const result = new Bounds();
-		for (const p of points) result.extend(p);
-		return result;
-	}
-	contains(point) {
-		return point.x >= this.minX && point.x <= this.maxX && point.y >= this.minY && point.y <= this.maxY;
-	}
-	empty() {
-		return this.minX > this.maxX;
-	}
-	width() {
-		return this.maxX - this.minX;
-	}
-	height() {
-		return this.maxY - this.minY;
-	}
-	covers(other) {
-		return !this.empty() && !other.empty() && other.minX >= this.minX && other.maxX <= this.maxX && other.minY >= this.minY && other.maxY <= this.maxY;
-	}
-	intersects(other) {
-		return !this.empty() && !other.empty() && other.minX <= this.maxX && other.maxX >= this.minX && other.minY <= this.maxY && other.maxY >= this.minY;
-	}
-};
 //#endregion
 //#region node_modules/@maplibre/vt-pbf/dist/index.es.js
 var FeatureWrapper = class {
@@ -26980,9 +27205,7 @@ function unpackBlock256(inValues, inPos, out, outPos, bitWidth) {
 		case 16:
 			fastUnpack256_16(inValues, inPos, out, outPos);
 			break;
-		default:
-			fastUnpack256_Generic(inValues, inPos, out, outPos, bitWidth);
-			break;
+		default: fastUnpack256_Generic(inValues, inPos, out, outPos, bitWidth);
 	}
 	return inPos + (bitWidth << 3) | 0;
 }
@@ -27100,9 +27323,7 @@ function decodePageBlocks(inValues, pageStart, inPos, packedEnd, out, outPos, bl
 				for (let i = 0; i < 256; i = i + 1 | 0) out[blockOutPos + i | 0] = inValues[tmpInPos + i | 0] | 0;
 				tmpInPos = tmpInPos + 256 | 0;
 				break;
-			default:
-				tmpInPos = unpackBlock256(inValues, tmpInPos, out, blockOutPos, bitWidth);
-				break;
+			default: tmpInPos = unpackBlock256(inValues, tmpInPos, out, blockOutPos, bitWidth);
 		}
 		if (exceptionCount > 0) bytePosIn = applyBlockExceptions(out, blockOutPos, bitWidth, exceptionCount, byteContainer, byteContainerLen, bytePosIn, workspace, run);
 	}
@@ -27237,7 +27458,6 @@ function fastUnpack32(inValues, inPos, out, outPos, bitWidth) {
 		case 32:
 			for (let i = 0; i < 32; i = i + 1 | 0) out[outPos + i | 0] = inValues[inPos + i | 0] | 0;
 			return;
-		default: break;
 	}
 	const valueMask = MASKS[bitWidth] >>> 0;
 	let inputWordIndex = inPos;
@@ -27938,9 +28158,7 @@ function decodeStreamMetadataInternal(tile, offset) {
 		case PhysicalStreamType.OFFSET:
 			logicalStreamType = { offsetType: OFFSET_TYPE_BY_ID[stream_type & 15] };
 			break;
-		case PhysicalStreamType.LENGTH:
-			logicalStreamType = { lengthType: LENGTH_TYPE_BY_ID[stream_type & 15] };
-			break;
+		case PhysicalStreamType.LENGTH: logicalStreamType = { lengthType: LENGTH_TYPE_BY_ID[stream_type & 15] };
 	}
 	offset.increment();
 	const encodings_header = tile[offset.get()];
@@ -28481,7 +28699,8 @@ function convertGeometryVector(geometryVector) {
 							lineStrings[j] = getLineStringOrRing(vertexBuffer, vertexBufferOffset, numVertices, false);
 							vertexBufferOffset += numVertices * 2;
 						} else {
-							lineStrings[j] = decodeDictionaryEncodedLineStringOrRing(geometryVector.vertexBufferType, vertexBuffer, vertexOffsets, vertexOffsetsOffset, numVertices, false, mortonSettings);
+							const vertices = decodeDictionaryEncodedLineStringOrRing(geometryVector.vertexBufferType, vertexBuffer, vertexOffsets, vertexOffsetsOffset, numVertices, false, mortonSettings);
+							lineStrings[j] = vertices;
 							vertexOffsetsOffset += numVertices;
 						}
 					}
@@ -28718,30 +28937,28 @@ var GpuVector = class {
 					if (geometryOffsets) geometryOffsetsCounter++;
 				}
 				break;
-			case GEOMETRY_TYPE.MULTIPOLYGON:
-				{
-					const numPolygons = geometryOffsets[geometryOffsetsCounter] - geometryOffsets[geometryOffsetsCounter - 1];
-					geometryOffsetsCounter++;
-					const allRings = [];
-					for (let p = 0; p < numPolygons; p++) {
-						const numRings = partOffsets[partOffsetCounter] - partOffsets[partOffsetCounter - 1];
-						partOffsetCounter++;
-						for (let j = 0; j < numRings; j++) {
-							const numVertices = ringOffsets[ringOffsetsCounter] - ringOffsets[ringOffsetsCounter - 1];
-							ringOffsetsCounter++;
-							const ring = [];
-							for (let k = 0; k < numVertices; k++) {
-								const x = this._vertexBuffer[vertexBufferOffset++];
-								const y = this._vertexBuffer[vertexBufferOffset++];
-								ring.push(new Point(x, y));
-							}
-							if (ring.length > 0) ring.push(ring[0]);
-							allRings.push(ring);
+			case GEOMETRY_TYPE.MULTIPOLYGON: {
+				const numPolygons = geometryOffsets[geometryOffsetsCounter] - geometryOffsets[geometryOffsetsCounter - 1];
+				geometryOffsetsCounter++;
+				const allRings = [];
+				for (let p = 0; p < numPolygons; p++) {
+					const numRings = partOffsets[partOffsetCounter] - partOffsets[partOffsetCounter - 1];
+					partOffsetCounter++;
+					for (let j = 0; j < numRings; j++) {
+						const numVertices = ringOffsets[ringOffsetsCounter] - ringOffsets[ringOffsetsCounter - 1];
+						ringOffsetsCounter++;
+						const ring = [];
+						for (let k = 0; k < numVertices; k++) {
+							const x = this._vertexBuffer[vertexBufferOffset++];
+							const y = this._vertexBuffer[vertexBufferOffset++];
+							ring.push(new Point(x, y));
 						}
+						if (ring.length > 0) ring.push(ring[0]);
+						allRings.push(ring);
 					}
-					geometries[i] = allRings;
 				}
-				break;
+				geometries[i] = allRings;
+			}
 		}
 		return geometries;
 	}
@@ -28827,22 +29044,18 @@ function decodeGeometryColumn(tile, numStreams, offset, numFeatures, scalingData
 						case OffsetType.VERTEX:
 							vertexOffsets = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata);
 							break;
-						case OffsetType.INDEX:
-							indexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata);
-							break;
+						case OffsetType.INDEX: indexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata);
 					}
 					break;
-				case PhysicalStreamType.DATA:
-					if (DictionaryType.VERTEX === geometryStreamMetadata.logicalStreamType.dictionaryType) vertexBuffer = decodeSignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
-					else {
-						const mortonMetadata = geometryStreamMetadata;
-						mortonSettings = {
-							numBits: mortonMetadata.numBits,
-							coordinateShift: mortonMetadata.coordinateShift
-						};
-						vertexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
-					}
-					break;
+				case PhysicalStreamType.DATA: if (DictionaryType.VERTEX === geometryStreamMetadata.logicalStreamType.dictionaryType) vertexBuffer = decodeSignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
+				else {
+					const mortonMetadata = geometryStreamMetadata;
+					mortonSettings = {
+						numBits: mortonMetadata.numBits,
+						coordinateShift: mortonMetadata.coordinateShift
+					};
+					vertexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
+				}
 			}
 		}
 		if (indexBuffer) {
@@ -28890,22 +29103,18 @@ function decodeGeometryColumn(tile, numStreams, offset, numFeatures, scalingData
 					case OffsetType.VERTEX:
 						vertexOffsets = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata);
 						break;
-					case OffsetType.INDEX:
-						indexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata);
-						break;
+					case OffsetType.INDEX: indexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata);
 				}
 				break;
-			case PhysicalStreamType.DATA:
-				if (DictionaryType.VERTEX === geometryStreamMetadata.logicalStreamType.dictionaryType) vertexBuffer = decodeSignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
-				else {
-					const mortonMetadata = geometryStreamMetadata;
-					mortonSettings = {
-						numBits: mortonMetadata.numBits,
-						coordinateShift: mortonMetadata.coordinateShift
-					};
-					vertexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
-				}
-				break;
+			case PhysicalStreamType.DATA: if (DictionaryType.VERTEX === geometryStreamMetadata.logicalStreamType.dictionaryType) vertexBuffer = decodeSignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
+			else {
+				const mortonMetadata = geometryStreamMetadata;
+				mortonSettings = {
+					numBits: mortonMetadata.numBits,
+					coordinateShift: mortonMetadata.coordinateShift
+				};
+				vertexBuffer = decodeUnsignedInt32Stream(tile, offset, geometryStreamMetadata, scalingData);
+			}
 		}
 	}
 	let geometryOffsets;
@@ -29297,7 +29506,6 @@ function decodeSharedDictionary(data, offset, column, propertyColumnNames) {
 					dictionaryStreamDecoded = true;
 				} else symbolTableBuffer = data.subarray(offset.get(), offset.get() + streamMetadata.byteLength);
 				offset.add(streamMetadata.byteLength);
-				break;
 		}
 	}
 	const childFields = column.complexType.children;
@@ -29735,8 +29943,10 @@ function decodeTile(tile, geometryScaling, idWithinMaxSafeInteger = true) {
 				const numStreams = hasStreamCount(columnMetadata) ? decodeVarintInt32(tile, offset, 1)[0] : 1;
 				if (numStreams === 0) continue;
 				const propertyVector = decodePropertyColumn(tile, offset, columnMetadata, numStreams, numFeatures, void 0);
-				if (propertyVector) if (Array.isArray(propertyVector)) for (const property of propertyVector) propertyVectors.push(property);
-				else propertyVectors.push(propertyVector);
+				if (propertyVector) {
+					if (Array.isArray(propertyVector)) for (const property of propertyVector) propertyVectors.push(property);
+					else propertyVectors.push(propertyVector);
+				}
 			}
 		}
 		const featureTable = new FeatureTable(featureTableMetadata.name, geometryVector, idVector, propertyVectors, extent);
@@ -30436,8 +30646,8 @@ function getIconQuads(shapedIcon, iconRotate, isSDFIcon, hasIconTextFit) {
 	const quads = [];
 	const image = shapedIcon.image;
 	const pixelRatio = image.pixelRatio;
-	const imageWidth = image.paddedRect.w - 2 * border;
-	const imageHeight = image.paddedRect.h - 2 * border;
+	const imageWidth = image.paddedRect.w - 2;
+	const imageHeight = image.paddedRect.h - 2;
 	let icon = {
 		x1: shapedIcon.left,
 		y1: shapedIcon.top,
@@ -30636,7 +30846,7 @@ function getGlyphQuads(anchor, shaping, textOffset, layer, alongLine, feature, i
 		if (rotateVerticalGlyph) {
 			const center = new Point(-halfAdvance, halfAdvance - -17);
 			const verticalRotation = -Math.PI / 2;
-			const xHalfWidthOffsetCorrection = 24 / 2 - halfAdvance;
+			const xHalfWidthOffsetCorrection = 12 - halfAdvance;
 			const yImageOffsetCorrection = positionedGlyph.imageName ? xHalfWidthOffsetCorrection : 0;
 			const halfWidthOffsetCorrection = new Point(22 - xHalfWidthOffsetCorrection, -yImageOffsetCorrection);
 			const verticalOffsetCorrection = new Point(...verticalizedLabelOffset);
@@ -30905,9 +31115,7 @@ function evaluateVariableOffset(anchor, offset) {
 			case "bottom":
 				y = -radialOffset + baselineOffset;
 				break;
-			case "top":
-				y = radialOffset - baselineOffset;
-				break;
+			case "top": y = radialOffset - baselineOffset;
 		}
 		switch (anchor) {
 			case "top-right":
@@ -30921,9 +31129,7 @@ function evaluateVariableOffset(anchor, offset) {
 			case "left":
 				x = radialOffset;
 				break;
-			case "right":
-				x = -radialOffset;
-				break;
+			case "right": x = -radialOffset;
 		}
 		return [x, y];
 	}
@@ -30939,9 +31145,7 @@ function evaluateVariableOffset(anchor, offset) {
 				break;
 			case "bottom-right":
 			case "bottom-left":
-			case "bottom":
-				y = -offsetY + baselineOffset;
-				break;
+			case "bottom": y = -offsetY + baselineOffset;
 		}
 		switch (anchor) {
 			case "top-right":
@@ -30951,9 +31155,7 @@ function evaluateVariableOffset(anchor, offset) {
 				break;
 			case "top-left":
 			case "bottom-left":
-			case "left":
-				x = offsetX;
-				break;
+			case "left": x = offsetX;
 		}
 		return [x, y];
 	}
@@ -31269,6 +31471,6 @@ function anchorIsTooClose(bucket, text, repeatDistance, anchor) {
 	return false;
 }
 //#endregion
-export { GeoJSONVT as $, findLineIntersection as $n, normalize$4 as $r, validateStyle as $t, earthRadius as A, rotate$4 as Ai, JSON_PREFIX as An, warnOnce as Ar, SegmentVector as At, evaluateSizeForFeature as B, createMat4f64 as Bn, zero as Br, isRasterStyleLayer as Bt, altitudeFromMercatorZ as C, rotateZ$3 as Ci, addProtocol as Cn, rollPitchBearingToQuat as Cr, Uniform2f as Ct, mercatorYfromLat as D, fromRotation$2 as Di, AbortError as Dn, threePlaneIntersection as Dr, UniformColorArray as Dt, mercatorXfromLng as E, create$6 as Ei, config as En, subscribe as Er, UniformColor as Et, isBackgroundStyleLayer as F, bezier as Fn, create as Fr, PosArray as Ft, ImagePosition as G, degreesToRadians as Gn, transformMat4$1 as Gr, EvaluationParameters as Gt, WritingMode as H, createVec4f64 as Hn, slerp as Hr, Properties as Ht, isSymbolStyleLayer as I, clamp$2 as In, length as Ir, QuadTriangleArray as It, parseGlyphPbf as J, easeCubicInOut as Jn, cross$2 as Jr, ZoomHistory as Jt, potpack as K, differenceOfAnglesDegrees as Kn, add$4 as Kr, rtlWorkerPlugin as Kt, SymbolBucket as L, clone as Ln, scale as Lr, RasterBoundsArray as Lt, createStyleLayer as M, offscreenCanvasSupported as Mi, angleToRotateBetweenVectors2D as Mn, zoomScale as Mr, CollisionCircleLayoutArray as Mt, isCustomStyleLayer as N, Point as Ni, arrayBufferToImage as Nn, pixelsToTileUnits as Nr, LineStripIndexArray as Nt, mercatorZfromAltitude as O, create$8 as Oi, isAbortError as On, translatePosition as Or, UniformFloatArray as Ot, validateCustomStyleLayer as P, arrayBufferToImageBitmap as Pn, EXTENT$1 as Pr, Pos3dArray as Pt, LineBucket as Q, filterObject as Qn, negate$2 as Qr, validateAndEmit as Qt, addDynamicAttributes as R, createIdentityMat4f32 as Rn, sqrLen as Rr, TriangleIndexArray as Rt, MercatorCoordinate as S, rotateY$3 as Si, sameOrigin as Sn, rollPitchBearingEqual as Sr, Uniform1i as St, lngFromMercatorX as T, translate$2 as Ti, removeProtocol as Tn, sphericalToCartesian as Tr, Uniform4f as Tt, getAnchorAlignment as U, deepEqual$1 as Un, mul$3 as Ur, TRANSITION_SUFFIX as Ut, evaluateSizeForZoom as V, createVec3f64 as Vn, fromEuler as Vr, DataConstantProperty as Vt, ImageAtlas as W, defaultEasing as Wn, scale$3 as Wr, Transitionable as Wt, collisionCircleLayout as X, evaluateZoomSnap as Xn, len$4 as Xr, SPEC_SOURCE_TYPES as Xt, PbfReader as Y, ensureError as Yn, dot$5 as Yr, register as Yt, isLineStyleLayer as Z, extend as Zn, length$4 as Zr, emitValidationErrors as Zt, OverscaledTileID as _, invert$2 as _i, getArrayBuffer as _n, pointPlaneSignedDistance as _r, RGBAImage as _t, clipLine as a, sub$2 as ai, derefLayers as an, isImageBitmap as ar, NORTH_POLE_Y as at, compareTileId as b, perspective as bi, getVideo as bn, readImageUsingVideoFrame as br, toEvaluationFeature as bt, FeatureIndex as c, transformQuat$1 as ci, featureFilter as cn, isTouchableEvent as cr, SubdivisionGranularitySetting as ct, DictionaryCoder as d, copy$5 as di, latest as dn, lerp as dr, Texture as dt, rotateX$2 as ei, validateStyleAndEmit as en, getAABB as er, isFillExtrusionStyleLayer as et, GEOJSON_TILE_LAYER_NAME as f, create$5 as fi, ErrorEvent as fn, mapObject as fr, isHillshadeStyleLayer as ft, CanonicalTileID as g, identity$2 as gi, GLOBAL_DISPATCHER_ID as gn, pick as gr, AlphaImage as gt, Bounds as h, fromScaling as hi, AJAXError as hn, parseCacheControl as hr, renderColorRamp as ht, clipGeometry as i, scaleAndAdd$2 as ii, createExpression as in, getRollPitchBearing as ir, FillBucket as it, Actor as j, isOffscreenCanvasDistorted as ji, MAX_VALID_LATITUDE as jn, wrap$1 as jr, CollisionBoxArray as jt, LngLat as k, invert$5 as ki, throwIfAborted as kn, uniqueId as kr, UniformMatrix4f as kt, MLTVectorTile as l, zero$2 as li, groupByLayout as ln, isTouchableOrPointableType as lr, isColorReliefStyleLayer as lt, fromVectorTileJs as m, exactEquals$5 as mi, Evented as mn, nextPowerOfTwo as mr, isHeatmapStyleLayer as mt, performSymbolLayout as n, rotateZ$2 as ni, ProjectionDefinition as nn, getEdgeTiles as nr, VectorTile as nt, BoundedLRUCache as o, transformMat3$1 as oi, diff as on, isPointableEvent as or, SOUTH_POLE_Y as ot, GeoJSONWrapper as p, equals$6 as pi, Event as pn, mod as pr, HEATMAP_FULL_RENDER_FBO_KEY as pt, renderStyleImage as q, distanceOfAnglesRadians as qn, clone$5 as qr, codePointUsesLocalIdeographFontFamily as qt, TextAnchorEnum as r, scale$4 as ri, ValidationError as rn, getImageData as rr, isFillStyleLayer as rt, TileCache as s, transformMat4$2 as si, emptyStyle as sn, isSafari as sr, SubdivisionGranularityExpression as st, getAnchorJustification as t, rotateY$2 as ti, Color as tn, getAngleDelta as tr, FillExtrusionBucket as tt, GeoJSONFeature as u, clone$6 as ui, interpolateFactory as un, isWorker as ur, DEMData as ut, UnwrappedTileID as v, multiply$5 as vi, getJSON as vn, radiansToDegrees as vr, isCircleStyleLayer as vt, latFromMercatorY as w, scale$5 as wi, getProtocol as wn, scaleZoom as wr, Uniform3f as wt, isInBoundsForZoomLngLat as x, rotateX$3 as xi, makeRequest as xn, remapSaturate as xr, Uniform1f as xt, calculateTileKey as y, ortho as yi, getReferrer as yn, rayPlaneIntersection as yr, polygonIntersectsPolygon as yt, getOverlapMode as z, createIdentityMat4f64 as zn, transformMat4 as zr, createLayout as zt };
+export { tileCoordinatesToMercatorCoordinates as $, deepEqual$1 as $n, mul$3 as $r, TRANSITION_SUFFIX as $t, evaluateSizeForFeature as A, perspective as Ai, getVideo as An, remapSaturate as Ar, toEvaluationFeature as At, PbfReader as B, invert$5 as Bi, JSON_PREFIX as Bn, wrap$1 as Br, SegmentVector as Bt, isCustomStyleLayer as C, equals$6 as Ci, Event as Cn, nextPowerOfTwo as Cr, HEATMAP_FULL_RENDER_FBO_KEY as Ct, SymbolBucket as D, invert$2 as Di, getArrayBuffer as Dn, radiansToDegrees as Dr, RGBAImage as Dt, isSymbolStyleLayer as E, identity$2 as Ei, GLOBAL_DISPATCHER_ID as En, pointPlaneSignedDistance as Er, AlphaImage as Et, ImagePosition as F, translate$2 as Fi, removeProtocol as Fn, subscribe as Fr, Uniform4f as Ft, isFillExtrusionStyleLayer as G, bezier as Gn, length as Gr, PosArray as Gt, isLineStyleLayer as H, isOffscreenCanvasDistorted as Hi, angleToRotateBetweenVectors2D as Hn, pixelsToTileUnits as Hr, CollisionCircleLayoutArray as Ht, potpack as I, create$6 as Ii, config as In, threePlaneIntersection as Ir, UniformColor as It, cameraDirectionFromPitchBearing as J, createIdentityMat4f32 as Jn, zero as Jr, TriangleIndexArray as Jt, FillExtrusionBucket as K, clamp$2 as Kn, scale as Kr, QuadTriangleArray as Kt, isStyleImageWebGLData as L, fromRotation$2 as Li, AbortError as Ln, translatePosition as Lr, UniformColorArray as Lt, WritingMode as M, rotateY$3 as Mi, sameOrigin as Mn, rollPitchBearingToQuat as Mr, Uniform1i as Mt, getAnchorAlignment as N, rotateZ$3 as Ni, addProtocol as Nn, scaleZoom as Nr, Uniform2f as Nt, addDynamicAttributes as O, multiply$5 as Oi, getJSON as On, rayPlaneIntersection as Or, isCircleStyleLayer as Ot, ImageAtlas as P, scale$5 as Pi, getProtocol as Pn, sphericalToCartesian as Pr, Uniform3f as Pt, projectToWorldCoordinates as Q, createVec4f64 as Qn, slerp as Qr, Properties as Qt, renderStyleImage as R, create$8 as Ri, isAbortError as Rn, uniqueId as Rr, UniformFloatArray as Rt, createStyleLayer as S, create$5 as Si, ErrorEvent as Sn, mod as Sr, isHillshadeStyleLayer as St, isBackgroundStyleLayer as T, fromScaling as Ti, AJAXError as Tn, pick as Tr, renderColorRamp as Tt, LineBucket as U, offscreenCanvasSupported as Ui, arrayBufferToImage as Un, EXTENT$1 as Ur, LineStripIndexArray as Ut, collisionCircleLayout as V, rotate$4 as Vi, MAX_VALID_LATITUDE as Vn, zoomScale as Vr, CollisionBoxArray as Vt, GeoJSONVT as W, Point as Wi, arrayBufferToImageBitmap as Wn, create as Wr, Pos3dArray as Wt, getMercatorHorizon as X, createMat4f64 as Xn, fromValues$2 as Xr, isRasterStyleLayer as Xt, cameraMercatorCoordinateFromCenterAndRotation as Y, createIdentityMat4f64 as Yn, fromEuler as Yr, createLayout as Yt, maxMercatorHorizonAngle as Z, createVec3f64 as Zn, multiply$2 as Zr, DataConstantProperty as Zt, UnwrappedTileID as _, transformMat4$2 as _i, emptyStyle as _n, isTouchableEvent as _r, SubdivisionGranularityExpression as _t, clipLine as a, dot$5 as ai, register as an, evaluateZoomSnap as ar, mercatorXfromLng as at, isInBoundsForZoomLngLat as b, clone$6 as bi, interpolateFactory as bn, lerp as br, DEMData as bt, FeatureIndex as c, negate$2 as ci, validateAndEmit as cn, findLineIntersection as cr, LngLat as ct, DictionaryCoder as d, rotateY$2 as di, Color as dn, getEdgeTiles as dr, EXTENT_BOUNDS as dt, scale$3 as ei, Transitionable as en, defaultEasing as er, unprojectFromWorldCoordinates as et, GEOJSON_TILE_LAYER_NAME as f, rotateZ$2 as fi, ProjectionDefinition as fn, getImageData as fr, Bounds as ft, OverscaledTileID as g, transformMat3$1 as gi, diff as gn, isSafari as gr, SOUTH_POLE_Y as gt, CanonicalTileID as h, sub$2 as hi, derefLayers as hn, isPointableEvent as hr, NORTH_POLE_Y as ht, clipGeometry as i, cross$2 as ii, ZoomHistory as in, ensureError as ir, lngFromMercatorX as it, evaluateSizeForZoom as j, rotateX$3 as ji, makeRequest as jn, rollPitchBearingEqual as jr, Uniform1f as jt, getOverlapMode as k, ortho as ki, getReferrer as kn, readImageUsingVideoFrame as kr, polygonIntersectsPolygon as kt, MLTVectorTile as l, normalize$4 as li, validateStyle as ln, getAABB as lr, earthRadius as lt, fromVectorTileJs as m, scaleAndAdd$2 as mi, createExpression as mn, isImageBitmap as mr, FillBucket as mt, performSymbolLayout as n, add$4 as ni, rtlWorkerPlugin as nn, differenceOfAnglesDegrees as nr, altitudeFromMercatorZ as nt, BoundedLRUCache as o, len$4 as oi, SPEC_SOURCE_TYPES as on, extend as or, mercatorYfromLat as ot, GeoJSONWrapper as p, scale$4 as pi, ValidationError as pn, getRollPitchBearing as pr, isFillStyleLayer as pt, calculateTileMatrix as q, clone as qn, sqrLen as qr, RasterBoundsArray as qt, TextAnchorEnum as r, clone$5 as ri, codePointUsesLocalIdeographFontFamily as rn, distanceOfAnglesRadians as rr, latFromMercatorY as rt, TileCache as s, length$4 as si, emitValidationErrors as sn, filterObject as sr, mercatorZfromAltitude as st, getAnchorJustification as t, transformMat4$1 as ti, EvaluationParameters as tn, degreesToRadians as tr, MercatorCoordinate as tt, GeoJSONFeature as u, rotateX$2 as ui, validateStyleAndEmit as un, getAngleDelta as ur, VectorTile as ut, calculateTileKey as v, transformQuat$1 as vi, featureFilter as vn, isTouchableOrPointableType as vr, SubdivisionGranularitySetting as vt, validateCustomStyleLayer as w, exactEquals$5 as wi, Evented as wn, parseCacheControl as wr, isHeatmapStyleLayer as wt, Actor as x, copy$5 as xi, latest as xn, mapObject as xr, Texture as xt, compareTileId as y, zero$2 as yi, groupByLayout as yn, isWorker as yr, isColorReliefStyleLayer as yt, parseGlyphPbf as z, determinant$3 as zi, throwIfAborted as zn, warnOnce as zr, UniformMatrix4f as zt };
 
 //# sourceMappingURL=maplibre-gl-shared-dev.mjs.map

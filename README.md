@@ -107,7 +107,7 @@ milsymbol project for supported SIDCs and rendering options.
 
 | Component | Location | Purpose |
 | --- | --- | --- |
-| MapLibre GL JS `6.0.0` | `maplibre-gl-js/` | Interactive WebGL map renderer |
+| MapLibre GL JS `6.4.1` | `maplibre-gl-js/` | Interactive WebGL map renderer |
 | PMTiles JS `3.2.0` | `web/pmtiles.js` | Registers the `pmtiles://` protocol with MapLibre |
 | milsymbol `3.0.4` | `web/milsymbol.js` | Generates MIL-STD-2525/APP-6 tactical symbols |
 | Situation style | `web/styles/situation.json` | Bright, MapLibre-v6-compatible vector map style |
