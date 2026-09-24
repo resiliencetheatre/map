@@ -1,8 +1,8 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.4.1/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.11.1/LICENSE.txt
 */
-import { B as PbfReader, Bn as JSON_PREFIX, D as SymbolBucket, Dn as getArrayBuffer, Dt as RGBAImage, Et as AlphaImage, Fn as removeProtocol, I as potpack, K as FillExtrusionBucket, Nn as addProtocol, On as getJSON, P as ImageAtlas, Rn as isAbortError, S as createStyleLayer, U as LineBucket, Ur as EXTENT, Vt as CollisionBoxArray, W as GeoJSONVT, Wi as Point, an as register, bt as DEMData, c as FeatureIndex, d as DictionaryCoder, fr as getImageData, g as OverscaledTileID, i as clipGeometry, ir as ensureError, jn as makeRequest, l as MLTVectorTile, m as fromVectorTileJs, mn as createExpression, mr as isImageBitmap, mt as FillBucket, n as performSymbolLayout, nn as rtlWorkerPlugin, o as BoundedLRUCache, or as extend, p as GeoJSONWrapper, tn as EvaluationParameters, ut as VectorTile, vn as featureFilter, x as Actor, xr as mapObject, yn as groupByLayout, yr as isWorker, zr as warnOnce } from "./maplibre-gl-shared-dev.mjs";
+import { An as addProtocol, Br as EXTENT, D as clipGeometry, Dt as RGBAImage, Et as AlphaImage, F as potpack, Fn as isAbortError, G as GeoJSONVT, H as rtlWorkerPlugin, Ir as warnOnce, Ln as JSON_PREFIX, Mn as removeProtocol, N as ImageAtlas, On as makeRequest, Tn as getJSON, Ui as Point, Vt as CollisionBoxArray, _ as createStyleLayer, bt as DEMData, c as GeoJSONWrapper, d as OverscaledTileID, dn as createExpression, dr as isImageBitmap, dt as VectorTile, en as EvaluationParameters, g as Actor, gr as isWorker, i as MLTVectorTile, l as fromVectorTileJs, ln as groupByLayout, lr as getImageData, nn as register, o as DictionaryCoder, r as FeatureIndex, rr as extend, t as BoundedLRUCache, tr as ensureError, un as featureFilter, vr as mapObject, wn as getArrayBuffer, z as PbfReader } from "./maplibre-gl-shared-dev.mjs";
 //#region src/style/style_layer_index.ts
 var StyleLayerIndex = class {
 	constructor(layerConfigs, globalState) {
@@ -53,7 +53,7 @@ var GlyphAtlas = class {
 			const glyphs = stacks[stack];
 			const stackPositions = positions[stack] = {};
 			for (const id in glyphs) {
-				const src = glyphs[+id];
+				const src = glyphs[id];
 				if (!src || src.bitmap.width === 0 || src.bitmap.height === 0) continue;
 				const bin = {
 					x: 0,
@@ -76,7 +76,7 @@ var GlyphAtlas = class {
 		for (const stack in stacks) {
 			const glyphs = stacks[stack];
 			for (const id in glyphs) {
-				const src = glyphs[+id];
+				const src = glyphs[id];
 				if (!src || src.bitmap.width === 0 || src.bitmap.height === 0) continue;
 				const bin = positions[stack][id].rect;
 				AlphaImage.copy(src.bitmap, image, {
@@ -161,7 +161,7 @@ var WorkerTile = class {
 				featureIndex.bucketLayerIDs.push(family.map((l) => l.id));
 			}
 		}
-		const stacks = mapObject(options.glyphDependencies, (glyphs) => Object.keys(glyphs).map(Number));
+		const stacks = mapObject(options.glyphDependencies, (glyphs) => Object.keys(glyphs));
 		for (const request of this.inFlightDependencies) request?.abort();
 		this.inFlightDependencies = [];
 		let getGlyphsPromise = Promise.resolve({});
@@ -228,22 +228,20 @@ var WorkerTile = class {
 		const imageAtlas = new ImageAtlas(iconMap, patternMap);
 		for (const key in buckets) {
 			const bucket = buckets[key];
-			if (bucket instanceof SymbolBucket) {
-				recalculateLayers(bucket.layers, this.zoom, availableImages);
-				performSymbolLayout({
-					bucket,
-					glyphMap,
-					glyphPositions: glyphAtlas.positions,
-					imageMap: iconMap,
-					imagePositions: imageAtlas.iconPositions,
-					showCollisionBoxes: this.showCollisionBoxes,
-					canonical: this.tileID.canonical,
-					subdivisionGranularity: options.subdivisionGranularity
-				});
-			} else if (bucket.hasDependencies && (bucket instanceof FillBucket || bucket instanceof FillExtrusionBucket || bucket instanceof LineBucket)) {
-				recalculateLayers(bucket.layers, this.zoom, availableImages);
-				bucket.addFeatures(options, this.tileID.canonical, imageAtlas.patternPositions, dashPositions);
-			}
+			if (!bucket.hasDependencies) continue;
+			recalculateLayers(bucket.layers, this.zoom, availableImages);
+			bucket.addFeatures({
+				options,
+				canonical: this.tileID.canonical,
+				glyphMap,
+				glyphPositions: glyphAtlas.positions,
+				iconMap,
+				iconPositions: imageAtlas.iconPositions,
+				patternMap,
+				patternPositions: imageAtlas.patternPositions,
+				dashPositions,
+				showCollisionBoxes: this.showCollisionBoxes
+			});
 		}
 		return {
 			buckets: Object.values(buckets).filter((b) => !b.isEmpty()),
@@ -451,6 +449,7 @@ var VectorTileWorkerSource = class {
 			const cacheControl = this._getExpiryData(tileResponse);
 			const resourceTiming = this._finishRequestTiming(timing);
 			workerTile.vectorTile = vectorTile;
+			workerTile.etag = tileResponse.etag;
 			this.tileState.markLoaded(uid, workerTile);
 			const parsingState = {
 				rawData,
@@ -481,7 +480,7 @@ var VectorTileWorkerSource = class {
 				encoding
 			}, result, cacheControl, resourceTiming);
 			this.tileState.removeParsing(workerTile.uid);
-		}
+		} else if (workerTile.etag) result = extend(result, { etag: workerTile.etag });
 		return result;
 	}
 	_getExpiryData({ expires, cacheControl, etag }) {
@@ -559,12 +558,12 @@ var RasterDEMTileWorkerSource = class {
 	}
 	async loadTile(params) {
 		const { uid, encoding, rawImageData, redFactor, greenFactor, blueFactor, baseShift } = params;
-		const width = rawImageData.width + 2;
-		const height = rawImageData.height + 2;
+		const width = rawImageData.width + 4;
+		const height = rawImageData.height + 4;
 		const imagePixels = isImageBitmap(rawImageData) ? new RGBAImage({
 			width,
 			height
-		}, await getImageData(rawImageData, -1, -1, width, height)) : rawImageData;
+		}, await getImageData(rawImageData, -2, -2, width, height)) : rawImageData;
 		const dem = new DEMData(uid, imagePixels, encoding, redFactor, greenFactor, blueFactor, baseShift);
 		this.loaded ||= {};
 		this.loaded[uid] = dem;
@@ -883,6 +882,13 @@ var Worker = class {
 		};
 		this.self.addProtocol = addProtocol;
 		this.self.removeProtocol = removeProtocol;
+		/**
+		* Invoked by a right-to-left text plugin once it has fetched and parsed.
+		*
+		* @deprecated MapLibre shapes Arabic and reorders bidirectional text itself. A plugin
+		* registered here still replaces the built-in implementation, but this will be removed in a
+		* future release.
+		*/
 		this.self.registerRTLTextPlugin = (rtlTextPlugin) => {
 			rtlWorkerPlugin.setMethods(rtlTextPlugin);
 		};
