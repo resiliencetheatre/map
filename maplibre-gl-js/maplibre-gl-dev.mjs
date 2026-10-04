@@ -1,10 +1,10 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.11.1/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.12.0/LICENSE.txt
 */
-import { $ as projectToWorldCoordinates, $n as differenceOfAnglesDegrees, $r as add, $t as Transitionable, A as evaluateSizeForZoom, Ai as rotateX, An as addProtocol, Ar as scaleZoom, At as toEvaluationFeature, B as isCluster, Bi as rotate, Bn as arrayBufferToImage, Br as EXTENT, Bt as SegmentVector, C as addDynamicAttributes, Ci as exactEquals, Cn as GLOBAL_DISPATCHER_ID, Cr as pointPlaneSignedDistance, Ct as HEATMAP_FULL_RENDER_FBO_KEY, Di as multiply, Dn as getVideo, Dr as remapSaturate, Dt as RGBAImage, E as TextAnchorEnum, Ei as invert$1, En as getReferrer, Er as readImageUsingVideoFrame, Et as AlphaImage, F as potpack, Fi as create$4, Fn as isAbortError, Fr as uniqueId, Ft as Uniform4f, Gn as createIdentityMat4f32, Gr as zero, Gt as PosArray, Hi as offscreenCanvasSupported, Hn as bezier, Hr as length$1, Ht as CollisionCircleLayoutArray, I as isStyleImageWebGLData, Ii as fromRotation, In as throwIfAborted, Ir as warnOnce, It as UniformColor, J as cameraDirectionFromPitchBearing, Jn as createVec3f64, Jr as multiply$1, Jt as TriangleIndexArray, K as isFillExtrusionStyleLayer, Kn as createIdentityMat4f64, Kr as fromEuler, Kt as QuadTriangleArray, L as renderStyleImage, Li as create$2, Lr as wrap, Lt as UniformColorArray, M as getAnchorAlignment, Mi as rotateZ, Mn as removeProtocol, Mr as subscribe, Mt as Uniform1i, Ni as scale, Nn as config, Nr as threePlaneIntersection, Nt as Uniform2f, O as clipLine, Oi as ortho, On as makeRequest, Or as rollPitchBearingEqual, Ot as isCircleStyleLayer, P as ImagePosition, Pi as translate, Pn as AbortError, Pr as translatePosition, Pt as Uniform3f, Q as maxMercatorHorizonAngle, Qn as degreesToRadians, Qr as transformMat4, Qt as Properties, R as parseGlyphPbf, Ri as determinant, Rn as MAX_VALID_LATITUDE, Rr as zoomScale, Rt as UniformFloatArray, S as SymbolBucket, Si as equals, Sn as AJAXError, Sr as pick, St as isHillshadeStyleLayer, T as getAnchorJustification, Ti as identity, Tn as getJSON, Tr as rayPlaneIntersection, Tt as renderColorRamp, U as collisionCircleLayout, Ui as Point, Un as clamp, Ur as scale$3, Ut as LineStripIndexArray, V as codePointUsesLocalIdeographFontFamily, Vi as isOffscreenCanvasDistorted, Vn as arrayBufferToImageBitmap, Vr as create$3, Vt as CollisionBoxArray, W as isLineStyleLayer, Wn as clone$2, Wr as sqrLen, Wt as Pos3dArray, X as cameraMercatorCoordinateFromCenterAndRotation, Xn as deepEqual, Xr as mul, Xt as isRasterStyleLayer, Y as cameraMercatorCoordinate, Yn as createVec4f64, Yr as slerp, Yt as createLayout, Z as getMercatorHorizon, Zn as defaultEasing, Zr as scale$2, Zt as DataConstantProperty, _ as createStyleLayer, _i as transformQuat, _n as derefLayers, _r as lerp, _t as SubdivisionGranularityExpression, a as GeoJSONFeature, ai as length, an as validateAndEmit, ar as findLineIntersection, at as lngFromMercatorX, b as isBackgroundStyleLayer, bi as copy, bn as Event, br as nextPowerOfTwo, ci as rotateX$1, cn as emptyStyle, cr as getEdgeTiles, ct as mercatorZfromAltitude, d as OverscaledTileID, di as scale$1, dr as isImageBitmap, ei as clone, en as EvaluationParameters, er as distanceOfAnglesRadians, et as tileCoordinatesToMercatorCoordinates, f as UnwrappedTileID, fi as scaleAndAdd, fn as interpolateFactory, fr as isPointableEvent, ft as EXTENT_BOUNDS, g as Actor, gi as transformMat4$1, gn as diff, gr as isWorker, gt as SOUTH_POLE_Y, h as isInBoundsForZoomLngLat, hi as transformMat3, hn as ValidationError, hr as isTouchableOrPointableType, ht as NORTH_POLE_Y, ii as len, in as emitValidationErrors, ir as filterObject, it as latFromMercatorY, ji as rotateY$1, jn as getProtocol, jr as sphericalToCartesian, jt as Uniform1f, k as evaluateSizeForFeature, ki as perspective, kn as sameOrigin, kr as rollPitchBearingToQuat, kt as polygonIntersectsPolygon, li as rotateY, lt as LngLat, m as compareTileId, mi as subtract, mn as Color, mr as isTouchableEvent, mt as isFillStyleLayer, n as TileCache, ni as distance, nr as evaluateZoomSnap, nt as MercatorCoordinate, oi as negate, on as validateStyle, or as getAABB, ot as mercatorXfromLng, p as calculateTileKey, pi as sub, pn as ProjectionDefinition, pr as isSafari, pt as Bounds, q as calculateTileMatrix, qn as createMat4f64, qr as fromValues, qt as RasterBoundsArray, ri as dot, rn as SPEC_SOURCE_TYPES, rr as extend, rt as altitudeFromMercatorZ, s as GEOJSON_TILE_LAYER_NAME, si as normalize, sn as validateStyleAndEmit, sr as getAngleDelta, st as mercatorYfromLat, ti as cross, tn as ZoomHistory, tr as ensureError, tt as unprojectFromWorldCoordinates, u as CanonicalTileID, ui as rotateZ$1, un as featureFilter, ur as getRollPitchBearing, ut as earthRadius, v as isCustomStyleLayer, vi as zero$1, vn as latest, vr as mapObject, vt as SubdivisionGranularitySetting, w as getOverlapMode, wi as fromScaling, wn as getArrayBuffer, wr as radiansToDegrees, wt as isHeatmapStyleLayer, x as isSymbolStyleLayer, xi as create$1, xn as Evented, xr as parseCacheControl, xt as Texture, y as validateCustomStyleLayer, yi as clone$1, yn as ErrorEvent, yr as mod, yt as isColorReliefStyleLayer, zi as invert, zn as angleToRotateBetweenVectors2D, zr as pixelsToTileUnits, zt as UniformMatrix4f } from "./maplibre-gl-shared-dev.mjs";
+import { $ as maxMercatorHorizonAngle, $n as degreesToRadians, $r as transformMat4, $t as Properties, A as evaluateSizeForZoom, Ai as perspective, An as sameOrigin, Ar as rollPitchBearingToQuat, At as polygonIntersectsPolygon, B as isCluster, Bi as invert, Bn as angleToRotateBetweenVectors2D, Br as pixelsToTileUnits, Bt as UniformMatrix4f, C as addDynamicAttributes, Ci as equals, Cn as AJAXError, Cr as pick, Ct as isHillshadeStyleLayer, Di as invert$1, Dn as getReferrer, Dr as readImageUsingVideoFrame, Dt as AlphaImage, E as TextAnchorEnum, Ei as identity, En as getJSON, Er as rayPlaneIntersection, Et as renderColorRamp, F as potpack, Fi as translate, Fn as AbortError, Fr as translatePosition, Ft as Uniform3f, G as isLineStyleLayer, Gn as clone$2, Gr as sqrLen, Gt as Pos3dArray, Hi as isOffscreenCanvasDistorted, Hn as arrayBufferToImageBitmap, Hr as create$3, Ht as CollisionBoxArray, I as isStyleImageWebGLData, Ii as create$4, In as isAbortError, Ir as uniqueId, It as Uniform4f, J as calculateTileMatrix, Jn as createMat4f64, Jr as fromValues, Jt as RasterBoundsArray, Kn as createIdentityMat4f32, Kr as zero, Kt as PosArray, L as renderStyleImage, Li as fromRotation, Ln as throwIfAborted, Lr as warnOnce, Lt as UniformColor, M as getAnchorAlignment, Mi as rotateY$1, Mn as getProtocol, Mr as sphericalToCartesian, Mt as Uniform1f, Ni as rotateZ, Nn as removeProtocol, Nr as subscribe, Nt as Uniform1i, O as clipLine, Oi as multiply, On as getVideo, Or as remapSaturate, Ot as RGBAImage, P as ImagePosition, Pi as scale, Pn as config, Pr as threePlaneIntersection, Pt as Uniform2f, Q as getMercatorHorizon, Qn as defaultEasing, Qr as scale$2, Qt as DataConstantProperty, R as parseGlyphPbf, Ri as create$2, Rr as wrap, Rt as UniformColorArray, S as SymbolBucket, Si as create$1, Sn as Evented, Sr as parseCacheControl, St as Texture, T as getAnchorJustification, Ti as fromScaling, Tn as getArrayBuffer, Tr as radiansToDegrees, Tt as isHeatmapStyleLayer, U as collisionCircleLayout, Ui as offscreenCanvasSupported, Un as bezier, Ur as length$1, Ut as CollisionCircleLayoutArray, V as codePointUsesLocalIdeographFontFamily, Vi as rotate, Vn as arrayBufferToImage, Vr as EXTENT, Vt as SegmentVector, W as symbolInstance, Wi as Point, Wn as clamp, Wr as scale$3, Wt as LineStripIndexArray, X as cameraMercatorCoordinate, Xn as createVec4f64, Xr as slerp, Xt as createLayout, Y as cameraDirectionFromPitchBearing, Yn as createVec3f64, Yr as multiply$1, Yt as TriangleIndexArray, Z as cameraMercatorCoordinateFromCenterAndRotation, Zn as deepEqual, Zr as mul, Zt as isRasterStyleLayer, _ as createStyleLayer, _i as transformMat4$1, _n as diff, _r as isWorker, _t as SOUTH_POLE_Y, a as GeoJSONFeature, ai as len, an as emitValidationErrors, ar as filterObject, at as latFromMercatorY, b as isBackgroundStyleLayer, bi as clone$1, bn as ErrorEvent, br as mod, bt as isColorReliefStyleLayer, ci as normalize, cn as validateStyleAndEmit, cr as getAngleDelta, ct as mercatorYfromLat, d as OverscaledTileID, di as rotateZ$1, dn as featureFilter, dr as getRollPitchBearing, dt as earthRadius, ei as add, en as Transitionable, er as differenceOfAnglesDegrees, et as projectToWorldCoordinates, f as UnwrappedTileID, fi as scale$1, fr as isImageBitmap, g as Actor, gi as transformMat3, gn as ValidationError, gr as isTouchableOrPointableType, gt as NORTH_POLE_Y, h as isInBoundsForZoomLngLat, hi as subtract, hn as Color, hr as isTouchableEvent, ht as isFillStyleLayer, ii as dot, in as SPEC_SOURCE_TYPES, ir as extend, it as altitudeFromMercatorZ, ji as rotateX, jn as addProtocol, jr as scaleZoom, jt as toEvaluationFeature, k as evaluateSizeForFeature, ki as ortho, kn as makeRequest, kr as rollPitchBearingEqual, kt as isCircleStyleLayer, li as rotateX$1, ln as emptyStyle, lr as getEdgeTiles, lt as mercatorZfromAltitude, m as compareTileId, mi as sub, mn as ProjectionDefinition, mr as isSafari, mt as Bounds, n as TileCache, ni as cross, nn as ZoomHistory, nr as ensureError, nt as unprojectFromWorldCoordinates, oi as length, on as validateAndEmit, or as findLineIntersection, ot as lngFromMercatorX, p as calculateTileKey, pi as scaleAndAdd, pn as interpolateFactory, pr as isPointableEvent, pt as EXTENT_BOUNDS, q as isFillExtrusionStyleLayer, qn as createIdentityMat4f64, qr as fromEuler, qt as QuadTriangleArray, ri as distance, rr as evaluateZoomSnap, rt as MercatorCoordinate, s as GEOJSON_TILE_LAYER_NAME, si as negate, sn as validateStyle, sr as getAABB, st as mercatorXfromLng, ti as clone, tn as EvaluationParameters, tr as distanceOfAnglesRadians, tt as tileCoordinatesToMercatorCoordinates, u as CanonicalTileID, ui as rotateY, ut as LngLat, v as isCustomStyleLayer, vi as transformQuat, vn as derefLayers, vr as lerp, vt as SubdivisionGranularityExpression, w as getOverlapMode, wi as exactEquals, wn as GLOBAL_DISPATCHER_ID, wr as pointPlaneSignedDistance, wt as HEATMAP_FULL_RENDER_FBO_KEY, x as isSymbolStyleLayer, xi as copy, xn as Event, xr as nextPowerOfTwo, y as validateCustomStyleLayer, yi as zero$1, yn as latest, yr as mapObject, yt as SubdivisionGranularitySetting, zi as determinant, zn as MAX_VALID_LATITUDE, zr as zoomScale, zt as UniformFloatArray } from "./maplibre-gl-shared-dev.mjs";
 //#region package.json
-var version$2 = "6.11.1";
+var version$2 = "6.12.0";
 //#endregion
 //#region src/util/browser.ts
 let linkEl;
@@ -1619,12 +1619,13 @@ var GlyphManager = class {
 	}
 	async getGlyphs(glyphs) {
 		const glyphsPromises = [];
-		for (const stack in glyphs) for (const id of glyphs[stack]) glyphsPromises.push(this._getAndCacheGlyphsPromise(stack, id));
+		for (const stack in glyphs) for (const variant in glyphs[stack]) for (const id of glyphs[stack][variant]) glyphsPromises.push(this._getAndCacheGlyphsPromise(stack, id, variant));
 		const updatedGlyphs = await Promise.all(glyphsPromises);
 		const result = {};
-		for (const { stack, id, glyph } of updatedGlyphs) {
+		for (const { stack, id, variant, glyph } of updatedGlyphs) {
 			result[stack] ||= {};
-			result[stack][id] = glyph && {
+			result[stack][variant] ||= {};
+			result[stack][variant][id] = glyph && {
 				id: glyph.id,
 				bitmap: glyph.bitmap.clone(),
 				metrics: glyph.metrics
@@ -1640,39 +1641,56 @@ var GlyphManager = class {
 	* has no way to serve the one shape they are written as. A file the style pinned with
 	* `font-faces` draws it where one covers it, and the local fonts otherwise. For a single
 	* codepoint a declared file still wins over the glyphs URL and the local fallbacks.
+	* Providers support the `default` variant; unsupported variants return `null`.
 	*/
-	async _getAndCacheGlyphsPromise(stack, id) {
+	async _getAndCacheGlyphsPromise(stack, id, variant) {
 		this.entries[stack] ??= {
-			glyphs: {},
+			glyphs: { default: {} },
 			requests: {},
 			ranges: {}
 		};
 		const entry = this.entries[stack];
-		let glyph = entry.glyphs[id];
+		const glyphs = entry.glyphs[variant] ||= {};
+		let glyph = glyphs[id];
 		if (glyph !== void 0) return {
 			stack,
 			id,
+			variant,
 			glyph
 		};
-		const codePoint = id.codePointAt(0);
-		const fontFaceFamily = this.fontFaceManager.hasFontFaces() ? await this.fontFaceManager.getFontFamily(stack, codePoint) : null;
-		if (fontFaceFamily) {
-			glyph = entry.glyphs[id] = await this._drawGlyph(entry, stack, id, fontFaceFamily);
+		if (variant !== "default") {
+			glyphs[id] = null;
 			return {
 				stack,
 				id,
+				variant,
+				glyph: null
+			};
+		}
+		const codePoint = id.codePointAt(0);
+		const fontFaceFamily = this.fontFaceManager.hasFontFaces() ? await this.fontFaceManager.getFontFamily(stack, codePoint) : null;
+		if (fontFaceFamily) {
+			glyph = glyphs[id] = await this._drawGlyph(entry, stack, id, fontFaceFamily);
+			return {
+				stack,
+				id,
+				variant,
 				glyph
 			};
 		}
 		if (!this.url || isCluster(id) || this._charUsesLocalIdeographFontFamily(codePoint)) {
-			glyph = entry.glyphs[id] = await this._drawGlyph(entry, stack, id);
+			glyph = glyphs[id] = await this._drawGlyph(entry, stack, id);
 			return {
 				stack,
 				id,
+				variant,
 				glyph
 			};
 		}
-		return await this._downloadAndCacheRangePromise(stack, id);
+		return {
+			...await this._downloadAndCacheRangePromise(stack, id),
+			variant
+		};
 	}
 	/**
 	* Gets a glyph from the server-side cache, downloading the PBF range it falls in if need be.
@@ -1692,7 +1710,7 @@ var GlyphManager = class {
 		entry.requests[range] ||= this._loadGlyphRange(stack, range);
 		try {
 			const response = await entry.requests[range];
-			for (const responseId in response) entry.glyphs[String.fromCodePoint(+responseId)] = response[+responseId];
+			for (const responseId in response) entry.glyphs.default[String.fromCodePoint(+responseId)] = response[+responseId];
 			entry.ranges[range] = true;
 			return {
 				stack,
@@ -1700,7 +1718,7 @@ var GlyphManager = class {
 				glyph: response[codePoint] || null
 			};
 		} catch (e) {
-			const glyph = entry.glyphs[id] = await this._drawGlyph(entry, stack, id);
+			const glyph = entry.glyphs.default[id] = await this._drawGlyph(entry, stack, id);
 			this._warnOnMissingGlyphRange(glyph, range, codePoint, ensureError(e));
 			return {
 				stack,
@@ -1875,7 +1893,7 @@ var GlyphManager = class {
 			entry.tinySDF = null;
 			entry.ideographTinySDF = null;
 			entry.fontFaceTinySDFs = {};
-			entry.glyphs = {};
+			entry.glyphs = { default: {} };
 			entry.requests = {};
 			entry.ranges = {};
 		}
@@ -1900,15 +1918,19 @@ var Light = class extends Evented {
 		this._transitionable = new Transitionable(getProperties$2(), "light", globalState);
 		this.setLight(lightOptions);
 		this._transitioning = this._transitionable.untransitioned();
+		this.recalculate(new EvaluationParameters(0));
 	}
 	getLight() {
 		return this._transitionable.serialize();
 	}
-	/**
-	* Gets the light position in cartesian coordinates.
-	*/
-	getCartesianPosition() {
-		return sphericalToCartesian(this.properties.get("position"));
+	/** The light's values for drawing, as evaluated last. */
+	getEvaluated() {
+		return {
+			anchor: this.properties.get("anchor"),
+			position: this.properties.get("position"),
+			color: this.properties.get("color"),
+			intensity: this.properties.get("intensity")
+		};
 	}
 	setLight(light, options = {}) {
 		if (this._validate(validateStyle.light, light, options)) return;
@@ -1986,22 +2008,34 @@ var Sky = class extends Evented {
 	_validate(validate, value, options = {}) {
 		return validateAndEmit(this, validate, { value }, options);
 	}
-	/**
-	* Currently fog is a very simple implementation, and should only used
-	* to create an atmosphere near the horizon.
-	* But because the fog is drawn from the far-clipping-plane to
-	* map-center, and because the fog does nothing know about the horizon,
-	* this method does a fadeout in respect of pitch. So, when the horizon
-	* gets out of view, which is at about pitch 70, this methods calculates
-	* the corresponding opacity values. Below pitch 60 the fog is completely
-	* invisible.
-	*/
-	calculateFogBlendOpacity(pitch) {
-		if (pitch < 60) return 0;
-		if (pitch < 70) return (pitch - 60) / 10;
-		return 1;
+	/** The sky's values for drawing, as evaluated last. */
+	getEvaluated() {
+		return {
+			"sky-color": this.properties.get("sky-color"),
+			"horizon-color": this.properties.get("horizon-color"),
+			"fog-color": this.properties.get("fog-color"),
+			"fog-ground-blend": this.properties.get("fog-ground-blend"),
+			"horizon-fog-blend": this.properties.get("horizon-fog-blend"),
+			"sky-horizon-blend": this.properties.get("sky-horizon-blend"),
+			"atmosphere-blend": this.properties.get("atmosphere-blend")
+		};
 	}
 };
+/**
+* Currently fog is a very simple implementation, and should only used
+* to create an atmosphere near the horizon.
+* But because the fog is drawn from the far-clipping-plane to
+* map-center, and because the fog does nothing know about the horizon,
+* this function does a fadeout in respect of pitch. So, when the horizon
+* gets out of view, which is at about pitch 70, this methods calculates
+* the corresponding opacity values. Below pitch 60 the fog is completely
+* invisible.
+*/
+function calculateFogBlendOpacity(pitch) {
+	if (pitch < 60) return 0;
+	if (pitch < 70) return (pitch - 60) / 10;
+	return 1;
+}
 //#endregion
 //#region src/render/line_atlas.ts
 /**
@@ -2410,8 +2444,8 @@ function getPixelPosMatrix(transform, tileID) {
 		transform.height * .5,
 		1
 	]);
-	if (transform.calculatePosMatrix) return multiply(t, t, transform.calculatePosMatrix(tileID.toUnwrapped()));
-	else return t;
+	const posMatrix = transform.getFastPathSimpleProjectionMatrix(tileID);
+	return posMatrix ? multiply(t, t, posMatrix) : t;
 }
 function queryIncludes3DLayer(layers, styleLayers, sourceID) {
 	if (layers) for (const layerID of layers) {
@@ -3691,6 +3725,112 @@ function tileIdToLngLatBounds({ x, y, z }, buffer = 0) {
 	return new LngLatBounds([lngMin, latMin], [lngMax, latMax]);
 }
 //#endregion
+//#region src/util/update_queue.ts
+/**
+* Sends updates one at a time, in the order they were queued.
+* An update that is still waiting can be changed in place, through {@link UpdateQueue#top}, until it is sent.
+*/
+var UpdateQueue = class {
+	constructor(handlers) {
+		this._waiting = [];
+		this._sending = false;
+		this._replacedWhileSending = false;
+		this._handlers = handlers;
+	}
+	/**
+	* Whether no update is being sent or waiting to be.
+	*/
+	isIdle() {
+		return !this._sending && this._waiting.length === 0;
+	}
+	/**
+	* The update queued last, if it is still waiting to be sent.
+	* The update being sent is not waiting, so it is never returned.
+	*/
+	top() {
+		return this._waiting.length ? this._waiting[this._waiting.length - 1] : void 0;
+	}
+	/**
+	* Whether any waiting update matches the predicate. The update being sent is not waiting, so it is never tested.
+	*/
+	some(predicate) {
+		return this._waiting.some(predicate);
+	}
+	/**
+	* Queues an update without sending it.
+	*/
+	enqueue(update) {
+		this._waiting.push(update);
+	}
+	/**
+	* Drops the waiting updates and queues this one instead.
+	*/
+	replace(update) {
+		this._waiting = [update];
+		this._replacedWhileSending = this._sending;
+	}
+	/**
+	* Drops the waiting updates. The update being sent, if any, still runs to its end.
+	*/
+	clear() {
+		this._waiting = [];
+	}
+	/**
+	* Sends the waiting updates.
+	* @returns a promise that resolves once no update is being sent or waiting to be.
+	*/
+	flush() {
+		if (this.isIdle()) return Promise.resolve();
+		if (!this._flushing) {
+			let resolve;
+			const promise = new Promise((r) => {
+				resolve = r;
+			});
+			this._flushing = {
+				promise,
+				resolve
+			};
+		}
+		const { promise } = this._flushing;
+		this._next();
+		return promise;
+	}
+	_next() {
+		if (this._sending) return;
+		const update = this._waiting.shift();
+		if (update === void 0) {
+			this._flushing?.resolve();
+			this._flushing = void 0;
+			return;
+		}
+		this._sending = true;
+		this._replacedWhileSending = false;
+		this._send(update).finally(() => this._next());
+	}
+	/**
+	* Sends one update and hands its result, or the error that sending or handling it raised, to the handlers.
+	*
+	* The update stops counting as being sent once, before either handler runs, so that an update a handler
+	* starts is still counted as being sent when that handler throws.
+	*/
+	async _send(update) {
+		let result;
+		try {
+			result = await this._handlers.send(update);
+		} catch (error) {
+			this._sending = false;
+			this._handlers.onError(update, error);
+			return;
+		}
+		this._sending = false;
+		try {
+			this._handlers.onResult(update, result, this._replacedWhileSending);
+		} catch (error) {
+			this._handlers.onError(update, error);
+		}
+	}
+};
+//#endregion
 //#region src/source/geojson_source.ts
 /**
 * A source containing GeoJSON.
@@ -3760,8 +3900,12 @@ var GeoJSONSource = class extends Evented {
 		this.isTileClipped = true;
 		this.reparseOverscaled = true;
 		this._removed = false;
-		this._isUpdatingWorker = false;
-		this._pendingWorkerUpdate = { data: options.data };
+		this._workerUpdates = new UpdateQueue({
+			send: (update) => this._sendWorkerUpdate(update),
+			onResult: (update, result, replaced) => this._onWorkerUpdateResult(update, result, replaced),
+			onError: (_update, error) => this._onWorkerUpdateError(error)
+		});
+		if (options.data !== void 0) this._workerUpdates.enqueue({ data: options.data });
 		this.actorPromise = dispatcher.getActor();
 		this.setEventedParent(eventedParent);
 		this._data = typeof options.data === "string" ? { url: options.data } : { geojson: options.data };
@@ -3800,9 +3944,6 @@ var GeoJSONSource = class extends Evented {
 	get _promoteIdKey() {
 		return typeof this.promoteId === "string" ? this.promoteId : void 0;
 	}
-	_hasPendingWorkerUpdate() {
-		return this._pendingWorkerUpdate.data !== void 0 || this._pendingWorkerUpdate.diff !== void 0 || this._pendingWorkerUpdate.updateCluster;
-	}
 	_pixelsToTileUnits(pixelValue) {
 		return pixelValue * (EXTENT / this.tileSize);
 	}
@@ -3815,7 +3956,11 @@ var GeoJSONSource = class extends Evented {
 		return effectiveClusterMaxZoom;
 	}
 	async load() {
-		await this._updateWorkerData();
+		if (this._workerUpdates.isIdle()) {
+			warnOnce(`No pending worker updates for GeoJSONSource ${this.id}.`);
+			return;
+		}
+		await this._workerUpdates.flush();
 	}
 	onAdd(map) {
 		this.map = map;
@@ -3828,8 +3973,8 @@ var GeoJSONSource = class extends Evented {
 	*/
 	setData(data) {
 		this._data = typeof data === "string" ? { url: data } : { geojson: data };
-		this._pendingWorkerUpdate = { data };
-		return this._updateWorkerData();
+		this._workerUpdates.replace({ data });
+		return this._workerUpdates.flush();
 	}
 	/**
 	* Updates the source's GeoJSON, and re-renders the map.
@@ -3846,16 +3991,20 @@ var GeoJSONSource = class extends Evented {
 	* @param diff - The changes that need to be applied.
 	*/
 	updateData(diff) {
-		this._pendingWorkerUpdate.diff = mergeSourceDiffs(this._pendingWorkerUpdate.diff, diff, this._promoteIdKey);
-		return this._updateWorkerData();
+		const waiting = this._getWaitingWorkerChange();
+		if (waiting) waiting.diff = mergeSourceDiffs(waiting.diff, diff, this._promoteIdKey);
+		else this._workerUpdates.enqueue({ diff });
+		return this._workerUpdates.flush();
 	}
 	/**
 	* Allows to get the source's actual GeoJSON data.
 	*
+	* Data set as a URL is returned once it has loaded.
+	*
 	* @returns a promise which resolves to the source's actual GeoJSON data
 	*/
 	async getData() {
-		if (this._data.url) await this.once("data");
+		while (this._data.url) await this.once("data");
 		if (this._data.geojson) return this._data.geojson;
 		return {
 			type: "FeatureCollection",
@@ -3883,8 +4032,21 @@ var GeoJSONSource = class extends Evented {
 		this.workerOptions.geojsonVtOptions.cluster = options.cluster;
 		if (options.clusterRadius !== void 0) this.workerOptions.geojsonVtOptions.clusterOptions.radius = this._pixelsToTileUnits(options.clusterRadius);
 		if (options.clusterMaxZoom !== void 0) this.workerOptions.geojsonVtOptions.clusterOptions.maxZoom = this._getClusterMaxZoom(options.clusterMaxZoom);
-		this._pendingWorkerUpdate.updateCluster = true;
-		return this._updateWorkerData();
+		if (!this._workerUpdates.some((update) => "data" in update)) {
+			const waiting = this._getWaitingWorkerChange();
+			if (waiting) waiting.updateCluster = true;
+			else this._workerUpdates.enqueue({ updateCluster: true });
+		}
+		return this._workerUpdates.flush();
+	}
+	/**
+	* The change queued last for the worker, which a later change merges into, if it is still waiting to be sent.
+	* Returns `undefined` when nothing is waiting or the update queued last is new data, which a change has to
+	* wait behind instead.
+	*/
+	_getWaitingWorkerChange() {
+		const top = this._workerUpdates.top();
+		return top && !("data" in top) ? top : void 0;
 	}
 	/**
 	* Gets the cluster options currently configured on the source.
@@ -3974,91 +4136,77 @@ var GeoJSONSource = class extends Evented {
 		});
 	}
 	/**
-	* Responsible for invoking WorkerSource's geojson.loadData target, which
-	* handles loading the geojson data and preparing to serve it up as tiles,
-	* using geojson-vt or supercluster as appropriate.
-	*/
-	async _updateWorkerData() {
-		if (this._isUpdatingWorker) return this._updatePromise;
-		if (!this._hasPendingWorkerUpdate()) {
-			warnOnce(`No pending worker updates for GeoJSONSource ${this.id}.`);
-			return;
-		}
-		const { data, diff, updateCluster } = this._pendingWorkerUpdate;
-		const params = this._getLoadGeoJSONParameters(data, diff, updateCluster);
-		if (data !== void 0) this._pendingWorkerUpdate.data = void 0;
-		else if (diff) this._pendingWorkerUpdate.diff = void 0;
-		else if (updateCluster) this._pendingWorkerUpdate.updateCluster = void 0;
-		this._updatePromise = this._dispatchWorkerUpdate(params);
-		await this._updatePromise;
-	}
-	/**
 	* Create the parameters object that will be sent to the worker and used to load GeoJSON.
 	*/
-	async _getLoadGeoJSONParameters(data, diff, updateCluster) {
+	async _getLoadGeoJSONParameters(update) {
 		const params = extend({
 			type: this.type,
 			source: this.id
 		}, this.workerOptions);
-		if (typeof data === "string") {
-			params.request = await this.map._requestManager.transformRequest(browser.resolveURL(data), "Source");
+		if (!("data" in update)) {
+			if (update.diff) params.dataDiff = update.diff;
+			if (update.updateCluster) params.updateCluster = true;
+			return params;
+		}
+		if (typeof update.data === "string") {
+			params.request = await this.map._requestManager.transformRequest(browser.resolveURL(update.data), "Source");
 			params.request.collectResourceTiming = this._collectResourceTiming;
 			return params;
 		}
-		if (data !== void 0) {
-			params.data = data;
-			return params;
-		}
-		if (diff) {
-			params.dataDiff = diff;
-			return params;
-		}
-		if (updateCluster) {
-			params.updateCluster = true;
-			return params;
-		}
+		params.data = update.data;
+		return params;
 	}
 	/**
-	* Send the worker update data from the main thread to the worker
+	* Responsible for invoking WorkerSource's geojson.loadData target, which
+	* handles loading the geojson data and preparing to serve it up as tiles,
+	* using geojson-vt or supercluster as appropriate.
 	*/
-	async _dispatchWorkerUpdate(optionsPromise) {
-		this._isUpdatingWorker = true;
+	async _sendWorkerUpdate(update) {
 		this.fire(new MapSourceDataEvent("dataloading"));
-		try {
-			const options = await optionsPromise;
-			const result = await (await this.actorPromise).sendAsync({
-				type: "LD",
-				data: options
-			});
-			this._isUpdatingWorker = false;
-			if (this._removed || result.abandoned) {
-				this.fire(new MapSourceDataEvent("dataabort"));
-				return;
-			}
-			if (result.data) this._data = { geojson: result.data };
-			const affectedGeometries = this._applyDiffToSource(options.dataDiff);
-			const shouldReloadTileOptions = this._getShouldReloadTileOptions(affectedGeometries);
-			const eventData = {};
-			this._applyResourceTiming(eventData, result);
-			this.fire(new MapSourceDataEvent("data", {
-				...eventData,
-				sourceDataType: "metadata"
-			}));
-			this.fire(new MapSourceDataEvent("data", {
-				...eventData,
-				sourceDataType: "content",
-				shouldReloadTileOptions
-			}));
-		} catch (err) {
-			this._isUpdatingWorker = false;
-			if (this._removed) {
-				this.fire(new MapSourceDataEvent("dataabort"));
-				return;
-			}
-			this.fire(new ErrorEvent(ensureError(err)));
-		} finally {
-			if (this._hasPendingWorkerUpdate()) await this._updateWorkerData();
+		const params = await this._getLoadGeoJSONParameters(update);
+		return (await this.actorPromise).sendAsync({
+			type: "LD",
+			data: params
+		});
+	}
+	/**
+	* Applies the result of a worker update to this source and fires the events that reload its tiles.
+	*
+	* The worker sends back the data it loaded from a URL, which becomes this source's copy of the data.
+	*
+	* An update that a `setData` call replaced while it was being sent leaves this source's copy of the data alone,
+	* since the data its result describes is no longer the source's, and still fires its events.
+	*
+	* A diff reloads only the tiles it touches, but a cluster refresh can regroup points on any tile,
+	* so an update that carries one reloads every tile, whatever diff comes with it.
+	*/
+	_onWorkerUpdateResult(update, result, replaced) {
+		if (this._removed || result.abandoned) {
+			this.fire(new MapSourceDataEvent("dataabort"));
+			return;
 		}
+		if (result.data && !replaced) this._data = { geojson: result.data };
+		const diff = "data" in update || replaced ? void 0 : update.diff;
+		const affectedGeometries = this._applyDiffToSource(diff);
+		const shouldReloadTileOptions = !("data" in update) && update.updateCluster ? void 0 : this._getShouldReloadTileOptions(affectedGeometries);
+		const eventData = {};
+		this._applyResourceTiming(eventData, result);
+		this.fire(new MapSourceDataEvent("data", {
+			...eventData,
+			sourceDataType: "metadata"
+		}));
+		this.fire(new MapSourceDataEvent("data", {
+			...eventData,
+			sourceDataType: "content",
+			shouldReloadTileOptions
+		}));
+	}
+	_onWorkerUpdateError(error) {
+		if (this._removed) {
+			this.fire(new MapSourceDataEvent("dataabort"));
+			return;
+		}
+		this.fire(new ErrorEvent(ensureError(error)));
 	}
 	/**
 	* Apply resource timing data to the event object.
@@ -4074,7 +4222,8 @@ var GeoJSONSource = class extends Evented {
 	/**
 	* Apply a diff to this source's data and return the affected feature geometries.
 	* @param diff - The {@link GeoJSONSourceDiff} to apply.
-	* @returns The affected geometries, or undefined if the diff is not applicable or all geometries are affected.
+	* @returns The affected geometries, or undefined if the diff is not applicable or all geometries are affected,
+	* as they are whenever the source is clustered: a changed point can regroup clusters on any tile.
 	*/
 	_applyDiffToSource(diff) {
 		if (!diff) return;
@@ -4086,7 +4235,7 @@ var GeoJSONSource = class extends Evented {
 		}
 		if (!this._data.updateable) return;
 		const affectedGeometries = applySourceDiff(this._data.updateable, diff, promoteId);
-		if (diff.removeAll || this._options.cluster) return;
+		if (diff.removeAll || this.workerOptions.geojsonVtOptions.cluster) return;
 		return affectedGeometries;
 	}
 	/**
@@ -4111,7 +4260,7 @@ var GeoJSONSource = class extends Evented {
 		return false;
 	}
 	loaded() {
-		return !this._isUpdatingWorker && !this._hasPendingWorkerUpdate();
+		return this._workerUpdates.isIdle();
 	}
 	async loadTile(tile) {
 		const message = !tile.actor ? "LT" : "RT";
@@ -4162,8 +4311,13 @@ var GeoJSONSource = class extends Evented {
 			}
 		});
 	}
+	/**
+	* Drops the worker updates waiting to be sent, which would otherwise rebuild the worker's state for a source
+	* that is gone. The update being sent ends in a `dataabort` event.
+	*/
 	onRemove() {
 		this._removed = true;
+		this._workerUpdates.clear();
 		this.actorPromise.then((actor) => actor.sendAsync({
 			type: "RS",
 			data: {
@@ -4562,9 +4716,11 @@ var ImageSource = class extends Evented {
 		this.texture = null;
 	}
 	_finishLoading() {
-		if (this.map) {
+		if (this.map) try {
 			this.setCoordinates(this.coordinates);
 			this.fire(new MapSourceDataEvent("data", { sourceDataType: "metadata" }));
+		} catch (err) {
+			this.fire(new ErrorEvent(ensureError(err)));
 		}
 	}
 	onAdd(map) {
@@ -6279,7 +6435,7 @@ function updateFadingDescendents(inViewTiles, idealTile, retain, now, sourceMaxZ
 	return hasFader;
 }
 function updateFadingChildren(inViewTiles, idealTile, childIDs, retain, now, sourceMaxZoom, rasterFadeDuration) {
-	if (childIDs[0].overscaledZ >= sourceMaxZoom) return false;
+	if (childIDs[0].overscaledZ > sourceMaxZoom) return false;
 	let foundFader = false;
 	for (const childID of childIDs) {
 		const childTile = inViewTiles.getLoadedTile(childID);
@@ -7565,13 +7721,13 @@ function isVisible(p, clippingBuffer) {
 }
 function updateLineLabels(bucket, painter, isText, pitchedLabelPlaneMatrix, pitchedLabelPlaneMatrixInverse, pitchWithMap, keepUpright, rotateToLine, unwrappedTileID, viewportWidth, viewportHeight, translation, getElevation) {
 	const sizeData = isText ? bucket.textSizeData : bucket.iconSizeData;
-	const partiallyEvaluatedSize = evaluateSizeForZoom(sizeData, painter.transform.zoom);
+	const partiallyEvaluatedSize = evaluateSizeForZoom(sizeData, painter.frameRenderContext.transform.zoom);
 	const clippingBuffer = [256 / painter.width * 2 + 1, 256 / painter.height * 2 + 1];
 	const dynamicLayoutVertexArray = isText ? bucket.text.dynamicLayoutVertexArray : bucket.icon.dynamicLayoutVertexArray;
 	dynamicLayoutVertexArray.clear();
 	const lineVertexArray = bucket.lineVertexArray;
 	const placedSymbols = isText ? bucket.text.placedSymbolArray : bucket.icon.placedSymbolArray;
-	const aspectRatio = painter.transform.width / painter.transform.height;
+	const aspectRatio = painter.frameRenderContext.transform.width / painter.frameRenderContext.transform.height;
 	let useVertical = false;
 	for (let s = 0; s < placedSymbols.length; s++) {
 		const symbol = placedSymbols.get(s);
@@ -7592,7 +7748,7 @@ function updateLineLabels(bucket, painter, isText, pitchedLabelPlaneMatrix, pitc
 				cachedAnchorPoint: void 0,
 				anyProjectionOccluded: false
 			},
-			transform: painter.transform,
+			transform: painter.frameRenderContext.transform,
 			tileAnchorPoint,
 			unwrappedTileID,
 			width: viewportWidth,
@@ -7605,9 +7761,9 @@ function updateLineLabels(bucket, painter, isText, pitchedLabelPlaneMatrix, pitc
 			continue;
 		}
 		const cameraToAnchorDistance = anchorPos.signedDistanceFromCamera;
-		const perspectiveRatio = getPerspectiveRatio(painter.transform.cameraToCenterDistance, cameraToAnchorDistance);
+		const perspectiveRatio = getPerspectiveRatio(painter.frameRenderContext.transform.cameraToCenterDistance, cameraToAnchorDistance);
 		const fontSize = evaluateSizeForFeature(sizeData, partiallyEvaluatedSize, symbol);
-		const pitchScaledFontSize = pitchWithMap ? fontSize * painter.transform.getPitchedTextCorrection(symbol.anchorX, symbol.anchorY, unwrappedTileID) / perspectiveRatio : fontSize * perspectiveRatio;
+		const pitchScaledFontSize = pitchWithMap ? fontSize * painter.frameRenderContext.transform.getPitchedTextCorrection(symbol.anchorX, symbol.anchorY, unwrappedTileID) / perspectiveRatio : fontSize * perspectiveRatio;
 		const placeUnflipped = placeGlyphsAlongLine({
 			projectionContext,
 			pitchedLabelPlaneMatrixInverse,
@@ -8399,6 +8555,8 @@ function calculateVariableLayoutShift(anchor, width, height, textOffset, textBox
 	const shiftY = -(verticalAlign - .5) * height;
 	return new Point(shiftX + textOffset[0] * textBoxScale, shiftY + textOffset[1] * textBoxScale);
 }
+/** Where `crossTileID` sits within one `SymbolInstanceArray` element, counted in uint32s. */
+const CROSS_TILE_ID_UINT32_OFFSET = symbolInstance.members.find((member) => member.name === "crossTileID").offset / 4;
 var Placement = class {
 	constructor(transform, terrain, fadeDuration, crossSourceCollisions, prevPlacement) {
 		this.transform = transform.clone();
@@ -8414,6 +8572,7 @@ var Placement = class {
 		this.collisionGroups = new CollisionGroups(crossSourceCollisions);
 		this.collisionCircleArrays = {};
 		this.collisionBoxArrays = /* @__PURE__ */ new Map();
+		this.lastOpacityInputs = /* @__PURE__ */ new WeakMap();
 		this.prevPlacement = prevPlacement;
 		if (prevPlacement) prevPlacement.prevPlacement = void 0;
 		this.placedOrientations = {};
@@ -8822,14 +8981,54 @@ var Placement = class {
 		if (placementChanged) this.lastPlacementChangeTime = now;
 		else if (typeof this.lastPlacementChangeTime !== "number") this.lastPlacementChangeTime = prevPlacement ? prevPlacement.lastPlacementChangeTime : now;
 	}
+	/** Writes the opacity buffers of `styleLayer`, skipping buckets a rewrite would leave as they are. */
 	updateLayerOpacities(styleLayer, tiles) {
 		const seenCrossTileIDs = {};
 		for (const tile of tiles) {
 			const symbolBucket = tile.getBucket(styleLayer);
-			if (symbolBucket && tile.latestFeatureIndex && styleLayer.id === symbolBucket.layerIds[0]) this.updateBucketOpacities(symbolBucket, tile.tileID, seenCrossTileIDs, tile.collisionBoxArray);
+			if (!symbolBucket || !tile.latestFeatureIndex || styleLayer.id !== symbolBucket.layerIds[0]) continue;
+			const { duplicates, changed } = this._markDuplicates(symbolBucket, seenCrossTileIDs);
+			const hasDebugOutput = Boolean(symbolBucket.hasDebugData()) || symbolBucket.bucketInstanceId in this.collisionCircleArrays;
+			if (changed || hasDebugOutput) this.updateBucketOpacities(symbolBucket, tile.tileID, duplicates, tile.collisionBoxArray);
+			symbolBucket.sortFeatures(-this.transform.bearingInRadians);
+			if (this.retainedQueryData[symbolBucket.bucketInstanceId]) this.retainedQueryData[symbolBucket.bucketInstanceId].featureSortOrder = symbolBucket.featureSortOrder;
 		}
 	}
-	updateBucketOpacities(bucket, tileID, seenCrossTileIDs, collisionBoxArray) {
+	/**
+	* Marks the bucket's symbols whose label an earlier bucket already draws, and claims the rest in `seenCrossTileIDs`.
+	* `changed` is false when the marks match the last call, which means the buffers are already up to date.
+	*/
+	_markDuplicates(bucket, seenCrossTileIDs) {
+		const length = bucket.symbolInstances.length;
+		let inputs = this.lastOpacityInputs.get(bucket);
+		let changed = false;
+		if (!inputs) {
+			inputs = {
+				crossTileIDs: new Array(length).fill(0),
+				duplicates: new Array(length).fill(false)
+			};
+			this.lastOpacityInputs.set(bucket, inputs);
+			changed = true;
+		}
+		const { crossTileIDs, duplicates } = inputs;
+		const uint32 = bucket.symbolInstances.uint32;
+		const stride = bucket.symbolInstances.bytesPerElement / 4;
+		for (let s = 0; s < length; s++) {
+			const crossTileID = uint32[s * stride + CROSS_TILE_ID_UINT32_OFFSET];
+			const duplicate = Boolean(seenCrossTileIDs[crossTileID]);
+			seenCrossTileIDs[crossTileID] = true;
+			if (crossTileIDs[s] !== crossTileID || duplicates[s] !== duplicate) {
+				crossTileIDs[s] = crossTileID;
+				duplicates[s] = duplicate;
+				changed = true;
+			}
+		}
+		return {
+			duplicates,
+			changed
+		};
+	}
+	updateBucketOpacities(bucket, tileID, duplicates, collisionBoxArray) {
 		if (bucket.hasTextData()) {
 			bucket.text.opacityVertexArray.clear();
 			bucket.text.hasVisibleVertices = false;
@@ -8853,20 +9052,19 @@ var Placement = class {
 		if (!bucket.collisionArrays && collisionBoxArray && (bucket.hasIconCollisionBoxData() || bucket.hasTextCollisionBoxData())) bucket.deserializeCollisionBoxes(collisionBoxArray);
 		const addOpacities = (iconOrText, numVertices, opacity) => {
 			for (let i = 0; i < numVertices / 4; i++) iconOrText.opacityVertexArray.emplaceBack(opacity);
-			iconOrText.hasVisibleVertices ||= opacity !== PACKED_HIDDEN_OPACITY;
+			iconOrText.hasVisibleVertices ||= opacity !== 0;
 		};
 		const boxArrays = this.collisionBoxArrays.get(bucket.bucketInstanceId);
 		for (let s = 0; s < bucket.symbolInstances.length; s++) {
 			const symbolInstance = bucket.symbolInstances.get(s);
 			const { numHorizontalGlyphVertices, numVerticalGlyphVertices, crossTileID } = symbolInstance;
-			const isDuplicate = seenCrossTileIDs[crossTileID];
+			const isDuplicate = duplicates[s];
 			let opacityState = this.opacities[crossTileID];
 			if (isDuplicate) opacityState = duplicateOpacityState;
 			else if (!opacityState) {
 				opacityState = defaultOpacityState;
 				this.opacities[crossTileID] = opacityState;
 			}
-			seenCrossTileIDs[crossTileID] = true;
 			const hasText = numHorizontalGlyphVertices > 0 || numVerticalGlyphVertices > 0;
 			const hasIcon = symbolInstance.numIconVertices > 0;
 			const placedOrientation = this.placedOrientations[symbolInstance.crossTileID];
@@ -8874,9 +9072,9 @@ var Placement = class {
 			const verticalHidden = placedOrientation === 1 || placedOrientation === 3;
 			if (hasText) {
 				const packedOpacity = packOpacity(opacityState.text);
-				const horizontalOpacity = horizontalHidden ? PACKED_HIDDEN_OPACITY : packedOpacity;
+				const horizontalOpacity = horizontalHidden ? 0 : packedOpacity;
 				addOpacities(bucket.text, numHorizontalGlyphVertices, horizontalOpacity);
-				const verticalOpacity = verticalHidden ? PACKED_HIDDEN_OPACITY : packedOpacity;
+				const verticalOpacity = verticalHidden ? 0 : packedOpacity;
 				addOpacities(bucket.text, numVerticalGlyphVertices, verticalOpacity);
 				const symbolHidden = opacityState.text.isHidden();
 				const textSymbolIndexes = [
@@ -8898,12 +9096,12 @@ var Placement = class {
 				const packedOpacity = packOpacity(opacityState.icon);
 				const useHorizontal = !(hasIconTextFit && symbolInstance.verticalPlacedIconSymbolIndex && horizontalHidden);
 				if (symbolInstance.placedIconSymbolIndex >= 0) {
-					const horizontalOpacity = useHorizontal ? packedOpacity : PACKED_HIDDEN_OPACITY;
+					const horizontalOpacity = useHorizontal ? packedOpacity : 0;
 					addOpacities(bucket.icon, symbolInstance.numIconVertices, horizontalOpacity);
 					bucket.icon.placedSymbolArray.get(symbolInstance.placedIconSymbolIndex).hidden = opacityState.icon.isHidden();
 				}
 				if (symbolInstance.verticalPlacedIconSymbolIndex >= 0) {
-					const verticalOpacity = !useHorizontal ? packedOpacity : PACKED_HIDDEN_OPACITY;
+					const verticalOpacity = !useHorizontal ? packedOpacity : 0;
 					addOpacities(bucket.icon, symbolInstance.numVerticalIconVertices, verticalOpacity);
 					bucket.icon.placedSymbolArray.get(symbolInstance.verticalPlacedIconSymbolIndex).hidden = opacityState.icon.isHidden();
 				}
@@ -8942,8 +9140,6 @@ var Placement = class {
 				}
 			}
 		}
-		bucket.sortFeatures(-this.transform.bearingInRadians);
-		if (this.retainedQueryData[bucket.bucketInstanceId]) this.retainedQueryData[bucket.bucketInstanceId].featureSortOrder = bucket.featureSortOrder;
 		if (bucket.hasTextData() && bucket.text.opacityVertexBuffer) bucket.text.opacityVertexBuffer.updateData(bucket.text.opacityVertexArray);
 		if (bucket.hasIconData() && bucket.icon.opacityVertexBuffer) bucket.icon.opacityVertexBuffer.updateData(bucket.icon.opacityVertexArray);
 		if (bucket.hasIconCollisionBoxData() && bucket.iconCollisionBox.collisionVertexBuffer) bucket.iconCollisionBox.collisionVertexBuffer.updateData(bucket.iconCollisionBox.collisionVertexArray);
@@ -8998,12 +9194,12 @@ const shift8 = Math.pow(2, 8);
 const shift1 = Math.pow(2, 1);
 function packOpacity(opacityState) {
 	if (opacityState.opacity === 0 && !opacityState.placed) return 0;
-	else if (opacityState.opacity === 1 && opacityState.placed) return 4294967295;
+	else if (opacityState.opacity === 1 && opacityState.placed) return PACKED_VISIBLE_OPACITY;
 	const targetBit = opacityState.placed ? 1 : 0;
 	const opacityBits = Math.floor(opacityState.opacity * 127);
 	return opacityBits * shift25 + targetBit * shift24 + opacityBits * shift17 + targetBit * shift16 + opacityBits * shift9 + targetBit * shift8 + opacityBits * shift1 + targetBit;
 }
-const PACKED_HIDDEN_OPACITY = 0;
+const PACKED_VISIBLE_OPACITY = 4294967295;
 //#endregion
 //#region src/style/pauseable_placement.ts
 var LayerPlacement = class {
@@ -9584,13 +9780,13 @@ var _prelude_vertex_glsl_g_default = "#ifdef GL_ES\nprecision highp float;\n#els
 var background_fragment_glsl_g_default = "uniform vec4 u_color;uniform float u_opacity;void main() {fragColor=u_color*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}";
 //#endregion
 //#region src/shaders/glsl/background.vertex.glsl.g.ts
-var background_vertex_glsl_g_default = "layout(location=0) in vec2 a_pos;void main() {gl_Position=projectTile(a_pos);}";
+var background_vertex_glsl_g_default = "layout(location=0) in vec2 a_pos;void main() {gl_Position=projectTile(a_pos,a_pos);}";
 //#endregion
 //#region src/shaders/glsl/background_pattern.fragment.glsl.g.ts
 var background_pattern_fragment_glsl_g_default = "uniform vec2 u_pattern_tl_a;uniform vec2 u_pattern_br_a;uniform vec2 u_pattern_tl_b;uniform vec2 u_pattern_br_b;uniform vec2 u_texsize;uniform float u_mix;uniform float u_opacity;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;void main() {vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(u_pattern_tl_a/u_texsize,u_pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(u_pattern_tl_b/u_texsize,u_pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);fragColor=mix(color1,color2,u_mix)*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}";
 //#endregion
 //#region src/shaders/glsl/background_pattern.vertex.glsl.g.ts
-var background_pattern_vertex_glsl_g_default = "uniform vec2 u_pattern_size_a;uniform vec2 u_pattern_size_b;uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform float u_scale_a;uniform float u_scale_b;uniform float u_tile_units_to_pixels;layout(location=0) in vec2 a_pos;out vec2 v_pos_a;out vec2 v_pos_b;void main() {gl_Position=projectTile(a_pos);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,u_scale_a*u_pattern_size_a,u_tile_units_to_pixels,a_pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,u_scale_b*u_pattern_size_b,u_tile_units_to_pixels,a_pos);}";
+var background_pattern_vertex_glsl_g_default = "uniform vec2 u_pattern_size_a;uniform vec2 u_pattern_size_b;uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform float u_scale_a;uniform float u_scale_b;uniform float u_tile_units_to_pixels;layout(location=0) in vec2 a_pos;out vec2 v_pos_a;out vec2 v_pos_b;void main() {gl_Position=projectTile(a_pos,a_pos);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,u_scale_a*u_pattern_size_a,u_tile_units_to_pixels,a_pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,u_scale_b*u_pattern_size_b,u_tile_units_to_pixels,a_pos);}";
 //#endregion
 //#region src/shaders/glsl/circle.fragment.glsl.g.ts
 var circle_fragment_glsl_g_default = "in vec3 v_data;flat in float v_visibility;\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define mediump float radius\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 stroke_color\n#pragma maplibre: define mediump float stroke_width\n#pragma maplibre: define lowp float stroke_opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump float radius\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 stroke_color\n#pragma maplibre: initialize mediump float stroke_width\n#pragma maplibre: initialize lowp float stroke_opacity\nvec2 extrude=v_data.xy;float extrude_length=length(extrude);float antialiased_blur=v_data.z;float opacity_t=smoothstep(0.0,antialiased_blur,extrude_length-1.0);float color_t=stroke_width < 0.01 ? 0.0 : smoothstep(antialiased_blur,0.0,extrude_length-radius/(radius+stroke_width));fragColor=v_visibility*opacity_t*mix(color*opacity,stroke_color*stroke_opacity,color_t);const float epsilon=0.5/255.0;if (fragColor.r < epsilon && fragColor.g < epsilon && fragColor.b < epsilon && fragColor.a < epsilon) {discard;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}";
@@ -9609,7 +9805,7 @@ const shaders = {
 	background: prepare(background_fragment_glsl_g_default, background_vertex_glsl_g_default),
 	backgroundPattern: prepare(background_pattern_fragment_glsl_g_default, background_pattern_vertex_glsl_g_default),
 	circle: prepare(circle_fragment_glsl_g_default, circle_vertex_glsl_g_default),
-	clippingMask: prepare(clipping_mask_fragment_glsl_g_default, "layout(location=0) in vec2 a_pos;void main() {gl_Position=projectTile(a_pos);}"),
+	clippingMask: prepare(clipping_mask_fragment_glsl_g_default, "layout(location=0) in vec2 a_pos;void main() {gl_Position=projectTile(a_pos,a_pos);}"),
 	heatmap: prepare("uniform highp float u_intensity;in vec2 v_extrude;\n#pragma maplibre: define highp float weight\n#define GAUSS_COEF 0.3989422804014327\nvoid main() {\n#pragma maplibre: initialize highp float weight\nfloat d=-0.5*3.0*3.0*dot(v_extrude,v_extrude);float val=weight*u_intensity*GAUSS_COEF*exp(d);fragColor=vec4(val,1.0,1.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform float u_extrude_scale;uniform float u_opacity;uniform float u_intensity;uniform highp float u_globe_extrude_scale;layout(location=0) in ivec2 a_pos;out vec2 v_extrude;\n#pragma maplibre: define highp float weight\n#pragma maplibre: define mediump float radius\nconst highp float ZERO=1.0/255.0/16.0;\n#define GAUSS_COEF 0.3989422804014327\nvoid main(void) {\n#pragma maplibre: initialize highp float weight\n#pragma maplibre: initialize mediump float radius\nivec2 pos_raw=a_pos+32768;vec2 unscaled_extrude=vec2(pos_raw & 7)/7.0*2.0-1.0;float S=sqrt(-2.0*log(ZERO/weight/u_intensity/GAUSS_COEF))/3.0;v_extrude=S*unscaled_extrude;vec2 extrude=v_extrude*radius*u_extrude_scale;vec2 circle_center=vec2(pos_raw >> 3);\n#ifdef GLOBE\nvec2 angles=v_extrude*radius*u_globe_extrude_scale;vec3 center_vector=projectToSphere(circle_center);vec3 corner_vector=globeRotateVector(center_vector,angles);gl_Position=interpolateProjection(circle_center+extrude,corner_vector,0.0);\n#else\ngl_Position=projectTileFor3D(circle_center+extrude,get_elevation(circle_center));\n#endif\n}"),
 	heatmapTexture: prepare("uniform sampler2D u_image;uniform sampler2D u_color_ramp;uniform float u_opacity;in vec2 v_pos;void main() {float t=texture(u_image,v_pos).r;vec4 color=texture(u_color_ramp,vec2(t,0.5));fragColor=color*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(0.0);\n#endif\n}", "uniform mat4 u_matrix;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=u_matrix*vec4(a_pos*u_world_size,0,1);v_pos.x=a_pos.x;v_pos.y=1.0-a_pos.y;}"),
 	collisionBox: prepare("flat in float v_placed;flat in float v_notUsed;void main() {float alpha=0.5;fragColor=vec4(1.0,0.0,0.0,1.0)*alpha;if (v_placed > 0.5) {fragColor=vec4(0.0,0.0,1.0,0.5)*alpha;}if (v_notUsed > 0.5) {fragColor*=.1;}}", "layout(location=0) in vec2 a_anchor_pos;layout(location=1) in vec2 a_placed;layout(location=2) in vec2 a_box_real;flat out float v_placed;flat out float v_notUsed;void main() {gl_Position=projectTileWithElevation(a_anchor_pos,get_elevation(a_anchor_pos));gl_Position.xy=((a_box_real+0.5)*u_pixel_extrude_scale*2.0-1.0)*vec2(1.0,-1.0)*gl_Position.w;if (gl_Position.z/gl_Position.w < 1.1) {gl_Position.z=0.5;}v_placed=a_placed.x;v_notUsed=a_placed.y;}"),
@@ -9621,15 +9817,15 @@ const shaders = {
 	fillOutline: prepare("in vec2 v_pos;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 outline_color\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 outline_color\n#pragma maplibre: initialize lowp float opacity\nfloat dist=length(v_pos-gl_FragCoord.xy);float alpha=1.0-smoothstep(0.0,1.0,dist);fragColor=outline_color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;out vec2 v_pos;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 outline_color\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 outline_color\n#pragma maplibre: initialize lowp float opacity\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}gl_Position=projectTile(a_pos+u_fill_translate,a_pos);v_pos=(gl_Position.xy/gl_Position.w+1.0)/2.0*u_world_size;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n}"),
 	fillOutlinePattern: prepare("uniform vec2 u_texsize;uniform sampler2D u_image;uniform float u_fade;uniform bool u_sdf_pattern;in vec2 v_pos_a;in vec2 v_pos_b;in vec2 v_pos;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);float dist=length(v_pos-gl_FragCoord.xy);float alpha=1.0-smoothstep(0.0,1.0,dist);if (u_sdf_pattern) {highp float sdf_edge=(256.0-64.0)/256.0;highp float sdf_gamma_a=max(fwidth(color1.a)*0.5,1.0/255.0/16.0);highp float sdf_gamma_b=max(fwidth(color2.a)*0.5,1.0/255.0/16.0);float sdf_alpha_a=smoothstep(sdf_edge-sdf_gamma_a,sdf_edge+sdf_gamma_a,color1.a);float sdf_alpha_b=smoothstep(sdf_edge-sdf_gamma_b,sdf_edge+sdf_gamma_b,color2.a);fragColor=mix(color*sdf_alpha_a,color*sdf_alpha_b,u_fade)*alpha*opacity;} else {fragColor=mix(color1,color2,u_fade)*alpha*opacity;}\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform vec3 u_scale;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;out vec2 v_pos_a;out vec2 v_pos_b;out vec2 v_pos;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;gl_Position=projectTile(a_pos+u_fill_translate,a_pos);vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileRatio,a_pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileRatio,a_pos);v_pos=(gl_Position.xy/gl_Position.w+1.0)/2.0*u_world_size;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n}"),
 	fillPattern: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform vec2 u_texsize;uniform float u_fade;uniform bool u_sdf_pattern;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);if (u_sdf_pattern) {highp float sdf_edge=(256.0-64.0)/256.0;highp float sdf_gamma_a=max(fwidth(color1.a)*0.5,1.0/255.0/16.0);highp float sdf_gamma_b=max(fwidth(color2.a)*0.5,1.0/255.0/16.0);float sdf_alpha_a=smoothstep(sdf_edge-sdf_gamma_a,sdf_edge+sdf_gamma_a,color1.a);float sdf_alpha_b=smoothstep(sdf_edge-sdf_gamma_b,sdf_edge+sdf_gamma_b,color2.a);fragColor=mix(color*sdf_alpha_a,color*sdf_alpha_b,u_fade)*opacity;} else {fragColor=mix(color1,color2,u_fade)*opacity;}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform vec3 u_scale;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;out vec2 v_pos_a;out vec2 v_pos_b;\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileZoomRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;gl_Position=projectTile(a_pos+u_fill_translate,a_pos);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileZoomRatio,a_pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileZoomRatio,a_pos);}"),
-	fillExtrusion: prepare("in vec4 v_color;void main() {fragColor=v_color;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;layout(location=1) in ivec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\nout vec4 v_color;\n#pragma maplibre: define highp float base\n#pragma maplibre: define highp float height\n#pragma maplibre: define highp vec4 color\nvoid main() {\n#pragma maplibre: initialize highp float base\n#pragma maplibre: initialize highp float height\n#pragma maplibre: initialize highp vec4 color\nvec3 normal=vec3(a_normal_ed.xyz);float gradient_base=max(0.0,base);float gradient_height=max(0.0,height);\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=float(a_normal_ed.x & 1);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nfloat colorvalue=color.r*0.2126+color.g*0.7152+color.b*0.0722;v_color=vec4(0.0,0.0,0.0,1.0);vec4 ambientlight=vec4(0.03,0.03,0.03,1.0);color+=ambientlight;vec3 normalForLighting=normal/16384.0;float directional=clamp(dot(normalForLighting,u_lightpos),0.0,1.0);\n#ifdef GLOBE\nmat3 rotMatrix=globeGetRotationMatrix(spherePos);normalForLighting=rotMatrix*normalForLighting;directional=mix(directional,clamp(dot(normalForLighting,u_lightpos_globe),0.0,1.0),u_projection_transition);\n#endif\ndirectional=mix((1.0-u_lightintensity),max((1.0-colorvalue+u_lightintensity),1.0),directional);if (normal.y !=0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+gradient_base)*pow(gradient_height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_color.r+=clamp(color.r*directional*u_lightcolor.r,mix(0.0,0.3,1.0-u_lightcolor.r),1.0);v_color.g+=clamp(color.g*directional*u_lightcolor.g,mix(0.0,0.3,1.0-u_lightcolor.g),1.0);v_color.b+=clamp(color.b*directional*u_lightcolor.b,mix(0.0,0.3,1.0-u_lightcolor.b),1.0);v_color*=u_opacity;}"),
-	fillExtrusionPattern: prepare("uniform vec2 u_texsize;uniform float u_fade;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;in vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);vec4 mixedColor=mix(color1,color2,u_fade);fragColor=mixedColor*v_lighting;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform float u_height_factor;uniform vec3 u_scale;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;layout(location=0) in vec2 a_pos;layout(location=1) in ivec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\n#ifdef GLOBE\nout vec3 v_sphere_pos;\n#endif\nout vec2 v_pos_a;out vec2 v_pos_b;out vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec3 normal=vec3(a_normal_ed.xyz);float edgedistance=float(a_normal_ed.w);vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;float gradient_base=max(0.0,base);float gradient_height=max(0.0,height);\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=float(a_normal_ed.x & 1);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);v_sphere_pos=elevatedPos;gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nvec2 pos=a_normal_ed.x==1 && a_normal_ed.y==0 && a_normal_ed.z==16384\n? a_pos\n: vec2(edgedistance,elevation*u_height_factor);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileRatio,pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileRatio,pos);v_lighting=vec4(0.0,0.0,0.0,1.0);float directional=clamp(dot(normal/16383.0,u_lightpos),0.0,1.0);directional=mix((1.0-u_lightintensity),max((0.5+u_lightintensity),1.0),directional);if (normal.y !=0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+gradient_base)*pow(gradient_height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_lighting.rgb+=clamp(directional*u_lightcolor,mix(vec3(0.0),vec3(0.3),1.0-u_lightcolor),vec3(1.0));v_lighting*=u_opacity;}"),
-	hillshadePrepare: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D u_image;in vec2 v_pos;uniform vec2 u_dimension;uniform float u_zoom;uniform vec4 u_unpack;float getElevation(ivec2 texel) {vec4 data=texelFetch(u_image,texel,0)*255.0;data.a=-1.0;return dot(data,u_unpack);}void main() {ivec2 pos=ivec2(gl_FragCoord.xy)+ivec2(1);float tileSize=u_dimension.x-4.0;float a=getElevation(pos+ivec2(-1,-1));float b=getElevation(pos+ivec2(0,-1));float c=getElevation(pos+ivec2(1,-1));float d=getElevation(pos+ivec2(-1,0));float e=getElevation(pos);float f=getElevation(pos+ivec2(1,0));float g=getElevation(pos+ivec2(-1,1));float h=getElevation(pos+ivec2(0,1));float i=getElevation(pos+ivec2(1,1));float exaggerationFactor=u_zoom < 2.0 ? 0.4 : u_zoom < 4.5 ? 0.35 : 0.3;float exaggeration=u_zoom < 15.0 ? (u_zoom-15.0)*exaggerationFactor : 0.0;vec2 deriv=vec2((c+f+f+i)-(a+d+d+g),(g+h+h+i)-(a+b+b+c))*tileSize/pow(2.0,exaggeration+(28.2562-u_zoom));fragColor=clamp(vec4(deriv.x/8.0+0.5,deriv.y/8.0+0.5,1.0,1.0),0.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;uniform vec2 u_dimension;layout(location=0) in vec2 a_pos;layout(location=1) in vec2 a_texture_pos;out vec2 v_pos;void main() {gl_Position=u_matrix*vec4(a_pos,0,1);highp vec2 epsilon=1.0/u_dimension;float scale=(u_dimension.x-2.0)/u_dimension.x;v_pos=(a_texture_pos/8192.0)*scale+epsilon;}"),
-	hillshade: prepare("uniform sampler2D u_image;in highp vec2 v_pos;uniform vec2 u_latrange;uniform float u_exaggeration;uniform vec4 u_accent;uniform int u_method;uniform float u_altitudes[NUM_ILLUMINATION_SOURCES];uniform float u_azimuths[NUM_ILLUMINATION_SOURCES];uniform vec4 u_shadows[NUM_ILLUMINATION_SOURCES];uniform vec4 u_highlights[NUM_ILLUMINATION_SOURCES];\n#define PI 3.141592653589793\n#define STANDARD 0\n#define COMBINED 1\n#define IGOR 2\n#define MULTIDIRECTIONAL 3\n#define BASIC 4\nfloat get_aspect(vec2 deriv){return deriv.x !=0.0 ? atan(deriv.y,-deriv.x) : PI/2.0*(deriv.y > 0.0 ? 1.0 :-1.0);}void igor_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float aspect=get_aspect(deriv);float azimuth=u_azimuths[0]+PI;float slope_stength=atan(length(deriv))*2.0/PI;float aspect_strength=1.0-abs(mod((aspect+azimuth)/PI+0.5,2.0)-1.0);float shadow_strength=slope_stength*aspect_strength;float highlight_strength=slope_stength*(1.0-aspect_strength);fragColor=u_shadows[0]*shadow_strength+u_highlights[0]*highlight_strength;}void standard_hillshade(vec2 deriv){float azimuth=u_azimuths[0]+PI;float slope=atan(0.625*length(deriv));float aspect=get_aspect(deriv);float intensity=u_exaggeration;float base=1.875-intensity*1.75;float maxValue=0.5*PI;float scaledSlope=intensity !=0.5 ? ((pow(base,slope)-1.0)/(pow(base,maxValue)-1.0))*maxValue : slope;float accent=cos(scaledSlope);vec4 accent_color=(1.0-accent)*u_accent*clamp(intensity*2.0,0.0,1.0);float shade=abs(mod((aspect+azimuth)/PI+0.5,2.0)-1.0);vec4 shade_color=mix(u_shadows[0],u_highlights[0],shade)*sin(scaledSlope)*clamp(intensity*2.0,0.0,1.0);fragColor=accent_color*(1.0-shade_color.a)+shade_color;}void basic_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float azimuth=u_azimuths[0]+PI;float cos_az=cos(azimuth);float sin_az=sin(azimuth);float cos_alt=cos(u_altitudes[0]);float sin_alt=sin(u_altitudes[0]);float cang=(sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv));float shade=clamp(cang,0.0,1.0);if(shade > 0.5){fragColor=u_highlights[0]*(2.0*shade-1.0);}else\n{fragColor=u_shadows[0]*(1.0-2.0*shade);}}void multidirectional_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;fragColor=vec4(0,0,0,0);for(int i=0; i < NUM_ILLUMINATION_SOURCES; i++){float cos_alt=cos(u_altitudes[i]);float sin_alt=sin(u_altitudes[i]);float cos_az=-cos(u_azimuths[i]);float sin_az=-sin(u_azimuths[i]);float cang=(sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv));float shade=clamp(cang,0.0,1.0);if(shade > 0.5){fragColor+=u_highlights[i]*(2.0*shade-1.0)/float(NUM_ILLUMINATION_SOURCES);}else\n{fragColor+=u_shadows[i]*(1.0-2.0*shade)/float(NUM_ILLUMINATION_SOURCES);}}}void combined_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float azimuth=u_azimuths[0]+PI;float cos_az=cos(azimuth);float sin_az=sin(azimuth);float cos_alt=cos(u_altitudes[0]);float sin_alt=sin(u_altitudes[0]);float cang=acos((sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv)));cang=clamp(cang,0.0,PI/2.0);float shade=cang*atan(length(deriv))*4.0/PI/PI;float highlight=(PI/2.0-cang)*atan(length(deriv))*4.0/PI/PI;fragColor=u_shadows[0]*shade+u_highlights[0]*highlight;}void main() {highp vec2 size=vec2(textureSize(u_image,0));highp vec2 texturePos=(v_pos*(size-2.0)+1.0)/size;vec4 pixel=texture(u_image,texturePos);float scaleFactor=cos(radians((u_latrange[0]-u_latrange[1])*(1.0-v_pos.y)+u_latrange[1]));vec2 deriv=((pixel.rg*8.0)-4.0)/scaleFactor;if (u_method==BASIC) {basic_hillshade(deriv);} else if (u_method==COMBINED) {combined_hillshade(deriv);} else if (u_method==IGOR) {igor_hillshade(deriv);} else if (u_method==MULTIDIRECTIONAL) {multidirectional_hillshade(deriv);} else if (u_method==STANDARD) {standard_hillshade(deriv);} else {standard_hillshade(deriv);}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=projectTile(a_pos,a_pos);v_pos=a_pos/8192.0;if (a_pos.y <-32767.5) {v_pos.y=0.0;}if (a_pos.y > 32766.5) {v_pos.y=1.0;}}"),
-	line: prepare("flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp float v_linesofar;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);v_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*2.0;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
-	lineGradient: prepare("uniform sampler2D u_image;flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in float a_uv_x;layout(location=3) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform float u_image_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);highp float texel_height=1.0/u_image_height;highp float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
-	linePattern: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform vec2 u_texsize;uniform float u_fade;uniform mediump vec3 u_scale;uniform sampler2D u_image;in vec2 v_normal;flat in vec2 v_width2;in float v_linesofar;in float v_gamma_scale;flat in float v_width;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileZoomRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;vec2 pattern_size_a=vec2(display_size_a.x*fromScale/tileZoomRatio,display_size_a.y);vec2 pattern_size_b=vec2(display_size_b.x*toScale/tileZoomRatio,display_size_b.y);float aspect_a=display_size_a.y/v_width;float aspect_b=display_size_b.y/v_width;float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float x_a=mod(v_linesofar/pattern_size_a.x*aspect_a,1.0);float x_b=mod(v_linesofar/pattern_size_b.x*aspect_b,1.0);float y=0.5*v_normal.y+0.5;vec2 texel_size=1.0/u_texsize;vec2 pos_a=mix(pattern_tl_a*texel_size-texel_size,pattern_br_a*texel_size+texel_size,vec2(x_a,y));vec2 pos_b=mix(pattern_tl_b*texel_size-texel_size,pattern_br_b*texel_size+texel_size,vec2(x_b,y));vec4 color=mix(texture(u_image,pos_a),texture(u_image,pos_b),u_fade);fragColor=color*alpha*opacity;\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_linesofar;out float v_gamma_scale;flat out float v_width;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_linesofar=a_linesofar;v_width2=vec2(outset,inset);v_width=floorwidth;}"),
-	lineSDF: prepare("uniform lowp float u_lineatlas_width;uniform sampler2D u_image;uniform float u_mix;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float sdfdist_a=texture(u_image,v_tex_a).a;float sdfdist_b=texture(u_image,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0/u_device_pixel_ratio)/min(dasharray_from.w,dasharray_to.w);alpha*=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;uniform vec2 u_translation;uniform mediump float u_ratio;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out vec2 v_tex_a;out vec2 v_tex_b;out float v_gamma_scale;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
-	lineGradientSDF: prepare("uniform sampler2D u_image;uniform sampler2D u_image_dash;uniform float u_mix;uniform lowp float u_lineatlas_width;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);float sdfdist_a=texture(u_image_dash,v_tex_a).a;float sdfdist_b=texture(u_image_dash,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0)/min(dasharray_from.w,dasharray_to.w);float dash_alpha=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*dash_alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in float a_uv_x;layout(location=3) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform float u_image_height;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;out vec2 v_tex_a;out vec2 v_tex_b;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_direction=float(int(a_data.z & 3u)-1);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;float texel_height=1.0/u_image_height;float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump float u=0.5*a_direction;mediump float t=1.0-abs(u);mediump vec2 offset2=offset*a_extrude*scale*normal.y*mat2(t,-u,u,t);float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
+	fillExtrusion: prepare("in vec4 v_color;void main() {fragColor=v_color;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;layout(location=0) in vec2 a_pos;layout(location=1) in ivec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\nout vec4 v_color;\n#pragma maplibre: define highp float base\n#pragma maplibre: define highp float height\n#pragma maplibre: define highp vec4 color\nvoid main() {\n#pragma maplibre: initialize highp float base\n#pragma maplibre: initialize highp float height\n#pragma maplibre: initialize highp vec4 color\nvec3 normal=vec3(a_normal_ed.xyz);float gradient_base=max(0.0,base);float gradient_height=max(0.0,height);\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=float(a_normal_ed.x & 1);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nfloat colorvalue=color.r*0.2126+color.g*0.7152+color.b*0.0722;v_color=vec4(0.0,0.0,0.0,1.0);vec4 ambientlight=vec4(0.03,0.03,0.03,1.0);color+=ambientlight;vec3 normalForLighting=normal/16384.0;float directional=clamp(dot(normalForLighting,u_lightpos),0.0,1.0);\n#ifdef GLOBE\nmat3 rotMatrix=globeGetRotationMatrix(spherePos);normalForLighting=rotMatrix*normalForLighting;directional=mix(directional,clamp(dot(normalForLighting,u_lightpos_globe),0.0,1.0),u_projection_transition);\n#endif\ndirectional=mix((1.0-u_lightintensity),max((1.0-colorvalue+u_lightintensity),1.0),directional);if (normal.z==0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+gradient_base)*pow(gradient_height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_color.r+=clamp(color.r*directional*u_lightcolor.r,mix(0.0,0.3,1.0-u_lightcolor.r),1.0);v_color.g+=clamp(color.g*directional*u_lightcolor.g,mix(0.0,0.3,1.0-u_lightcolor.g),1.0);v_color.b+=clamp(color.b*directional*u_lightcolor.b,mix(0.0,0.3,1.0-u_lightcolor.b),1.0);v_color*=u_opacity;}"),
+	fillExtrusionPattern: prepare("uniform vec2 u_texsize;uniform float u_fade;uniform sampler2D u_image;in vec2 v_pos_a;in vec2 v_pos_b;in vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;vec2 imagecoord=mod(v_pos_a,1.0);vec2 pos=mix(pattern_tl_a/u_texsize,pattern_br_a/u_texsize,imagecoord);vec4 color1=texture(u_image,pos);vec2 imagecoord_b=mod(v_pos_b,1.0);vec2 pos2=mix(pattern_tl_b/u_texsize,pattern_br_b/u_texsize,imagecoord_b);vec4 color2=texture(u_image,pos2);vec4 mixedColor=mix(color1,color2,u_fade);fragColor=mixedColor*v_lighting;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_pixel_coord_upper;uniform vec2 u_pixel_coord_lower;uniform float u_height_factor;uniform vec3 u_scale;uniform float u_vertical_gradient;uniform lowp float u_opacity;uniform vec2 u_fill_translate;uniform vec3 u_lightcolor;uniform lowp vec3 u_lightpos;uniform lowp vec3 u_lightpos_globe;uniform lowp float u_lightintensity;layout(location=0) in vec2 a_pos;layout(location=1) in ivec4 a_normal_ed;\n#ifdef TERRAIN3D\nlayout(location=2) in vec2 a_centroid;\n#endif\n#ifdef GLOBE\nout vec3 v_sphere_pos;\n#endif\nout vec2 v_pos_a;out vec2 v_pos_b;out vec4 v_lighting;\n#pragma maplibre: define lowp float base\n#pragma maplibre: define lowp float height\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float base\n#pragma maplibre: initialize lowp float height\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nvec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec3 normal=vec3(a_normal_ed.xyz);float edgedistance=float(a_normal_ed.w);vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;float gradient_base=max(0.0,base);float gradient_height=max(0.0,height);\n#ifdef TERRAIN3D\nfloat height_terrain3d_offset=get_elevation(a_centroid);float base_terrain3d_offset=height_terrain3d_offset-(base > 0.0 ? 0.0 : 10.0);\n#else\nfloat height_terrain3d_offset=0.0;float base_terrain3d_offset=0.0;\n#endif\nbase=max(0.0,base)+base_terrain3d_offset;height=max(0.0,height)+height_terrain3d_offset;float t=float(a_normal_ed.x & 1);float elevation=t > 0.0 ? height : base;vec2 posInTile=a_pos+u_fill_translate;\n#ifdef GLOBE\nvec3 spherePos=projectToSphere(posInTile,a_pos);vec3 elevatedPos=spherePos*(1.0+elevation/GLOBE_RADIUS);v_sphere_pos=elevatedPos;gl_Position=interpolateProjectionFor3D(posInTile,spherePos,elevation);\n#else\ngl_Position=u_projection_matrix*vec4(posInTile,elevation,1.0);\n#endif\nvec2 pos=a_normal_ed.x==1 && a_normal_ed.y==0 && a_normal_ed.z==16384\n? a_pos\n: vec2(edgedistance,elevation*u_height_factor);v_pos_a=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,fromScale*display_size_a,tileRatio,pos);v_pos_b=get_pattern_pos(u_pixel_coord_upper,u_pixel_coord_lower,toScale*display_size_b,tileRatio,pos);v_lighting=vec4(0.0,0.0,0.0,1.0);float directional=clamp(dot(normal/16383.0,u_lightpos),0.0,1.0);directional=mix((1.0-u_lightintensity),max((0.5+u_lightintensity),1.0),directional);if (normal.z==0.0) {directional*=((1.0-u_vertical_gradient)+(u_vertical_gradient*clamp((t+gradient_base)*pow(gradient_height/150.0,0.5),mix(0.7,0.98,1.0-u_lightintensity),1.0)));}v_lighting.rgb+=clamp(directional*u_lightcolor,mix(vec3(0.0),vec3(0.3),1.0-u_lightcolor),vec3(1.0));v_lighting*=u_opacity;}"),
+	hillshadePrepare: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform sampler2D u_image;in vec2 v_pos;uniform vec2 u_dimension;uniform float u_zoom;uniform vec4 u_unpack;float getElevation(ivec2 texel) {vec4 data=texelFetch(u_image,texel,0)*255.0;data.a=-1.0;return dot(data,u_unpack);}void main() {ivec2 pos=ivec2(gl_FragCoord.xy)+ivec2(1);float tileSize=u_dimension.x-4.0;float a=getElevation(pos+ivec2(-1,-1));float b=getElevation(pos+ivec2(0,-1));float c=getElevation(pos+ivec2(1,-1));float d=getElevation(pos+ivec2(-1,0));float e=getElevation(pos);float f=getElevation(pos+ivec2(1,0));float g=getElevation(pos+ivec2(-1,1));float h=getElevation(pos+ivec2(0,1));float i=getElevation(pos+ivec2(1,1));float exaggerationFactor=u_zoom < 2.0 ? 0.4 : u_zoom < 4.5 ? 0.35 : 0.3;float exaggeration=u_zoom < 15.0 ? (u_zoom-15.0)*exaggerationFactor : 0.0;vec2 deriv=vec2((c+f+f+i)-(a+d+d+g),(g+h+h+i)-(a+b+b+c))*tileSize/pow(2.0,exaggeration+(28.2562-u_zoom));fragColor=clamp(vec4(deriv.x/8.0+128.0/255.0,deriv.y/8.0+128.0/255.0,1.0,1.0),0.0,1.0);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;uniform vec2 u_dimension;layout(location=0) in vec2 a_pos;layout(location=1) in vec2 a_texture_pos;out vec2 v_pos;void main() {gl_Position=u_matrix*vec4(a_pos,0,1);highp vec2 epsilon=1.0/u_dimension;float scale=(u_dimension.x-2.0)/u_dimension.x;v_pos=(a_texture_pos/8192.0)*scale+epsilon;}"),
+	hillshade: prepare("uniform sampler2D u_image;in highp vec2 v_pos;uniform vec2 u_latrange;uniform float u_exaggeration;uniform vec4 u_accent;uniform int u_method;uniform float u_altitudes[NUM_ILLUMINATION_SOURCES];uniform float u_azimuths[NUM_ILLUMINATION_SOURCES];uniform vec4 u_shadows[NUM_ILLUMINATION_SOURCES];uniform vec4 u_highlights[NUM_ILLUMINATION_SOURCES];\n#define PI 3.141592653589793\n#define STANDARD 0\n#define COMBINED 1\n#define IGOR 2\n#define MULTIDIRECTIONAL 3\n#define BASIC 4\nfloat get_aspect(vec2 deriv){return deriv.x !=0.0 ? atan(deriv.y,-deriv.x) : PI/2.0*(deriv.y > 0.0 ? 1.0 :-1.0);}void igor_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float aspect=get_aspect(deriv);float azimuth=u_azimuths[0]+PI;float slope_stength=atan(length(deriv))*2.0/PI;float aspect_strength=1.0-abs(mod((aspect+azimuth)/PI+0.5,2.0)-1.0);float shadow_strength=slope_stength*aspect_strength;float highlight_strength=slope_stength*(1.0-aspect_strength);fragColor=u_shadows[0]*shadow_strength+u_highlights[0]*highlight_strength;}void standard_hillshade(vec2 deriv){float azimuth=u_azimuths[0]+PI;float slope=atan(0.625*length(deriv));float aspect=get_aspect(deriv);float intensity=u_exaggeration;float base=1.875-intensity*1.75;float maxValue=0.5*PI;float scaledSlope=intensity !=0.5 ? ((pow(base,slope)-1.0)/(pow(base,maxValue)-1.0))*maxValue : slope;float accent=cos(scaledSlope);vec4 accent_color=(1.0-accent)*u_accent*clamp(intensity*2.0,0.0,1.0);float shade=abs(mod((aspect+azimuth)/PI+0.5,2.0)-1.0);vec4 shade_color=mix(u_shadows[0],u_highlights[0],shade)*sin(scaledSlope)*clamp(intensity*2.0,0.0,1.0);fragColor=accent_color*(1.0-shade_color.a)+shade_color;}void basic_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float azimuth=u_azimuths[0]+PI;float cos_az=cos(azimuth);float sin_az=sin(azimuth);float cos_alt=cos(u_altitudes[0]);float sin_alt=sin(u_altitudes[0]);float cang=(sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv));float shade=clamp(cang,0.0,1.0);if(shade > 0.5){fragColor=u_highlights[0]*(2.0*shade-1.0);}else\n{fragColor=u_shadows[0]*(1.0-2.0*shade);}}void multidirectional_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;fragColor=vec4(0,0,0,0);for(int i=0; i < NUM_ILLUMINATION_SOURCES; i++){float cos_alt=cos(u_altitudes[i]);float sin_alt=sin(u_altitudes[i]);float cos_az=-cos(u_azimuths[i]);float sin_az=-sin(u_azimuths[i]);float cang=(sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv));float shade=clamp(cang,0.0,1.0);if(shade > 0.5){fragColor+=u_highlights[i]*(2.0*shade-1.0)/float(NUM_ILLUMINATION_SOURCES);}else\n{fragColor+=u_shadows[i]*(1.0-2.0*shade)/float(NUM_ILLUMINATION_SOURCES);}}}void combined_hillshade(vec2 deriv){deriv=deriv*u_exaggeration*2.0;float azimuth=u_azimuths[0]+PI;float cos_az=cos(azimuth);float sin_az=sin(azimuth);float cos_alt=cos(u_altitudes[0]);float sin_alt=sin(u_altitudes[0]);float cang=acos((sin_alt-(deriv.y*cos_az*cos_alt-deriv.x*sin_az*cos_alt))/sqrt(1.0+dot(deriv,deriv)));cang=clamp(cang,0.0,PI/2.0);float shade=cang*atan(length(deriv))*4.0/PI/PI;float highlight=(PI/2.0-cang)*atan(length(deriv))*4.0/PI/PI;fragColor=u_shadows[0]*shade+u_highlights[0]*highlight;}void main() {highp vec2 size=vec2(textureSize(u_image,0));highp vec2 texturePos=(v_pos*(size-2.0)+1.0)/size;vec4 pixel=texture(u_image,texturePos);float scaleFactor=cos(radians((u_latrange[0]-u_latrange[1])*(1.0-v_pos.y)+u_latrange[1]));vec2 deriv=(pixel.rg-128.0/255.0)*8.0/scaleFactor;if (u_method==BASIC) {basic_hillshade(deriv);} else if (u_method==COMBINED) {combined_hillshade(deriv);} else if (u_method==IGOR) {igor_hillshade(deriv);} else if (u_method==MULTIDIRECTIONAL) {multidirectional_hillshade(deriv);} else if (u_method==STANDARD) {standard_hillshade(deriv);} else {standard_hillshade(deriv);}\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform mat4 u_matrix;layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=projectTile(a_pos,a_pos);v_pos=a_pos/8192.0;if (a_pos.y <-32767.5) {v_pos.y=0.0;}if (a_pos.y > 32766.5) {v_pos.y=1.0;}}"),
+	line: prepare("flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in vec2 a_offset_normal;uniform vec2 u_translation;uniform mediump float u_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp float v_linesofar;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);v_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*2.0;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump vec2 offset2=offset*a_offset_normal*scale*normal.y;float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
+	lineGradient: prepare("uniform sampler2D u_image;flat in vec2 v_width2;in vec2 v_normal;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in vec2 a_offset_normal;layout(location=3) in float a_uv_x;layout(location=4) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform float u_image_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);highp float texel_height=1.0/u_image_height;highp float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump vec2 offset2=offset*a_offset_normal*scale*normal.y;float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_width2=vec2(outset,inset);}"),
+	linePattern: prepare("#ifdef GL_ES\nprecision highp float;\n#endif\nuniform vec2 u_texsize;uniform float u_fade;uniform mediump vec3 u_scale;uniform sampler2D u_image;in vec2 v_normal;flat in vec2 v_width2;in float v_linesofar;in float v_gamma_scale;flat in float v_width;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\nclipAntimeridian();vec2 pattern_tl_a=pattern_from.xy;vec2 pattern_br_a=pattern_from.zw;vec2 pattern_tl_b=pattern_to.xy;vec2 pattern_br_b=pattern_to.zw;float tileZoomRatio=u_scale.x;float fromScale=u_scale.y;float toScale=u_scale.z;vec2 display_size_a=(pattern_br_a-pattern_tl_a)/pixel_ratio_from;vec2 display_size_b=(pattern_br_b-pattern_tl_b)/pixel_ratio_to;vec2 pattern_size_a=vec2(display_size_a.x*fromScale/tileZoomRatio,display_size_a.y);vec2 pattern_size_b=vec2(display_size_b.x*toScale/tileZoomRatio,display_size_b.y);float aspect_a=display_size_a.y/v_width;float aspect_b=display_size_b.y/v_width;float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float x_a=mod(v_linesofar/pattern_size_a.x*aspect_a,1.0);float x_b=mod(v_linesofar/pattern_size_b.x*aspect_b,1.0);float y=0.5*v_normal.y+0.5;vec2 texel_size=1.0/u_texsize;vec2 pos_a=mix(pattern_tl_a*texel_size-texel_size,pattern_br_a*texel_size+texel_size,vec2(x_a,y));vec2 pos_b=mix(pattern_tl_b*texel_size-texel_size,pattern_br_b*texel_size+texel_size,vec2(x_b,y));vec4 color=mix(texture(u_image,pos_a),texture(u_image,pos_b),u_fade);fragColor=color*alpha*opacity;\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in vec2 a_offset_normal;uniform vec2 u_translation;uniform mediump float u_ratio;out vec2 v_normal;flat out vec2 v_width2;out float v_linesofar;out float v_gamma_scale;flat out float v_width;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define lowp vec4 pattern_from\n#pragma maplibre: define lowp vec4 pattern_to\n#pragma maplibre: define lowp float pixel_ratio_from\n#pragma maplibre: define lowp float pixel_ratio_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 pattern_from\n#pragma maplibre: initialize mediump vec4 pattern_to\n#pragma maplibre: initialize lowp float pixel_ratio_from\n#pragma maplibre: initialize lowp float pixel_ratio_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump vec2 offset2=offset*a_offset_normal*scale*normal.y;float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nv_linesofar=a_linesofar;v_width2=vec2(outset,inset);v_width=floorwidth;}"),
+	lineSDF: prepare("uniform lowp float u_lineatlas_width;uniform sampler2D u_image;uniform float u_mix;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);float sdfdist_a=texture(u_image,v_tex_a).a;float sdfdist_b=texture(u_image,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0/u_device_pixel_ratio)/min(dasharray_from.w,dasharray_to.w);alpha*=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in vec2 a_offset_normal;uniform vec2 u_translation;uniform mediump float u_ratio;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out vec2 v_tex_a;out vec2 v_tex_b;out float v_gamma_scale;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define highp vec4 color\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize highp vec4 color\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump vec2 offset2=offset*a_offset_normal*scale*normal.y;float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
+	lineGradientSDF: prepare("uniform sampler2D u_image;uniform sampler2D u_image_dash;uniform float u_mix;uniform lowp float u_lineatlas_width;in vec2 v_normal;flat in vec2 v_width2;in vec2 v_tex_a;in vec2 v_tex_b;in float v_gamma_scale;in highp vec2 v_uv;\n#ifdef GLOBE\nin float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nclipAntimeridian();float dist=length(v_normal)*v_width2.s;float blur2=(blur+1.0/u_device_pixel_ratio)*v_gamma_scale;float alpha=clamp(min(dist-(v_width2.t-blur2),v_width2.s-dist)/blur2,0.0,1.0);vec4 color=texture(u_image,v_uv);float sdfdist_a=texture(u_image_dash,v_tex_a).a;float sdfdist_b=texture(u_image_dash,v_tex_b).a;float sdfdist=mix(sdfdist_a,sdfdist_b,u_mix);float sdfgamma=(u_lineatlas_width/256.0)/min(dasharray_from.w,dasharray_to.w);float dash_alpha=smoothstep(0.5-sdfgamma/floorwidth,0.5+sdfgamma/floorwidth,sdfdist);fragColor=color*(alpha*dash_alpha*opacity);\n#ifdef GLOBE\nif (v_depth > 1.0) {discard;}\n#endif\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "\n#define scale 0.015873016\n#define LINE_DISTANCE_SCALE 2.0\nlayout(location=0) in ivec2 a_pos_normal;layout(location=1) in uvec4 a_data;layout(location=2) in vec2 a_offset_normal;layout(location=3) in float a_uv_x;layout(location=4) in float a_split_index;uniform vec2 u_translation;uniform mediump float u_ratio;uniform float u_image_height;uniform float u_tileratio;uniform float u_crossfade_from;uniform float u_crossfade_to;uniform float u_lineatlas_height;out vec2 v_normal;flat out vec2 v_width2;out float v_gamma_scale;out highp vec2 v_uv;out vec2 v_tex_a;out vec2 v_tex_b;\n#ifdef GLOBE\nout float v_depth;\n#endif\n#pragma maplibre: define lowp float blur\n#pragma maplibre: define lowp float opacity\n#pragma maplibre: define mediump float gapwidth\n#pragma maplibre: define lowp float offset\n#pragma maplibre: define mediump float width\n#pragma maplibre: define lowp float floorwidth\n#pragma maplibre: define mediump vec4 dasharray_from\n#pragma maplibre: define mediump vec4 dasharray_to\nvoid main() {\n#pragma maplibre: initialize lowp float blur\n#pragma maplibre: initialize lowp float opacity\n#pragma maplibre: initialize mediump float gapwidth\n#pragma maplibre: initialize lowp float offset\n#pragma maplibre: initialize mediump float width\n#pragma maplibre: initialize lowp float floorwidth\n#pragma maplibre: initialize mediump vec4 dasharray_from\n#pragma maplibre: initialize mediump vec4 dasharray_to\nif (opacity < 0.01) {gl_Position=vec4(-2.0,-2.0,-2.0,1.0);return;}float ANTIALIASING=1.0/u_device_pixel_ratio/2.0;vec2 a_extrude=vec2(ivec2(a_data.xy)-128);float a_linesofar=float((a_data.z >> 2u)+a_data.w*64u)*LINE_DISTANCE_SCALE;float texel_height=1.0/u_image_height;float half_texel_height=0.5*texel_height;v_uv=vec2(a_uv_x,a_split_index*texel_height-half_texel_height);vec2 pos=vec2(a_pos_normal >> 1);mediump vec2 normal=vec2(a_pos_normal & 1);normal.y=normal.y*2.0-1.0;v_normal=normal;gapwidth=gapwidth/2.0;float halfwidth=width/2.0;offset=-1.0*offset;float inset=gapwidth+(gapwidth > 0.0 ? ANTIALIASING : 0.0);float outset=gapwidth+halfwidth*(gapwidth > 0.0 ? 2.0 : 1.0)+(halfwidth==0.0 ? 0.0 : ANTIALIASING);mediump vec2 dist=outset*a_extrude*scale;mediump vec2 offset2=offset*a_offset_normal*scale*normal.y;float adjustedThickness=projectLineThickness(pos.y);vec4 projected_no_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation);vec4 projected_with_extrude=projectTile(pos+offset2/u_ratio*adjustedThickness+u_translation+dist/u_ratio*adjustedThickness);gl_Position=projected_with_extrude;\n#ifdef GLOBE\nv_depth=gl_Position.z/gl_Position.w;\n#endif\n#ifdef TERRAIN3D\nv_gamma_scale=1.0;\n#else\nfloat extrude_length_without_perspective=length(dist);float extrude_length_with_perspective=length((projected_with_extrude.xy-projected_no_extrude.xy)/projected_with_extrude.w*u_units_to_pixels);v_gamma_scale=extrude_length_without_perspective/extrude_length_with_perspective;\n#endif\nfloat u_patternscale_a_x=u_tileratio/dasharray_from.w/u_crossfade_from;float u_patternscale_a_y=-dasharray_from.z/2.0/u_lineatlas_height;float u_patternscale_b_x=u_tileratio/dasharray_to.w/u_crossfade_to;float u_patternscale_b_y=-dasharray_to.z/2.0/u_lineatlas_height;v_tex_a=vec2(a_linesofar*u_patternscale_a_x/floorwidth,normal.y*u_patternscale_a_y+(float(dasharray_from.y)+0.5)/u_lineatlas_height);v_tex_b=vec2(a_linesofar*u_patternscale_b_x/floorwidth,normal.y*u_patternscale_b_y+(float(dasharray_to.y)+0.5)/u_lineatlas_height);v_width2=vec2(outset,inset);}"),
 	layerOpacity: prepare("uniform sampler2D u_image;uniform float u_opacity;in vec2 v_pos;void main() {fragColor=texture(u_image,v_pos)*u_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(0.0);\n#endif\n}", "layout(location=0) in vec2 a_pos;out vec2 v_pos;void main() {gl_Position=vec4(a_pos.x*2.0-1.0,1.0-a_pos.y*2.0,0.0,1.0);v_pos.x=a_pos.x;v_pos.y=1.0-a_pos.y;}"),
 	raster: prepare("uniform float u_fade_t;uniform float u_opacity;uniform sampler2D u_image0;uniform sampler2D u_image1;in vec3 v_pos0;in vec3 v_pos1;uniform float u_brightness_low;uniform float u_brightness_high;uniform float u_saturation_factor;uniform float u_contrast_factor;uniform vec3 u_spin_weights;void main() {vec4 color0=texture(u_image0,v_pos0.xy/v_pos0.z);vec4 color1=texture(u_image1,v_pos1.xy/v_pos1.z);if (color0.a > 0.0) {color0.rgb=color0.rgb/color0.a;}if (color1.a > 0.0) {color1.rgb=color1.rgb/color1.a;}vec4 color=mix(color0,color1,u_fade_t);color.a*=u_opacity;vec3 rgb=color.rgb;rgb=vec3(dot(rgb,u_spin_weights.xyz),dot(rgb,u_spin_weights.zxy),dot(rgb,u_spin_weights.yzx));float average=(color.r+color.g+color.b)/3.0;rgb+=(average-rgb)*u_saturation_factor;rgb=(rgb-0.5)*u_contrast_factor+0.5;vec3 u_high_vec=vec3(u_brightness_low,u_brightness_low,u_brightness_low);vec3 u_low_vec=vec3(u_brightness_high,u_brightness_high,u_brightness_high);fragColor=vec4(mix(u_high_vec,u_low_vec,rgb)*color.a,color.a);\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "uniform vec2 u_tl_parent;uniform float u_scale_parent;uniform float u_buffer_scale;uniform vec3 u_image_warp;uniform vec4 u_coords_top;uniform vec4 u_coords_bottom;layout(location=0) in vec2 a_pos;out vec3 v_pos0;out vec3 v_pos1;void main() {vec2 fractionalPos=a_pos/8192.0;vec2 topLeft=u_coords_top.xy;vec2 topRight=u_coords_top.zw;vec2 bottomLeft=u_coords_bottom.xy;vec2 bottomRight=u_coords_bottom.zw;vec2 bilinearPos=mix(mix(topLeft,topRight,fractionalPos.x),mix(bottomLeft,bottomRight,fractionalPos.x),fractionalPos.y);float denominator=dot(u_image_warp.xy,fractionalPos)+1.0;vec2 acrossTop=topRight-topLeft+u_image_warp.x*topRight;vec2 downLeft=bottomLeft-topLeft+u_image_warp.y*bottomLeft;vec2 projectivePos=(acrossTop*fractionalPos.x+downLeft*fractionalPos.y+topLeft)/denominator;vec2 position=mix(projectivePos,bilinearPos,u_image_warp.z);gl_Position=projectTile(position,position);vec2 texturePos=((fractionalPos-0.5)/u_buffer_scale)+0.5;\n#ifdef GLOBE\nif (a_pos.y <-32767.5) {texturePos.y=0.0;}if (a_pos.y > 32766.5) {texturePos.y=1.0;}\n#endif\nfloat perspectiveRatio=mix(1.0/denominator,1.0,u_image_warp.z);v_pos0=vec3(texturePos*perspectiveRatio,perspectiveRatio);vec2 parentPos=(texturePos*u_scale_parent)+u_tl_parent;v_pos1=vec3(parentPos*perspectiveRatio,perspectiveRatio);}"),
 	symbolIcon: prepare("uniform sampler2D u_texture;in vec2 v_tex;flat in float v_total_opacity;void main() {fragColor=texture(u_texture,v_tex)*v_total_opacity;\n#ifdef OVERDRAW_INSPECTOR\nfragColor=vec4(1.0);\n#endif\n}", "layout(location=0) in vec4 a_pos_offset;layout(location=1) in uvec4 a_data;layout(location=2) in vec4 a_pixeloffset;layout(location=3) in vec3 a_projected_pos;layout(location=4) in uint a_fade_opacity;layout(location=5) in float a_height_offset;uniform bool u_is_size_zoom_constant;uniform bool u_is_size_feature_constant;uniform highp float u_size_t;uniform highp float u_size;uniform bool u_rotate_symbol;uniform mat4 u_label_plane_matrix;uniform mat4 u_coord_matrix;uniform bool u_is_text;uniform bool u_pitch_with_map;uniform vec2 u_texsize;uniform bool u_is_along_line;uniform bool u_is_variable_anchor;uniform vec2 u_translation;uniform float u_pitched_scale;uniform bool u_is_offset;uniform bool u_height_anchor_ground;out vec2 v_tex;flat out float v_total_opacity;\n#pragma maplibre: define lowp float opacity\nvoid main() {\n#pragma maplibre: initialize lowp float opacity\nvec2 a_pos=a_pos_offset.xy;vec2 a_offset=a_pos_offset.zw;vec2 a_tex=vec2(a_data.xy);vec2 a_size=vec2(a_data.zw);float a_size_min=float(a_data.z >> 1u);vec2 a_pxoffset=a_pixeloffset.xy;vec2 a_minFontScale=a_pixeloffset.zw/256.0;float ele=a_height_offset+(u_height_anchor_ground ? get_elevation(a_pos) : 0.0);highp float segment_angle=-a_projected_pos[2];float size;if (!u_is_size_zoom_constant && !u_is_size_feature_constant) {size=mix(a_size_min,a_size[1],u_size_t)/128.0;} else if (u_is_size_zoom_constant && !u_is_size_feature_constant) {size=a_size_min/128.0;} else {size=u_size;}vec2 translated_a_pos=a_pos+u_translation;vec4 projectedPoint=projectTileWithElevation(translated_a_pos,ele);vec2 fade_opacity=unpack_opacity(a_fade_opacity);float fade_change=fade_opacity[1] > 0.5 ? u_symbol_fade_change :-u_symbol_fade_change;float visibility=calculate_visibility(projectedPoint);v_total_opacity=opacity*max(0.0,min(visibility,fade_opacity[0]+fade_change));if (v_total_opacity < 0.1){gl_Position=vec4(-2.,-2.,-2.,1.);return;}highp float camera_to_anchor_distance=projectedPoint.w;highp float distance_ratio=u_pitch_with_map ?\ncamera_to_anchor_distance/u_camera_to_center_distance :\nu_camera_to_center_distance/camera_to_anchor_distance;highp float perspective_ratio=clamp(0.5+0.5*distance_ratio,0.0,4.0);if (!u_is_offset) {size*=perspective_ratio;}float fontScale=u_is_text ? size/24.0 : size;highp float symbol_rotation=0.0;if (u_rotate_symbol) {vec4 offsetProjectedPoint=projectTileWithElevation(translated_a_pos+vec2(1,0),ele);vec2 a=projectedPoint.xy/projectedPoint.w;vec2 b=offsetProjectedPoint.xy/offsetProjectedPoint.w;symbol_rotation=atan((b.y-a.y)/u_aspect_ratio,b.x-a.x);}highp float angle_sin=sin(segment_angle+symbol_rotation);highp float angle_cos=cos(segment_angle+symbol_rotation);mat2 rotation_matrix=mat2(angle_cos,-1.0*angle_sin,angle_sin,angle_cos);vec4 projected_pos;if (u_is_along_line || u_is_variable_anchor) {projected_pos=vec4(a_projected_pos.xy,ele,1.0);} else if (u_pitch_with_map) {projected_pos=u_label_plane_matrix*vec4(a_projected_pos.xy+u_translation,ele,1.0);} else {projected_pos=u_label_plane_matrix*projectTileWithElevation(a_projected_pos.xy+u_translation,ele);}float z=float(u_pitch_with_map)*projected_pos.z/projected_pos.w;float projectionScaling=1.0;\n#ifdef GLOBE\nif(u_pitch_with_map) {float anchor_pos_tile_y=(u_coord_matrix*vec4(projected_pos.xy/projected_pos.w,z,1.0)).y;projectionScaling=mix(projectionScaling,1.0/circumferenceRatioAtTileY(anchor_pos_tile_y)*u_pitched_scale,u_projection_transition);}\n#endif\nvec4 finalPos=u_coord_matrix*vec4(projected_pos.xy/projected_pos.w+rotation_matrix*(a_offset/32.0*max(a_minFontScale,fontScale)+a_pxoffset/16.0)*projectionScaling,z,1.0);if(u_pitch_with_map) {finalPos=projectTileWithElevation(finalPos.xy,finalPos.z);}gl_Position=finalPos;v_tex=a_tex/u_texsize;}"),
@@ -9936,7 +10132,9 @@ var TransformHelper = class {
 		return this._minElevationForCurrentTile;
 	}
 	setMinElevationForCurrentTile(ele) {
+		if (ele === this._minElevationForCurrentTile) return;
 		this._minElevationForCurrentTile = ele;
+		this._calcMatrices();
 	}
 	get tileSize() {
 		return this._tileSize;
@@ -10140,6 +10338,7 @@ var TransformHelper = class {
 		if (this._edgeInsets.equals(padding)) return;
 		this._unmodified = false;
 		this._edgeInsets.interpolate(this._edgeInsets, padding, 1);
+		this.constrainInternal();
 		this._calcMatrices();
 	}
 	/**
@@ -10367,7 +10566,7 @@ var TransformHelper = class {
 		const altitudeAGL = alt - elevation;
 		let distanceToCenter;
 		let clampedElevation = elevation;
-		if (dzNormalized * altitudeAGL >= 0 || Math.abs(dzNormalized) < .1) {
+		if (dzNormalized * altitudeAGL >= 0 || Math.abs(dzNormalized) < Math.cos(degreesToRadians(89.25))) {
 			distanceToCenter = 1e4;
 			clampedElevation = alt + distanceToCenter * dzNormalized;
 		} else distanceToCenter = -altitudeAGL / dzNormalized;
@@ -10447,267 +10646,7 @@ var MercatorCoveringTilesDetailsProvider = class {
 	prepareNextFrame() {}
 };
 //#endregion
-//#region src/data/pos3d_attributes.ts
-const pos3dAttributes = createLayout([{
-	name: "a_pos3d",
-	type: "Int16",
-	components: 3
-}]);
-//#endregion
-//#region src/tile/terrain_tile_manager.ts
-/**
-* @internal
-* This class is a helper for the Terrain-class, it:
-*
-* - loads raster-dem tiles
-* - manages all renderToTexture tiles.
-* - caches previous rendered tiles.
-* - finds all necessary renderToTexture tiles for a OverscaledTileID area
-* - finds the corresponding raster-dem tile for OverscaledTileID
-*/
-var TerrainTileManager = class extends Evented {
-	constructor(tileManager) {
-		super();
-		this._lastTilesetChange = now();
-		this.tileManager = tileManager;
-		this._tiles = {};
-		this._renderableTilesKeys = [];
-		this._sourceTileCache = {};
-		this.minzoom = 0;
-		this.maxzoom = 22;
-		this.deltaZoom = 1;
-		this.tileSize = tileManager._source.tileSize * 2 ** this.deltaZoom;
-		tileManager.usedForTerrain = true;
-		tileManager.tileSize = this.tileSize;
-	}
-	destruct() {
-		this.tileManager.usedForTerrain = false;
-		this.tileManager.tileSize = null;
-		this.releaseAllRTT();
-	}
-	getSource() {
-		return this.tileManager._source;
-	}
-	/**
-	* Load Terrain Tiles, create internal render-to-texture tiles, free GPU memory.
-	* @param transform - the operation to do
-	* @param terrain - the terrain
-	* @returns true when the set of renderable tiles changed
-	*/
-	update(transform, terrain) {
-		this.tileManager.update(transform, terrain);
-		this._renderableTilesKeys = [];
-		const keys = {};
-		let changed = false;
-		for (const tileID of coveringTiles(transform, {
-			tileSize: this.tileSize,
-			minzoom: this.minzoom,
-			maxzoom: this.maxzoom,
-			reparseOverscaled: false,
-			terrain
-		})) {
-			keys[tileID.key] = true;
-			this._renderableTilesKeys.push(tileID.key);
-			if (!this._tiles[tileID.key]) {
-				tileID.terrainRttPosMatrix32f = /* @__PURE__ */ new Float32Array(16);
-				ortho(tileID.terrainRttPosMatrix32f, 0, EXTENT, EXTENT, 0, 0, 1);
-				this._tiles[tileID.key] = new Tile(tileID, this.tileSize);
-				this._lastTilesetChange = now();
-				changed = true;
-			}
-		}
-		for (const key in this._tiles) if (!keys[key]) {
-			this._tiles[key].releaseRTT(this.tileManager.map.painter);
-			delete this._tiles[key];
-			changed = true;
-		}
-		return changed;
-	}
-	/**
-	* Release the RTT objects for `tileID` (and its ancestors/descendants),
-	*/
-	releaseRTT(tileID) {
-		for (const key in this._tiles) {
-			const tile = this._tiles[key];
-			if (tile.tileID.equals(tileID) || tile.tileID.isChildOf(tileID) || tileID.isChildOf(tile.tileID)) tile.releaseRTT(this.tileManager.map.painter);
-		}
-	}
-	/**
-	* Release the A RTT objects for all tiles.
-	*/
-	releaseAllRTT() {
-		for (const key in this._tiles) this._tiles[key].releaseRTT(this.tileManager.map.painter);
-	}
-	/**
-	* get a list of tiles, which are loaded and should be rendered in the current scene
-	* @returns the renderable tiles
-	*/
-	getRenderableTiles() {
-		return this._renderableTilesKeys.map((key) => this.getTileByID(key));
-	}
-	/**
-	* get terrain tile by the TileID key
-	* @param id - the tile id
-	* @returns the tile
-	*/
-	getTileByID(id) {
-		return this._tiles[id];
-	}
-	/**
-	* Searches for the corresponding current renderable terrain-tiles
-	* @param tileID - the tile to look for
-	* @returns the tiles that were found
-	*/
-	getTerrainCoords(tileID, terrainTileRanges) {
-		if (terrainTileRanges) return this._getTerrainCoordsForTileRanges(tileID, terrainTileRanges);
-		else return this._getTerrainCoordsForRegularTile(tileID);
-	}
-	/**
-	* Searches for the corresponding current renderable terrain-tiles.
-	* Includes terrain tiles that are either:
-	* - the same as the tileID
-	* - a parent of the tileID
-	* - a child of the tileID
-	* @param tileID - the tile to look for
-	* @returns the tiles that were found
-	*/
-	_getTerrainCoordsForRegularTile(tileID) {
-		const coords = {};
-		for (const key of this._renderableTilesKeys) {
-			const terrainTileID = this._tiles[key].tileID;
-			const coord = tileID.clone();
-			const mat = createMat4f64();
-			if (terrainTileID.canonical.equals(tileID.canonical)) ortho(mat, 0, EXTENT, EXTENT, 0, 0, 1);
-			else if (terrainTileID.canonical.isChildOf(tileID.canonical)) {
-				const dz = terrainTileID.canonical.z - tileID.canonical.z;
-				const dx = terrainTileID.canonical.x - (terrainTileID.canonical.x >> dz << dz);
-				const dy = terrainTileID.canonical.y - (terrainTileID.canonical.y >> dz << dz);
-				const size = EXTENT >> dz;
-				ortho(mat, 0, size, size, 0, 0, 1);
-				translate(mat, mat, [
-					-dx * size,
-					-dy * size,
-					0
-				]);
-			} else if (tileID.canonical.isChildOf(terrainTileID.canonical)) {
-				const dz = tileID.canonical.z - terrainTileID.canonical.z;
-				const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz);
-				const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
-				const size = EXTENT >> dz;
-				ortho(mat, 0, EXTENT, EXTENT, 0, 0, 1);
-				translate(mat, mat, [
-					dx * size,
-					dy * size,
-					0
-				]);
-				scale(mat, mat, [
-					1 / 2 ** dz,
-					1 / 2 ** dz,
-					0
-				]);
-			} else continue;
-			coord.terrainRttPosMatrix32f = new Float32Array(mat);
-			coords[key] = coord;
-		}
-		return coords;
-	}
-	/**
-	* Searches for the corresponding current renderable terrain-tiles.
-	* Includes terrain tiles that are within terrain tile ranges.
-	* @param tileID - the tile to look for
-	* @returns the tiles that were found
-	*/
-	_getTerrainCoordsForTileRanges(tileID, terrainTileRanges) {
-		const coords = {};
-		for (const key of this._renderableTilesKeys) {
-			const terrainTileID = this._tiles[key].tileID;
-			if (!this._isWithinTileRanges(terrainTileID, terrainTileRanges)) continue;
-			const coord = tileID.clone();
-			const mat = createMat4f64();
-			if (terrainTileID.canonical.z === tileID.canonical.z) {
-				const dx = tileID.canonical.x - terrainTileID.canonical.x + tileID.wrap * (1 << tileID.canonical.z);
-				const dy = tileID.canonical.y - terrainTileID.canonical.y;
-				ortho(mat, 0, EXTENT, EXTENT, 0, 0, 1);
-				translate(mat, mat, [
-					dx * EXTENT,
-					dy * EXTENT,
-					0
-				]);
-			} else if (terrainTileID.canonical.z > tileID.canonical.z) {
-				const dz = terrainTileID.canonical.z - tileID.canonical.z;
-				const dx = terrainTileID.canonical.x - (terrainTileID.canonical.x >> dz << dz) + tileID.wrap * (1 << terrainTileID.canonical.z);
-				const dy = terrainTileID.canonical.y - (terrainTileID.canonical.y >> dz << dz);
-				const dx2 = tileID.canonical.x - (terrainTileID.canonical.x >> dz);
-				const dy2 = tileID.canonical.y - (terrainTileID.canonical.y >> dz);
-				const size = EXTENT >> dz;
-				ortho(mat, 0, size, size, 0, 0, 1);
-				translate(mat, mat, [
-					-dx * size + dx2 * EXTENT,
-					-dy * size + dy2 * EXTENT,
-					0
-				]);
-			} else {
-				const dz = tileID.canonical.z - terrainTileID.canonical.z;
-				const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz) + tileID.wrap * (1 << tileID.canonical.z);
-				const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
-				const dx2 = (tileID.canonical.x >> dz) - terrainTileID.canonical.x;
-				const dy2 = (tileID.canonical.y >> dz) - terrainTileID.canonical.y;
-				const size = EXTENT << dz;
-				ortho(mat, 0, size, size, 0, 0, 1);
-				translate(mat, mat, [
-					dx * EXTENT + dx2 * size,
-					dy * EXTENT + dy2 * size,
-					0
-				]);
-			}
-			coord.terrainRttPosMatrix32f = new Float32Array(mat);
-			coords[key] = coord;
-		}
-		return coords;
-	}
-	/**
-	* find the covering raster-dem tile
-	* @param tileID - the tile to look for
-	* @param searchForDEM - Optional parameter to search for (parent) source tiles with loaded dem.
-	* @returns the tile
-	*/
-	getSourceTile(tileID, searchForDEM) {
-		const source = this.tileManager._source;
-		let z = tileID.overscaledZ - this.deltaZoom;
-		if (z > source.maxzoom) z = source.maxzoom;
-		if (z < source.minzoom) return void 0;
-		this._sourceTileCache[tileID.key] ||= tileID.scaledTo(z).key;
-		let tile = this.findTileInCaches(this._sourceTileCache[tileID.key]);
-		if (!tile?.dem && searchForDEM) while (z >= source.minzoom && !tile?.dem) tile = this.findTileInCaches(tileID.scaledTo(z--).key);
-		return tile;
-	}
-	findTileInCaches(key) {
-		let tile = this.tileManager.getTileByID(key);
-		if (tile) return tile;
-		tile = this.tileManager._outOfViewCache.getByKey(key);
-		return tile;
-	}
-	/**
-	* gets whether any tiles were loaded after a specific time. This is used to update the depth framebuffer.
-	* @param time - the time
-	* @returns true if any tiles came into view at or after the specified time
-	*/
-	anyTilesAfterTime(time = now()) {
-		return this._lastTilesetChange >= time;
-	}
-	/**
-	* Checks whether a tile is within the canonical tile ranges.
-	* @param tileID - Tile to check
-	* @param canonicalTileRanges - Canonical tile ranges
-	* @returns
-	*/
-	_isWithinTileRanges(tileID, canonicalTileRanges) {
-		const range = canonicalTileRanges[tileID.canonical.z];
-		return !!range && (tileID.wrap > range.minWrap || tileID.wrap < range.maxWrap || tileID.canonical.x >= range.minTileXWrapped && tileID.canonical.x <= range.maxTileXWrapped && tileID.canonical.y >= range.minTileY && tileID.canonical.y <= range.maxTileY);
-	}
-};
-//#endregion
-//#region src/render/terrain.ts
+//#region src/render/terrain_coverage.ts
 const MAX_BISECTIONS = 40;
 const HIT_EPSILON_M = 1e-6;
 /** Keeps the elevation bracket non-degenerate when the terrain is entirely flat, such as unloaded DEMs. */
@@ -10720,165 +10659,98 @@ const MAX_TILE_COORD = EXTENT * (1 - 1e-12);
 * color-relief use, so a sample between two cell centres interpolates the pixels on either side of it.
 */
 const DEM_CELL_CENTER_OFFSET = -.5;
+const NOT_COVERED = {
+	covered: false,
+	demLoaded: false,
+	elevation: 0
+};
 /**
-* @internal
-* This is the main class which handles most of the 3D Terrain logic. It has the following topics:
-*
-* 1. loads raster-dem tiles via the internal tileManager this.tileManager
-* 2. creates a depth-framebuffer, which is used to calculate the visibility of coordinates
-* 3. stores all render-to-texture tiles in the this.tileManager._tiles
-* 4. calculates the elevation for a specific tile-coordinate
-* 5. creates a terrain-mesh
-*
-* A note about the GPU resource-usage:
-*
-* Framebuffers:
-*
-* - one for the depth framebuffer with the size of the map-div.
-* - one for rendering a tile to texture with the size of tileSize (= 512x512).
-*
-* Textures:
-*
-* - one texture for an empty raster-dem tile with size 1x1
-* - one texture for an empty depth-buffer, when terrain is disabled with size 1x1
-* - one texture for an each loaded raster-dem with size of the source.tileSize
-* - one texture for the depth-framebuffer with the size of the map-div.
-* - finally for each render-to-texture tile (= this._tiles) a set of textures
-* for each render stack (The stack-concept is documented in painter.ts).
-*
-* Normally there exists 1-3 Textures per tile, depending on the stylesheet.
-* Each Textures has the size 2*tileSize (= 1024x1024). Also there exists a
-* cache of the last 150 newest rendered tiles.
-*
+* The drawn terrain tiles' DEM data as sampled on the CPU: an index of their elevation samplers, built on first use
+* and kept until {@link reset} (the renderable tile set changed, or the terrain source), in two views: every drawn
+* tile's DEM data, a loaded parent's where the tile's own has not loaded, or only the tiles' own.
+* @param tileManager - the terrain source's tiles, drawn and loaded
+* @param exaggeration - the terrain's exaggeration, which every sampled elevation includes
 */
-var Terrain = class {
-	constructor(painter, tileManager, options, terrainSkirtLength = "auto") {
-		this._meshCache = {};
-		this.painter = painter;
-		this.tileManager = new TerrainTileManager(tileManager);
-		this.options = options;
-		this.exaggeration = typeof options.exaggeration === "number" ? options.exaggeration : 1;
-		this._terrainSkirtLength = terrainSkirtLength;
-		this.qualityFactor = 2;
-		this.meshSize = 128;
-		this._demMatrixCache = /* @__PURE__ */ new Map();
-		this._elevationSamplerCache = /* @__PURE__ */ new Map();
+var TerrainCoverage = class {
+	constructor(tileManager, exaggeration) {
+		this.tileManager = tileManager;
+		this.exaggeration = exaggeration;
+		this._samplerCache = /* @__PURE__ */ new Map();
 	}
-	destroy() {
-		if (this._fbo) {
-			this._fbo.destroy();
-			this._fbo = null;
-		}
-		if (this._fboDepthTexture) {
-			this._fboDepthTexture.destroy();
-			this._fboDepthTexture = null;
-		}
-		if (this._emptyDemTexture) {
-			this._emptyDemTexture.destroy();
-			this._emptyDemTexture = null;
-		}
-		if (this._emptyDepthTexture) {
-			this._emptyDepthTexture.destroy();
-			this._emptyDepthTexture = null;
-		}
-		for (const key in this._meshCache) this._meshCache[key].destroy();
-		this._meshCache = {};
-		this.tileManager.destruct();
+	/** Drops the samplers and both indexes. Missing DEM data is never cached, so a later sample can retry. */
+	reset() {
+		this._samplerCache.clear();
+		this._index = void 0;
+		this._ownDemIndex = void 0;
 	}
 	/**
-	* Get the elevation-value from original dem-data for a given tile-coordinate.
-	* Coordinates that fall outside `[0, extent)` are normalized to the
-	* appropriate neighbor tile before lookup.
-	* @param tileID - the tile to get the elevation for
-	* @param x - x coordinate relative to the tile, may be outside `[0, extent)`
-	* @param y - y coordinate relative to the tile, may be outside `[0, extent)`
-	* @param extent - optional, default 8192
-	* @returns the elevation
-	*/
-	getDEMElevation(tileID, x, y, extent = EXTENT) {
-		const normalized = tileID.normalizeCoordinates(x, y, extent);
-		if (!normalized) return 0;
-		const sampler = this.getElevationSampler(normalized.tileID);
-		return sampler ? sampler(normalized.x, normalized.y, extent) : 0;
-	}
-	/**
-	* Get the elevation for given {@link LngLat} in respect of exaggeration.
-	* @param lnglat - the location
-	* @param zoom - the zoom, use {@link getElevationForLngLat} if you don't want a specific zoom level, but more accurate results.
-	* @returns the elevation
-	*/
-	getElevationForLngLatZoom(lnglat, zoom) {
-		if (!isInBoundsForZoomLngLat(zoom, lnglat.wrap())) return 0;
-		const { tileID, mercatorX, mercatorY } = this._getOverscaledTileIDFromLngLatZoom(lnglat, zoom);
-		return this.getElevation(tileID, mercatorX % EXTENT, mercatorY % EXTENT, EXTENT);
-	}
-	/**
-	* Get the elevation for given {@link LngLat} in respect of exaggeration.
-	* Where the location is covered by a rendered tile with loaded DEM data this samples the
-	* rendered surface, so the result agrees with what is drawn; elsewhere it traverses up the
-	* zoom levels to find the first tile with data to return.
-	* @param lnglat - the location
-	* @returns the elevation
-	*/
-	getElevationForLngLat(lnglat, transform) {
-		const index = this.getCoverageIndex();
-		if (index) {
-			const mercator = MercatorCoordinate.fromLngLat(lnglat);
-			const sample = sampleAt(index, this.exaggeration, mercator.x, mercator.y);
-			if (sample.demLoaded) return sample.elevation;
-		}
-		const terrainCoveringTiles = coveringTiles(transform, {
-			maxzoom: this.tileManager.maxzoom,
-			minzoom: this.tileManager.minzoom,
-			tileSize: 512,
-			terrain: this
-		});
-		let zoom = 0;
-		for (const tile of terrainCoveringTiles) if (tile.canonical.z > zoom) zoom = Math.min(tile.canonical.z, this.tileManager.maxzoom);
-		return this.getElevationForLngLatZoom(lnglat, zoom);
-	}
-	/**
-	* Get the elevation for given coordinate in respect of exaggeration.
-	* @param tileID - the tile id
-	* @param x - x coordinate relative to the tile, may be outside `[0, extent)`
-	* @param y - y coordinate relative to the tile, may be outside `[0, extent)`
-	* @param extent - optional, default 8192
-	* @returns the elevation
-	*/
-	getElevation(tileID, x, y, extent = EXTENT) {
-		return this.getDEMElevation(tileID, x, y, extent) * this.exaggeration;
-	}
-	/**
-	* Clear CPU elevation samplers that may retain a previously selected DEM tile.
-	* @internal
-	*/
-	resetElevationCache() {
-		this._elevationSamplerCache.clear();
-		this._coverageIndex = void 0;
-	}
-	/**
-	* Index of the tiles the terrain currently renders, for sampling the terrain surface on the CPU.
-	* Built on first use and kept until {@link resetElevationCache}.
+	* @param ownDemOnly - whether a tile whose own DEM data has not loaded has none, though a loaded parent's is drawn
+	* in its place
 	* @returns the index, or null when no terrain tile is renderable
 	*/
-	getCoverageIndex() {
-		if (this._coverageIndex === void 0) this._coverageIndex = this._buildCoverageIndex();
-		return this._coverageIndex;
+	getIndex(ownDemOnly = false) {
+		if (ownDemOnly) {
+			if (this._ownDemIndex === void 0) this._ownDemIndex = this._build(true);
+			return this._ownDemIndex;
+		}
+		if (this._index === void 0) this._index = this._build(false);
+		return this._index;
 	}
-	_buildCoverageIndex() {
+	/**
+	* The elevation the drawn tiles' DEM data gives at a location, in respect of exaggeration, or undefined where no
+	* drawn tile has that data.
+	*/
+	sample(lnglat, ownDemOnly = false) {
+		const index = this.getIndex(ownDemOnly);
+		if (!index) return void 0;
+		const mercator = MercatorCoordinate.fromLngLat(lnglat);
+		const sample = sampleAt(index, this.exaggeration, mercator.x, mercator.y);
+		return sample.demLoaded ? sample.elevation : void 0;
+	}
+	/** The cached sampler of a tile's raw DEM elevation, or null when its DEM data is not loaded. */
+	getSampler(tileID) {
+		const key = tileID.key;
+		const cachedSampler = this._samplerCache.get(key);
+		if (cachedSampler) return cachedSampler;
+		const sampler = this._createElevationSampler(tileID);
+		if (sampler) this._samplerCache.set(key, sampler);
+		return sampler;
+	}
+	/**
+	* A function that samples a tile's raw DEM elevation, without exaggeration, or null when the tile's DEM data is
+	* not loaded. The DEM tile is the tile's own or a loaded parent's, so the tile's coordinates are scaled and offset
+	* into it, as {@link Terrain._getDEMTileMatrix} does for the renderer; the sampler places DEM pixels at cell
+	* centres, matching `get_elevation` in the vertex shader prelude.
+	*/
+	_createElevationSampler(tileID) {
+		const sourceTile = this.tileManager.getSourceTile(tileID, true);
+		const dem = sourceTile?.dem;
+		if (!sourceTile || !dem) return null;
+		const dz = tileID.canonical.z - sourceTile.tileID.canonical.z;
+		const tilesPerDemTile = 1 << dz;
+		const demPixelScale = dem.dim / (EXTENT * tilesPerDemTile);
+		const demPixelOffsetX = (tileID.canonical.x - (tileID.canonical.x >> dz << dz)) / tilesPerDemTile * dem.dim + DEM_CELL_CENTER_OFFSET;
+		const demPixelOffsetY = (tileID.canonical.y - (tileID.canonical.y >> dz << dz)) / tilesPerDemTile * dem.dim + DEM_CELL_CENTER_OFFSET;
+		return (x, y, extent) => {
+			const extentScale = extent === 8192 ? 1 : EXTENT / extent;
+			return dem.sampleBilinear(x * extentScale * demPixelScale + demPixelOffsetX, y * extentScale * demPixelScale + demPixelOffsetY);
+		};
+	}
+	_build(ownDemOnly) {
+		const { tileManager } = this;
 		const zooms = [];
 		const samplerPerTile = /* @__PURE__ */ new Map();
 		let minElevation = 0;
 		let maxElevation = 0;
-		for (const tile of this.tileManager.getRenderableTiles()) {
+		for (const tile of tileManager.getRenderableTiles()) {
 			if (!tile) continue;
 			const { canonical, wrap } = tile.tileID;
 			if (!zooms.includes(canonical.z)) zooms.push(canonical.z);
-			const sampler = this.getElevationSampler(tile.tileID);
+			const sampler = ownDemOnly && !tileManager.getSourceTile(tile.tileID)?.dem ? null : this.getSampler(tile.tileID);
 			samplerPerTile.set(`${wrap}/${canonical.z}/${canonical.x}/${canonical.y}`, sampler);
-			const { minElevation: tileMin, maxElevation: tileMax } = this.getMinMaxElevation(tile.tileID);
-			minElevation = Math.min(minElevation, tileMin ?? 0);
-			maxElevation = Math.max(maxElevation, tileMax ?? 0);
+			const dem = tileManager.getSourceTile(tile.tileID, true)?.dem;
+			minElevation = Math.min(minElevation, (dem?.min ?? 0) * this.exaggeration);
+			maxElevation = Math.max(maxElevation, (dem?.max ?? 0) * this.exaggeration);
 		}
 		if (samplerPerTile.size === 0) return null;
 		zooms.sort((a, b) => b - a);
@@ -10889,244 +10761,6 @@ var Terrain = class {
 			maxElevation: maxElevation + BRACKET_PADDING_M
 		};
 	}
-	/**
-	* Get a function that samples the raw DEM elevation of a tile, without exaggeration.
-	* The sampler places DEM pixels at cell centres, matching `get_elevation` in the vertex shader prelude.
-	* @param tileID - the tile id
-	* @returns the sampler, or null when the tile's DEM data is not loaded
-	*/
-	getElevationSampler(tileID) {
-		const key = tileID.key;
-		const cachedSampler = this._elevationSamplerCache.get(key);
-		if (cachedSampler) return cachedSampler;
-		const sourceTile = this.tileManager.getSourceTile(tileID, true);
-		const dem = sourceTile?.dem;
-		if (!sourceTile || !dem) return null;
-		const matrix = this._getDEMTileMatrix(tileID, sourceTile);
-		const demPixelScaleX = matrix[0] * dem.dim;
-		const demPixelScaleY = matrix[5] * dem.dim;
-		const demPixelOffsetX = matrix[12] * dem.dim + DEM_CELL_CENTER_OFFSET;
-		const demPixelOffsetY = matrix[13] * dem.dim + DEM_CELL_CENTER_OFFSET;
-		const sampler = (x, y, extent) => {
-			const extentScale = extent === 8192 ? 1 : EXTENT / extent;
-			return dem.sampleBilinear(x * extentScale * demPixelScaleX + demPixelOffsetX, y * extentScale * demPixelScaleY + demPixelOffsetY);
-		};
-		this._elevationSamplerCache.set(key, sampler);
-		return sampler;
-	}
-	/**
-	* Get the matrix that maps a tile's coordinates into the DEM tile it is rendered with.
-	* The transform is derived from the loaded DEM tile's own zoom level, not from the source's
-	* declared maxzoom: getSourceTile falls back to a loaded parent tile while the deepest DEM
-	* tile is still loading, and the scale and offset must match the tile that is actually used.
-	* @param tileID - the tile id
-	* @param sourceTile - the DEM tile that is used for this tile, either its own tile or a loaded parent
-	* @returns the matrix that maps the tile's coordinates onto the DEM tile
-	*/
-	_getDEMTileMatrix(tileID, sourceTile) {
-		const matrixKey = `${sourceTile.tileID.key}/${tileID.key}`;
-		const cachedMatrix = this._demMatrixCache.get(matrixKey);
-		if (cachedMatrix) return cachedMatrix;
-		const dz = tileID.canonical.z - sourceTile.tileID.canonical.z;
-		const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz);
-		const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
-		const demMatrix = fromScaling(/* @__PURE__ */ new Float64Array(16), [
-			1 / (EXTENT << dz),
-			1 / (EXTENT << dz),
-			0
-		]);
-		translate(demMatrix, demMatrix, [
-			dx * EXTENT,
-			dy * EXTENT,
-			0
-		]);
-		this._demMatrixCache.set(matrixKey, demMatrix);
-		return demMatrix;
-	}
-	/**
-	* returns a Terrain Object for a tile. Unless the tile corresponds to data (e.g. tile is loading), return a flat dem object
-	* @param tileID - the tile to get the terrain for
-	* @returns the terrain data to use in the program
-	*/
-	getTerrainData(tileID) {
-		if (!this._emptyDemTexture) {
-			const context = this.painter.context;
-			const image = new RGBAImage({
-				width: 1,
-				height: 1
-			}, /* @__PURE__ */ new Uint8Array(4));
-			this._emptyDepthTexture = new Texture(context, image, context.gl.RGBA, { premultiply: false });
-			this._emptyDemUnpack = [
-				0,
-				0,
-				0,
-				0
-			];
-			this._emptyDemTexture = new Texture(context, new RGBAImage({
-				width: 1,
-				height: 1
-			}), context.gl.RGBA, { premultiply: false });
-			this._emptyDemTexture.bind(context.gl.NEAREST, context.gl.CLAMP_TO_EDGE);
-			this._emptyDemMatrix = identity([]);
-		}
-		const sourceTile = this.tileManager.getSourceTile(tileID, true);
-		if (sourceTile?.dem && (!sourceTile.demTexture || sourceTile.needsTerrainPrepare)) {
-			const context = this.painter.context;
-			sourceTile.demTexture ||= this.painter.getTileTexture(sourceTile.dem.stride);
-			if (sourceTile.demTexture) sourceTile.demTexture.update(sourceTile.dem.getPixels(), { premultiply: false });
-			else sourceTile.demTexture = new Texture(context, sourceTile.dem.getPixels(), context.gl.RGBA, { premultiply: false });
-			sourceTile.demTexture.bind(context.gl.NEAREST, context.gl.CLAMP_TO_EDGE);
-			sourceTile.needsTerrainPrepare = false;
-		}
-		const terrainMatrix = sourceTile ? this._getDEMTileMatrix(tileID, sourceTile) : this._emptyDemMatrix;
-		return {
-			"u_depth": 2,
-			"u_terrain": 3,
-			"u_terrain_dim": sourceTile?.dem?.dim || 1,
-			"u_terrain_matrix": terrainMatrix,
-			"u_terrain_unpack": sourceTile?.dem?.getUnpackVector() || this._emptyDemUnpack,
-			"u_terrain_exaggeration": this.exaggeration,
-			texture: (sourceTile?.demTexture || this._emptyDemTexture).texture,
-			depthTexture: (this._fboDepthTexture || this._emptyDepthTexture).texture,
-			tile: sourceTile
-		};
-	}
-	/**
-	* get a framebuffer as big as the map-div, which will be used to render depth into a texture
-	* @returns the frame buffer
-	*/
-	getFramebuffer() {
-		const painter = this.painter;
-		const width = painter.width / devicePixelRatio;
-		const height = painter.height / devicePixelRatio;
-		if (this._fbo && (this._fbo.width !== width || this._fbo.height !== height)) {
-			this._fbo.destroy();
-			this._fboDepthTexture.destroy();
-			delete this._fbo;
-			delete this._fboDepthTexture;
-		}
-		if (!this._fboDepthTexture) {
-			this._fboDepthTexture = new Texture(painter.context, {
-				width,
-				height,
-				data: null
-			}, painter.context.gl.RGBA, { premultiply: false });
-			this._fboDepthTexture.bind(painter.context.gl.NEAREST, painter.context.gl.CLAMP_TO_EDGE);
-		}
-		if (!this._fbo) {
-			this._fbo = painter.context.createFramebuffer(width, height, true, false);
-			this._fbo.depthAttachment.set(painter.context.createRenderbuffer(painter.context.gl.DEPTH_COMPONENT16, width, height));
-		}
-		this._fbo.colorAttachment.set(this._fboDepthTexture.texture);
-		return this._fbo;
-	}
-	/**
-	* create a regular mesh which will be used by all terrain-tiles
-	* @returns the created regular mesh
-	*/
-	getTerrainMesh(tileId) {
-		const globeEnabled = this.painter.style.projection?.transitionState > 0;
-		const northPole = globeEnabled && tileId.canonical.y === 0;
-		const southPole = globeEnabled && tileId.canonical.y === (1 << tileId.canonical.z) - 1;
-		const key = `m_${northPole ? "n" : ""}_${southPole ? "s" : ""}`;
-		if (this._meshCache[key]) return this._meshCache[key];
-		const context = this.painter.context;
-		const vertexArray = new Pos3dArray();
-		const indexArray = new TriangleIndexArray();
-		const meshSize = this.meshSize;
-		const delta = EXTENT / meshSize;
-		const meshSize2 = meshSize * meshSize;
-		for (let y = 0; y <= meshSize; y++) for (let x = 0; x <= meshSize; x++) vertexArray.emplaceBack(x * delta, y * delta, 0);
-		for (let y = 0; y < meshSize2; y += meshSize + 1) for (let x = 0; x < meshSize; x++) {
-			indexArray.emplaceBack(x + y, meshSize + x + y + 1, meshSize + x + y + 2);
-			indexArray.emplaceBack(x + y, meshSize + x + y + 2, x + y + 1);
-		}
-		if (this._terrainSkirtLength !== "none") this._buildSkirts(vertexArray, indexArray, meshSize, delta, northPole, southPole);
-		const mesh = new Mesh(context.createVertexBuffer(vertexArray, pos3dAttributes.members), context.createIndexBuffer(indexArray), SegmentVector.simpleSegment(0, 0, vertexArray.length, indexArray.length));
-		this._meshCache[key] = mesh;
-		return mesh;
-	}
-	/**
-	* Calculates the height of the tile skirts for the "auto" strategy.
-	* @see {@link MapOptions.terrainSkirtLength}
-	* @param zoom - current zoomlevel
-	* @returns the elevation delta in meters
-	*/
-	getSkirtLength(zoom) {
-		return 2 * Math.PI * earthRadius / Math.pow(2, Math.max(zoom, 0)) / 5;
-	}
-	getMinTileElevationForLngLatZoom(lnglat, zoom) {
-		if (!isInBoundsForZoomLngLat(zoom, lnglat.wrap())) return 0;
-		const { tileID } = this._getOverscaledTileIDFromLngLatZoom(lnglat, zoom);
-		return this.getMinMaxElevation(tileID).minElevation ?? 0;
-	}
-	/**
-	* Get the minimum and maximum elevation contained in a tile. This includes any
-	* exaggeration included in the terrain.
-	*
-	* @param tileID - ID of the tile to be used as a source for the min/max elevation
-	* @returns the minimum and maximum elevation found in the tile, including the terrain's
-	* exaggeration
-	*/
-	getMinMaxElevation(tileID) {
-		const tile = this.tileManager.getSourceTile(tileID, true);
-		const minMax = {
-			minElevation: null,
-			maxElevation: null
-		};
-		if (tile?.dem) {
-			minMax.minElevation = tile.dem.min * this.exaggeration;
-			minMax.maxElevation = tile.dem.max * this.exaggeration;
-		}
-		return minMax;
-	}
-	_getOverscaledTileIDFromLngLatZoom(lnglat, zoom) {
-		const mercatorCoordinate = MercatorCoordinate.fromLngLat(lnglat.wrap());
-		const worldSize = (1 << zoom) * EXTENT;
-		const mercatorX = mercatorCoordinate.x * worldSize;
-		const mercatorY = mercatorCoordinate.y * worldSize;
-		const tileX = Math.floor(mercatorX / EXTENT), tileY = Math.floor(mercatorY / EXTENT);
-		return {
-			tileID: new OverscaledTileID(zoom, 0, zoom, tileX, tileY),
-			mercatorX,
-			mercatorY
-		};
-	}
-	/** Add an extra frame around the mesh to avoid hairline gaps (stitching) on tile boundaries with different zoomlevels.
-	* @see {@link MapOptions.terrainSkirtLength}
-	*/
-	_buildSkirts(vertexArray, indexArray, meshSize, delta, northPole, southPole) {
-		const offsetTop = vertexArray.length;
-		const offsetTopEdge = 0;
-		const offsetBottom = offsetTop + (meshSize + 1);
-		const offsetBottomEdge = (meshSize + 1) * meshSize;
-		const northY = northPole ? NORTH_POLE_Y : 0;
-		const northZ = northPole ? 0 : 1;
-		const southY = southPole ? SOUTH_POLE_Y : EXTENT;
-		const southZ = southPole ? 0 : 1;
-		for (let x = 0; x <= meshSize; x++) vertexArray.emplaceBack(x * delta, northY, northZ);
-		for (let x = 0; x <= meshSize; x++) vertexArray.emplaceBack(x * delta, southY, southZ);
-		for (let x = 0; x < meshSize; x++) {
-			indexArray.emplaceBack(offsetBottomEdge + x, offsetBottom + x, offsetBottom + x + 1);
-			indexArray.emplaceBack(offsetBottomEdge + x, offsetBottom + x + 1, offsetBottomEdge + x + 1);
-			indexArray.emplaceBack(offsetTopEdge + x, offsetTop + x + 1, offsetTop + x);
-			indexArray.emplaceBack(offsetTopEdge + x, offsetTopEdge + x + 1, offsetTop + x + 1);
-		}
-		const offsetLeft = vertexArray.length;
-		const offsetRight = offsetLeft + (meshSize + 1) * 2;
-		for (const x of [0, 1]) for (let y = 0; y <= meshSize; y++) for (const z of [0, 1]) vertexArray.emplaceBack(x * EXTENT, y * delta, z);
-		for (let y = 0; y < meshSize * 2; y += 2) {
-			indexArray.emplaceBack(offsetLeft + y, offsetLeft + y + 1, offsetLeft + y + 3);
-			indexArray.emplaceBack(offsetLeft + y, offsetLeft + y + 3, offsetLeft + y + 2);
-			indexArray.emplaceBack(offsetRight + y, offsetRight + y + 3, offsetRight + y + 1);
-			indexArray.emplaceBack(offsetRight + y, offsetRight + y + 2, offsetRight + y + 3);
-		}
-	}
-};
-const NOT_COVERED = {
-	covered: false,
-	demLoaded: false,
-	elevation: 0
 };
 /**
 * Elevation of the rendered terrain surface at a mercator position, and whether it is covered at all.
@@ -11400,7 +11034,9 @@ var MercatorTransform = class MercatorTransform {
 			let maxX = worldSize;
 			let scaleY = 0;
 			let scaleX = 0;
-			const { x: screenWidth, y: screenHeight } = this.size;
+			const { top = 0, bottom = 0, left = 0, right = 0 } = this.padding;
+			const screenWidth = this.width - left - right;
+			const screenHeight = this.height - top - bottom;
 			if (this._helper._latRange) {
 				const latRange = this._helper._latRange;
 				minY = mercatorYfromLat(latRange[1]) * worldSize;
@@ -11685,7 +11321,7 @@ var MercatorTransform = class MercatorTransform {
 	}
 	isPointOnMapSurface(p, terrain) {
 		if (terrain) return this.screenTerrainPointToMercatorCoordinate(p, terrain) != null;
-		return p.y > this.height / 2 - getMercatorHorizon(this);
+		return p.y > this.centerPoint.y - getMercatorHorizon(this);
 	}
 	calculatePosMatrix(tileID, aligned = false, useFloat32 = false) {
 		const posMatrixKey = tileID.key ?? calculateTileKey(tileID.wrap, tileID.canonical.z, tileID.canonical.z, tileID.canonical.x, tileID.canonical.y);
@@ -12056,8 +11692,7 @@ function updateRotation(args) {
 		args.tr.setBearing(interpolateFactory.number(args.startEulerAngles.bearing, args.endEulerAngles.bearing, args.k));
 	}
 }
-function cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
-	const edgePadding = tr.padding;
+function cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr) {
 	const nwWorld = projectToWorldCoordinates(tr.worldSize, bounds.getNorthWest());
 	const neWorld = projectToWorldCoordinates(tr.worldSize, bounds.getNorthEast());
 	const seWorld = projectToWorldCoordinates(tr.worldSize, bounds.getSouthEast());
@@ -12070,8 +11705,8 @@ function cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
 	const upperRight = new Point(Math.max(nwRotatedWorld.x, neRotatedWorld.x, swRotatedWorld.x, seRotatedWorld.x), Math.max(nwRotatedWorld.y, neRotatedWorld.y, swRotatedWorld.y, seRotatedWorld.y));
 	const lowerLeft = new Point(Math.min(nwRotatedWorld.x, neRotatedWorld.x, swRotatedWorld.x, seRotatedWorld.x), Math.min(nwRotatedWorld.y, neRotatedWorld.y, swRotatedWorld.y, seRotatedWorld.y));
 	const size = upperRight.sub(lowerLeft);
-	const availableWidth = tr.width - (edgePadding.left + edgePadding.right + padding.left + padding.right);
-	const availableHeight = tr.height - (edgePadding.top + edgePadding.bottom + padding.top + padding.bottom);
+	const availableWidth = tr.width - (mapPadding.left + mapPadding.right + fitPadding.left + fitPadding.right);
+	const availableHeight = tr.height - (mapPadding.top + mapPadding.bottom + fitPadding.top + fitPadding.bottom);
 	const scaleX = availableWidth / size.x;
 	const scaleY = availableHeight / size.y;
 	if (scaleY < 0 || scaleX < 0) {
@@ -12080,8 +11715,8 @@ function cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
 	}
 	const zoom = Math.min(scaleZoom(tr.scale * Math.min(scaleX, scaleY)), options.maxZoom);
 	const offset = Point.convert(options.offset);
-	const paddingOffsetX = (padding.left - padding.right) / 2;
-	const paddingOffsetY = (padding.top - padding.bottom) / 2;
+	const paddingOffsetX = (fitPadding.left - fitPadding.right) / 2;
+	const paddingOffsetY = (fitPadding.top - fitPadding.bottom) / 2;
 	const rotatedPaddingOffset = new Point(paddingOffsetX, paddingOffsetY).rotate(degreesToRadians(bearing));
 	const offsetAtFinalZoom = offset.add(rotatedPaddingOffset).mult(tr.scale / zoomScale(zoom));
 	return {
@@ -12117,8 +11752,8 @@ var MercatorCameraHelper = class {
 		if (deltas.around.distSqr(tr.centerPoint) < .01) return;
 		tr.setLocationAtPoint(preZoomAroundLoc, deltas.around, deltas.aroundElevation);
 	}
-	cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
-		return cameraForBoxAndBearing(options, padding, bounds, bearing, tr);
+	cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr) {
+		return cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr);
 	}
 	handleJumpToCenterZoom(tr, options) {
 		const zoom = typeof options.zoom !== "undefined" ? +options.zoom : tr.zoom;
@@ -12171,41 +11806,63 @@ var MercatorCameraHelper = class {
 				tr.setLocationAtPoint(tr.renderWorldCopies ? newCenter.wrap() : newCenter, pointAtOffset);
 			}
 		};
+		const endTransform = this._transformAtAnimationEnd(tr, endZoom, endEulerAngles, options.padding);
+		if (options.around) endTransform.setLocationAtPoint(options.around, options.aroundPoint);
+		else endTransform.setLocationAtPoint(center, endTransform.centerPoint.add(options.offsetAsPoint));
 		return {
 			easeFunc,
 			isZooming,
-			elevationCenter: center
+			elevationCenter: endTransform.center
 		};
 	}
 	handleFlyTo(tr, options) {
 		const optionsZoom = typeof options.zoom !== "undefined";
 		const startZoom = tr.zoom;
 		const constrained = tr.applyConstrain(LngLat.convert(options.center || options.locationAtOffset), optionsZoom ? +options.zoom : startZoom);
-		const targetCenter = constrained.center;
+		const constrainedCenter = constrained.center;
 		const targetZoom = constrained.zoom;
-		normalizeCenter(tr, targetCenter);
+		normalizeCenter(tr, constrainedCenter);
 		const startWorldSize = tr.worldSize;
 		const from = projectToWorldCoordinates(startWorldSize, options.locationAtOffset);
-		const delta = projectToWorldCoordinates(startWorldSize, targetCenter).sub(from);
+		const delta = projectToWorldCoordinates(startWorldSize, constrainedCenter).sub(from);
 		const pixelPathLength = delta.mag();
 		const scaleOfZoom = zoomScale(targetZoom - startZoom);
 		const requestedMinZoom = typeof options.minZoom !== "undefined" ? +options.minZoom : tr.minZoom;
 		const effectiveMinZoom = Math.max(requestedMinZoom, tr.minZoom);
 		const minZoomPreConstrain = Math.min(effectiveMinZoom, startZoom, targetZoom);
-		const minZoom = tr.applyConstrain(targetCenter, minZoomPreConstrain).zoom;
+		const minZoom = tr.applyConstrain(constrainedCenter, minZoomPreConstrain).zoom;
 		const scaleOfMinZoom = zoomScale(minZoom - startZoom);
 		const easeFunc = (k, scale, centerFactor, pointAtOffset) => {
 			tr.setZoom(k === 1 ? targetZoom : startZoom + scaleZoom(scale));
-			const newCenter = k === 1 ? targetCenter : unprojectFromWorldCoordinates(startWorldSize, from.add(delta.mult(centerFactor)));
+			const newCenter = k === 1 ? constrainedCenter : unprojectFromWorldCoordinates(startWorldSize, from.add(delta.mult(centerFactor)));
 			tr.setLocationAtPoint(tr.renderWorldCopies ? newCenter.wrap() : newCenter, pointAtOffset);
 		};
+		const endTransform = this._transformAtAnimationEnd(tr, targetZoom, {
+			roll: options.roll,
+			pitch: options.pitch,
+			bearing: options.bearing
+		}, options.padding);
+		endTransform.setLocationAtPoint(constrainedCenter, endTransform.centerPoint.add(options.offsetAsPoint));
 		return {
 			easeFunc,
 			scaleOfZoom,
-			targetCenter,
+			targetCenter: endTransform.center,
 			scaleOfMinZoom,
 			pixelPathLength
 		};
+	}
+	/**
+	* A copy of the transform at the animation's end zoom, angles and padding, for reading where the map center
+	* ends up once a location is placed at its screen point.
+	*/
+	_transformAtAnimationEnd(tr, zoom, angles, padding) {
+		const endTransform = tr.clone();
+		endTransform.setZoom(zoom);
+		endTransform.setRoll(angles.roll);
+		endTransform.setPitch(angles.pitch);
+		endTransform.setBearing(angles.bearing);
+		endTransform.setPadding(padding);
+		return endTransform;
 	}
 };
 //#endregion
@@ -12714,9 +12371,11 @@ function raySphereIntersection(origin, direction, radius = 1) {
 	const q = -originDotDirection + (originDotDirection < 0 ? 1 : -1) * Math.sqrt(discriminant);
 	const t0 = c / q;
 	const t1 = q;
+	const tMax = Math.max(t0, t1);
+	if (tMax < 0) return null;
 	return {
 		tMin: Math.min(t0, t1),
-		tMax: Math.max(t0, t1)
+		tMax
 	};
 }
 /** Height of the atmosphere relative to the globe radius, 100 km for Earth. */
@@ -14537,12 +14196,13 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 		if (!deltas.panDelta) return;
 		versorSetLocationAtPoint(tr, preZoomAroundLoc, tr.isPointOnMapSurface(deltas.around) ? deltas.around : tr.centerPoint, deltas.panDelta);
 	}
-	cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
-		const result = cameraForBoxAndBearing(options, padding, bounds, bearing, tr);
-		const xLeft = padding.left / tr.width * 2 - 1;
-		const xRight = (tr.width - padding.right) / tr.width * 2 - 1;
-		const yTop = padding.top / tr.height * -2 + 1;
-		const yBottom = (tr.height - padding.bottom) / tr.height * -2 + 1;
+	cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr) {
+		const result = cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr);
+		if (!result) return;
+		const xLeft = fitPadding.left / tr.width * 2 - 1;
+		const xRight = (tr.width - fitPadding.right) / tr.width * 2 - 1;
+		const yTop = fitPadding.top / tr.height * -2 + 1;
+		const yBottom = (tr.height - fitPadding.bottom) / tr.height * -2 + 1;
 		const flipEastWest = differenceOfAnglesDegrees(bounds.getWest(), bounds.getEast()) < 0;
 		const lngWest = flipEastWest ? bounds.getEast() : bounds.getWest();
 		const lngEast = flipEastWest ? bounds.getWest() : bounds.getEast();
@@ -14552,6 +14212,7 @@ var VerticalPerspectiveCameraHelper = class VerticalPerspectiveCameraHelper {
 		const latMid = latNorth + differenceOfAnglesDegrees(latNorth, latSouth) * .5;
 		const clonedTr = tr.clone();
 		clonedTr.setCenter(result.center);
+		clonedTr.setPadding(mapPadding);
 		clonedTr.setBearing(result.bearing);
 		clonedTr.setPitch(0);
 		clonedTr.setRoll(0);
@@ -14775,8 +14436,8 @@ var GlobeCameraHelper = class {
 	handleMapControlsPan(deltas, tr, preZoomAroundLoc) {
 		this.currentHelper.handleMapControlsPan(deltas, tr, preZoomAroundLoc);
 	}
-	cameraForBoxAndBearing(options, padding, bounds, bearing, tr) {
-		return this.currentHelper.cameraForBoxAndBearing(options, padding, bounds, bearing, tr);
+	cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr) {
+		return this.currentHelper.cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr);
 	}
 	/**
 	* Handles the zoom and center change during camera jumpTo.
@@ -16180,1060 +15841,6 @@ const rasterBoundsAttributes = createLayout([{
 	components: 2
 }]);
 //#endregion
-//#region src/webgl/vertex_array_object.ts
-/**
-* @internal
-* A vertex array object used to pass data to the webgl code
-*/
-var VertexArrayObject = class {
-	constructor() {
-		this.boundProgram = null;
-		this.boundLayoutVertexBuffer = null;
-		this.boundPaintVertexBuffers = [];
-		this.boundIndexBuffer = null;
-		this.boundVertexOffset = null;
-		this.boundDynamicVertexBuffer = null;
-		this.vao = null;
-	}
-	bind(context, program, layoutVertexBuffer, paintVertexBuffers, indexBuffer, vertexOffset, dynamicVertexBuffer, dynamicVertexBuffer2, dynamicVertexBuffer3) {
-		this.context = context;
-		let paintBuffersDiffer = this.boundPaintVertexBuffers.length !== paintVertexBuffers.length;
-		for (let i = 0; !paintBuffersDiffer && i < paintVertexBuffers.length; i++) if (this.boundPaintVertexBuffers[i] !== paintVertexBuffers[i]) paintBuffersDiffer = true;
-		if (!this.vao || this.boundProgram !== program || this.boundLayoutVertexBuffer !== layoutVertexBuffer || paintBuffersDiffer || this.boundIndexBuffer !== indexBuffer || this.boundVertexOffset !== vertexOffset || this.boundDynamicVertexBuffer !== dynamicVertexBuffer || this.boundDynamicVertexBuffer2 !== dynamicVertexBuffer2 || this.boundDynamicVertexBuffer3 !== dynamicVertexBuffer3) this.freshBind(program, layoutVertexBuffer, paintVertexBuffers, indexBuffer, vertexOffset, dynamicVertexBuffer, dynamicVertexBuffer2, dynamicVertexBuffer3);
-		else context.bindVertexArray.set(this.vao);
-	}
-	freshBind(program, layoutVertexBuffer, paintVertexBuffers, indexBuffer, vertexOffset, dynamicVertexBuffer, dynamicVertexBuffer2, dynamicVertexBuffer3) {
-		const numNextAttributes = program.numAttributes;
-		const context = this.context;
-		const gl = context.gl;
-		if (this.vao) this.destroy();
-		this.vao = context.createVertexArray();
-		context.bindVertexArray.set(this.vao);
-		this.boundProgram = program;
-		this.boundLayoutVertexBuffer = layoutVertexBuffer;
-		this.boundPaintVertexBuffers = paintVertexBuffers;
-		this.boundIndexBuffer = indexBuffer;
-		this.boundVertexOffset = vertexOffset;
-		this.boundDynamicVertexBuffer = dynamicVertexBuffer;
-		this.boundDynamicVertexBuffer2 = dynamicVertexBuffer2;
-		this.boundDynamicVertexBuffer3 = dynamicVertexBuffer3;
-		layoutVertexBuffer.enableAttributes(gl, program);
-		for (const vertexBuffer of paintVertexBuffers) vertexBuffer.enableAttributes(gl, program);
-		if (dynamicVertexBuffer) dynamicVertexBuffer.enableAttributes(gl, program);
-		if (dynamicVertexBuffer2) dynamicVertexBuffer2.enableAttributes(gl, program);
-		if (dynamicVertexBuffer3) dynamicVertexBuffer3.enableAttributes(gl, program);
-		layoutVertexBuffer.bind();
-		layoutVertexBuffer.setVertexAttribPointers(gl, program, vertexOffset);
-		for (const vertexBuffer of paintVertexBuffers) {
-			vertexBuffer.bind();
-			vertexBuffer.setVertexAttribPointers(gl, program, vertexOffset);
-		}
-		if (dynamicVertexBuffer) {
-			dynamicVertexBuffer.bind();
-			dynamicVertexBuffer.setVertexAttribPointers(gl, program, vertexOffset);
-		}
-		if (indexBuffer) indexBuffer.bind();
-		if (dynamicVertexBuffer2) {
-			dynamicVertexBuffer2.bind();
-			dynamicVertexBuffer2.setVertexAttribPointers(gl, program, vertexOffset);
-		}
-		if (dynamicVertexBuffer3) {
-			dynamicVertexBuffer3.bind();
-			dynamicVertexBuffer3.setVertexAttribPointers(gl, program, vertexOffset);
-		}
-		context.currentNumAttributes = numNextAttributes;
-	}
-	destroy() {
-		if (this.vao) {
-			this.context.deleteVertexArray(this.vao);
-			this.vao = null;
-		}
-	}
-};
-//#endregion
-//#region src/webgl/program/terrain_program.ts
-const terrainPreludeUniforms = (context, locations) => ({
-	"u_depth": new Uniform1i(context, locations.u_depth),
-	"u_terrain": new Uniform1i(context, locations.u_terrain)
-});
-const terrainUniforms = (context, locations) => ({
-	"u_texture": new Uniform1i(context, locations.u_texture),
-	"u_ele_delta": new Uniform1f(context, locations.u_ele_delta),
-	"u_fog_matrix": new UniformMatrix4f(context, locations.u_fog_matrix),
-	"u_fog_color": new UniformColor(context, locations.u_fog_color),
-	"u_fog_ground_blend": new Uniform1f(context, locations.u_fog_ground_blend),
-	"u_fog_ground_blend_opacity": new Uniform1f(context, locations.u_fog_ground_blend_opacity),
-	"u_horizon_color": new UniformColor(context, locations.u_horizon_color),
-	"u_horizon_fog_blend": new Uniform1f(context, locations.u_horizon_fog_blend),
-	"u_is_globe_mode": new Uniform1f(context, locations.u_is_globe_mode)
-});
-const terrainDepthUniforms = (context, locations) => ({ "u_ele_delta": new Uniform1f(context, locations.u_ele_delta) });
-const terrainUniformValues = (eleDelta, fogMatrix, sky, pitch, isGlobeMode) => ({
-	"u_texture": 0,
-	"u_ele_delta": eleDelta,
-	"u_fog_matrix": fogMatrix,
-	"u_fog_color": sky ? sky.properties.get("fog-color") : Color.white,
-	"u_fog_ground_blend": sky ? sky.properties.get("fog-ground-blend") : 1,
-	"u_fog_ground_blend_opacity": isGlobeMode ? 0 : sky ? sky.calculateFogBlendOpacity(pitch) : 0,
-	"u_horizon_color": sky ? sky.properties.get("horizon-color") : Color.white,
-	"u_horizon_fog_blend": sky ? sky.properties.get("horizon-fog-blend") : 1,
-	"u_is_globe_mode": isGlobeMode ? 1 : 0
-});
-const terrainDepthUniformValues = (eleDelta) => ({ "u_ele_delta": eleDelta });
-//#endregion
-//#region src/webgl/uniform_buffer.ts
-const UBO_BINDINGS = {
-	ProjectionUBO: 0,
-	TerrainUBO: 1,
-	FrameUBO: 2
-};
-function applyUBOBindings(gl, program) {
-	for (const [name, binding] of Object.entries(UBO_BINDINGS)) {
-		const index = gl.getUniformBlockIndex(program, name);
-		if (index !== gl.INVALID_INDEX) gl.uniformBlockBinding(program, index, binding);
-	}
-}
-const STD140_SIZE_AND_ALIGNMENT_WORDS = {
-	float: [1, 1],
-	int: [1, 1],
-	vec2: [2, 2],
-	vec4: [4, 4],
-	mat4: [16, 4]
-};
-function std140Layout(members) {
-	const offsets = {};
-	let words = 0;
-	for (const { name, type } of members) {
-		const [size, alignment] = STD140_SIZE_AND_ALIGNMENT_WORDS[type];
-		words = Math.ceil(words / alignment) * alignment;
-		offsets[name] = words;
-		words += size;
-	}
-	return {
-		offsets,
-		contentWords: words,
-		sizeWords: Math.ceil(words / 4) * 4
-	};
-}
-/**
-* @internal
-* The buffer behind one std140 uniform block, bound to a fixed binding point. Callers write members into
-* `pending` at the layout's offsets and call `upload`, which skips the GPU write when nothing changed. Uploads
-* use `bufferData` because Apple's OpenGL driver stalls a `bufferSubData` into a buffer a pending draw still reads (#8468).
-*/
-var UniformBuffer = class {
-	constructor(context, binding, layout) {
-		this.context = context;
-		this.binding = binding;
-		this.contentWords = layout.contentWords;
-		const gl = context.gl;
-		this.buffer = gl.createBuffer();
-		gl.bindBuffer(gl.UNIFORM_BUFFER, this.buffer);
-		gl.bufferData(gl.UNIFORM_BUFFER, layout.sizeWords * 4, gl.DYNAMIC_DRAW);
-		gl.bindBufferBase(gl.UNIFORM_BUFFER, binding, this.buffer);
-		this.uploaded = new Float32Array(layout.sizeWords);
-		this.pending = new Float32Array(layout.sizeWords);
-		this.uploadedWords = new Uint32Array(this.uploaded.buffer);
-		this.pendingWords = new Uint32Array(this.pending.buffer);
-		this.hasData = false;
-		this.bindingDirty = false;
-	}
-	upload() {
-		const gl = this.context.gl;
-		let changed = !this.hasData;
-		if (!changed) {
-			const words = this.pendingWords;
-			const uploadedWords = this.uploadedWords;
-			for (let i = 0; i < this.contentWords; i++) if (words[i] !== uploadedWords[i]) {
-				changed = true;
-				break;
-			}
-		}
-		this.bind();
-		if (!changed) return;
-		gl.bindBufferBase(gl.UNIFORM_BUFFER, this.binding, this.buffer);
-		gl.bufferData(gl.UNIFORM_BUFFER, this.pending, gl.DYNAMIC_DRAW);
-		this.uploaded.set(this.pending);
-		this.hasData = true;
-	}
-	/** Restores the indexed binding after external rendering without uploading unchanged data. */
-	bind() {
-		if (!this.bindingDirty) return;
-		const gl = this.context.gl;
-		gl.bindBufferBase(gl.UNIFORM_BUFFER, this.binding, this.buffer);
-		this.bindingDirty = false;
-	}
-	destroy() {
-		const gl = this.context.gl;
-		if (this.buffer) {
-			gl.deleteBuffer(this.buffer);
-			delete this.buffer;
-		}
-	}
-};
-//#endregion
-//#region src/webgl/projection_uniform_buffer.ts
-const layout$2 = std140Layout([
-	{
-		name: "u_projection_matrix",
-		type: "mat4"
-	},
-	{
-		name: "u_projection_fallback_matrix",
-		type: "mat4"
-	},
-	{
-		name: "u_projection_tile_mercator_coords",
-		type: "vec4"
-	},
-	{
-		name: "u_projection_clipping_plane",
-		type: "vec4"
-	},
-	{
-		name: "u_projection_transition",
-		type: "float"
-	},
-	{
-		name: "u_projection_clip_antimeridian",
-		type: "int"
-	}
-]);
-const offsets$2 = layout$2.offsets;
-/**
-* @internal
-* The buffer behind the `ProjectionUBO` block in the shader preludes, written by `Program.draw` before each draw.
-*/
-function createProjectionUniformBuffer(context) {
-	return new UniformBuffer(context, UBO_BINDINGS.ProjectionUBO, layout$2);
-}
-function updateProjectionUniformBuffer(buffer, projectionData) {
-	const f32 = buffer.pending;
-	f32.set(projectionData.mainMatrix, offsets$2.u_projection_matrix);
-	f32.set(projectionData.fallbackMatrix, offsets$2.u_projection_fallback_matrix);
-	f32.set(projectionData.tileMercatorCoords, offsets$2.u_projection_tile_mercator_coords);
-	f32.set(projectionData.clippingPlane, offsets$2.u_projection_clipping_plane);
-	f32[offsets$2.u_projection_transition] = projectionData.projectionTransition;
-	buffer.pendingWords[offsets$2.u_projection_clip_antimeridian] = projectionData.clipAntimeridian ? 1 : 0;
-	buffer.upload();
-}
-//#endregion
-//#region src/webgl/terrain_uniform_buffer.ts
-const layout$1 = std140Layout([
-	{
-		name: "u_terrain_matrix",
-		type: "mat4"
-	},
-	{
-		name: "u_terrain_unpack",
-		type: "vec4"
-	},
-	{
-		name: "u_terrain_dim",
-		type: "float"
-	},
-	{
-		name: "u_terrain_exaggeration",
-		type: "float"
-	}
-]);
-const offsets$1 = layout$1.offsets;
-/**
-* @internal
-* The buffer behind the `TerrainUBO` block in the vertex prelude, written by `Program.draw` for every draw with terrain.
-*/
-function createTerrainUniformBuffer(context) {
-	return new UniformBuffer(context, UBO_BINDINGS.TerrainUBO, layout$1);
-}
-function updateTerrainUniformBuffer(buffer, terrain) {
-	const f32 = buffer.pending;
-	f32.set(terrain.u_terrain_matrix, offsets$1.u_terrain_matrix);
-	f32.set(terrain.u_terrain_unpack, offsets$1.u_terrain_unpack);
-	f32[offsets$1.u_terrain_dim] = terrain.u_terrain_dim;
-	f32[offsets$1.u_terrain_exaggeration] = terrain.u_terrain_exaggeration;
-	buffer.upload();
-}
-//#endregion
-//#region src/webgl/program.ts
-function getTokenizedAttributesAndUniforms(array) {
-	const result = [];
-	for (const entry of array) {
-		if (entry === null) continue;
-		const token = entry.split(" ");
-		result.push(token.pop());
-	}
-	return result;
-}
-function getIntegerAttributeNames(gl, program) {
-	const integerTypes = /* @__PURE__ */ new Set([
-		gl.INT,
-		gl.INT_VEC2,
-		gl.INT_VEC3,
-		gl.INT_VEC4,
-		gl.UNSIGNED_INT,
-		gl.UNSIGNED_INT_VEC2,
-		gl.UNSIGNED_INT_VEC3,
-		gl.UNSIGNED_INT_VEC4
-	]);
-	const names = /* @__PURE__ */ new Set();
-	const numActiveAttributes = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
-	for (let i = 0; i < numActiveAttributes; i++) {
-		const attribute = gl.getActiveAttrib(program, i);
-		if (attribute && integerTypes.has(attribute.type)) names.add(attribute.name);
-	}
-	return names;
-}
-/**
-* @internal
-* A webgl program to execute in the GPU space
-*/
-var Program = class {
-	constructor(context, source, configuration, fixedUniforms, showOverdrawInspector, useTerrain, projectionPrelude, projectionDefine, extraDefines = []) {
-		const gl = context.gl;
-		this.program = gl.createProgram();
-		const staticAttrInfo = getTokenizedAttributesAndUniforms(source.staticAttributes);
-		const dynamicAttrInfo = configuration ? configuration.getBinderAttributes() : [];
-		const allAttrInfo = staticAttrInfo.concat(dynamicAttrInfo);
-		const preludeUniformsInfo = shaders.prelude.staticUniforms ? getTokenizedAttributesAndUniforms(shaders.prelude.staticUniforms) : [];
-		const staticUniformsInfo = source.staticUniforms ? getTokenizedAttributesAndUniforms(source.staticUniforms) : [];
-		const dynamicUniformsInfo = configuration ? configuration.getBinderUniforms() : [];
-		const uniformList = preludeUniformsInfo.concat(staticUniformsInfo).concat(dynamicUniformsInfo);
-		const allUniformsInfo = [];
-		for (const uniform of uniformList) if (!allUniformsInfo.includes(uniform)) allUniformsInfo.push(uniform);
-		const defines = configuration ? configuration.defines() : [];
-		defines.unshift("#version 300 es");
-		if (showOverdrawInspector) defines.push("#define OVERDRAW_INSPECTOR;");
-		if (useTerrain) defines.push("#define TERRAIN3D;");
-		if (projectionDefine) defines.push(projectionDefine);
-		if (extraDefines) defines.push(...extraDefines);
-		const fragmentSource = defines.concat(shaders.prelude.fragmentSource, projectionPrelude.fragmentSource, source.fragmentSource).join("\n");
-		const vertexSource = defines.concat(shaders.prelude.vertexSource, projectionPrelude.vertexSource, source.vertexSource).join("\n");
-		const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-		if (gl.isContextLost()) {
-			this.failedToCreate = true;
-			return;
-		}
-		gl.shaderSource(fragmentShader, fragmentSource);
-		gl.compileShader(fragmentShader);
-		gl.attachShader(this.program, fragmentShader);
-		const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-		if (gl.isContextLost()) {
-			this.failedToCreate = true;
-			return;
-		}
-		gl.shaderSource(vertexShader, vertexSource);
-		gl.compileShader(vertexShader);
-		gl.attachShader(this.program, vertexShader);
-		this.attributes = {};
-		const uniformLocations = {};
-		this.numAttributes = allAttrInfo.length;
-		gl.linkProgram(this.program);
-		if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) {
-			if (gl.isContextLost()) {
-				this.failedToCreate = true;
-				return;
-			}
-			if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) throw new Error(`Could not compile fragment shader: ${gl.getShaderInfoLog(fragmentShader)}`);
-			if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) throw new Error(`Could not compile vertex shader: ${gl.getShaderInfoLog(vertexShader)}`);
-			throw new Error(`Program failed to link: ${gl.getProgramInfoLog(this.program)}`);
-		}
-		applyUBOBindings(gl, this.program);
-		const integerAttributeNames = getIntegerAttributeNames(gl, this.program);
-		for (const name of allAttrInfo) {
-			if (!name) continue;
-			const location = gl.getAttribLocation(this.program, name);
-			if (location >= 0) this.attributes[name] = {
-				location,
-				isInteger: integerAttributeNames.has(name)
-			};
-		}
-		gl.deleteShader(vertexShader);
-		gl.deleteShader(fragmentShader);
-		for (const uniform of allUniformsInfo) if (uniform && !uniformLocations[uniform]) {
-			const uniformLocation = gl.getUniformLocation(this.program, uniform);
-			if (uniformLocation) uniformLocations[uniform] = uniformLocation;
-		}
-		this.fixedUniforms = fixedUniforms(context, uniformLocations);
-		this.terrainUniforms = terrainPreludeUniforms(context, uniformLocations);
-		this.binderUniforms = configuration ? configuration.getUniforms(context, uniformLocations) : [];
-	}
-	draw(context, drawMode, depthMode, stencilMode, colorMode, cullFaceMode, uniformValues, terrain, projectionData, layerID, layoutVertexBuffer, indexBuffer, segments, currentProperties, zoom, configuration, dynamicLayoutBuffer, dynamicLayoutBuffer2, dynamicLayoutBuffer3) {
-		const gl = context.gl;
-		if (this.failedToCreate) return;
-		context.program.set(this.program);
-		context.projectionUniformBuffer.bind();
-		context.terrainUniformBuffer.bind();
-		context.frameUniformBuffer.bind();
-		context.setDepthMode(depthMode);
-		context.setStencilMode(stencilMode);
-		context.setColorMode(colorMode);
-		context.setCullFace(cullFaceMode);
-		if (terrain) {
-			context.activeTexture.set(gl.TEXTURE2);
-			gl.bindTexture(gl.TEXTURE_2D, terrain.depthTexture);
-			context.activeTexture.set(gl.TEXTURE3);
-			gl.bindTexture(gl.TEXTURE_2D, terrain.texture);
-			for (const name in this.terrainUniforms) this.terrainUniforms[name].set(terrain[name]);
-			updateTerrainUniformBuffer(context.terrainUniformBuffer, terrain);
-		}
-		if (projectionData) updateProjectionUniformBuffer(context.projectionUniformBuffer, projectionData);
-		if (uniformValues) for (const name in this.fixedUniforms) this.fixedUniforms[name].set(uniformValues[name]);
-		if (configuration) configuration.setUniforms(context, this.binderUniforms, currentProperties, { zoom });
-		let primitiveSize = 0;
-		switch (drawMode) {
-			case gl.LINES:
-				primitiveSize = 2;
-				break;
-			case gl.TRIANGLES:
-				primitiveSize = 3;
-				break;
-			case gl.LINE_STRIP: primitiveSize = 1;
-		}
-		for (const segment of segments.get()) {
-			segment.vaos ||= {};
-			segment.vaos[layerID] ||= new VertexArrayObject();
-			segment.vaos[layerID].bind(context, this, layoutVertexBuffer, configuration ? configuration.getPaintVertexBuffers() : [], indexBuffer, segment.vertexOffset, dynamicLayoutBuffer, dynamicLayoutBuffer2, dynamicLayoutBuffer3);
-			gl.drawElements(drawMode, segment.primitiveLength * primitiveSize, gl.UNSIGNED_SHORT, segment.primitiveOffset * primitiveSize * 2);
-		}
-	}
-};
-//#endregion
-//#region src/webgl/program/pattern.ts
-function patternUniformValues(crossfade, painter, tile) {
-	const tileRatio = 1 / pixelsToTileUnits(tile, 1, painter.transform.tileZoom);
-	const numTiles = Math.pow(2, tile.tileID.overscaledZ);
-	const tileSizeAtNearestZoom = tile.tileSize * Math.pow(2, painter.transform.tileZoom) / numTiles;
-	const pixelX = tileSizeAtNearestZoom * (tile.tileID.canonical.x + tile.tileID.wrap * numTiles);
-	const pixelY = tileSizeAtNearestZoom * tile.tileID.canonical.y;
-	return {
-		"u_image": 0,
-		"u_texsize": tile.imageAtlasTexture.size,
-		"u_scale": [
-			tileRatio,
-			crossfade.fromScale,
-			crossfade.toScale
-		],
-		"u_fade": crossfade.t,
-		"u_pixel_coord_upper": [pixelX >> 16, pixelY >> 16],
-		"u_pixel_coord_lower": [pixelX & 65535, pixelY & 65535]
-	};
-}
-function bgPatternUniformValues(image, crossfade, painter, tile) {
-	const imagePosA = painter.patternAtlas.getPattern(image.from.toString());
-	const imagePosB = painter.patternAtlas.getPattern(image.to.toString());
-	const { width, height } = painter.patternAtlas.getPixelSize();
-	const numTiles = Math.pow(2, tile.tileID.overscaledZ);
-	const tileSizeAtNearestZoom = tile.tileSize * Math.pow(2, painter.transform.tileZoom) / numTiles;
-	const pixelX = tileSizeAtNearestZoom * (tile.tileID.canonical.x + tile.tileID.wrap * numTiles);
-	const pixelY = tileSizeAtNearestZoom * tile.tileID.canonical.y;
-	return {
-		"u_image": 0,
-		"u_pattern_tl_a": imagePosA.tl,
-		"u_pattern_br_a": imagePosA.br,
-		"u_pattern_tl_b": imagePosB.tl,
-		"u_pattern_br_b": imagePosB.br,
-		"u_texsize": [width, height],
-		"u_mix": crossfade.t,
-		"u_pattern_size_a": imagePosA.displaySize,
-		"u_pattern_size_b": imagePosB.displaySize,
-		"u_scale_a": crossfade.fromScale,
-		"u_scale_b": crossfade.toScale,
-		"u_tile_units_to_pixels": 1 / pixelsToTileUnits(tile, 1, painter.transform.tileZoom),
-		"u_pixel_coord_upper": [pixelX >> 16, pixelY >> 16],
-		"u_pixel_coord_lower": [pixelX & 65535, pixelY & 65535]
-	};
-}
-//#endregion
-//#region src/webgl/program/fill_extrusion_program.ts
-const fillExtrusionUniforms = (context, locations) => ({
-	"u_lightpos": new Uniform3f(context, locations.u_lightpos),
-	"u_lightpos_globe": new Uniform3f(context, locations.u_lightpos_globe),
-	"u_lightintensity": new Uniform1f(context, locations.u_lightintensity),
-	"u_lightcolor": new Uniform3f(context, locations.u_lightcolor),
-	"u_vertical_gradient": new Uniform1f(context, locations.u_vertical_gradient),
-	"u_opacity": new Uniform1f(context, locations.u_opacity),
-	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate)
-});
-const fillExtrusionPatternUniforms = (context, locations) => ({
-	"u_lightpos": new Uniform3f(context, locations.u_lightpos),
-	"u_lightpos_globe": new Uniform3f(context, locations.u_lightpos_globe),
-	"u_lightintensity": new Uniform1f(context, locations.u_lightintensity),
-	"u_lightcolor": new Uniform3f(context, locations.u_lightcolor),
-	"u_vertical_gradient": new Uniform1f(context, locations.u_vertical_gradient),
-	"u_height_factor": new Uniform1f(context, locations.u_height_factor),
-	"u_opacity": new Uniform1f(context, locations.u_opacity),
-	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
-	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
-	"u_scale": new Uniform3f(context, locations.u_scale),
-	"u_fade": new Uniform1f(context, locations.u_fade)
-});
-const fillExtrusionUniformValues = (painter, shouldUseVerticalGradient, opacity, translate) => {
-	const light = painter.style.light;
-	const lightPos = light.getCartesianPosition();
-	const lightMat = create$4();
-	if (light.properties.get("anchor") === "viewport") fromRotation(lightMat, painter.transform.bearingInRadians);
-	transformMat3(lightPos, lightPos, lightMat);
-	const transformedLightPos = painter.transform.transformLightDirection(lightPos);
-	const lightColor = light.properties.get("color");
-	return {
-		"u_lightpos": lightPos,
-		"u_lightpos_globe": transformedLightPos,
-		"u_lightintensity": light.properties.get("intensity"),
-		"u_lightcolor": [
-			lightColor.r,
-			lightColor.g,
-			lightColor.b
-		],
-		"u_vertical_gradient": +shouldUseVerticalGradient,
-		"u_opacity": opacity,
-		"u_fill_translate": translate
-	};
-};
-const fillExtrusionPatternUniformValues = (painter, shouldUseVerticalGradient, opacity, translate, coord, crossfade, tile) => {
-	return extend(fillExtrusionUniformValues(painter, shouldUseVerticalGradient, opacity, translate), patternUniformValues(crossfade, painter, tile), { "u_height_factor": -Math.pow(2, coord.overscaledZ) / tile.tileSize / 8 });
-};
-//#endregion
-//#region src/webgl/program/fill_program.ts
-const fillUniforms = (context, locations) => ({ "u_fill_translate": new Uniform2f(context, locations.u_fill_translate) });
-const fillPatternUniforms = (context, locations) => ({
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
-	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
-	"u_scale": new Uniform3f(context, locations.u_scale),
-	"u_fade": new Uniform1f(context, locations.u_fade),
-	"u_sdf_pattern": new Uniform1i(context, locations.u_sdf_pattern),
-	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate)
-});
-const fillOutlineUniforms = (context, locations) => ({ "u_fill_translate": new Uniform2f(context, locations.u_fill_translate) });
-const fillOutlinePatternUniforms = (context, locations) => ({
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
-	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
-	"u_scale": new Uniform3f(context, locations.u_scale),
-	"u_fade": new Uniform1f(context, locations.u_fade),
-	"u_sdf_pattern": new Uniform1i(context, locations.u_sdf_pattern),
-	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate)
-});
-const fillPatternUniformValues = (painter, crossfade, tile, translate, isSdfPattern) => extend(patternUniformValues(crossfade, painter, tile), {
-	"u_fill_translate": translate,
-	"u_sdf_pattern": isSdfPattern ? 1 : 0
-});
-const fillUniformValues = (translate) => ({ "u_fill_translate": translate });
-const fillOutlineUniformValues = (translate) => ({ "u_fill_translate": translate });
-const fillOutlinePatternUniformValues = (painter, crossfade, tile, translate, isSdfPattern) => fillPatternUniformValues(painter, crossfade, tile, translate, isSdfPattern);
-//#endregion
-//#region src/webgl/program/circle_program.ts
-const circleUniforms = (context, locations) => ({
-	"u_scale_with_map": new Uniform1i(context, locations.u_scale_with_map),
-	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
-	"u_extrude_scale": new Uniform2f(context, locations.u_extrude_scale),
-	"u_globe_extrude_scale": new Uniform1f(context, locations.u_globe_extrude_scale),
-	"u_translate": new Uniform2f(context, locations.u_translate)
-});
-const circleUniformValues = (painter, tile, layer, translate, radiusCorrectionFactor) => {
-	const transform = painter.transform;
-	let pitchWithMap, extrudeScale;
-	let globeExtrudeScale = 0;
-	if (layer.paint.get("circle-pitch-alignment") === "map") {
-		const pixelRatio = pixelsToTileUnits(tile, 1, transform.zoom);
-		pitchWithMap = true;
-		extrudeScale = [pixelRatio, pixelRatio];
-		globeExtrudeScale = pixelRatio / (EXTENT * Math.pow(2, tile.tileID.overscaledZ)) * 2 * Math.PI * radiusCorrectionFactor;
-	} else {
-		pitchWithMap = false;
-		extrudeScale = transform.pixelsToGLUnits;
-	}
-	return {
-		"u_scale_with_map": +(layer.paint.get("circle-pitch-scale") === "map"),
-		"u_pitch_with_map": +pitchWithMap,
-		"u_extrude_scale": extrudeScale,
-		"u_globe_extrude_scale": globeExtrudeScale,
-		"u_translate": translate
-	};
-};
-//#endregion
-//#region src/webgl/program/debug_program.ts
-const debugUniforms = (context, locations) => ({
-	"u_color": new UniformColor(context, locations.u_color),
-	"u_overlay": new Uniform1i(context, locations.u_overlay),
-	"u_overlay_scale": new Uniform1f(context, locations.u_overlay_scale)
-});
-const debugUniformValues = (color, scaleRatio = 1) => ({
-	"u_color": color,
-	"u_overlay": 0,
-	"u_overlay_scale": scaleRatio
-});
-//#endregion
-//#region src/webgl/program/heatmap_program.ts
-const heatmapUniforms = (context, locations) => ({
-	"u_extrude_scale": new Uniform1f(context, locations.u_extrude_scale),
-	"u_intensity": new Uniform1f(context, locations.u_intensity),
-	"u_globe_extrude_scale": new Uniform1f(context, locations.u_globe_extrude_scale)
-});
-const heatmapTextureUniforms = (context, locations) => ({
-	"u_matrix": new UniformMatrix4f(context, locations.u_matrix),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_color_ramp": new Uniform1i(context, locations.u_color_ramp),
-	"u_opacity": new Uniform1f(context, locations.u_opacity)
-});
-const heatmapUniformValues = (tile, zoom, intensity, radiusCorrectionFactor) => {
-	const globeExtrudeScale = pixelsToTileUnits(tile, 1, zoom) / (EXTENT * Math.pow(2, tile.tileID.overscaledZ)) * 2 * Math.PI * radiusCorrectionFactor;
-	return {
-		"u_extrude_scale": pixelsToTileUnits(tile, 1, zoom),
-		"u_intensity": intensity,
-		"u_globe_extrude_scale": globeExtrudeScale
-	};
-};
-const heatmapTextureUniformValues = (painter, layer, textureUnit, colorRampUnit) => {
-	const matrix = create$1();
-	ortho(matrix, 0, painter.width, painter.height, 0, 0, 1);
-	return {
-		"u_matrix": matrix,
-		"u_image": textureUnit,
-		"u_color_ramp": colorRampUnit,
-		"u_opacity": layer.paint.get("heatmap-opacity")
-	};
-};
-//#endregion
-//#region src/webgl/program/hillshade_program.ts
-const hillshadeUniforms = (context, locations) => ({
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_latrange": new Uniform2f(context, locations.u_latrange),
-	"u_exaggeration": new Uniform1f(context, locations.u_exaggeration),
-	"u_altitudes": new UniformFloatArray(context, locations.u_altitudes),
-	"u_azimuths": new UniformFloatArray(context, locations.u_azimuths),
-	"u_accent": new UniformColor(context, locations.u_accent),
-	"u_method": new Uniform1i(context, locations.u_method),
-	"u_shadows": new UniformColorArray(context, locations.u_shadows),
-	"u_highlights": new UniformColorArray(context, locations.u_highlights)
-});
-const hillshadePrepareUniforms = (context, locations) => ({
-	"u_matrix": new UniformMatrix4f(context, locations.u_matrix),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_dimension": new Uniform2f(context, locations.u_dimension),
-	"u_zoom": new Uniform1f(context, locations.u_zoom),
-	"u_unpack": new Uniform4f(context, locations.u_unpack)
-});
-const hillshadeUniformValues = (painter, tile, layer) => {
-	const accent = layer.paint.get("hillshade-accent-color");
-	let method;
-	switch (layer.paint.get("hillshade-method")) {
-		case "basic":
-			method = 4;
-			break;
-		case "combined":
-			method = 1;
-			break;
-		case "igor":
-			method = 2;
-			break;
-		case "multidirectional":
-			method = 3;
-			break;
-		default: method = 0;
-	}
-	const illumination = layer.getIlluminationProperties();
-	for (let i = 0; i < illumination.directionRadians.length; i++) if (layer.paint.get("hillshade-illumination-anchor") === "viewport") illumination.directionRadians[i] += painter.transform.bearingInRadians;
-	return {
-		"u_image": 0,
-		"u_latrange": getTileLatRange(painter, tile.tileID),
-		"u_exaggeration": layer.paint.get("hillshade-exaggeration"),
-		"u_altitudes": illumination.altitudeRadians,
-		"u_azimuths": illumination.directionRadians,
-		"u_accent": accent,
-		"u_method": method,
-		"u_highlights": illumination.highlightColor,
-		"u_shadows": illumination.shadowColor
-	};
-};
-const hillshadeUniformPrepareValues = (tileID, dem) => {
-	const stride = dem.stride;
-	const matrix = create$1();
-	ortho(matrix, 0, EXTENT, -EXTENT, 0, 0, 1);
-	translate(matrix, matrix, [
-		0,
-		-EXTENT,
-		0
-	]);
-	return {
-		"u_matrix": matrix,
-		"u_image": 1,
-		"u_dimension": [stride, stride],
-		"u_zoom": tileID.overscaledZ,
-		"u_unpack": dem.getUnpackVector()
-	};
-};
-function getTileLatRange(painter, tileID) {
-	const tilesAtZoom = Math.pow(2, tileID.canonical.z);
-	const y = tileID.canonical.y;
-	return [new MercatorCoordinate(0, y / tilesAtZoom).toLngLat().lat, new MercatorCoordinate(0, (y + 1) / tilesAtZoom).toLngLat().lat];
-}
-//#endregion
-//#region src/webgl/program/color_relief_program.ts
-const colorReliefUniforms = (context, locations) => ({
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_unpack": new Uniform4f(context, locations.u_unpack),
-	"u_dimension": new Uniform2f(context, locations.u_dimension),
-	"u_elevation_stops": new Uniform1i(context, locations.u_elevation_stops),
-	"u_color_stops": new Uniform1i(context, locations.u_color_stops),
-	"u_color_ramp_size": new Uniform1i(context, locations.u_color_ramp_size),
-	"u_opacity": new Uniform1f(context, locations.u_opacity)
-});
-const colorReliefUniformValues = (layer, dem, colorRampSize = 0) => {
-	return {
-		"u_image": 0,
-		"u_unpack": dem.getUnpackVector(),
-		"u_dimension": [dem.stride, dem.stride],
-		"u_elevation_stops": 1,
-		"u_color_stops": 4,
-		"u_color_ramp_size": colorRampSize,
-		"u_opacity": layer.paint.get("color-relief-opacity")
-	};
-};
-//#endregion
-//#region src/webgl/program/line_program.ts
-const lineUniforms = (context, locations) => ({
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_ratio": new Uniform1f(context, locations.u_ratio)
-});
-const lineGradientUniforms = (context, locations) => ({
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_ratio": new Uniform1f(context, locations.u_ratio),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_image_height": new Uniform1f(context, locations.u_image_height)
-});
-const linePatternUniforms = (context, locations) => ({
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_ratio": new Uniform1f(context, locations.u_ratio),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_scale": new Uniform3f(context, locations.u_scale),
-	"u_fade": new Uniform1f(context, locations.u_fade)
-});
-const lineSDFUniforms = (context, locations) => ({
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_ratio": new Uniform1f(context, locations.u_ratio),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_mix": new Uniform1f(context, locations.u_mix),
-	"u_tileratio": new Uniform1f(context, locations.u_tileratio),
-	"u_crossfade_from": new Uniform1f(context, locations.u_crossfade_from),
-	"u_crossfade_to": new Uniform1f(context, locations.u_crossfade_to),
-	"u_lineatlas_width": new Uniform1f(context, locations.u_lineatlas_width),
-	"u_lineatlas_height": new Uniform1f(context, locations.u_lineatlas_height)
-});
-const lineGradientSDFUniforms = (context, locations) => ({
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_ratio": new Uniform1f(context, locations.u_ratio),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_image_height": new Uniform1f(context, locations.u_image_height),
-	"u_tileratio": new Uniform1f(context, locations.u_tileratio),
-	"u_crossfade_from": new Uniform1f(context, locations.u_crossfade_from),
-	"u_crossfade_to": new Uniform1f(context, locations.u_crossfade_to),
-	"u_image_dash": new Uniform1i(context, locations.u_image_dash),
-	"u_mix": new Uniform1f(context, locations.u_mix),
-	"u_lineatlas_width": new Uniform1f(context, locations.u_lineatlas_width),
-	"u_lineatlas_height": new Uniform1f(context, locations.u_lineatlas_height)
-});
-const lineUniformValues = (painter, tile, layer, ratioScale) => {
-	const transform = painter.transform;
-	return {
-		"u_translation": calculateTranslation(painter, tile, layer),
-		"u_ratio": ratioScale / pixelsToTileUnits(tile, 1, transform.zoom)
-	};
-};
-const lineGradientUniformValues = (painter, tile, layer, ratioScale, imageHeight) => {
-	return extend(lineUniformValues(painter, tile, layer, ratioScale), {
-		"u_image": 0,
-		"u_image_height": imageHeight
-	});
-};
-const linePatternUniformValues = (painter, tile, layer, ratioScale, crossfade) => {
-	const transform = painter.transform;
-	const tileZoomRatio = calculateTileRatio(tile, transform);
-	return {
-		"u_translation": calculateTranslation(painter, tile, layer),
-		"u_texsize": tile.imageAtlasTexture.size,
-		"u_ratio": ratioScale / pixelsToTileUnits(tile, 1, transform.zoom),
-		"u_image": 0,
-		"u_scale": [
-			tileZoomRatio,
-			crossfade.fromScale,
-			crossfade.toScale
-		],
-		"u_fade": crossfade.t
-	};
-};
-const lineSDFUniformValues = (painter, tile, layer, ratioScale, crossfade) => {
-	const transform = painter.transform;
-	const tileRatio = calculateTileRatio(tile, transform);
-	return extend(lineUniformValues(painter, tile, layer, ratioScale), {
-		"u_tileratio": tileRatio,
-		"u_crossfade_from": crossfade.fromScale,
-		"u_crossfade_to": crossfade.toScale,
-		"u_image": 0,
-		"u_mix": crossfade.t,
-		"u_lineatlas_width": painter.lineAtlas.width,
-		"u_lineatlas_height": painter.lineAtlas.height
-	});
-};
-const lineGradientSDFUniformValues = (painter, tile, layer, ratioScale, crossfade, imageHeight) => {
-	const transform = painter.transform;
-	const tileRatio = calculateTileRatio(tile, transform);
-	return extend(lineUniformValues(painter, tile, layer, ratioScale), {
-		"u_image": 0,
-		"u_image_height": imageHeight,
-		"u_tileratio": tileRatio,
-		"u_crossfade_from": crossfade.fromScale,
-		"u_crossfade_to": crossfade.toScale,
-		"u_image_dash": 1,
-		"u_mix": crossfade.t,
-		"u_lineatlas_width": painter.lineAtlas.width,
-		"u_lineatlas_height": painter.lineAtlas.height
-	});
-};
-function calculateTileRatio(tile, transform) {
-	return 1 / pixelsToTileUnits(tile, 1, transform.tileZoom);
-}
-function calculateTranslation(painter, tile, layer) {
-	return translatePosition(painter.transform, tile, layer.paint.get("line-translate"), layer.paint.get("line-translate-anchor"));
-}
-//#endregion
-//#region src/webgl/program/layer_opacity_program.ts
-const layerOpacityUniforms = (context, locations) => ({
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_opacity": new Uniform1f(context, locations.u_opacity)
-});
-const layerOpacityUniformValues = (opacity, textureUnit) => ({
-	"u_image": textureUnit,
-	"u_opacity": opacity
-});
-//#endregion
-//#region src/webgl/program/symbol_program.ts
-const symbolIconUniforms = (context, locations) => ({
-	"u_is_size_zoom_constant": new Uniform1i(context, locations.u_is_size_zoom_constant),
-	"u_is_size_feature_constant": new Uniform1i(context, locations.u_is_size_feature_constant),
-	"u_size_t": new Uniform1f(context, locations.u_size_t),
-	"u_size": new Uniform1f(context, locations.u_size),
-	"u_rotate_symbol": new Uniform1i(context, locations.u_rotate_symbol),
-	"u_label_plane_matrix": new UniformMatrix4f(context, locations.u_label_plane_matrix),
-	"u_coord_matrix": new UniformMatrix4f(context, locations.u_coord_matrix),
-	"u_is_text": new Uniform1i(context, locations.u_is_text),
-	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
-	"u_is_along_line": new Uniform1i(context, locations.u_is_along_line),
-	"u_is_variable_anchor": new Uniform1i(context, locations.u_is_variable_anchor),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_texture": new Uniform1i(context, locations.u_texture),
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_pitched_scale": new Uniform1f(context, locations.u_pitched_scale),
-	"u_is_offset": new Uniform1i(context, locations.u_is_offset),
-	"u_height_anchor_ground": new Uniform1i(context, locations.u_height_anchor_ground)
-});
-const symbolSDFUniforms = (context, locations) => ({
-	"u_is_size_zoom_constant": new Uniform1i(context, locations.u_is_size_zoom_constant),
-	"u_is_size_feature_constant": new Uniform1i(context, locations.u_is_size_feature_constant),
-	"u_size_t": new Uniform1f(context, locations.u_size_t),
-	"u_size": new Uniform1f(context, locations.u_size),
-	"u_rotate_symbol": new Uniform1i(context, locations.u_rotate_symbol),
-	"u_label_plane_matrix": new UniformMatrix4f(context, locations.u_label_plane_matrix),
-	"u_coord_matrix": new UniformMatrix4f(context, locations.u_coord_matrix),
-	"u_is_text": new Uniform1i(context, locations.u_is_text),
-	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
-	"u_is_along_line": new Uniform1i(context, locations.u_is_along_line),
-	"u_is_variable_anchor": new Uniform1i(context, locations.u_is_variable_anchor),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_texture": new Uniform1i(context, locations.u_texture),
-	"u_gamma_scale": new Uniform1f(context, locations.u_gamma_scale),
-	"u_is_halo": new Uniform1i(context, locations.u_is_halo),
-	"u_is_plain": new Uniform1i(context, locations.u_is_plain),
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_pitched_scale": new Uniform1f(context, locations.u_pitched_scale),
-	"u_is_offset": new Uniform1i(context, locations.u_is_offset),
-	"u_height_anchor_ground": new Uniform1i(context, locations.u_height_anchor_ground)
-});
-const symbolTextAndIconUniforms = (context, locations) => ({
-	"u_is_size_zoom_constant": new Uniform1i(context, locations.u_is_size_zoom_constant),
-	"u_is_size_feature_constant": new Uniform1i(context, locations.u_is_size_feature_constant),
-	"u_size_t": new Uniform1f(context, locations.u_size_t),
-	"u_size": new Uniform1f(context, locations.u_size),
-	"u_rotate_symbol": new Uniform1i(context, locations.u_rotate_symbol),
-	"u_label_plane_matrix": new UniformMatrix4f(context, locations.u_label_plane_matrix),
-	"u_coord_matrix": new UniformMatrix4f(context, locations.u_coord_matrix),
-	"u_is_text": new Uniform1i(context, locations.u_is_text),
-	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
-	"u_is_along_line": new Uniform1i(context, locations.u_is_along_line),
-	"u_is_variable_anchor": new Uniform1i(context, locations.u_is_variable_anchor),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_texsize_icon": new Uniform2f(context, locations.u_texsize_icon),
-	"u_texture": new Uniform1i(context, locations.u_texture),
-	"u_texture_icon": new Uniform1i(context, locations.u_texture_icon),
-	"u_gamma_scale": new Uniform1f(context, locations.u_gamma_scale),
-	"u_is_halo": new Uniform1i(context, locations.u_is_halo),
-	"u_translation": new Uniform2f(context, locations.u_translation),
-	"u_pitched_scale": new Uniform1f(context, locations.u_pitched_scale),
-	"u_is_offset": new Uniform1i(context, locations.u_is_offset),
-	"u_height_anchor_ground": new Uniform1i(context, locations.u_height_anchor_ground)
-});
-const symbolIconUniformValues = (functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, isText, texSize, pitchedScale, isOffset, heightAnchorGround) => {
-	return {
-		"u_is_size_zoom_constant": +(functionType === "constant" || functionType === "source"),
-		"u_is_size_feature_constant": +(functionType === "constant" || functionType === "camera"),
-		"u_size_t": size ? size.uSizeT : 0,
-		"u_size": size ? size.uSize : 0,
-		"u_rotate_symbol": +rotateInShader,
-		"u_label_plane_matrix": labelPlaneMatrix,
-		"u_coord_matrix": glCoordMatrix,
-		"u_is_text": +isText,
-		"u_pitch_with_map": +pitchWithMap,
-		"u_is_along_line": isAlongLine,
-		"u_is_variable_anchor": isVariableAnchor,
-		"u_texsize": texSize,
-		"u_texture": 0,
-		"u_translation": translation,
-		"u_pitched_scale": pitchedScale,
-		"u_is_offset": isOffset,
-		"u_height_anchor_ground": +heightAnchorGround
-	};
-};
-const symbolSDFUniformValues = (functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, isText, texSize, isHalo, pitchedScale, isOffset, heightAnchorGround) => {
-	const transform = painter.transform;
-	return extend(symbolIconUniformValues(functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, isText, texSize, pitchedScale, isOffset, heightAnchorGround), {
-		"u_gamma_scale": pitchWithMap ? Math.cos(transform.pitch * Math.PI / 180) * transform.cameraToCenterDistance : 1,
-		"u_is_halo": isHalo ? 1 : 0,
-		"u_is_plain": 1
-	});
-};
-const symbolTextAndIconUniformValues = (functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, texSizeSDF, texSizeIcon, pitchedScale, isOffset, heightAnchorGround) => {
-	return extend(symbolSDFUniformValues(functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, true, texSizeSDF, true, pitchedScale, isOffset, heightAnchorGround), {
-		"u_texsize_icon": texSizeIcon,
-		"u_texture_icon": 1
-	});
-};
-//#endregion
-//#region src/webgl/program/background_program.ts
-const backgroundUniforms = (context, locations) => ({
-	"u_opacity": new Uniform1f(context, locations.u_opacity),
-	"u_color": new UniformColor(context, locations.u_color)
-});
-const backgroundPatternUniforms = (context, locations) => ({
-	"u_opacity": new Uniform1f(context, locations.u_opacity),
-	"u_image": new Uniform1i(context, locations.u_image),
-	"u_pattern_tl_a": new Uniform2f(context, locations.u_pattern_tl_a),
-	"u_pattern_br_a": new Uniform2f(context, locations.u_pattern_br_a),
-	"u_pattern_tl_b": new Uniform2f(context, locations.u_pattern_tl_b),
-	"u_pattern_br_b": new Uniform2f(context, locations.u_pattern_br_b),
-	"u_texsize": new Uniform2f(context, locations.u_texsize),
-	"u_mix": new Uniform1f(context, locations.u_mix),
-	"u_pattern_size_a": new Uniform2f(context, locations.u_pattern_size_a),
-	"u_pattern_size_b": new Uniform2f(context, locations.u_pattern_size_b),
-	"u_scale_a": new Uniform1f(context, locations.u_scale_a),
-	"u_scale_b": new Uniform1f(context, locations.u_scale_b),
-	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
-	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
-	"u_tile_units_to_pixels": new Uniform1f(context, locations.u_tile_units_to_pixels)
-});
-const backgroundUniformValues = (opacity, color) => ({
-	"u_opacity": opacity,
-	"u_color": color
-});
-const backgroundPatternUniformValues = (opacity, painter, image, tile, crossfade) => extend(bgPatternUniformValues(image, crossfade, painter, tile), { "u_opacity": opacity });
-//#endregion
-//#region src/webgl/program/atmosphere_program.ts
-const atmosphereUniforms = (context, locations) => ({
-	"u_sun_pos": new Uniform3f(context, locations.u_sun_pos),
-	"u_atmosphere_blend": new Uniform1f(context, locations.u_atmosphere_blend),
-	"u_globe_position": new Uniform3f(context, locations.u_globe_position),
-	"u_globe_radius": new Uniform1f(context, locations.u_globe_radius),
-	"u_inv_proj_matrix": new UniformMatrix4f(context, locations.u_inv_proj_matrix)
-});
-const atmosphereUniformValues = (sunPos, atmosphereBlend, globePosition, globeRadius, invProjMatrix) => ({
-	"u_sun_pos": sunPos,
-	"u_atmosphere_blend": atmosphereBlend,
-	"u_globe_position": globePosition,
-	"u_globe_radius": globeRadius,
-	"u_inv_proj_matrix": invProjMatrix
-});
-//#endregion
-//#region src/webgl/program/sky_program.ts
-const skyUniforms = (context, locations) => ({
-	"u_sky_color": new UniformColor(context, locations.u_sky_color),
-	"u_horizon_color": new UniformColor(context, locations.u_horizon_color),
-	"u_horizon": new Uniform2f(context, locations.u_horizon),
-	"u_horizon_normal": new Uniform2f(context, locations.u_horizon_normal),
-	"u_sky_horizon_blend": new Uniform1f(context, locations.u_sky_horizon_blend),
-	"u_sky_blend": new Uniform1f(context, locations.u_sky_blend),
-	"u_inv_proj_matrix": new UniformMatrix4f(context, locations.u_inv_proj_matrix),
-	"u_globe_position": new Uniform3f(context, locations.u_globe_position),
-	"u_globe_radius": new Uniform1f(context, locations.u_globe_radius),
-	"u_atmosphere_blend": new Uniform1f(context, locations.u_atmosphere_blend)
-});
-const skyUniformValues = (sky, transform, pixelRatio) => {
-	const cosRoll = Math.cos(transform.rollInRadians);
-	const sinRoll = Math.sin(transform.rollInRadians);
-	const mercatorHorizon = getMercatorHorizon(transform);
-	const skyBlend = transform.getProjectionData({
-		overscaledTileID: null,
-		applyGlobeMatrix: true,
-		applyTerrainMatrix: true
-	}).projectionTransition;
-	const globePosition = getGlobeCenterInViewSpace(transform);
-	const globeRadius = getGlobeRadiusPixels(transform.worldSize, transform.center.lat);
-	return {
-		"u_sky_color": sky.properties.get("sky-color"),
-		"u_horizon_color": sky.properties.get("horizon-color"),
-		"u_horizon": [(transform.width / 2 - mercatorHorizon * sinRoll) * pixelRatio, (transform.height / 2 + mercatorHorizon * cosRoll) * pixelRatio],
-		"u_horizon_normal": [-sinRoll, cosRoll],
-		"u_sky_horizon_blend": sky.properties.get("sky-horizon-blend") * transform.height / 2 * pixelRatio,
-		"u_sky_blend": skyBlend,
-		"u_inv_proj_matrix": transform.inverseProjectionMatrix,
-		"u_globe_position": globePosition,
-		"u_globe_radius": globeRadius,
-		"u_atmosphere_blend": sky.properties.get("atmosphere-blend") * getAtmosphereAltitudeBlend(length(globePosition) - globeRadius, globeRadius)
-	};
-};
-//#endregion
-//#region src/webgl/program/program_uniforms.ts
-const emptyUniforms = (_, __) => ({});
-const programUniforms = {
-	fillExtrusion: fillExtrusionUniforms,
-	fillExtrusionPattern: fillExtrusionPatternUniforms,
-	fill: fillUniforms,
-	fillPattern: fillPatternUniforms,
-	fillOutline: fillOutlineUniforms,
-	fillOutlinePattern: fillOutlinePatternUniforms,
-	circle: circleUniforms,
-	collisionBox: emptyUniforms,
-	collisionCircle: emptyUniforms,
-	debug: debugUniforms,
-	depth: emptyUniforms,
-	clippingMask: emptyUniforms,
-	heatmap: heatmapUniforms,
-	heatmapTexture: heatmapTextureUniforms,
-	hillshade: hillshadeUniforms,
-	hillshadePrepare: hillshadePrepareUniforms,
-	colorRelief: colorReliefUniforms,
-	line: lineUniforms,
-	lineGradient: lineGradientUniforms,
-	linePattern: linePatternUniforms,
-	lineSDF: lineSDFUniforms,
-	lineGradientSDF: lineGradientSDFUniforms,
-	layerOpacity: layerOpacityUniforms,
-	raster: rasterUniforms,
-	symbolIcon: symbolIconUniforms,
-	symbolSDF: symbolSDFUniforms,
-	symbolTextAndIcon: symbolTextAndIconUniforms,
-	background: backgroundUniforms,
-	backgroundPattern: backgroundPatternUniforms,
-	terrain: terrainUniforms,
-	terrainDepth: terrainDepthUniforms,
-	atmosphere: atmosphereUniforms,
-	sky: skyUniforms
-};
-//#endregion
 //#region src/webgl/index_buffer.ts
 /**
 * @internal
@@ -17822,8 +16429,175 @@ var Framebuffer = class {
 	}
 };
 //#endregion
+//#region src/webgl/uniform_buffer.ts
+const UBO_BINDINGS = {
+	ProjectionUBO: 0,
+	TerrainUBO: 1,
+	FrameUBO: 2
+};
+function applyUBOBindings(gl, program) {
+	for (const [name, binding] of Object.entries(UBO_BINDINGS)) {
+		const index = gl.getUniformBlockIndex(program, name);
+		if (index !== gl.INVALID_INDEX) gl.uniformBlockBinding(program, index, binding);
+	}
+}
+const STD140_SIZE_AND_ALIGNMENT_WORDS = {
+	float: [1, 1],
+	int: [1, 1],
+	vec2: [2, 2],
+	vec4: [4, 4],
+	mat4: [16, 4]
+};
+function std140Layout(members) {
+	const offsets = {};
+	let words = 0;
+	for (const { name, type } of members) {
+		const [size, alignment] = STD140_SIZE_AND_ALIGNMENT_WORDS[type];
+		words = Math.ceil(words / alignment) * alignment;
+		offsets[name] = words;
+		words += size;
+	}
+	return {
+		offsets,
+		contentWords: words,
+		sizeWords: Math.ceil(words / 4) * 4
+	};
+}
+/**
+* @internal
+* The buffer behind one std140 uniform block, bound to a fixed binding point. Callers write members into
+* `pending` at the layout's offsets and call `upload`, which skips the GPU write when nothing changed. Uploads
+* use `bufferData` because Apple's OpenGL driver stalls a `bufferSubData` into a buffer a pending draw still reads (#8468).
+*/
+var UniformBuffer = class {
+	constructor(context, binding, layout) {
+		this.context = context;
+		this.binding = binding;
+		this.contentWords = layout.contentWords;
+		const gl = context.gl;
+		this.buffer = gl.createBuffer();
+		gl.bindBuffer(gl.UNIFORM_BUFFER, this.buffer);
+		gl.bufferData(gl.UNIFORM_BUFFER, layout.sizeWords * 4, gl.DYNAMIC_DRAW);
+		this.uploaded = new Float32Array(layout.sizeWords);
+		this.pending = new Float32Array(layout.sizeWords);
+		this.uploadedWords = new Uint32Array(this.uploaded.buffer);
+		this.pendingWords = new Uint32Array(this.pending.buffer);
+		this.hasData = false;
+	}
+	upload() {
+		const gl = this.context.gl;
+		let changed = !this.hasData;
+		if (!changed) {
+			const words = this.pendingWords;
+			const uploadedWords = this.uploadedWords;
+			for (let i = 0; i < this.contentWords; i++) if (words[i] !== uploadedWords[i]) {
+				changed = true;
+				break;
+			}
+		}
+		if (!changed) {
+			this.bind();
+			return;
+		}
+		gl.bindBufferBase(gl.UNIFORM_BUFFER, this.binding, this.buffer);
+		this.context.boundUniformBuffers[this.binding] = this.buffer;
+		gl.bufferData(gl.UNIFORM_BUFFER, this.pending, gl.DYNAMIC_DRAW);
+		this.uploaded.set(this.pending);
+		this.hasData = true;
+	}
+	/** Restores the indexed binding after external rendering without uploading unchanged data. */
+	bind() {
+		const boundUniformBuffers = this.context.boundUniformBuffers;
+		if (boundUniformBuffers[this.binding] === this.buffer) return;
+		const gl = this.context.gl;
+		gl.bindBufferBase(gl.UNIFORM_BUFFER, this.binding, this.buffer);
+		boundUniformBuffers[this.binding] = this.buffer;
+	}
+	destroy() {
+		const gl = this.context.gl;
+		if (this.buffer) {
+			gl.deleteBuffer(this.buffer);
+			delete this.buffer;
+		}
+	}
+};
+//#endregion
+//#region src/webgl/projection_uniform_buffer.ts
+const layout$2 = std140Layout([
+	{
+		name: "u_projection_matrix",
+		type: "mat4"
+	},
+	{
+		name: "u_projection_fallback_matrix",
+		type: "mat4"
+	},
+	{
+		name: "u_projection_tile_mercator_coords",
+		type: "vec4"
+	},
+	{
+		name: "u_projection_clipping_plane",
+		type: "vec4"
+	},
+	{
+		name: "u_projection_transition",
+		type: "float"
+	},
+	{
+		name: "u_projection_clip_antimeridian",
+		type: "int"
+	}
+]);
+const offsets$2 = layout$2.offsets;
+/**
+* @internal
+* The buffer behind the `ProjectionUBO` block in the shader preludes.
+*/
+function createProjectionUniformBuffer(context) {
+	return new UniformBuffer(context, UBO_BINDINGS.ProjectionUBO, layout$2);
+}
+function updateProjectionUniformBuffer(buffer, projectionData) {
+	const f32 = buffer.pending;
+	f32.set(projectionData.mainMatrix, offsets$2.u_projection_matrix);
+	f32.set(projectionData.fallbackMatrix, offsets$2.u_projection_fallback_matrix);
+	f32.set(projectionData.tileMercatorCoords, offsets$2.u_projection_tile_mercator_coords);
+	f32.set(projectionData.clippingPlane, offsets$2.u_projection_clipping_plane);
+	f32[offsets$2.u_projection_transition] = projectionData.projectionTransition;
+	buffer.pendingWords[offsets$2.u_projection_clip_antimeridian] = projectionData.clipAntimeridian ? 1 : 0;
+	buffer.upload();
+}
+function bindProjectionUniformBuffer(context, projectionData) {
+	if (!projectionData) {
+		context.projectionUniformBuffer.bind();
+		return;
+	}
+	const key = projectionData.uniformBufferKey;
+	if (key === void 0) {
+		updateProjectionUniformBuffer(context.projectionUniformBuffer, projectionData);
+		return;
+	}
+	const keyedBuffer = context.keyedProjectionUniformBuffers.get(key);
+	if (keyedBuffer) {
+		keyedBuffer.bind();
+		return;
+	}
+	const buffer = context.freeProjectionUniformBuffers.pop() ?? createProjectionUniformBuffer(context);
+	context.keyedProjectionUniformBuffers.set(key, buffer);
+	updateProjectionUniformBuffer(buffer, projectionData);
+}
+function releaseProjectionUniformBuffers(context) {
+	context.freeProjectionUniformBuffers.push(...context.keyedProjectionUniformBuffers.values());
+	context.keyedProjectionUniformBuffers.clear();
+}
+function destroyProjectionUniformBuffers(context) {
+	context.projectionUniformBuffer.destroy();
+	for (const buffer of context.keyedProjectionUniformBuffers.values()) buffer.destroy();
+	for (const buffer of context.freeProjectionUniformBuffers) buffer.destroy();
+}
+//#endregion
 //#region src/webgl/frame_uniform_buffer.ts
-const layout = std140Layout([
+const layout$1 = std140Layout([
 	{
 		name: "u_units_to_pixels",
 		type: "vec2"
@@ -17861,31 +16635,78 @@ const layout = std140Layout([
 		type: "float"
 	}
 ]);
+const offsets$1 = layout$1.offsets;
+/**
+* @internal
+* The buffer behind the `FrameUBO` block in the shader preludes. `Painter.render` fills it at the start of a frame,
+* and the terrain pass rewrites `u_world_size` around the renders into its textures.
+*/
+function createFrameUniformBuffer(context) {
+	return new UniformBuffer(context, UBO_BINDINGS.FrameUBO, layout$1);
+}
+function updateFrameUniformBuffer(buffer, transform, data) {
+	const f32 = buffer.pending;
+	const gl = buffer.context.gl;
+	f32[offsets$1.u_units_to_pixels] = 1 / transform.pixelsToGLUnits[0];
+	f32[offsets$1.u_units_to_pixels + 1] = 1 / transform.pixelsToGLUnits[1];
+	f32[offsets$1.u_world_size] = gl.drawingBufferWidth;
+	f32[offsets$1.u_world_size + 1] = gl.drawingBufferHeight;
+	f32[offsets$1.u_camera_to_center_distance] = transform.cameraToCenterDistance;
+	f32[offsets$1.u_symbol_fade_change] = data.fadeDuration ? data.symbolFadeChange : 1;
+	f32[offsets$1.u_aspect_ratio] = transform.width / transform.height;
+	f32[offsets$1.u_device_pixel_ratio] = data.pixelRatio;
+	f32[offsets$1.u_viewport_size] = transform.width;
+	f32[offsets$1.u_viewport_size + 1] = transform.height;
+	f32[offsets$1.u_pixel_extrude_scale] = 1 / transform.width;
+	f32[offsets$1.u_pixel_extrude_scale + 1] = 1 / transform.height;
+	f32[offsets$1.u_pitch] = transform.pitch / 360 * 2 * Math.PI;
+	buffer.upload();
+}
+/**
+* @internal
+* Sets `u_world_size` to the size of the render target about to be drawn into. It is the canvas size,
+* except while layers are drawn into a terrain texture; the fill outline shaders compare it with `gl_FragCoord`.
+*/
+function setFrameUniformWorldSize(buffer, width, height) {
+	const f32 = buffer.pending;
+	f32[offsets$1.u_world_size] = width;
+	f32[offsets$1.u_world_size + 1] = height;
+	buffer.upload();
+}
+//#endregion
+//#region src/webgl/terrain_uniform_buffer.ts
+const layout = std140Layout([
+	{
+		name: "u_terrain_matrix",
+		type: "mat4"
+	},
+	{
+		name: "u_terrain_unpack",
+		type: "vec4"
+	},
+	{
+		name: "u_terrain_dim",
+		type: "float"
+	},
+	{
+		name: "u_terrain_exaggeration",
+		type: "float"
+	}
+]);
 const offsets = layout.offsets;
 /**
 * @internal
-* The buffer behind the `FrameUBO` block in the shader preludes, written once per frame by `Painter.render`.
+* The buffer behind the `TerrainUBO` block in the vertex prelude, written by `Program.draw` for every draw with terrain.
 */
-function createFrameUniformBuffer(context) {
-	return new UniformBuffer(context, UBO_BINDINGS.FrameUBO, layout);
+function createTerrainUniformBuffer(context) {
+	return new UniformBuffer(context, UBO_BINDINGS.TerrainUBO, layout);
 }
-function updateFrameUniformBuffer(buffer, painter) {
+function updateTerrainUniformBuffer(buffer, terrain) {
 	const f32 = buffer.pending;
-	const { transform } = painter;
-	const gl = painter.context.gl;
-	f32[offsets.u_units_to_pixels] = 1 / transform.pixelsToGLUnits[0];
-	f32[offsets.u_units_to_pixels + 1] = 1 / transform.pixelsToGLUnits[1];
-	f32[offsets.u_world_size] = gl.drawingBufferWidth;
-	f32[offsets.u_world_size + 1] = gl.drawingBufferHeight;
-	f32[offsets.u_camera_to_center_distance] = transform.cameraToCenterDistance;
-	f32[offsets.u_symbol_fade_change] = painter.options.fadeDuration ? painter.symbolFadeChange : 1;
-	f32[offsets.u_aspect_ratio] = transform.width / transform.height;
-	f32[offsets.u_device_pixel_ratio] = painter.pixelRatio;
-	f32[offsets.u_viewport_size] = transform.width;
-	f32[offsets.u_viewport_size + 1] = transform.height;
-	f32[offsets.u_pixel_extrude_scale] = 1 / transform.width;
-	f32[offsets.u_pixel_extrude_scale + 1] = 1 / transform.height;
-	f32[offsets.u_pitch] = transform.pitch / 360 * 2 * Math.PI;
+	f32.set(terrain.u_terrain_matrix, offsets.u_terrain_matrix);
+	f32.set(terrain.u_terrain_unpack, offsets.u_terrain_unpack);
+	f32[offsets.u_terrain_dim] = terrain.u_terrain_dim;
+	f32[offsets.u_terrain_exaggeration] = terrain.u_terrain_exaggeration;
 	buffer.upload();
 }
 //#endregion
@@ -17964,7 +16785,10 @@ var Context = class {
 		this.maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
 		gl.getExtension("EXT_color_buffer_half_float");
 		gl.getExtension("EXT_color_buffer_float");
+		this.boundUniformBuffers = [];
 		this.projectionUniformBuffer = createProjectionUniformBuffer(this);
+		this.keyedProjectionUniformBuffers = /* @__PURE__ */ new Map();
+		this.freeProjectionUniformBuffers = [];
 		this.terrainUniformBuffer = createTerrainUniformBuffer(this);
 		this.frameUniformBuffer = createFrameUniformBuffer(this);
 	}
@@ -18028,9 +16852,7 @@ var Context = class {
 		this.pixelStoreUnpack.dirty = true;
 		this.pixelStoreUnpackPremultiplyAlpha.dirty = true;
 		this.pixelStoreUnpackFlipY.dirty = true;
-		this.projectionUniformBuffer.bindingDirty = true;
-		this.terrainUniformBuffer.bindingDirty = true;
-		this.frameUniformBuffer.bindingDirty = true;
+		this.boundUniformBuffers = [];
 	}
 	/**
 	* Reset some GL state to default values before handing users the raw context, as we do for
@@ -18147,21 +16969,916 @@ var Context = class {
 	}
 };
 //#endregion
-//#region src/webgl/depth_mode.ts
-const ALWAYS$1 = 519;
-var DepthMode = class {
-	constructor(depthFunc, depthMask, depthRange) {
-		this.func = depthFunc;
-		this.mask = depthMask;
-		this.range = depthRange;
+//#region src/webgl/vertex_array_object.ts
+/**
+* @internal
+* A vertex array object used to pass data to the webgl code
+*/
+var VertexArrayObject = class {
+	constructor() {
+		this.boundProgram = null;
+		this.boundLayoutVertexBuffer = null;
+		this.boundPaintVertexBuffers = [];
+		this.boundIndexBuffer = null;
+		this.boundVertexOffset = null;
+		this.boundDynamicVertexBuffer = null;
+		this.vao = null;
+	}
+	bind(context, program, layoutVertexBuffer, paintVertexBuffers, indexBuffer, vertexOffset, dynamicVertexBuffer, dynamicVertexBuffer2, dynamicVertexBuffer3) {
+		this.context = context;
+		let paintBuffersDiffer = this.boundPaintVertexBuffers.length !== paintVertexBuffers.length;
+		for (let i = 0; !paintBuffersDiffer && i < paintVertexBuffers.length; i++) if (this.boundPaintVertexBuffers[i] !== paintVertexBuffers[i]) paintBuffersDiffer = true;
+		if (!this.vao || this.boundProgram !== program || this.boundLayoutVertexBuffer !== layoutVertexBuffer || paintBuffersDiffer || this.boundIndexBuffer !== indexBuffer || this.boundVertexOffset !== vertexOffset || this.boundDynamicVertexBuffer !== dynamicVertexBuffer || this.boundDynamicVertexBuffer2 !== dynamicVertexBuffer2 || this.boundDynamicVertexBuffer3 !== dynamicVertexBuffer3) this.freshBind(program, layoutVertexBuffer, paintVertexBuffers, indexBuffer, vertexOffset, dynamicVertexBuffer, dynamicVertexBuffer2, dynamicVertexBuffer3);
+		else context.bindVertexArray.set(this.vao);
+	}
+	freshBind(program, layoutVertexBuffer, paintVertexBuffers, indexBuffer, vertexOffset, dynamicVertexBuffer, dynamicVertexBuffer2, dynamicVertexBuffer3) {
+		const numNextAttributes = program.numAttributes;
+		const context = this.context;
+		const gl = context.gl;
+		if (this.vao) this.destroy();
+		this.vao = context.createVertexArray();
+		context.bindVertexArray.set(this.vao);
+		this.boundProgram = program;
+		this.boundLayoutVertexBuffer = layoutVertexBuffer;
+		this.boundPaintVertexBuffers = paintVertexBuffers;
+		this.boundIndexBuffer = indexBuffer;
+		this.boundVertexOffset = vertexOffset;
+		this.boundDynamicVertexBuffer = dynamicVertexBuffer;
+		this.boundDynamicVertexBuffer2 = dynamicVertexBuffer2;
+		this.boundDynamicVertexBuffer3 = dynamicVertexBuffer3;
+		layoutVertexBuffer.enableAttributes(gl, program);
+		for (const vertexBuffer of paintVertexBuffers) vertexBuffer.enableAttributes(gl, program);
+		if (dynamicVertexBuffer) dynamicVertexBuffer.enableAttributes(gl, program);
+		if (dynamicVertexBuffer2) dynamicVertexBuffer2.enableAttributes(gl, program);
+		if (dynamicVertexBuffer3) dynamicVertexBuffer3.enableAttributes(gl, program);
+		layoutVertexBuffer.bind();
+		layoutVertexBuffer.setVertexAttribPointers(gl, program, vertexOffset);
+		for (const vertexBuffer of paintVertexBuffers) {
+			vertexBuffer.bind();
+			vertexBuffer.setVertexAttribPointers(gl, program, vertexOffset);
+		}
+		if (dynamicVertexBuffer) {
+			dynamicVertexBuffer.bind();
+			dynamicVertexBuffer.setVertexAttribPointers(gl, program, vertexOffset);
+		}
+		if (indexBuffer) indexBuffer.bind();
+		if (dynamicVertexBuffer2) {
+			dynamicVertexBuffer2.bind();
+			dynamicVertexBuffer2.setVertexAttribPointers(gl, program, vertexOffset);
+		}
+		if (dynamicVertexBuffer3) {
+			dynamicVertexBuffer3.bind();
+			dynamicVertexBuffer3.setVertexAttribPointers(gl, program, vertexOffset);
+		}
+		context.currentNumAttributes = numNextAttributes;
+	}
+	destroy() {
+		if (this.vao) {
+			this.context.deleteVertexArray(this.vao);
+			this.vao = null;
+		}
 	}
 };
-DepthMode.ReadOnly = false;
-DepthMode.ReadWrite = true;
-DepthMode.disabled = new DepthMode(ALWAYS$1, DepthMode.ReadOnly, [0, 1]);
+//#endregion
+//#region src/webgl/program/terrain_program.ts
+const terrainPreludeUniforms = (context, locations) => ({
+	"u_depth": new Uniform1i(context, locations.u_depth),
+	"u_terrain": new Uniform1i(context, locations.u_terrain)
+});
+const terrainUniforms = (context, locations) => ({
+	"u_texture": new Uniform1i(context, locations.u_texture),
+	"u_ele_delta": new Uniform1f(context, locations.u_ele_delta),
+	"u_fog_matrix": new UniformMatrix4f(context, locations.u_fog_matrix),
+	"u_fog_color": new UniformColor(context, locations.u_fog_color),
+	"u_fog_ground_blend": new Uniform1f(context, locations.u_fog_ground_blend),
+	"u_fog_ground_blend_opacity": new Uniform1f(context, locations.u_fog_ground_blend_opacity),
+	"u_horizon_color": new UniformColor(context, locations.u_horizon_color),
+	"u_horizon_fog_blend": new Uniform1f(context, locations.u_horizon_fog_blend),
+	"u_is_globe_mode": new Uniform1f(context, locations.u_is_globe_mode)
+});
+const terrainDepthUniforms = (context, locations) => ({ "u_ele_delta": new Uniform1f(context, locations.u_ele_delta) });
+const terrainUniformValues = (eleDelta, fogMatrix, sky, pitch, isGlobeMode) => ({
+	"u_texture": 0,
+	"u_ele_delta": eleDelta,
+	"u_fog_matrix": fogMatrix,
+	"u_fog_color": sky ? sky["fog-color"] : Color.white,
+	"u_fog_ground_blend": sky ? sky["fog-ground-blend"] : 1,
+	"u_fog_ground_blend_opacity": isGlobeMode ? 0 : sky ? calculateFogBlendOpacity(pitch) : 0,
+	"u_horizon_color": sky ? sky["horizon-color"] : Color.white,
+	"u_horizon_fog_blend": sky ? sky["horizon-fog-blend"] : 1,
+	"u_is_globe_mode": isGlobeMode ? 1 : 0
+});
+const terrainDepthUniformValues = (eleDelta) => ({ "u_ele_delta": eleDelta });
+//#endregion
+//#region src/webgl/program.ts
+function getTokenizedAttributesAndUniforms(array) {
+	const result = [];
+	for (const entry of array) {
+		if (entry === null) continue;
+		const token = entry.split(" ");
+		result.push(token.pop());
+	}
+	return result;
+}
+function getIntegerAttributeNames(gl, program) {
+	const integerTypes = /* @__PURE__ */ new Set([
+		gl.INT,
+		gl.INT_VEC2,
+		gl.INT_VEC3,
+		gl.INT_VEC4,
+		gl.UNSIGNED_INT,
+		gl.UNSIGNED_INT_VEC2,
+		gl.UNSIGNED_INT_VEC3,
+		gl.UNSIGNED_INT_VEC4
+	]);
+	const names = /* @__PURE__ */ new Set();
+	const numActiveAttributes = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
+	for (let i = 0; i < numActiveAttributes; i++) {
+		const attribute = gl.getActiveAttrib(program, i);
+		if (attribute && integerTypes.has(attribute.type)) names.add(attribute.name);
+	}
+	return names;
+}
+/**
+* @internal
+* A webgl program to execute in the GPU space
+*/
+var Program = class {
+	constructor(context, source, configuration, fixedUniforms, showOverdrawInspector, useTerrain, projectionPrelude, projectionDefine, extraDefines = []) {
+		const gl = context.gl;
+		this.program = gl.createProgram();
+		const staticAttrInfo = getTokenizedAttributesAndUniforms(source.staticAttributes);
+		const dynamicAttrInfo = configuration ? configuration.getBinderAttributes() : [];
+		const allAttrInfo = staticAttrInfo.concat(dynamicAttrInfo);
+		const preludeUniformsInfo = shaders.prelude.staticUniforms ? getTokenizedAttributesAndUniforms(shaders.prelude.staticUniforms) : [];
+		const staticUniformsInfo = source.staticUniforms ? getTokenizedAttributesAndUniforms(source.staticUniforms) : [];
+		const dynamicUniformsInfo = configuration ? configuration.getBinderUniforms() : [];
+		const uniformList = preludeUniformsInfo.concat(staticUniformsInfo).concat(dynamicUniformsInfo);
+		const allUniformsInfo = [];
+		for (const uniform of uniformList) if (!allUniformsInfo.includes(uniform)) allUniformsInfo.push(uniform);
+		const defines = configuration ? configuration.defines() : [];
+		defines.unshift("#version 300 es");
+		if (showOverdrawInspector) defines.push("#define OVERDRAW_INSPECTOR;");
+		if (useTerrain) defines.push("#define TERRAIN3D;");
+		if (projectionDefine) defines.push(projectionDefine);
+		if (extraDefines) defines.push(...extraDefines);
+		const fragmentSource = defines.concat(shaders.prelude.fragmentSource, projectionPrelude.fragmentSource, source.fragmentSource).join("\n");
+		const vertexSource = defines.concat(shaders.prelude.vertexSource, projectionPrelude.vertexSource, source.vertexSource).join("\n");
+		const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+		if (gl.isContextLost()) {
+			this.failedToCreate = true;
+			return;
+		}
+		gl.shaderSource(fragmentShader, fragmentSource);
+		gl.compileShader(fragmentShader);
+		gl.attachShader(this.program, fragmentShader);
+		const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+		if (gl.isContextLost()) {
+			this.failedToCreate = true;
+			return;
+		}
+		gl.shaderSource(vertexShader, vertexSource);
+		gl.compileShader(vertexShader);
+		gl.attachShader(this.program, vertexShader);
+		this.attributes = {};
+		const uniformLocations = {};
+		this.numAttributes = allAttrInfo.length;
+		gl.linkProgram(this.program);
+		if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) {
+			if (gl.isContextLost()) {
+				this.failedToCreate = true;
+				return;
+			}
+			if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) throw new Error(`Could not compile fragment shader: ${gl.getShaderInfoLog(fragmentShader)}`);
+			if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) throw new Error(`Could not compile vertex shader: ${gl.getShaderInfoLog(vertexShader)}`);
+			throw new Error(`Program failed to link: ${gl.getProgramInfoLog(this.program)}`);
+		}
+		applyUBOBindings(gl, this.program);
+		const integerAttributeNames = getIntegerAttributeNames(gl, this.program);
+		for (const name of allAttrInfo) {
+			if (!name) continue;
+			const location = gl.getAttribLocation(this.program, name);
+			if (location >= 0) this.attributes[name] = {
+				location,
+				isInteger: integerAttributeNames.has(name)
+			};
+		}
+		gl.deleteShader(vertexShader);
+		gl.deleteShader(fragmentShader);
+		for (const uniform of allUniformsInfo) if (uniform && !uniformLocations[uniform]) {
+			const uniformLocation = gl.getUniformLocation(this.program, uniform);
+			if (uniformLocation) uniformLocations[uniform] = uniformLocation;
+		}
+		this.fixedUniforms = fixedUniforms(context, uniformLocations);
+		this.terrainUniforms = terrainPreludeUniforms(context, uniformLocations);
+		this.binderUniforms = configuration ? configuration.getUniforms(context, uniformLocations) : [];
+	}
+	draw(context, drawMode, depthMode, stencilMode, colorMode, cullFaceMode, uniformValues, terrain, projectionData, layerID, layoutVertexBuffer, indexBuffer, segments, currentProperties, zoom, configuration, dynamicLayoutBuffer, dynamicLayoutBuffer2, dynamicLayoutBuffer3) {
+		const gl = context.gl;
+		if (this.failedToCreate) return;
+		context.program.set(this.program);
+		context.terrainUniformBuffer.bind();
+		context.frameUniformBuffer.bind();
+		context.setDepthMode(depthMode);
+		context.setStencilMode(stencilMode);
+		context.setColorMode(colorMode);
+		context.setCullFace(cullFaceMode);
+		if (terrain) {
+			context.activeTexture.set(gl.TEXTURE2);
+			gl.bindTexture(gl.TEXTURE_2D, terrain.depthTexture);
+			context.activeTexture.set(gl.TEXTURE3);
+			gl.bindTexture(gl.TEXTURE_2D, terrain.texture);
+			for (const name in this.terrainUniforms) this.terrainUniforms[name].set(terrain[name]);
+			updateTerrainUniformBuffer(context.terrainUniformBuffer, terrain);
+		}
+		bindProjectionUniformBuffer(context, projectionData);
+		if (uniformValues) for (const name in this.fixedUniforms) this.fixedUniforms[name].set(uniformValues[name]);
+		if (configuration) configuration.setUniforms(context, this.binderUniforms, currentProperties, { zoom });
+		let primitiveSize = 0;
+		switch (drawMode) {
+			case gl.LINES:
+				primitiveSize = 2;
+				break;
+			case gl.TRIANGLES:
+				primitiveSize = 3;
+				break;
+			case gl.LINE_STRIP: primitiveSize = 1;
+		}
+		for (const segment of segments.get()) {
+			segment.vaos ||= {};
+			segment.vaos[layerID] ||= new VertexArrayObject();
+			segment.vaos[layerID].bind(context, this, layoutVertexBuffer, configuration ? configuration.getPaintVertexBuffers() : [], indexBuffer, segment.vertexOffset, dynamicLayoutBuffer, dynamicLayoutBuffer2, dynamicLayoutBuffer3);
+			gl.drawElements(drawMode, segment.primitiveLength * primitiveSize, gl.UNSIGNED_SHORT, segment.primitiveOffset * primitiveSize * 2);
+		}
+	}
+};
+//#endregion
+//#region src/webgl/program/pattern.ts
+function patternUniformValues(crossfade, painter, tile) {
+	const tileRatio = 1 / pixelsToTileUnits(tile, 1, painter.frameRenderContext.transform.tileZoom);
+	const numTiles = Math.pow(2, tile.tileID.overscaledZ);
+	const tileSizeAtNearestZoom = tile.tileSize * Math.pow(2, painter.frameRenderContext.transform.tileZoom) / numTiles;
+	const pixelX = tileSizeAtNearestZoom * (tile.tileID.canonical.x + tile.tileID.wrap * numTiles);
+	const pixelY = tileSizeAtNearestZoom * tile.tileID.canonical.y;
+	return {
+		"u_image": 0,
+		"u_texsize": tile.imageAtlasTexture.size,
+		"u_scale": [
+			tileRatio,
+			crossfade.fromScale,
+			crossfade.toScale
+		],
+		"u_fade": crossfade.t,
+		"u_pixel_coord_upper": [pixelX >> 16, pixelY >> 16],
+		"u_pixel_coord_lower": [pixelX & 65535, pixelY & 65535]
+	};
+}
+function bgPatternUniformValues(image, crossfade, painter, tile) {
+	const imagePosA = painter.patternAtlas.getPattern(image.from.toString());
+	const imagePosB = painter.patternAtlas.getPattern(image.to.toString());
+	const { width, height } = painter.patternAtlas.getPixelSize();
+	const numTiles = Math.pow(2, tile.tileID.overscaledZ);
+	const tileSizeAtNearestZoom = tile.tileSize * Math.pow(2, painter.frameRenderContext.transform.tileZoom) / numTiles;
+	const pixelX = tileSizeAtNearestZoom * (tile.tileID.canonical.x + tile.tileID.wrap * numTiles);
+	const pixelY = tileSizeAtNearestZoom * tile.tileID.canonical.y;
+	return {
+		"u_image": 0,
+		"u_pattern_tl_a": imagePosA.tl,
+		"u_pattern_br_a": imagePosA.br,
+		"u_pattern_tl_b": imagePosB.tl,
+		"u_pattern_br_b": imagePosB.br,
+		"u_texsize": [width, height],
+		"u_mix": crossfade.t,
+		"u_pattern_size_a": imagePosA.displaySize,
+		"u_pattern_size_b": imagePosB.displaySize,
+		"u_scale_a": crossfade.fromScale,
+		"u_scale_b": crossfade.toScale,
+		"u_tile_units_to_pixels": 1 / pixelsToTileUnits(tile, 1, painter.frameRenderContext.transform.tileZoom),
+		"u_pixel_coord_upper": [pixelX >> 16, pixelY >> 16],
+		"u_pixel_coord_lower": [pixelX & 65535, pixelY & 65535]
+	};
+}
+//#endregion
+//#region src/webgl/program/fill_extrusion_program.ts
+const fillExtrusionUniforms = (context, locations) => ({
+	"u_lightpos": new Uniform3f(context, locations.u_lightpos),
+	"u_lightpos_globe": new Uniform3f(context, locations.u_lightpos_globe),
+	"u_lightintensity": new Uniform1f(context, locations.u_lightintensity),
+	"u_lightcolor": new Uniform3f(context, locations.u_lightcolor),
+	"u_vertical_gradient": new Uniform1f(context, locations.u_vertical_gradient),
+	"u_opacity": new Uniform1f(context, locations.u_opacity),
+	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate)
+});
+const fillExtrusionPatternUniforms = (context, locations) => ({
+	"u_lightpos": new Uniform3f(context, locations.u_lightpos),
+	"u_lightpos_globe": new Uniform3f(context, locations.u_lightpos_globe),
+	"u_lightintensity": new Uniform1f(context, locations.u_lightintensity),
+	"u_lightcolor": new Uniform3f(context, locations.u_lightcolor),
+	"u_vertical_gradient": new Uniform1f(context, locations.u_vertical_gradient),
+	"u_height_factor": new Uniform1f(context, locations.u_height_factor),
+	"u_opacity": new Uniform1f(context, locations.u_opacity),
+	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
+	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
+	"u_scale": new Uniform3f(context, locations.u_scale),
+	"u_fade": new Uniform1f(context, locations.u_fade)
+});
+const fillExtrusionUniformValues = (painter, light, shouldUseVerticalGradient, opacity, translate) => {
+	const lightPos = sphericalToCartesian(light.position);
+	const lightMat = create$4();
+	if (light.anchor === "viewport") fromRotation(lightMat, painter.frameRenderContext.transform.bearingInRadians);
+	transformMat3(lightPos, lightPos, lightMat);
+	const transformedLightPos = painter.frameRenderContext.transform.transformLightDirection(lightPos);
+	const lightColor = light.color;
+	return {
+		"u_lightpos": lightPos,
+		"u_lightpos_globe": transformedLightPos,
+		"u_lightintensity": light.intensity,
+		"u_lightcolor": [
+			lightColor.r,
+			lightColor.g,
+			lightColor.b
+		],
+		"u_vertical_gradient": +shouldUseVerticalGradient,
+		"u_opacity": opacity,
+		"u_fill_translate": translate
+	};
+};
+const fillExtrusionPatternUniformValues = (painter, light, shouldUseVerticalGradient, opacity, translate, coord, crossfade, tile) => {
+	return extend(fillExtrusionUniformValues(painter, light, shouldUseVerticalGradient, opacity, translate), patternUniformValues(crossfade, painter, tile), { "u_height_factor": -Math.pow(2, coord.overscaledZ) / tile.tileSize / 8 });
+};
+//#endregion
+//#region src/webgl/program/fill_program.ts
+const fillUniforms = (context, locations) => ({ "u_fill_translate": new Uniform2f(context, locations.u_fill_translate) });
+const fillPatternUniforms = (context, locations) => ({
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
+	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
+	"u_scale": new Uniform3f(context, locations.u_scale),
+	"u_fade": new Uniform1f(context, locations.u_fade),
+	"u_sdf_pattern": new Uniform1i(context, locations.u_sdf_pattern),
+	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate)
+});
+const fillOutlineUniforms = (context, locations) => ({ "u_fill_translate": new Uniform2f(context, locations.u_fill_translate) });
+const fillOutlinePatternUniforms = (context, locations) => ({
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
+	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
+	"u_scale": new Uniform3f(context, locations.u_scale),
+	"u_fade": new Uniform1f(context, locations.u_fade),
+	"u_sdf_pattern": new Uniform1i(context, locations.u_sdf_pattern),
+	"u_fill_translate": new Uniform2f(context, locations.u_fill_translate)
+});
+const fillPatternUniformValues = (painter, crossfade, tile, translate, isSdfPattern) => extend(patternUniformValues(crossfade, painter, tile), {
+	"u_fill_translate": translate,
+	"u_sdf_pattern": isSdfPattern ? 1 : 0
+});
+const fillUniformValues = (translate) => ({ "u_fill_translate": translate });
+const fillOutlineUniformValues = (translate) => ({ "u_fill_translate": translate });
+const fillOutlinePatternUniformValues = (painter, crossfade, tile, translate, isSdfPattern) => fillPatternUniformValues(painter, crossfade, tile, translate, isSdfPattern);
+//#endregion
+//#region src/webgl/program/circle_program.ts
+const circleUniforms = (context, locations) => ({
+	"u_scale_with_map": new Uniform1i(context, locations.u_scale_with_map),
+	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
+	"u_extrude_scale": new Uniform2f(context, locations.u_extrude_scale),
+	"u_globe_extrude_scale": new Uniform1f(context, locations.u_globe_extrude_scale),
+	"u_translate": new Uniform2f(context, locations.u_translate)
+});
+const circleUniformValues = (painter, tile, layer, translate, radiusCorrectionFactor) => {
+	const transform = painter.frameRenderContext.transform;
+	let pitchWithMap, extrudeScale;
+	let globeExtrudeScale = 0;
+	if (layer.paint.get("circle-pitch-alignment") === "map") {
+		const pixelRatio = pixelsToTileUnits(tile, 1, transform.zoom);
+		pitchWithMap = true;
+		extrudeScale = [pixelRatio, pixelRatio];
+		globeExtrudeScale = pixelRatio / (EXTENT * Math.pow(2, tile.tileID.overscaledZ)) * 2 * Math.PI * radiusCorrectionFactor;
+	} else {
+		pitchWithMap = false;
+		extrudeScale = transform.pixelsToGLUnits;
+	}
+	return {
+		"u_scale_with_map": +(layer.paint.get("circle-pitch-scale") === "map"),
+		"u_pitch_with_map": +pitchWithMap,
+		"u_extrude_scale": extrudeScale,
+		"u_globe_extrude_scale": globeExtrudeScale,
+		"u_translate": translate
+	};
+};
+//#endregion
+//#region src/webgl/program/debug_program.ts
+const debugUniforms = (context, locations) => ({
+	"u_color": new UniformColor(context, locations.u_color),
+	"u_overlay": new Uniform1i(context, locations.u_overlay),
+	"u_overlay_scale": new Uniform1f(context, locations.u_overlay_scale)
+});
+const debugUniformValues = (color, scaleRatio = 1) => ({
+	"u_color": color,
+	"u_overlay": 0,
+	"u_overlay_scale": scaleRatio
+});
+//#endregion
+//#region src/webgl/program/heatmap_program.ts
+const heatmapUniforms = (context, locations) => ({
+	"u_extrude_scale": new Uniform1f(context, locations.u_extrude_scale),
+	"u_intensity": new Uniform1f(context, locations.u_intensity),
+	"u_globe_extrude_scale": new Uniform1f(context, locations.u_globe_extrude_scale)
+});
+const heatmapTextureUniforms = (context, locations) => ({
+	"u_matrix": new UniformMatrix4f(context, locations.u_matrix),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_color_ramp": new Uniform1i(context, locations.u_color_ramp),
+	"u_opacity": new Uniform1f(context, locations.u_opacity)
+});
+const heatmapUniformValues = (tile, zoom, intensity, radiusCorrectionFactor) => {
+	const globeExtrudeScale = pixelsToTileUnits(tile, 1, zoom) / (EXTENT * Math.pow(2, tile.tileID.overscaledZ)) * 2 * Math.PI * radiusCorrectionFactor;
+	return {
+		"u_extrude_scale": pixelsToTileUnits(tile, 1, zoom),
+		"u_intensity": intensity,
+		"u_globe_extrude_scale": globeExtrudeScale
+	};
+};
+const heatmapTextureUniformValues = (painter, layer, textureUnit, colorRampUnit) => {
+	const matrix = create$1();
+	ortho(matrix, 0, painter.width, painter.height, 0, 0, 1);
+	return {
+		"u_matrix": matrix,
+		"u_image": textureUnit,
+		"u_color_ramp": colorRampUnit,
+		"u_opacity": layer.paint.get("heatmap-opacity")
+	};
+};
+//#endregion
+//#region src/webgl/program/hillshade_program.ts
+const hillshadeUniforms = (context, locations) => ({
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_latrange": new Uniform2f(context, locations.u_latrange),
+	"u_exaggeration": new Uniform1f(context, locations.u_exaggeration),
+	"u_altitudes": new UniformFloatArray(context, locations.u_altitudes),
+	"u_azimuths": new UniformFloatArray(context, locations.u_azimuths),
+	"u_accent": new UniformColor(context, locations.u_accent),
+	"u_method": new Uniform1i(context, locations.u_method),
+	"u_shadows": new UniformColorArray(context, locations.u_shadows),
+	"u_highlights": new UniformColorArray(context, locations.u_highlights)
+});
+const hillshadePrepareUniforms = (context, locations) => ({
+	"u_matrix": new UniformMatrix4f(context, locations.u_matrix),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_dimension": new Uniform2f(context, locations.u_dimension),
+	"u_zoom": new Uniform1f(context, locations.u_zoom),
+	"u_unpack": new Uniform4f(context, locations.u_unpack)
+});
+const hillshadeUniformValues = (painter, tile, layer) => {
+	const accent = layer.paint.get("hillshade-accent-color");
+	let method;
+	switch (layer.paint.get("hillshade-method")) {
+		case "basic":
+			method = 4;
+			break;
+		case "combined":
+			method = 1;
+			break;
+		case "igor":
+			method = 2;
+			break;
+		case "multidirectional":
+			method = 3;
+			break;
+		default: method = 0;
+	}
+	const illumination = layer.getIlluminationProperties();
+	for (let i = 0; i < illumination.directionRadians.length; i++) if (layer.paint.get("hillshade-illumination-anchor") === "viewport") illumination.directionRadians[i] += painter.frameRenderContext.transform.bearingInRadians;
+	return {
+		"u_image": 0,
+		"u_latrange": getTileLatRange(painter, tile.tileID),
+		"u_exaggeration": layer.paint.get("hillshade-exaggeration"),
+		"u_altitudes": illumination.altitudeRadians,
+		"u_azimuths": illumination.directionRadians,
+		"u_accent": accent,
+		"u_method": method,
+		"u_highlights": illumination.highlightColor,
+		"u_shadows": illumination.shadowColor
+	};
+};
+const hillshadeUniformPrepareValues = (tileID, dem) => {
+	const stride = dem.stride;
+	const matrix = create$1();
+	ortho(matrix, 0, EXTENT, -EXTENT, 0, 0, 1);
+	translate(matrix, matrix, [
+		0,
+		-EXTENT,
+		0
+	]);
+	return {
+		"u_matrix": matrix,
+		"u_image": 1,
+		"u_dimension": [stride, stride],
+		"u_zoom": tileID.overscaledZ,
+		"u_unpack": dem.getUnpackVector()
+	};
+};
+function getTileLatRange(painter, tileID) {
+	const tilesAtZoom = Math.pow(2, tileID.canonical.z);
+	const y = tileID.canonical.y;
+	return [new MercatorCoordinate(0, y / tilesAtZoom).toLngLat().lat, new MercatorCoordinate(0, (y + 1) / tilesAtZoom).toLngLat().lat];
+}
+//#endregion
+//#region src/webgl/program/color_relief_program.ts
+const colorReliefUniforms = (context, locations) => ({
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_unpack": new Uniform4f(context, locations.u_unpack),
+	"u_dimension": new Uniform2f(context, locations.u_dimension),
+	"u_elevation_stops": new Uniform1i(context, locations.u_elevation_stops),
+	"u_color_stops": new Uniform1i(context, locations.u_color_stops),
+	"u_color_ramp_size": new Uniform1i(context, locations.u_color_ramp_size),
+	"u_opacity": new Uniform1f(context, locations.u_opacity)
+});
+const colorReliefUniformValues = (layer, dem, colorRampSize = 0) => {
+	return {
+		"u_image": 0,
+		"u_unpack": dem.getUnpackVector(),
+		"u_dimension": [dem.stride, dem.stride],
+		"u_elevation_stops": 1,
+		"u_color_stops": 4,
+		"u_color_ramp_size": colorRampSize,
+		"u_opacity": layer.paint.get("color-relief-opacity")
+	};
+};
+//#endregion
+//#region src/webgl/program/line_program.ts
+const lineUniforms = (context, locations) => ({
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_ratio": new Uniform1f(context, locations.u_ratio)
+});
+const lineGradientUniforms = (context, locations) => ({
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_ratio": new Uniform1f(context, locations.u_ratio),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_image_height": new Uniform1f(context, locations.u_image_height)
+});
+const linePatternUniforms = (context, locations) => ({
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_ratio": new Uniform1f(context, locations.u_ratio),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_scale": new Uniform3f(context, locations.u_scale),
+	"u_fade": new Uniform1f(context, locations.u_fade)
+});
+const lineSDFUniforms = (context, locations) => ({
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_ratio": new Uniform1f(context, locations.u_ratio),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_mix": new Uniform1f(context, locations.u_mix),
+	"u_tileratio": new Uniform1f(context, locations.u_tileratio),
+	"u_crossfade_from": new Uniform1f(context, locations.u_crossfade_from),
+	"u_crossfade_to": new Uniform1f(context, locations.u_crossfade_to),
+	"u_lineatlas_width": new Uniform1f(context, locations.u_lineatlas_width),
+	"u_lineatlas_height": new Uniform1f(context, locations.u_lineatlas_height)
+});
+const lineGradientSDFUniforms = (context, locations) => ({
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_ratio": new Uniform1f(context, locations.u_ratio),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_image_height": new Uniform1f(context, locations.u_image_height),
+	"u_tileratio": new Uniform1f(context, locations.u_tileratio),
+	"u_crossfade_from": new Uniform1f(context, locations.u_crossfade_from),
+	"u_crossfade_to": new Uniform1f(context, locations.u_crossfade_to),
+	"u_image_dash": new Uniform1i(context, locations.u_image_dash),
+	"u_mix": new Uniform1f(context, locations.u_mix),
+	"u_lineatlas_width": new Uniform1f(context, locations.u_lineatlas_width),
+	"u_lineatlas_height": new Uniform1f(context, locations.u_lineatlas_height)
+});
+const lineUniformValues = (painter, tile, layer, ratioScale) => {
+	const transform = painter.frameRenderContext.transform;
+	return {
+		"u_translation": calculateTranslation(painter, tile, layer),
+		"u_ratio": ratioScale / pixelsToTileUnits(tile, 1, transform.zoom)
+	};
+};
+const lineGradientUniformValues = (painter, tile, layer, ratioScale, imageHeight) => {
+	return extend(lineUniformValues(painter, tile, layer, ratioScale), {
+		"u_image": 0,
+		"u_image_height": imageHeight
+	});
+};
+const linePatternUniformValues = (painter, tile, layer, ratioScale, crossfade) => {
+	const transform = painter.frameRenderContext.transform;
+	const tileZoomRatio = calculateTileRatio(tile, transform);
+	return {
+		"u_translation": calculateTranslation(painter, tile, layer),
+		"u_texsize": tile.imageAtlasTexture.size,
+		"u_ratio": ratioScale / pixelsToTileUnits(tile, 1, transform.zoom),
+		"u_image": 0,
+		"u_scale": [
+			tileZoomRatio,
+			crossfade.fromScale,
+			crossfade.toScale
+		],
+		"u_fade": crossfade.t
+	};
+};
+const lineSDFUniformValues = (painter, tile, layer, ratioScale, crossfade) => {
+	const transform = painter.frameRenderContext.transform;
+	const tileRatio = calculateTileRatio(tile, transform);
+	return extend(lineUniformValues(painter, tile, layer, ratioScale), {
+		"u_tileratio": tileRatio,
+		"u_crossfade_from": crossfade.fromScale,
+		"u_crossfade_to": crossfade.toScale,
+		"u_image": 0,
+		"u_mix": crossfade.t,
+		"u_lineatlas_width": painter.lineAtlas.width,
+		"u_lineatlas_height": painter.lineAtlas.height
+	});
+};
+const lineGradientSDFUniformValues = (painter, tile, layer, ratioScale, crossfade, imageHeight) => {
+	const transform = painter.frameRenderContext.transform;
+	const tileRatio = calculateTileRatio(tile, transform);
+	return extend(lineUniformValues(painter, tile, layer, ratioScale), {
+		"u_image": 0,
+		"u_image_height": imageHeight,
+		"u_tileratio": tileRatio,
+		"u_crossfade_from": crossfade.fromScale,
+		"u_crossfade_to": crossfade.toScale,
+		"u_image_dash": 1,
+		"u_mix": crossfade.t,
+		"u_lineatlas_width": painter.lineAtlas.width,
+		"u_lineatlas_height": painter.lineAtlas.height
+	});
+};
+function calculateTileRatio(tile, transform) {
+	return 1 / pixelsToTileUnits(tile, 1, transform.tileZoom);
+}
+function calculateTranslation(painter, tile, layer) {
+	return translatePosition(painter.frameRenderContext.transform, tile, layer.paint.get("line-translate"), layer.paint.get("line-translate-anchor"));
+}
+//#endregion
+//#region src/webgl/program/layer_opacity_program.ts
+const layerOpacityUniforms = (context, locations) => ({
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_opacity": new Uniform1f(context, locations.u_opacity)
+});
+const layerOpacityUniformValues = (opacity, textureUnit) => ({
+	"u_image": textureUnit,
+	"u_opacity": opacity
+});
+//#endregion
+//#region src/webgl/program/symbol_program.ts
+const symbolIconUniforms = (context, locations) => ({
+	"u_is_size_zoom_constant": new Uniform1i(context, locations.u_is_size_zoom_constant),
+	"u_is_size_feature_constant": new Uniform1i(context, locations.u_is_size_feature_constant),
+	"u_size_t": new Uniform1f(context, locations.u_size_t),
+	"u_size": new Uniform1f(context, locations.u_size),
+	"u_rotate_symbol": new Uniform1i(context, locations.u_rotate_symbol),
+	"u_label_plane_matrix": new UniformMatrix4f(context, locations.u_label_plane_matrix),
+	"u_coord_matrix": new UniformMatrix4f(context, locations.u_coord_matrix),
+	"u_is_text": new Uniform1i(context, locations.u_is_text),
+	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
+	"u_is_along_line": new Uniform1i(context, locations.u_is_along_line),
+	"u_is_variable_anchor": new Uniform1i(context, locations.u_is_variable_anchor),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_texture": new Uniform1i(context, locations.u_texture),
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_pitched_scale": new Uniform1f(context, locations.u_pitched_scale),
+	"u_is_offset": new Uniform1i(context, locations.u_is_offset),
+	"u_height_anchor_ground": new Uniform1i(context, locations.u_height_anchor_ground)
+});
+const symbolSDFUniforms = (context, locations) => ({
+	"u_is_size_zoom_constant": new Uniform1i(context, locations.u_is_size_zoom_constant),
+	"u_is_size_feature_constant": new Uniform1i(context, locations.u_is_size_feature_constant),
+	"u_size_t": new Uniform1f(context, locations.u_size_t),
+	"u_size": new Uniform1f(context, locations.u_size),
+	"u_rotate_symbol": new Uniform1i(context, locations.u_rotate_symbol),
+	"u_label_plane_matrix": new UniformMatrix4f(context, locations.u_label_plane_matrix),
+	"u_coord_matrix": new UniformMatrix4f(context, locations.u_coord_matrix),
+	"u_is_text": new Uniform1i(context, locations.u_is_text),
+	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
+	"u_is_along_line": new Uniform1i(context, locations.u_is_along_line),
+	"u_is_variable_anchor": new Uniform1i(context, locations.u_is_variable_anchor),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_texture": new Uniform1i(context, locations.u_texture),
+	"u_gamma_scale": new Uniform1f(context, locations.u_gamma_scale),
+	"u_is_halo": new Uniform1i(context, locations.u_is_halo),
+	"u_is_plain": new Uniform1i(context, locations.u_is_plain),
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_pitched_scale": new Uniform1f(context, locations.u_pitched_scale),
+	"u_is_offset": new Uniform1i(context, locations.u_is_offset),
+	"u_height_anchor_ground": new Uniform1i(context, locations.u_height_anchor_ground)
+});
+const symbolTextAndIconUniforms = (context, locations) => ({
+	"u_is_size_zoom_constant": new Uniform1i(context, locations.u_is_size_zoom_constant),
+	"u_is_size_feature_constant": new Uniform1i(context, locations.u_is_size_feature_constant),
+	"u_size_t": new Uniform1f(context, locations.u_size_t),
+	"u_size": new Uniform1f(context, locations.u_size),
+	"u_rotate_symbol": new Uniform1i(context, locations.u_rotate_symbol),
+	"u_label_plane_matrix": new UniformMatrix4f(context, locations.u_label_plane_matrix),
+	"u_coord_matrix": new UniformMatrix4f(context, locations.u_coord_matrix),
+	"u_is_text": new Uniform1i(context, locations.u_is_text),
+	"u_pitch_with_map": new Uniform1i(context, locations.u_pitch_with_map),
+	"u_is_along_line": new Uniform1i(context, locations.u_is_along_line),
+	"u_is_variable_anchor": new Uniform1i(context, locations.u_is_variable_anchor),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_texsize_icon": new Uniform2f(context, locations.u_texsize_icon),
+	"u_texture": new Uniform1i(context, locations.u_texture),
+	"u_texture_icon": new Uniform1i(context, locations.u_texture_icon),
+	"u_gamma_scale": new Uniform1f(context, locations.u_gamma_scale),
+	"u_is_halo": new Uniform1i(context, locations.u_is_halo),
+	"u_translation": new Uniform2f(context, locations.u_translation),
+	"u_pitched_scale": new Uniform1f(context, locations.u_pitched_scale),
+	"u_is_offset": new Uniform1i(context, locations.u_is_offset),
+	"u_height_anchor_ground": new Uniform1i(context, locations.u_height_anchor_ground)
+});
+const symbolIconUniformValues = (functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, isText, texSize, pitchedScale, isOffset, heightAnchorGround) => {
+	return {
+		"u_is_size_zoom_constant": +(functionType === "constant" || functionType === "source"),
+		"u_is_size_feature_constant": +(functionType === "constant" || functionType === "camera"),
+		"u_size_t": size ? size.uSizeT : 0,
+		"u_size": size ? size.uSize : 0,
+		"u_rotate_symbol": +rotateInShader,
+		"u_label_plane_matrix": labelPlaneMatrix,
+		"u_coord_matrix": glCoordMatrix,
+		"u_is_text": +isText,
+		"u_pitch_with_map": +pitchWithMap,
+		"u_is_along_line": isAlongLine,
+		"u_is_variable_anchor": isVariableAnchor,
+		"u_texsize": texSize,
+		"u_texture": 0,
+		"u_translation": translation,
+		"u_pitched_scale": pitchedScale,
+		"u_is_offset": isOffset,
+		"u_height_anchor_ground": +heightAnchorGround
+	};
+};
+const symbolSDFUniformValues = (functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, isText, texSize, isHalo, pitchedScale, isOffset, heightAnchorGround) => {
+	const transform = painter.frameRenderContext.transform;
+	return extend(symbolIconUniformValues(functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, isText, texSize, pitchedScale, isOffset, heightAnchorGround), {
+		"u_gamma_scale": pitchWithMap ? Math.cos(transform.pitch * Math.PI / 180) * transform.cameraToCenterDistance : 1,
+		"u_is_halo": isHalo ? 1 : 0,
+		"u_is_plain": 1
+	});
+};
+const symbolTextAndIconUniformValues = (functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, texSizeSDF, texSizeIcon, pitchedScale, isOffset, heightAnchorGround) => {
+	return extend(symbolSDFUniformValues(functionType, size, rotateInShader, pitchWithMap, isAlongLine, isVariableAnchor, painter, labelPlaneMatrix, glCoordMatrix, translation, true, texSizeSDF, true, pitchedScale, isOffset, heightAnchorGround), {
+		"u_texsize_icon": texSizeIcon,
+		"u_texture_icon": 1
+	});
+};
+//#endregion
+//#region src/webgl/program/background_program.ts
+const backgroundUniforms = (context, locations) => ({
+	"u_opacity": new Uniform1f(context, locations.u_opacity),
+	"u_color": new UniformColor(context, locations.u_color)
+});
+const backgroundPatternUniforms = (context, locations) => ({
+	"u_opacity": new Uniform1f(context, locations.u_opacity),
+	"u_image": new Uniform1i(context, locations.u_image),
+	"u_pattern_tl_a": new Uniform2f(context, locations.u_pattern_tl_a),
+	"u_pattern_br_a": new Uniform2f(context, locations.u_pattern_br_a),
+	"u_pattern_tl_b": new Uniform2f(context, locations.u_pattern_tl_b),
+	"u_pattern_br_b": new Uniform2f(context, locations.u_pattern_br_b),
+	"u_texsize": new Uniform2f(context, locations.u_texsize),
+	"u_mix": new Uniform1f(context, locations.u_mix),
+	"u_pattern_size_a": new Uniform2f(context, locations.u_pattern_size_a),
+	"u_pattern_size_b": new Uniform2f(context, locations.u_pattern_size_b),
+	"u_scale_a": new Uniform1f(context, locations.u_scale_a),
+	"u_scale_b": new Uniform1f(context, locations.u_scale_b),
+	"u_pixel_coord_upper": new Uniform2f(context, locations.u_pixel_coord_upper),
+	"u_pixel_coord_lower": new Uniform2f(context, locations.u_pixel_coord_lower),
+	"u_tile_units_to_pixels": new Uniform1f(context, locations.u_tile_units_to_pixels)
+});
+const backgroundUniformValues = (opacity, color) => ({
+	"u_opacity": opacity,
+	"u_color": color
+});
+const backgroundPatternUniformValues = (opacity, painter, image, tile, crossfade) => extend(bgPatternUniformValues(image, crossfade, painter, tile), { "u_opacity": opacity });
+//#endregion
+//#region src/webgl/program/atmosphere_program.ts
+const atmosphereUniforms = (context, locations) => ({
+	"u_sun_pos": new Uniform3f(context, locations.u_sun_pos),
+	"u_atmosphere_blend": new Uniform1f(context, locations.u_atmosphere_blend),
+	"u_globe_position": new Uniform3f(context, locations.u_globe_position),
+	"u_globe_radius": new Uniform1f(context, locations.u_globe_radius),
+	"u_inv_proj_matrix": new UniformMatrix4f(context, locations.u_inv_proj_matrix)
+});
+const atmosphereUniformValues = (sunPos, atmosphereBlend, globePosition, globeRadius, invProjMatrix) => ({
+	"u_sun_pos": sunPos,
+	"u_atmosphere_blend": atmosphereBlend,
+	"u_globe_position": globePosition,
+	"u_globe_radius": globeRadius,
+	"u_inv_proj_matrix": invProjMatrix
+});
+//#endregion
+//#region src/webgl/program/sky_program.ts
+const skyUniforms = (context, locations) => ({
+	"u_sky_color": new UniformColor(context, locations.u_sky_color),
+	"u_horizon_color": new UniformColor(context, locations.u_horizon_color),
+	"u_horizon": new Uniform2f(context, locations.u_horizon),
+	"u_horizon_normal": new Uniform2f(context, locations.u_horizon_normal),
+	"u_sky_horizon_blend": new Uniform1f(context, locations.u_sky_horizon_blend),
+	"u_sky_blend": new Uniform1f(context, locations.u_sky_blend),
+	"u_inv_proj_matrix": new UniformMatrix4f(context, locations.u_inv_proj_matrix),
+	"u_globe_position": new Uniform3f(context, locations.u_globe_position),
+	"u_globe_radius": new Uniform1f(context, locations.u_globe_radius),
+	"u_atmosphere_blend": new Uniform1f(context, locations.u_atmosphere_blend)
+});
+const skyUniformValues = (sky, transform, pixelRatio) => {
+	const cosRoll = Math.cos(transform.rollInRadians);
+	const sinRoll = Math.sin(transform.rollInRadians);
+	const mercatorHorizon = getMercatorHorizon(transform);
+	const skyBlend = transform.getProjectionData({
+		overscaledTileID: null,
+		applyGlobeMatrix: true,
+		applyTerrainMatrix: true
+	}).projectionTransition;
+	const globePosition = getGlobeCenterInViewSpace(transform);
+	const globeRadius = getGlobeRadiusPixels(transform.worldSize, transform.center.lat);
+	return {
+		"u_sky_color": sky["sky-color"],
+		"u_horizon_color": sky["horizon-color"],
+		"u_horizon": [(transform.width / 2 - mercatorHorizon * sinRoll) * pixelRatio, (transform.height / 2 + mercatorHorizon * cosRoll) * pixelRatio],
+		"u_horizon_normal": [-sinRoll, cosRoll],
+		"u_sky_horizon_blend": sky["sky-horizon-blend"] * transform.height / 2 * pixelRatio,
+		"u_sky_blend": skyBlend,
+		"u_inv_proj_matrix": transform.inverseProjectionMatrix,
+		"u_globe_position": globePosition,
+		"u_globe_radius": globeRadius,
+		"u_atmosphere_blend": sky["atmosphere-blend"] * getAtmosphereAltitudeBlend(length(globePosition) - globeRadius, globeRadius)
+	};
+};
+//#endregion
+//#region src/webgl/program/program_uniforms.ts
+const emptyUniforms = (_, __) => ({});
+const programUniforms = {
+	fillExtrusion: fillExtrusionUniforms,
+	fillExtrusionPattern: fillExtrusionPatternUniforms,
+	fill: fillUniforms,
+	fillPattern: fillPatternUniforms,
+	fillOutline: fillOutlineUniforms,
+	fillOutlinePattern: fillOutlinePatternUniforms,
+	circle: circleUniforms,
+	collisionBox: emptyUniforms,
+	collisionCircle: emptyUniforms,
+	debug: debugUniforms,
+	depth: emptyUniforms,
+	clippingMask: emptyUniforms,
+	heatmap: heatmapUniforms,
+	heatmapTexture: heatmapTextureUniforms,
+	hillshade: hillshadeUniforms,
+	hillshadePrepare: hillshadePrepareUniforms,
+	colorRelief: colorReliefUniforms,
+	line: lineUniforms,
+	lineGradient: lineGradientUniforms,
+	linePattern: linePatternUniforms,
+	lineSDF: lineSDFUniforms,
+	lineGradientSDF: lineGradientSDFUniforms,
+	layerOpacity: layerOpacityUniforms,
+	raster: rasterUniforms,
+	symbolIcon: symbolIconUniforms,
+	symbolSDF: symbolSDFUniforms,
+	symbolTextAndIcon: symbolTextAndIconUniforms,
+	background: backgroundUniforms,
+	backgroundPattern: backgroundPatternUniforms,
+	terrain: terrainUniforms,
+	terrainDepth: terrainDepthUniforms,
+	atmosphere: atmosphereUniforms,
+	sky: skyUniforms
+};
+//#endregion
+//#region src/webgl/program_cache.ts
+/**
+* @internal
+* Compiles each shader variant the first time it is asked for and deletes all of them on destroy.
+*/
+var ProgramCache = class {
+	constructor(context) {
+		this.programs = {};
+		this.context = context;
+	}
+	/**
+	* Returns the program for a shader variant, compiling it if the cache doesn't hold it yet.
+	*/
+	getProgram(variant) {
+		const configurationKey = variant.programConfiguration ? variant.programConfiguration.cacheKey : "";
+		const projectionKey = `/${variant.projectionShaderVariant.name}`;
+		const overdrawKey = variant.showOverdrawInspector ? "/overdraw" : "";
+		const terrainKey = variant.useTerrain ? "/terrain" : "";
+		const definesKey = variant.defines ? `/${variant.defines.join("/")}` : "";
+		const key = variant.name + configurationKey + projectionKey + overdrawKey + terrainKey + definesKey;
+		this.programs[key] ||= new Program(this.context, shaders[variant.name], variant.programConfiguration, programUniforms[variant.name], variant.showOverdrawInspector, variant.useTerrain, variant.projectionShaderVariant.prelude, variant.projectionShaderVariant.define, variant.defines);
+		return this.programs[key];
+	}
+	destroy() {
+		for (const program of Object.values(this.programs)) if (program.program) this.context.gl.deleteProgram(program.program);
+		this.programs = {};
+	}
+};
 //#endregion
 //#region src/webgl/stencil_mode.ts
-const ALWAYS = 519;
+const ALWAYS$1 = 519;
 const KEEP = 7680;
 var StencilMode = class {
 	constructor(test, ref, mask, fail, depthFail, pass) {
@@ -18174,7 +17891,7 @@ var StencilMode = class {
 	}
 };
 StencilMode.disabled = new StencilMode({
-	func: ALWAYS,
+	func: ALWAYS$1,
 	mask: 0
 }, 0, 0, KEEP, KEEP, KEEP);
 //#endregion
@@ -18193,44 +17910,25 @@ CullFaceMode.disabled = new CullFaceMode(false, BACK, CCW);
 CullFaceMode.backCCW = new CullFaceMode(true, BACK, CCW);
 CullFaceMode.frontCCW = new CullFaceMode(true, FRONT, CCW);
 //#endregion
-//#region src/render/render_context.ts
-function createRenderContext(transform, projection, terrain) {
-	const projectionTransition = projection?.transitionState ?? 0;
-	return {
-		currentPass: "offscreen",
-		currentLayer: 0,
-		opaquePassCutoff: Infinity,
-		depthRangeFor3D: [0, 1],
-		isRenderingToTexture: false,
-		transform,
-		terrain,
-		projectionTransition,
-		isRenderingGlobe: projectionTransition > 0
-	};
-}
-function getProjectionDataForTile(renderContext, tileID, options = {}) {
-	return renderContext.transform.getProjectionData({
-		overscaledTileID: tileID,
-		aligned: options.aligned,
-		applyGlobeMatrix: !renderContext.isRenderingToTexture,
-		applyTerrainMatrix: options.applyTerrainMatrix ?? true
-	});
-}
-/**
-* Returns terrain data for a tile.
-* Returns null if terrain is not configured or tiles are being rendered to a texture.
-*/
-function getTerrainDataForTile(renderContext, tileID) {
-	if (renderContext.isRenderingToTexture) return null;
-	return renderContext.terrain?.getTerrainData(tileID) ?? null;
-}
+//#region src/webgl/depth_mode.ts
+const ALWAYS = 519;
+var DepthMode = class {
+	constructor(depthFunc, depthMask, depthRange) {
+		this.func = depthFunc;
+		this.mask = depthMask;
+		this.range = depthRange;
+	}
+};
+DepthMode.ReadOnly = false;
+DepthMode.ReadWrite = true;
+DepthMode.disabled = new DepthMode(ALWAYS, DepthMode.ReadOnly, [0, 1]);
 //#endregion
 //#region src/webgl/draw/draw_collision_debug.ts
 let quadTriangles;
-function drawCollisionDebug(painter, tileManager, layer, coords, isText, renderContext) {
+function drawCollisionDebug(painter, tileManager, layer, coords, isText, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
-	const program = painter.useProgram("collisionBox");
+	const program = frameRenderContext.useProgram("collisionBox");
 	const tileBatches = [];
 	let circleCount = 0;
 	let circleOffset = 0;
@@ -18249,10 +17947,10 @@ function drawCollisionDebug(painter, tileManager, layer, coords, isText, renderC
 			circleOffset = circleCount;
 		}
 		if (!buffers) continue;
-		program.draw(context, gl.LINES, DepthMode.disabled, StencilMode.disabled, painter.colorModeForRenderPass(), CullFaceMode.disabled, null, getTerrainDataForTile(renderContext, coord), getProjectionDataForTile(renderContext, coord), layer.id, buffers.layoutVertexBuffer, buffers.indexBuffer, buffers.segments, null, painter.transform.zoom, null, null, buffers.collisionVertexBuffer);
+		program.draw(context, gl.LINES, DepthMode.disabled, StencilMode.disabled, frameRenderContext.colorModeForRenderPass(), CullFaceMode.disabled, null, frameRenderContext.getTerrainDataForTile(coord), frameRenderContext.getProjectionDataForTile(coord), layer.id, buffers.layoutVertexBuffer, buffers.indexBuffer, buffers.segments, null, frameRenderContext.transform.zoom, null, null, buffers.collisionVertexBuffer);
 	}
 	if (!isText || !tileBatches.length) return;
-	const circleProgram = painter.useProgram("collisionCircle");
+	const circleProgram = frameRenderContext.useProgram("collisionCircle");
 	const vertexData = new CollisionCircleLayoutArray();
 	vertexData.resize(circleCount * 4);
 	vertexData._trim();
@@ -18271,7 +17969,7 @@ function drawCollisionDebug(painter, tileManager, layer, coords, isText, renderC
 	if (!quadTriangles || quadTriangles.length < circleCount * 2) quadTriangles = createQuadTriangles(circleCount);
 	const indexBuffer = context.createIndexBuffer(quadTriangles, true);
 	const vertexBuffer = context.createVertexBuffer(vertexData, collisionCircleLayout.members, true);
-	for (const batch of tileBatches) circleProgram.draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, painter.colorModeForRenderPass(), CullFaceMode.disabled, null, getTerrainDataForTile(renderContext, batch.coord), null, layer.id, vertexBuffer, indexBuffer, SegmentVector.simpleSegment(0, batch.circleOffset * 2, batch.circleArray.length, batch.circleArray.length / 2), null, painter.transform.zoom, null, null, null);
+	for (const batch of tileBatches) circleProgram.draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, frameRenderContext.colorModeForRenderPass(), CullFaceMode.disabled, null, frameRenderContext.getTerrainDataForTile(batch.coord), null, layer.id, vertexBuffer, indexBuffer, SegmentVector.simpleSegment(0, batch.circleOffset * 2, batch.circleArray.length, batch.circleArray.length / 2), null, frameRenderContext.transform.zoom, null, null, null);
 	vertexBuffer.destroy();
 	indexBuffer.destroy();
 }
@@ -18294,16 +17992,16 @@ function createQuadTriangles(quadCount) {
 //#endregion
 //#region src/webgl/draw/draw_symbol.ts
 const identityMat4 = identity(/* @__PURE__ */ new Float32Array(16));
-function drawSymbols(painter, tileManager, layer, coords, variableOffsets, renderContext) {
-	if (renderContext.currentPass !== "translucent") return;
+function drawSymbols(painter, tileManager, layer, coords, variableOffsets, frameRenderContext) {
+	if (frameRenderContext.currentPass !== "translucent") return;
 	const stencilMode = StencilMode.disabled;
-	const colorMode = painter.colorModeForRenderPass();
+	const colorMode = frameRenderContext.colorModeForRenderPass();
 	if (layer._unevaluatedLayout.hasValue("text-variable-anchor") || layer._unevaluatedLayout.hasValue("text-variable-anchor-offset")) updateVariableAnchors(coords, painter, layer, tileManager, layer.layout.get("text-rotation-alignment"), layer.layout.get("text-pitch-alignment"), layer.paint.get("text-translate"), layer.paint.get("text-translate-anchor"), variableOffsets);
-	if (layer.paint.get("icon-opacity").constantOr(1) !== 0) drawLayerSymbols(painter, tileManager, layer, coords, false, layer.paint.get("icon-translate"), layer.paint.get("icon-translate-anchor"), layer.layout.get("icon-rotation-alignment").constantOr("viewport"), layer.layout.get("icon-pitch-alignment"), layer.layout.get("icon-keep-upright"), stencilMode, colorMode, renderContext);
-	if (layer.paint.get("text-opacity").constantOr(1) !== 0) drawLayerSymbols(painter, tileManager, layer, coords, true, layer.paint.get("text-translate"), layer.paint.get("text-translate-anchor"), layer.layout.get("text-rotation-alignment"), layer.layout.get("text-pitch-alignment"), layer.layout.get("text-keep-upright"), stencilMode, colorMode, renderContext);
+	if (layer.paint.get("icon-opacity").constantOr(1) !== 0) drawLayerSymbols(painter, tileManager, layer, coords, false, layer.paint.get("icon-translate"), layer.paint.get("icon-translate-anchor"), layer.layout.get("icon-rotation-alignment").constantOr("viewport"), layer.layout.get("icon-pitch-alignment"), layer.layout.get("icon-keep-upright"), stencilMode, colorMode, frameRenderContext);
+	if (layer.paint.get("text-opacity").constantOr(1) !== 0) drawLayerSymbols(painter, tileManager, layer, coords, true, layer.paint.get("text-translate"), layer.paint.get("text-translate-anchor"), layer.layout.get("text-rotation-alignment"), layer.layout.get("text-pitch-alignment"), layer.layout.get("text-keep-upright"), stencilMode, colorMode, frameRenderContext);
 	if (tileManager.map.showCollisionBoxes) {
-		drawCollisionDebug(painter, tileManager, layer, coords, true, renderContext);
-		drawCollisionDebug(painter, tileManager, layer, coords, false, renderContext);
+		drawCollisionDebug(painter, tileManager, layer, coords, true, frameRenderContext);
+		drawCollisionDebug(painter, tileManager, layer, coords, false, frameRenderContext);
 	}
 }
 function calculateVariableRenderShift(anchor, width, height, textOffset, textBoxScale, renderTextSize) {
@@ -18313,8 +18011,8 @@ function calculateVariableRenderShift(anchor, width, height, textOffset, textBox
 	return new Point((shiftX / textBoxScale + textOffset[0]) * renderTextSize, (shiftY / textBoxScale + textOffset[1]) * renderTextSize);
 }
 function updateVariableAnchors(coords, painter, layer, tileManager, rotationAlignment, pitchAlignment, translate, translateAnchor, variableOffsets) {
-	const transform = painter.transform;
-	const terrain = painter.style.map.terrain;
+	const transform = painter.frameRenderContext.transform;
+	const terrain = painter.frameRenderContext.terrain;
 	const rotateWithMap = rotationAlignment === "map";
 	const pitchWithMap = pitchAlignment === "map";
 	for (const coord of coords) {
@@ -18323,8 +18021,8 @@ function updateVariableAnchors(coords, painter, layer, tileManager, rotationAlig
 		if (!bucket?.text?.segments.get().length) continue;
 		const sizeData = bucket.textSizeData;
 		const size = evaluateSizeForZoom(sizeData, transform.zoom);
-		const pixelToTileScale = pixelsToTileUnits(tile, 1, painter.transform.zoom);
-		const pitchedLabelPlaneMatrix = getPitchedLabelPlaneMatrix(rotateWithMap, painter.transform, pixelToTileScale);
+		const pixelToTileScale = pixelsToTileUnits(tile, 1, painter.frameRenderContext.transform.zoom);
+		const pitchedLabelPlaneMatrix = getPitchedLabelPlaneMatrix(rotateWithMap, painter.frameRenderContext.transform, pixelToTileScale);
 		const updateTextFitIcon = layer.layout.get("icon-text-fit") !== "none" && bucket.hasIconData();
 		if (size) {
 			const tileScale = Math.pow(2, transform.zoom - tile.tileID.overscaledZ);
@@ -18411,17 +18109,17 @@ function getSymbolProgramName(isSDF, isText, bucket) {
 	else if (isSDF) return "symbolSDF";
 	else return "symbolIcon";
 }
-function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate, translateAnchor, rotationAlignment, pitchAlignment, keepUpright, stencilMode, colorMode, renderContext) {
+function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate, translateAnchor, rotationAlignment, pitchAlignment, keepUpright, stencilMode, colorMode, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	const rotateWithMap = rotationAlignment === "map";
 	const pitchWithMap = pitchAlignment === "map";
 	const alongLine = rotationAlignment !== "viewport" && layer.layout.get("symbol-placement") !== "point";
 	const rotateInShader = rotateWithMap && !pitchWithMap && !alongLine;
 	const hasSortKey = !layer.layout.get("symbol-sort-key").isConstant();
 	let sortFeaturesByKey = false;
-	const depthMode = painter.getDepthModeForSublayer(0, DepthMode.ReadOnly);
+	const depthMode = frameRenderContext.getDepthModeForSublayer(0, DepthMode.ReadOnly);
 	const hasVariablePlacement = layer._unevaluatedLayout.hasValue("text-variable-anchor") || layer._unevaluatedLayout.hasValue("text-variable-anchor-offset");
 	const tileRenderState = [];
 	const pitchedTextRescaling = transform.getCircleRadiusCorrection();
@@ -18435,9 +18133,9 @@ function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate
 		const isSDF = isText || bucket.sdfIcons;
 		const sizeData = isText ? bucket.textSizeData : bucket.iconSizeData;
 		const transformed = pitchWithMap || transform.pitch !== 0;
-		const program = painter.useProgram(getSymbolProgramName(isSDF, isText, bucket), programConfiguration);
+		const program = frameRenderContext.useProgram(getSymbolProgramName(isSDF, isText, bucket), programConfiguration);
 		const size = evaluateSizeForZoom(sizeData, transform.zoom);
-		const terrainData = getTerrainDataForTile(renderContext, coord);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 		let texSize;
 		let texSizeIcon = [0, 0];
 		let atlasTexture;
@@ -18452,19 +18150,19 @@ function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate
 				texSizeIcon = tile.imageAtlasTexture.size;
 				atlasTextureIcon = tile.imageAtlasTexture;
 				const zoomDependentSize = sizeData.kind === "composite" || sizeData.kind === "camera";
-				atlasInterpolationIcon = transformed || painter.options.rotating || painter.options.zooming || zoomDependentSize ? gl.LINEAR : gl.NEAREST;
+				atlasInterpolationIcon = transformed || frameRenderContext.data.rotating || frameRenderContext.data.zooming || zoomDependentSize ? gl.LINEAR : gl.NEAREST;
 			}
 		} else {
 			const iconScaled = layer.layout.get("icon-size").constantOr(0) !== 1 || bucket.iconsNeedLinear;
 			atlasTexture = tile.imageAtlasTexture;
-			atlasInterpolation = isSDF || painter.options.rotating || painter.options.zooming || iconScaled || transformed ? gl.LINEAR : gl.NEAREST;
+			atlasInterpolation = isSDF || frameRenderContext.data.rotating || frameRenderContext.data.zooming || iconScaled || transformed ? gl.LINEAR : gl.NEAREST;
 			texSize = tile.imageAtlasTexture.size;
 		}
-		const s = pixelsToTileUnits(tile, 1, painter.transform.zoom);
-		const pitchedLabelPlaneMatrix = getPitchedLabelPlaneMatrix(rotateWithMap, painter.transform, s);
-		const glCoordMatrixForShader = getGlCoordMatrix(pitchWithMap, rotateWithMap, painter.transform, s);
+		const s = pixelsToTileUnits(tile, 1, frameRenderContext.transform.zoom);
+		const pitchedLabelPlaneMatrix = getPitchedLabelPlaneMatrix(rotateWithMap, frameRenderContext.transform, s);
+		const glCoordMatrixForShader = getGlCoordMatrix(pitchWithMap, rotateWithMap, frameRenderContext.transform, s);
 		const translation = translatePosition(transform, tile, translate, translateAnchor);
-		const projectionData = getProjectionDataForTile(renderContext, coord);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord);
 		const hasVariableAnchors = hasVariablePlacement && bucket.hasTextData();
 		const updateTextFitIcon = layer.layout.get("icon-text-fit") !== "none" && hasVariableAnchors && bucket.hasIconData();
 		const isOffset = layer._unevaluatedLayout.hasValue("icon-offset");
@@ -18472,11 +18170,11 @@ function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate
 		if (alongLine) {
 			const pitchedLabelPlaneMatrixInverse = create$1();
 			fastInvertTransformMat4(pitchedLabelPlaneMatrixInverse, pitchedLabelPlaneMatrix);
-			const getElevation = painter.style.map.terrain ? (x, y) => painter.style.map.terrain.getElevation(coord, x, y) : void 0;
+			const getElevation = frameRenderContext.terrain ? (x, y) => frameRenderContext.terrain.getElevation(coord, x, y) : void 0;
 			updateLineLabels(bucket, painter, isText, pitchedLabelPlaneMatrix, pitchedLabelPlaneMatrixInverse, pitchWithMap, keepUpright, layer.layout.get("text-rotation-alignment") === "map", coord.toUnwrapped(), transform.width, transform.height, translation, getElevation);
 		}
 		const shaderVariableAnchor = isText && hasVariablePlacement || updateTextFitIcon;
-		const combinedLabelPlaneMatrix = pitchWithMap ? pitchedLabelPlaneMatrix : painter.transform.clipSpaceToPixelsMatrix;
+		const combinedLabelPlaneMatrix = pitchWithMap ? pitchedLabelPlaneMatrix : frameRenderContext.transform.clipSpaceToPixelsMatrix;
 		const uLabelPlaneMatrix = alongLine || shaderVariableAnchor ? identityMat4 : combinedLabelPlaneMatrix;
 		const hasHalo = isSDF && layer.paint.get(isText ? "text-halo-width" : "icon-halo-width").constantOr(1) !== 0;
 		let uniformValues;
@@ -18541,12 +18239,12 @@ function drawLayerSymbols(painter, tileManager, layer, coords, isText, translate
 function drawSymbolElements(buffers, segments, layer, painter, program, depthMode, stencilMode, colorMode, uniformValues, projectionData, terrainData) {
 	const context = painter.context;
 	const gl = context.gl;
-	program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, buffers.layoutVertexBuffer, buffers.indexBuffer, segments, layer.paint, painter.transform.zoom, buffers.programConfigurations.get(layer.id), buffers.dynamicLayoutVertexBuffer, buffers.opacityVertexBuffer);
+	program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, buffers.layoutVertexBuffer, buffers.indexBuffer, segments, layer.paint, painter.frameRenderContext.transform.zoom, buffers.programConfigurations.get(layer.id), buffers.dynamicLayoutVertexBuffer, buffers.opacityVertexBuffer);
 }
 //#endregion
 //#region src/webgl/draw/draw_circle.ts
-function drawCircles(painter, tileManager, layer, coords, renderContext) {
-	if (renderContext.currentPass !== "translucent") return;
+function drawCircles(painter, tileManager, layer, coords, frameRenderContext) {
+	if (frameRenderContext.currentPass !== "translucent") return;
 	const opacity = layer.paint.get("circle-opacity");
 	const strokeWidth = layer.paint.get("circle-stroke-width");
 	const strokeOpacity = layer.paint.get("circle-stroke-opacity");
@@ -18554,10 +18252,10 @@ function drawCircles(painter, tileManager, layer, coords, renderContext) {
 	if (opacity.constantOr(1) === 0 && (strokeWidth.constantOr(1) === 0 || strokeOpacity.constantOr(1) === 0)) return;
 	const context = painter.context;
 	const gl = context.gl;
-	const transform = painter.transform;
-	const depthMode = painter.getDepthModeForSublayer(0, DepthMode.ReadOnly);
+	const transform = frameRenderContext.transform;
+	const depthMode = frameRenderContext.getDepthModeForSublayer(0, DepthMode.ReadOnly);
 	const stencilMode = StencilMode.disabled;
-	const colorMode = painter.colorModeForRenderPass();
+	const colorMode = frameRenderContext.colorModeForRenderPass();
 	const segmentsRenderStates = [];
 	const radiusCorrectionFactor = transform.getCircleRadiusCorrection();
 	for (const coord of coords) {
@@ -18568,10 +18266,10 @@ function drawCircles(painter, tileManager, layer, coords, renderContext) {
 		const styleTranslateAnchor = layer.paint.get("circle-translate-anchor");
 		const translateForUniforms = translatePosition(transform, tile, styleTranslate, styleTranslateAnchor);
 		const programConfiguration = bucket.programConfigurations.get(layer.id);
-		const program = painter.useProgram("circle", programConfiguration);
+		const program = frameRenderContext.useProgram("circle", programConfiguration);
 		const layoutVertexBuffer = bucket.layoutVertexBuffer;
 		const indexBuffer = bucket.indexBuffer;
-		const terrainData = getTerrainDataForTile(renderContext, coord);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 		const state = {
 			programConfiguration,
 			program,
@@ -18579,7 +18277,7 @@ function drawCircles(painter, tileManager, layer, coords, renderContext) {
 			indexBuffer,
 			uniformValues: circleUniformValues(painter, tile, layer, translateForUniforms, radiusCorrectionFactor),
 			terrainData,
-			projectionData: getProjectionDataForTile(renderContext, coord)
+			projectionData: frameRenderContext.getProjectionDataForTile(coord)
 		};
 		if (sortFeaturesByKey) {
 			const oldSegments = bucket.segments.get();
@@ -18598,20 +18296,20 @@ function drawCircles(painter, tileManager, layer, coords, renderContext) {
 	for (const segmentsState of segmentsRenderStates) {
 		const { programConfiguration, program, layoutVertexBuffer, indexBuffer, uniformValues, terrainData, projectionData } = segmentsState.state;
 		const segments = segmentsState.segments;
-		program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, layoutVertexBuffer, indexBuffer, segments, layer.paint, painter.transform.zoom, programConfiguration);
+		program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, layoutVertexBuffer, indexBuffer, segments, layer.paint, frameRenderContext.transform.zoom, programConfiguration);
 	}
 }
 //#endregion
 //#region src/webgl/draw/draw_heatmap.ts
-function drawHeatmap(painter, tileManager, layer, tileIDs, renderContext) {
+function drawHeatmap(painter, tileManager, layer, tileIDs, frameRenderContext) {
 	if (layer.paint.get("heatmap-opacity") === 0) return;
 	const context = painter.context;
-	if (painter.style.map.terrain) {
+	if (frameRenderContext.terrain) {
 		for (const coord of tileIDs) {
 			const tile = tileManager.getTile(coord);
 			if (tileManager.hasRenderableParent(coord)) continue;
-			if (renderContext.currentPass === "offscreen") prepareHeatmapTerrain(painter, tile, layer, coord, renderContext);
-			else if (renderContext.currentPass === "translucent") renderHeatmapTerrain(painter, layer, coord, renderContext);
+			if (frameRenderContext.currentPass === "offscreen") prepareHeatmapTerrain(painter, tile, layer, coord, frameRenderContext);
+			else if (frameRenderContext.currentPass === "translucent") renderHeatmapTerrain(painter, layer, coord, frameRenderContext);
 		}
 		context.viewport.set([
 			0,
@@ -18619,13 +18317,13 @@ function drawHeatmap(painter, tileManager, layer, tileIDs, renderContext) {
 			painter.width,
 			painter.height
 		]);
-	} else if (renderContext.currentPass === "offscreen") prepareHeatmapFlat(painter, tileManager, layer, tileIDs, renderContext);
-	else if (renderContext.currentPass === "translucent") renderHeatmapFlat(painter, layer);
+	} else if (frameRenderContext.currentPass === "offscreen") prepareHeatmapFlat(painter, tileManager, layer, tileIDs, frameRenderContext);
+	else if (frameRenderContext.currentPass === "translucent") renderHeatmapFlat(painter, layer);
 }
-function prepareHeatmapFlat(painter, tileManager, layer, coords, renderContext) {
+function prepareHeatmapFlat(painter, tileManager, layer, coords, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	const stencilMode = StencilMode.disabled;
 	const colorMode = new ColorMode([gl.ONE, gl.ONE], Color.transparent, [
 		true,
@@ -18641,8 +18339,8 @@ function prepareHeatmapFlat(painter, tileManager, layer, coords, renderContext) 
 		const bucket = tile.getBucket(layer);
 		if (!bucket) continue;
 		const programConfiguration = bucket.programConfigurations.get(layer.id);
-		const program = painter.useProgram("heatmap", programConfiguration);
-		const projectionData = getProjectionDataForTile(renderContext, coord, { applyTerrainMatrix: false });
+		const program = frameRenderContext.useProgram("heatmap", programConfiguration);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord, { applyTerrainMatrix: false });
 		const radiusCorrectionFactor = transform.getCircleRadiusCorrection();
 		program.draw(context, gl.TRIANGLES, DepthMode.disabled, stencilMode, colorMode, CullFaceMode.backCCW, heatmapUniformValues(tile, transform.zoom, layer.paint.get("heatmap-intensity"), radiusCorrectionFactor), null, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, transform.zoom, programConfiguration);
 	}
@@ -18656,16 +18354,16 @@ function prepareHeatmapFlat(painter, tileManager, layer, coords, renderContext) 
 function renderHeatmapFlat(painter, layer) {
 	const context = painter.context;
 	const gl = context.gl;
-	context.setColorMode(painter.colorModeForRenderPass());
+	context.setColorMode(painter.frameRenderContext.colorModeForRenderPass());
 	const fbo = layer.heatmapFbos.get(HEATMAP_FULL_RENDER_FBO_KEY);
 	if (!fbo) return;
 	context.activeTexture.set(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, fbo.colorAttachment.get());
 	context.activeTexture.set(gl.TEXTURE1);
 	getColorRampTexture(context, layer).bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
-	painter.useProgram("heatmapTexture").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, painter.colorModeForRenderPass(), CullFaceMode.disabled, heatmapTextureUniformValues(painter, layer, 0, 1), null, null, layer.id, painter.viewportBuffer, painter.quadTriangleIndexBuffer, painter.viewportSegments, layer.paint, painter.transform.zoom);
+	painter.frameRenderContext.useProgram("heatmapTexture").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, painter.frameRenderContext.colorModeForRenderPass(), CullFaceMode.disabled, heatmapTextureUniformValues(painter, layer, 0, 1), null, null, layer.id, painter.viewportBuffer, painter.quadTriangleIndexBuffer, painter.viewportSegments, layer.paint, painter.frameRenderContext.transform.zoom);
 }
-function prepareHeatmapTerrain(painter, tile, layer, coord, renderContext) {
+function prepareHeatmapTerrain(painter, tile, layer, coord, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
 	const stencilMode = StencilMode.disabled;
@@ -18692,16 +18390,16 @@ function prepareHeatmapTerrain(painter, tile, layer, coord, renderContext) {
 	]);
 	context.clear({ color: Color.transparent });
 	const programConfiguration = bucket.programConfigurations.get(layer.id);
-	const program = painter.useProgram("heatmap", programConfiguration, !renderContext.isRenderingGlobe);
-	const projectionData = getProjectionDataForTile(renderContext, tile.tileID);
-	const terrainData = getTerrainDataForTile(renderContext, coord);
-	program.draw(context, gl.TRIANGLES, DepthMode.disabled, stencilMode, colorMode, CullFaceMode.disabled, heatmapUniformValues(tile, painter.transform.zoom, layer.paint.get("heatmap-intensity"), 1), terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, painter.transform.zoom, programConfiguration);
+	const program = frameRenderContext.useProgram("heatmap", programConfiguration, !frameRenderContext.data.isRenderingGlobe);
+	const projectionData = frameRenderContext.getProjectionDataForTile(tile.tileID);
+	const terrainData = frameRenderContext.getTerrainDataForTile(coord);
+	program.draw(context, gl.TRIANGLES, DepthMode.disabled, stencilMode, colorMode, CullFaceMode.disabled, heatmapUniformValues(tile, frameRenderContext.transform.zoom, layer.paint.get("heatmap-intensity"), 1), terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, frameRenderContext.transform.zoom, programConfiguration);
 }
-function renderHeatmapTerrain(painter, layer, coord, renderContext) {
+function renderHeatmapTerrain(painter, layer, coord, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
-	const transform = painter.transform;
-	context.setColorMode(painter.colorModeForRenderPass());
+	const transform = frameRenderContext.transform;
+	context.setColorMode(frameRenderContext.colorModeForRenderPass());
 	const colorRampTexture = getColorRampTexture(context, layer);
 	const tileKey = coord.key;
 	const fbo = layer.heatmapFbos.get(tileKey);
@@ -18710,8 +18408,8 @@ function renderHeatmapTerrain(painter, layer, coord, renderContext) {
 	gl.bindTexture(gl.TEXTURE_2D, fbo.colorAttachment.get());
 	context.activeTexture.set(gl.TEXTURE1);
 	colorRampTexture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
-	const projectionData = getProjectionDataForTile(renderContext, coord, { applyTerrainMatrix: renderContext.isRenderingGlobe });
-	painter.useProgram("heatmapTexture").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, painter.colorModeForRenderPass(), CullFaceMode.disabled, heatmapTextureUniformValues(painter, layer, 0, 1), null, projectionData, layer.id, painter.rasterBoundsBuffer, painter.quadTriangleIndexBuffer, painter.rasterBoundsSegments, layer.paint, transform.zoom);
+	const projectionData = frameRenderContext.getProjectionDataForTile(coord, { applyTerrainMatrix: frameRenderContext.data.isRenderingGlobe });
+	frameRenderContext.useProgram("heatmapTexture").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, frameRenderContext.colorModeForRenderPass(), CullFaceMode.disabled, heatmapTextureUniformValues(painter, layer, 0, 1), null, projectionData, layer.id, painter.rasterBoundsBuffer, painter.quadTriangleIndexBuffer, painter.rasterBoundsSegments, layer.paint, transform.zoom);
 	fbo.destroy();
 	layer.heatmapFbos.delete(tileKey);
 }
@@ -18774,8 +18472,8 @@ function prepareDrawLayerOpacity(painter, layer, coords) {
 		depth: 1,
 		stencil: 0
 	});
-	painter.currentStencilSource = void 0;
-	painter.renderTileClippingMasks(layer, coords);
+	painter.frameRenderContext.invalidateTileClippingMasks();
+	painter.frameRenderContext.renderTileClippingMasks(layer, coords);
 	return {
 		compositeTarget,
 		compositeViewport
@@ -18819,8 +18517,8 @@ function drawLayerOpacity(painter, opacity, prepareDrawLayerOpacityResult, layer
 	context.viewport.set(prepareDrawLayerOpacityResult.compositeViewport);
 	context.activeTexture.set(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, painter.layerOpacityFbo.colorAttachment.get());
-	painter.useProgram("layerOpacity").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, painter.colorModeForRenderPass(), CullFaceMode.disabled, layerOpacityUniformValues(opacity, 0), null, null, layer.id, painter.viewportBuffer, painter.quadTriangleIndexBuffer, painter.viewportSegments, layer.paint, painter.transform.zoom);
-	painter.currentStencilSource = void 0;
+	painter.frameRenderContext.useProgram("layerOpacity").draw(context, gl.TRIANGLES, DepthMode.disabled, StencilMode.disabled, painter.frameRenderContext.colorModeForRenderPass(), CullFaceMode.disabled, layerOpacityUniformValues(opacity, 0), null, null, layer.id, painter.viewportBuffer, painter.quadTriangleIndexBuffer, painter.viewportSegments, layer.paint, painter.frameRenderContext.transform.zoom);
+	painter.frameRenderContext.invalidateTileClippingMasks();
 }
 //#endregion
 //#region src/webgl/draw/draw_line.ts
@@ -18828,7 +18526,7 @@ function updateGradientTexture(painter, tileManager, context, gl, layer, bucket,
 	let textureResolution = 256;
 	if (layer.stepInterpolant) {
 		const sourceMaxZoom = tileManager.getSource().maxzoom;
-		const potentialOverzoom = coord.canonical.z === sourceMaxZoom ? Math.ceil(1 << painter.transform.maxZoom - coord.canonical.z) : 1;
+		const potentialOverzoom = coord.canonical.z === sourceMaxZoom ? Math.ceil(1 << painter.frameRenderContext.transform.maxZoom - coord.canonical.z) : 1;
 		const maxTextureCoverage = bucket.maxLineLength / EXTENT * 1024 * potentialOverzoom;
 		textureResolution = clamp(nextPowerOfTwo(maxTextureCoverage), 256, context.maxTextureSize);
 	}
@@ -18873,23 +18571,23 @@ function bindGradientAndDashTextures(painter, tileManager, context, gl, layer, b
 	painter.lineAtlas.bind(context);
 	programConfiguration.updatePaintBuffers(crossfade);
 }
-function drawLine(painter, tileManager, layer, coords, renderContext) {
-	if (renderContext.currentPass !== "translucent") return;
+function drawLine(painter, tileManager, layer, coords, frameRenderContext) {
+	if (frameRenderContext.currentPass !== "translucent") return;
 	const opacity = layer.paint.get("line-opacity");
 	const width = layer.paint.get("line-width");
 	const layerOpacity = layer.paint.get("line-layer-opacity");
 	if (opacity.constantOr(1) === 0 || width.constantOr(1) === 0 || layerOpacity === 0) return;
 	if (layerOpacity < 1) {
 		const results = prepareDrawLayerOpacity(painter, layer, coords);
-		drawLineTiles(painter, tileManager, layer, coords, renderContext);
+		drawLineTiles(painter, tileManager, layer, coords, frameRenderContext);
 		drawLayerOpacity(painter, layerOpacity, results, layer);
 		return;
 	}
-	drawLineTiles(painter, tileManager, layer, coords, renderContext);
+	drawLineTiles(painter, tileManager, layer, coords, frameRenderContext);
 }
-function drawLineTiles(painter, tileManager, layer, coords, renderContext) {
-	const depthMode = painter.getDepthModeForSublayer(0, DepthMode.ReadOnly);
-	const colorMode = painter.colorModeForRenderPass();
+function drawLineTiles(painter, tileManager, layer, coords, frameRenderContext) {
+	const depthMode = frameRenderContext.getDepthModeForSublayer(0, DepthMode.ReadOnly);
+	const colorMode = frameRenderContext.colorModeForRenderPass();
 	const dasharrayProperty = layer.paint.get("line-dasharray");
 	const dasharray = dasharrayProperty.constantOr(1);
 	const patternProperty = layer.paint.get("line-pattern");
@@ -18904,7 +18602,7 @@ function drawLineTiles(painter, tileManager, layer, coords, renderContext) {
 	else programId = "line";
 	const context = painter.context;
 	const gl = context.gl;
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	let firstTile = true;
 	for (const coord of coords) {
 		const tile = tileManager.getTile(coord);
@@ -18913,9 +18611,9 @@ function drawLineTiles(painter, tileManager, layer, coords, renderContext) {
 		if (!bucket) continue;
 		const programConfiguration = bucket.programConfigurations.get(layer.id);
 		const prevProgram = painter.context.program.get();
-		const program = painter.useProgram(programId, programConfiguration);
+		const program = frameRenderContext.useProgram(programId, programConfiguration);
 		const programChanged = firstTile || program.program !== prevProgram;
-		const terrainData = getTerrainDataForTile(renderContext, coord);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 		const constantPattern = patternProperty.constantOr(null);
 		const constantDasharray = dasharrayProperty?.constantOr(null);
 		if (constantPattern && tile.imageAtlas) {
@@ -18929,7 +18627,7 @@ function drawLineTiles(painter, tileManager, layer, coords, renderContext) {
 			const dashFrom = painter.lineAtlas.getDash(constantDasharray.from, round);
 			programConfiguration.setConstantDashPositions(dashTo, dashFrom);
 		}
-		const projectionData = getProjectionDataForTile(renderContext, coord);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord);
 		const pixelRatio = transform.getPixelScale();
 		let uniformValues;
 		if (image) {
@@ -18945,8 +18643,8 @@ function drawLineTiles(painter, tileManager, layer, coords, renderContext) {
 			uniformValues = lineGradientUniformValues(painter, tile, layer, pixelRatio, bucket.lineClipsArray.length);
 			bindGradientTextures(painter, tileManager, context, gl, layer, bucket, coord);
 		} else uniformValues = lineUniformValues(painter, tile, layer, pixelRatio);
-		const stencil = painter.stencilModeForClipping(coord);
-		program.draw(context, gl.TRIANGLES, depthMode, stencil, colorMode, CullFaceMode.disabled, uniformValues, terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, painter.transform.zoom, programConfiguration, bucket.layoutVertexBuffer2);
+		const stencil = frameRenderContext.stencilModeForClipping(coord);
+		program.draw(context, gl.TRIANGLES, depthMode, stencil, colorMode, CullFaceMode.disabled, uniformValues, terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, frameRenderContext.transform.zoom, programConfiguration, bucket.layoutVertexBuffer2);
 		firstTile = false;
 	}
 }
@@ -18981,54 +18679,54 @@ function updatePatternPositionsInProgram(programConfiguration, propertyName, con
 }
 //#endregion
 //#region src/webgl/draw/draw_fill.ts
-function drawFill(painter, tileManager, layer, coords, renderContext) {
+function drawFill(painter, tileManager, layer, coords, frameRenderContext) {
 	const color = layer.paint.get("fill-color");
 	const opacity = layer.paint.get("fill-opacity");
 	const layerOpacity = layer.paint.get("fill-layer-opacity");
 	if (opacity.constantOr(1) === 0 || layerOpacity === 0) return;
 	if (layerOpacity < 1) {
-		if (renderContext.currentPass !== "translucent") return;
+		if (frameRenderContext.currentPass !== "translucent") return;
 		const results = prepareDrawLayerOpacity(painter, layer, coords);
-		drawFillAndOutline(painter, tileManager, layer, coords, renderContext);
+		drawFillAndOutline(painter, tileManager, layer, coords, frameRenderContext);
 		drawLayerOpacity(painter, layerOpacity, results, layer);
 		return;
 	}
 	const pattern = layer.paint.get("fill-pattern");
-	const fillEligibleForOpaque = painter.opaquePassEnabledForLayer() && !pattern.constantOr(1) && color.constantOr(Color.transparent).a === 1 && opacity.constantOr(0) === 1;
-	if (fillEligibleForOpaque && renderContext.currentPass === "opaque") {
-		const colorMode = painter.colorModeForRenderPass();
-		drawFillTiles(painter, tileManager, layer, coords, painter.getDepthModeForSublayer(1, DepthMode.ReadWrite), colorMode, false, renderContext);
+	const fillEligibleForOpaque = frameRenderContext.opaquePassEnabledForLayer() && !pattern.constantOr(1) && color.constantOr(Color.transparent).a === 1 && opacity.constantOr(0) === 1;
+	if (fillEligibleForOpaque && frameRenderContext.currentPass === "opaque") {
+		const colorMode = frameRenderContext.colorModeForRenderPass();
+		drawFillTiles(painter, tileManager, layer, coords, frameRenderContext.getDepthModeForSublayer(1, DepthMode.ReadWrite), colorMode, false, frameRenderContext);
 		return;
 	}
-	if (fillEligibleForOpaque && renderContext.currentPass === "translucent") {
-		drawOutline(painter, tileManager, layer, coords, renderContext);
+	if (fillEligibleForOpaque && frameRenderContext.currentPass === "translucent") {
+		drawOutline(painter, tileManager, layer, coords, frameRenderContext);
 		return;
 	}
-	if (renderContext.currentPass === "translucent") drawFillAndOutline(painter, tileManager, layer, coords, renderContext);
+	if (frameRenderContext.currentPass === "translucent") drawFillAndOutline(painter, tileManager, layer, coords, frameRenderContext);
 }
 /**
 * Draw fill + outline in a single translucent pass with ReadOnly depth.
 * Shared by the layer-opacity subpass (always) and the normal translucent path
 * (when the fill is not opaque-pass-eligible).
 */
-function drawFillAndOutline(painter, tileManager, layer, coords, renderContext) {
-	const colorMode = painter.colorModeForRenderPass();
-	drawFillTiles(painter, tileManager, layer, coords, painter.getDepthModeForSublayer(1, DepthMode.ReadOnly), colorMode, false, renderContext);
-	drawOutline(painter, tileManager, layer, coords, renderContext);
+function drawFillAndOutline(painter, tileManager, layer, coords, frameRenderContext) {
+	const colorMode = frameRenderContext.colorModeForRenderPass();
+	drawFillTiles(painter, tileManager, layer, coords, frameRenderContext.getDepthModeForSublayer(1, DepthMode.ReadOnly), colorMode, false, frameRenderContext);
+	drawOutline(painter, tileManager, layer, coords, frameRenderContext);
 }
-function drawOutline(painter, tileManager, layer, coords, renderContext) {
+function drawOutline(painter, tileManager, layer, coords, frameRenderContext) {
 	if (!layer.paint.get("fill-antialias")) return;
-	const colorMode = painter.colorModeForRenderPass();
-	drawFillTiles(painter, tileManager, layer, coords, painter.getDepthModeForSublayer(layer.getPaintProperty("fill-outline-color") ? 2 : 0, DepthMode.ReadOnly), colorMode, true, renderContext);
+	const colorMode = frameRenderContext.colorModeForRenderPass();
+	drawFillTiles(painter, tileManager, layer, coords, frameRenderContext.getDepthModeForSublayer(layer.getPaintProperty("fill-outline-color") ? 2 : 0, DepthMode.ReadOnly), colorMode, true, frameRenderContext);
 }
-function drawFillTiles(painter, tileManager, layer, coords, depthMode, colorMode, isOutline, renderContext) {
+function drawFillTiles(painter, tileManager, layer, coords, depthMode, colorMode, isOutline, frameRenderContext) {
 	const gl = painter.context.gl;
 	const fillPropertyName = "fill-pattern";
 	const patternProperty = layer.paint.get(fillPropertyName);
 	const image = patternProperty?.constantOr(1);
 	const crossfade = layer.getCrossfadeParameters();
 	let drawMode, programName, uniformValues, indexBuffer, segments;
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	const propertyFillTranslate = layer.paint.get("fill-translate");
 	const propertyFillTranslateAnchor = layer.paint.get("fill-translate-anchor");
 	if (!isOutline) {
@@ -19046,15 +18744,15 @@ function drawFillTiles(painter, tileManager, layer, coords, depthMode, colorMode
 		if (!bucket) continue;
 		const isSdfPattern = bucket.sdfPatterns[layer.id] ?? false;
 		const programConfiguration = bucket.programConfigurations.get(layer.id);
-		const program = painter.useProgram(programName, programConfiguration);
-		const terrainData = getTerrainDataForTile(renderContext, coord);
+		const program = frameRenderContext.useProgram(programName, programConfiguration);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 		if (image) {
 			painter.context.activeTexture.set(gl.TEXTURE0);
 			tile.imageAtlasTexture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
 			programConfiguration.updatePaintBuffers(crossfade);
 		}
 		updatePatternPositionsInProgram(programConfiguration, fillPropertyName, constantPattern, tile, layer);
-		const projectionData = getProjectionDataForTile(renderContext, coord);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord);
 		const translateForUniforms = translatePosition(transform, tile, propertyFillTranslate, propertyFillTranslateAnchor);
 		if (!isOutline) {
 			indexBuffer = bucket.indexBuffer;
@@ -19065,27 +18763,27 @@ function drawFillTiles(painter, tileManager, layer, coords, depthMode, colorMode
 			segments = bucket.segments2;
 			uniformValues = programName === "fillOutlinePattern" && image ? fillOutlinePatternUniformValues(painter, crossfade, tile, translateForUniforms, isSdfPattern) : fillOutlineUniformValues(translateForUniforms);
 		}
-		const stencil = painter.stencilModeForClipping(coord);
-		program.draw(painter.context, drawMode, depthMode, stencil, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, indexBuffer, segments, layer.paint, painter.transform.zoom, programConfiguration);
+		const stencil = frameRenderContext.stencilModeForClipping(coord);
+		program.draw(painter.context, drawMode, depthMode, stencil, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, indexBuffer, segments, layer.paint, frameRenderContext.transform.zoom, programConfiguration);
 	}
 }
 //#endregion
 //#region src/webgl/draw/draw_fill_extrusion.ts
-function drawFillExtrusion(painter, tileManager, layer, coords, renderContext) {
+function drawFillExtrusion(painter, tileManager, layer, coords, frameRenderContext) {
 	const opacity = layer.paint.get("fill-extrusion-opacity");
 	if (opacity === 0) return;
-	if (renderContext.currentPass === "translucent") {
-		const depthMode = new DepthMode(painter.context.gl.LEQUAL, DepthMode.ReadWrite, renderContext.depthRangeFor3D);
+	if (frameRenderContext.currentPass === "translucent") {
+		const depthMode = new DepthMode(painter.context.gl.LEQUAL, DepthMode.ReadWrite, frameRenderContext.depthRangeFor3D);
 		if (opacity === 1 && !layer.paint.get("fill-extrusion-pattern").constantOr(1)) {
-			const colorMode = painter.colorModeForRenderPass();
-			drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, StencilMode.disabled, colorMode, renderContext);
+			const colorMode = frameRenderContext.colorModeForRenderPass();
+			drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, StencilMode.disabled, colorMode, frameRenderContext);
 		} else {
-			drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, StencilMode.disabled, ColorMode.disabled, renderContext);
-			drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, painter.stencilModeFor3D(), painter.colorModeForRenderPass(), renderContext);
+			drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, StencilMode.disabled, ColorMode.disabled, frameRenderContext);
+			drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, frameRenderContext.stencilModeFor3D(), frameRenderContext.colorModeForRenderPass(), frameRenderContext);
 		}
 	}
 }
-function drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, stencilMode, colorMode, renderContext) {
+function drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, stencilMode, colorMode, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
 	const fillPropertyName = "fill-extrusion-pattern";
@@ -19094,36 +18792,36 @@ function drawExtrusionTiles(painter, tileManager, layer, coords, depthMode, sten
 	const crossfade = layer.getCrossfadeParameters();
 	const opacity = layer.paint.get("fill-extrusion-opacity");
 	const constantPattern = patternProperty.constantOr(null);
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	for (const coord of coords) {
 		const tile = tileManager.getTile(coord);
 		const bucket = tile.getBucket(layer);
 		if (!bucket) continue;
-		const terrainData = getTerrainDataForTile(renderContext, coord);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 		const programConfiguration = bucket.programConfigurations.get(layer.id);
-		const program = painter.useProgram(image ? "fillExtrusionPattern" : "fillExtrusion", programConfiguration);
+		const program = frameRenderContext.useProgram(image ? "fillExtrusionPattern" : "fillExtrusion", programConfiguration);
 		if (image) {
 			painter.context.activeTexture.set(gl.TEXTURE0);
 			tile.imageAtlasTexture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE);
 			programConfiguration.updatePaintBuffers(crossfade);
 		}
-		const projectionData = getProjectionDataForTile(renderContext, coord);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord);
 		updatePatternPositionsInProgram(programConfiguration, fillPropertyName, constantPattern, tile, layer);
 		const translate = translatePosition(transform, tile, layer.paint.get("fill-extrusion-translate"), layer.paint.get("fill-extrusion-translate-anchor"));
 		const shouldUseVerticalGradient = layer.paint.get("fill-extrusion-vertical-gradient");
-		const uniformValues = image ? fillExtrusionPatternUniformValues(painter, shouldUseVerticalGradient, opacity, translate, coord, crossfade, tile) : fillExtrusionUniformValues(painter, shouldUseVerticalGradient, opacity, translate);
-		program.draw(context, context.gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, painter.transform.zoom, programConfiguration, painter.style.map.terrain && bucket.centroidVertexBuffer);
+		const uniformValues = image ? fillExtrusionPatternUniformValues(painter, frameRenderContext.data.light, shouldUseVerticalGradient, opacity, translate, coord, crossfade, tile) : fillExtrusionUniformValues(painter, frameRenderContext.data.light, shouldUseVerticalGradient, opacity, translate);
+		program.draw(context, context.gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, bucket.layoutVertexBuffer, bucket.indexBuffer, bucket.segments, layer.paint, frameRenderContext.transform.zoom, programConfiguration, frameRenderContext.terrain && bucket.centroidVertexBuffer);
 	}
 }
 //#endregion
 //#region src/webgl/draw/draw_hillshade.ts
-function drawHillshade(painter, tileManager, layer, tileIDs, renderContext) {
-	if (renderContext.currentPass !== "offscreen" && renderContext.currentPass !== "translucent") return;
+function drawHillshade(painter, tileManager, layer, tileIDs, frameRenderContext) {
+	if (frameRenderContext.currentPass !== "offscreen" && frameRenderContext.currentPass !== "translucent") return;
 	const context = painter.context;
-	const useSubdivision = painter.style.projection.useSubdivision;
-	const depthMode = painter.getDepthModeForSublayer(0, DepthMode.ReadOnly);
-	const colorMode = painter.colorModeForRenderPass();
-	if (renderContext.currentPass === "offscreen") {
+	const { useSubdivision } = frameRenderContext.data;
+	const depthMode = frameRenderContext.getDepthModeForSublayer(0, DepthMode.ReadOnly);
+	const colorMode = frameRenderContext.colorModeForRenderPass();
+	if (frameRenderContext.currentPass === "offscreen") {
 		prepareHillshade(painter, tileManager, tileIDs, layer, depthMode, StencilMode.disabled, colorMode);
 		context.viewport.set([
 			0,
@@ -19131,33 +18829,33 @@ function drawHillshade(painter, tileManager, layer, tileIDs, renderContext) {
 			painter.width,
 			painter.height
 		]);
-	} else if (renderContext.currentPass === "translucent") {
+	} else if (frameRenderContext.currentPass === "translucent") {
 		if (useSubdivision) {
-			const [stencilBorderless, stencilBorders, coords] = painter.stencilConfigForOverlapTwoPass(tileIDs);
-			renderHillshade(painter, tileManager, layer, coords, stencilBorderless, depthMode, colorMode, false, renderContext);
-			renderHillshade(painter, tileManager, layer, coords, stencilBorders, depthMode, colorMode, true, renderContext);
+			const [stencilBorderless, stencilBorders, coords] = frameRenderContext.stencilConfigForOverlapTwoPass(tileIDs);
+			renderHillshade(painter, tileManager, layer, coords, stencilBorderless, depthMode, colorMode, false, frameRenderContext);
+			renderHillshade(painter, tileManager, layer, coords, stencilBorders, depthMode, colorMode, true, frameRenderContext);
 		} else {
-			const [stencil, coords] = painter.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
-			renderHillshade(painter, tileManager, layer, coords, stencil, depthMode, colorMode, false, renderContext);
+			const [stencil, coords] = frameRenderContext.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
+			renderHillshade(painter, tileManager, layer, coords, stencil, depthMode, colorMode, false, frameRenderContext);
 		}
 	}
 }
-function renderHillshade(painter, tileManager, layer, coords, stencilModes, depthMode, colorMode, useBorder, renderContext) {
+function renderHillshade(painter, tileManager, layer, coords, stencilModes, depthMode, colorMode, useBorder, frameRenderContext) {
 	const projection = painter.style.projection;
 	const context = painter.context;
 	const gl = context.gl;
 	const defines = [`#define NUM_ILLUMINATION_SOURCES ${layer.paint.get("hillshade-highlight-color").values.length}`];
-	const program = painter.useProgram("hillshade", null, false, defines);
-	const align = !painter.options.moving;
+	const program = frameRenderContext.useProgram("hillshade", null, false, defines);
+	const align = !frameRenderContext.data.moving;
 	for (const coord of coords) {
 		const tile = tileManager.getTile(coord);
 		const fbo = tile.fbo;
 		if (!fbo) continue;
 		const mesh = projection.getMeshFromTileID(context, coord.canonical, useBorder, true, "raster");
-		const terrainData = getTerrainDataForTile(renderContext, coord);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 		context.activeTexture.set(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, fbo.colorAttachment.get());
-		const projectionData = getProjectionDataForTile(renderContext, coord, { aligned: align });
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord, { aligned: align });
 		program.draw(context, gl.TRIANGLES, depthMode, stencilModes[coord.overscaledZ], colorMode, CullFaceMode.backCCW, hillshadeUniformValues(painter, tile, layer), terrainData, projectionData, layer.id, mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 	}
 }
@@ -19203,25 +18901,25 @@ function prepareHillshade(painter, tileManager, tileIDs, layer, depthMode, stenc
 			hillshadeTextureSize,
 			hillshadeTextureSize
 		]);
-		painter.useProgram("hillshadePrepare").draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.disabled, hillshadeUniformPrepareValues(tile.tileID, dem), null, null, layer.id, painter.rasterBoundsBuffer, painter.quadTriangleIndexBuffer, painter.rasterBoundsSegments);
+		painter.frameRenderContext.useProgram("hillshadePrepare").draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.disabled, hillshadeUniformPrepareValues(tile.tileID, dem), null, null, layer.id, painter.rasterBoundsBuffer, painter.quadTriangleIndexBuffer, painter.rasterBoundsSegments);
 		tile.needsHillshadePrepare = false;
 	}
 }
 //#endregion
 //#region src/webgl/draw/draw_color_relief.ts
-function drawColorRelief(painter, tileManager, layer, tileIDs, renderContext) {
-	if (renderContext.currentPass !== "translucent") return;
+function drawColorRelief(painter, tileManager, layer, tileIDs, frameRenderContext) {
+	if (frameRenderContext.currentPass !== "translucent") return;
 	if (!tileIDs.length) return;
-	const useSubdivision = painter.style.projection.useSubdivision;
-	const depthMode = painter.getDepthModeForSublayer(0, DepthMode.ReadOnly);
-	const colorMode = painter.colorModeForRenderPass();
+	const { useSubdivision } = frameRenderContext.data;
+	const depthMode = frameRenderContext.getDepthModeForSublayer(0, DepthMode.ReadOnly);
+	const colorMode = frameRenderContext.colorModeForRenderPass();
 	if (useSubdivision) {
-		const [stencilBorderless, stencilBorders, coords] = painter.stencilConfigForOverlapTwoPass(tileIDs);
-		renderColorRelief(painter, tileManager, layer, coords, stencilBorderless, depthMode, colorMode, false, renderContext);
-		renderColorRelief(painter, tileManager, layer, coords, stencilBorders, depthMode, colorMode, true, renderContext);
+		const [stencilBorderless, stencilBorders, coords] = frameRenderContext.stencilConfigForOverlapTwoPass(tileIDs);
+		renderColorRelief(painter, tileManager, layer, coords, stencilBorderless, depthMode, colorMode, false, frameRenderContext);
+		renderColorRelief(painter, tileManager, layer, coords, stencilBorders, depthMode, colorMode, true, frameRenderContext);
 	} else {
-		const [stencil, coords] = painter.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
-		renderColorRelief(painter, tileManager, layer, coords, stencil, depthMode, colorMode, false, renderContext);
+		const [stencil, coords] = frameRenderContext.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
+		renderColorRelief(painter, tileManager, layer, coords, stencil, depthMode, colorMode, false, frameRenderContext);
 	}
 }
 let textureMaxSize = 0;
@@ -19231,12 +18929,12 @@ let textureMaxSize = 0;
 * A loaded raster-DEM tile can carry no DEM at all (e.g. an empty 204 response);
 * such tiles are skipped before the first-tile setup reads from them.
 */
-function renderColorRelief(painter, tileManager, layer, coords, stencilModes, depthMode, colorMode, useBorder, renderContext) {
+function renderColorRelief(painter, tileManager, layer, coords, stencilModes, depthMode, colorMode, useBorder, frameRenderContext) {
 	const projection = painter.style.projection;
 	const context = painter.context;
 	const gl = context.gl;
-	const program = painter.useProgram("colorRelief");
-	const align = !painter.options.moving;
+	const program = frameRenderContext.useProgram("colorRelief");
+	const align = !frameRenderContext.data.moving;
 	const textureFilter = layer.paint.get("resampling") === "nearest" ? gl.NEAREST : gl.LINEAR;
 	let firstTile = true;
 	let colorRampSize = 0;
@@ -19269,8 +18967,8 @@ function renderColorRelief(painter, tileManager, layer, coords, stencilModes, de
 		}
 		tile.demTexture.bind(textureFilter, gl.CLAMP_TO_EDGE);
 		const mesh = projection.getMeshFromTileID(context, coord.canonical, useBorder, true, "raster");
-		const terrainData = getTerrainDataForTile(renderContext, coord);
-		const projectionData = getProjectionDataForTile(renderContext, coord, { aligned: align });
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord, { aligned: align });
 		program.draw(context, gl.TRIANGLES, depthMode, stencilModes[coord.overscaledZ], colorMode, CullFaceMode.backCCW, colorReliefUniformValues(layer, tile.dem, colorRampSize), terrainData, projectionData, layer.id, mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 	}
 }
@@ -19282,36 +18980,36 @@ const cornerCoords = [
 	new Point(EXTENT, EXTENT),
 	new Point(0, EXTENT)
 ];
-function drawRaster(painter, tileManager, layer, tileIDs, renderContext) {
-	if (renderContext.currentPass !== "translucent") return;
+function drawRaster(painter, tileManager, layer, tileIDs, frameRenderContext) {
+	if (frameRenderContext.currentPass !== "translucent") return;
 	if (layer.paint.get("raster-opacity") === 0) return;
 	if (!tileIDs.length) return;
 	const source = tileManager.getSource();
-	const useSubdivision = painter.style.projection.useSubdivision;
-	if (source instanceof ImageSource) drawTiles(painter, tileManager, layer, tileIDs, null, false, false, source.tileCoords, source.imageWarp, source.flippedWindingOrder, renderContext, source.getMesh(painter.context, useSubdivision));
+	const { useSubdivision } = frameRenderContext.data;
+	if (source instanceof ImageSource) drawTiles(painter, tileManager, layer, tileIDs, null, false, false, source.tileCoords, source.imageWarp, source.flippedWindingOrder, frameRenderContext, source.getMesh(painter.context, useSubdivision));
 	else if (useSubdivision) {
-		const [stencilBorderless, stencilBorders, coords] = painter.stencilConfigForOverlapTwoPass(tileIDs);
-		drawTiles(painter, tileManager, layer, coords, stencilBorderless, false, true, cornerCoords, bilinearImageWarp, false, renderContext);
-		drawTiles(painter, tileManager, layer, coords, stencilBorders, true, true, cornerCoords, bilinearImageWarp, false, renderContext);
+		const [stencilBorderless, stencilBorders, coords] = frameRenderContext.stencilConfigForOverlapTwoPass(tileIDs);
+		drawTiles(painter, tileManager, layer, coords, stencilBorderless, false, true, cornerCoords, bilinearImageWarp, false, frameRenderContext);
+		drawTiles(painter, tileManager, layer, coords, stencilBorders, true, true, cornerCoords, bilinearImageWarp, false, frameRenderContext);
 	} else {
-		const [stencil, coords] = painter.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
-		drawTiles(painter, tileManager, layer, coords, stencil, false, true, cornerCoords, bilinearImageWarp, false, renderContext);
+		const [stencil, coords] = frameRenderContext.getStencilConfigForOverlapAndUpdateStencilID(tileIDs);
+		drawTiles(painter, tileManager, layer, coords, stencil, false, true, cornerCoords, bilinearImageWarp, false, frameRenderContext);
 	}
 }
-function drawTiles(painter, tileManager, layer, coords, stencilModes, useBorder, allowPoles, corners, imageWarp, flipCullfaceMode = false, renderContext, sourceMesh = null) {
+function drawTiles(painter, tileManager, layer, coords, stencilModes, useBorder, allowPoles, corners, imageWarp, flipCullfaceMode = false, frameRenderContext, sourceMesh = null) {
 	const minTileZ = coords[coords.length - 1].overscaledZ;
 	const context = painter.context;
 	const gl = context.gl;
-	const program = painter.useProgram("raster");
+	const program = frameRenderContext.useProgram("raster");
 	const projection = painter.style.projection;
-	const colorMode = painter.colorModeForRenderPass();
-	const align = !painter.options.moving;
+	const colorMode = frameRenderContext.colorModeForRenderPass();
+	const align = !frameRenderContext.data.moving;
 	const rasterOpacity = layer.paint.get("raster-opacity");
 	const textureFilter = layer.paint.get("resampling") === "nearest" || layer.paint.get("raster-resampling") === "nearest" ? gl.NEAREST : gl.LINEAR;
 	const fadeDuration = layer.paint.get("raster-fade-duration");
-	const isTerrain = !!painter.style.map.terrain;
+	const isTerrain = !!frameRenderContext.terrain;
 	for (const coord of coords) {
-		const depthMode = painter.getDepthModeForSublayer(coord.overscaledZ - minTileZ, rasterOpacity === 1 ? DepthMode.ReadWrite : DepthMode.ReadOnly, gl.LESS);
+		const depthMode = frameRenderContext.getDepthModeForSublayer(coord.overscaledZ - minTileZ, rasterOpacity === 1 ? DepthMode.ReadWrite : DepthMode.ReadOnly, gl.LESS);
 		const tile = tileManager.getTile(coord);
 		context.activeTexture.set(gl.TEXTURE0);
 		tile.texture.bind(textureFilter, gl.CLAMP_TO_EDGE, gl.LINEAR_MIPMAP_NEAREST);
@@ -19322,9 +19020,9 @@ function drawTiles(painter, tileManager, layer, coords, stencilModes, useBorder,
 			parentTile.fadeOpacity = fadeValues.parentTileOpacity;
 			parentTile.texture.bind(textureFilter, gl.CLAMP_TO_EDGE, gl.LINEAR_MIPMAP_NEAREST);
 		} else tile.texture.bind(textureFilter, gl.CLAMP_TO_EDGE, gl.LINEAR_MIPMAP_NEAREST);
-		if (tile.texture.useMipmap && context.extTextureFilterAnisotropic && painter.transform.pitch > painter.options.anisotropicFilterPitch) gl.texParameterf(gl.TEXTURE_2D, context.extTextureFilterAnisotropic.TEXTURE_MAX_ANISOTROPY_EXT, context.extTextureFilterAnisotropicMax);
-		const terrainData = getTerrainDataForTile(renderContext, coord);
-		const projectionData = getProjectionDataForTile(renderContext, coord, { aligned: align });
+		if (tile.texture.useMipmap && context.extTextureFilterAnisotropic && frameRenderContext.transform.pitch > frameRenderContext.data.anisotropicFilterPitch) gl.texParameterf(gl.TEXTURE_2D, context.extTextureFilterAnisotropic.TEXTURE_MAX_ANISOTROPY_EXT, context.extTextureFilterAnisotropicMax);
+		const terrainData = frameRenderContext.getTerrainDataForTile(coord);
+		const projectionData = frameRenderContext.getProjectionDataForTile(coord, { aligned: align });
 		const uniformValues = rasterUniformValues(parentTopLeft, parentScaleBy, fadeValues.fadeMix, layer, corners, imageWarp);
 		const mesh = sourceMesh ?? projection.getMeshFromTileID(context, coord.canonical, useBorder, allowPoles, "raster");
 		const stencilMode = stencilModes ? stencilModes[coord.overscaledZ] : StencilMode.disabled;
@@ -19404,26 +19102,26 @@ function getSelfFadeValues(tile, fadeDuration) {
 }
 //#endregion
 //#region src/webgl/draw/draw_background.ts
-function drawBackground(painter, tileManager, layer, coords, renderContext) {
+function drawBackground(painter, tileManager, layer, coords, frameRenderContext) {
 	const color = layer.paint.get("background-color");
 	const opacity = layer.paint.get("background-opacity");
 	if (opacity === 0) return;
 	const context = painter.context;
 	const gl = context.gl;
 	const projection = painter.style.projection;
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	const tileSize = transform.tileSize;
 	const image = layer.paint.get("background-pattern");
 	if (painter.isPatternMissing(image)) return;
-	const pass = !image && color.a === 1 && opacity === 1 && painter.opaquePassEnabledForLayer() ? "opaque" : "translucent";
-	if (renderContext.currentPass !== pass) return;
+	const pass = !image && color.a === 1 && opacity === 1 && frameRenderContext.opaquePassEnabledForLayer() ? "opaque" : "translucent";
+	if (frameRenderContext.currentPass !== pass) return;
 	const stencilMode = StencilMode.disabled;
-	const depthMode = painter.getDepthModeForSublayer(0, pass === "opaque" ? DepthMode.ReadWrite : DepthMode.ReadOnly);
-	const colorMode = painter.colorModeForRenderPass();
-	const program = painter.useProgram(image ? "backgroundPattern" : "background");
+	const depthMode = frameRenderContext.getDepthModeForSublayer(0, pass === "opaque" ? DepthMode.ReadWrite : DepthMode.ReadOnly);
+	const colorMode = frameRenderContext.colorModeForRenderPass();
+	const program = frameRenderContext.useProgram(image ? "backgroundPattern" : "background");
 	const tileIDs = coords ? coords : coveringTiles(transform, {
 		tileSize,
-		terrain: painter.style.map.terrain
+		terrain: frameRenderContext.terrain
 	});
 	if (image) {
 		context.activeTexture.set(gl.TEXTURE0);
@@ -19431,12 +19129,12 @@ function drawBackground(painter, tileManager, layer, coords, renderContext) {
 	}
 	const crossfade = layer.getCrossfadeParameters();
 	for (const tileID of tileIDs) {
-		const projectionData = getProjectionDataForTile(renderContext, tileID);
+		const projectionData = frameRenderContext.getProjectionDataForTile(tileID);
 		const uniformValues = image ? backgroundPatternUniformValues(opacity, painter, image, {
 			tileID,
 			tileSize
 		}, crossfade) : backgroundUniformValues(opacity, color);
-		const terrainData = getTerrainDataForTile(renderContext, tileID);
+		const terrainData = frameRenderContext.getTerrainDataForTile(tileID);
 		const mesh = projection.getMeshFromTileID(context, tileID.canonical, false, true, "raster");
 		program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, layer.id, mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 	}
@@ -19448,57 +19146,58 @@ const btmColor = new Color(0, 1, 0, 1);
 const leftColor = new Color(0, 0, 1, 1);
 const rightColor = new Color(1, 0, 1, 1);
 const centerColor = new Color(0, 1, 1, 1);
-function drawDebugPadding(painter) {
-	const padding = painter.transform.padding;
+function drawDebugPadding(frameRenderContext) {
+	const padding = frameRenderContext.transform.padding;
 	const lineWidth = 3;
-	drawHorizontalLine(painter, painter.transform.height - (padding.top || 0), lineWidth, topColor);
-	drawHorizontalLine(painter, padding.bottom || 0, lineWidth, btmColor);
-	drawVerticalLine(painter, padding.left || 0, lineWidth, leftColor);
-	drawVerticalLine(painter, painter.transform.width - (padding.right || 0), lineWidth, rightColor);
-	const center = painter.transform.centerPoint;
-	drawCrosshair(painter, center.x, painter.transform.height - center.y, centerColor);
+	drawHorizontalLine(frameRenderContext, frameRenderContext.transform.height - (padding.top || 0), lineWidth, topColor);
+	drawHorizontalLine(frameRenderContext, padding.bottom || 0, lineWidth, btmColor);
+	drawVerticalLine(frameRenderContext, padding.left || 0, lineWidth, leftColor);
+	drawVerticalLine(frameRenderContext, frameRenderContext.transform.width - (padding.right || 0), lineWidth, rightColor);
+	const center = frameRenderContext.transform.centerPoint;
+	drawCrosshair(frameRenderContext, center.x, frameRenderContext.transform.height - center.y, centerColor);
 }
-function drawCrosshair(painter, x, y, color) {
+function drawCrosshair(frameRenderContext, x, y, color) {
 	const size = 20;
 	const lineWidth = 2;
-	drawDebugSSRect(painter, x - lineWidth / 2, y - size / 2, lineWidth, size, color);
-	drawDebugSSRect(painter, x - size / 2, y - lineWidth / 2, size, lineWidth, color);
+	drawDebugSSRect(frameRenderContext, x - lineWidth / 2, y - size / 2, lineWidth, size, color);
+	drawDebugSSRect(frameRenderContext, x - size / 2, y - lineWidth / 2, size, lineWidth, color);
 }
-function drawHorizontalLine(painter, y, lineWidth, color) {
-	drawDebugSSRect(painter, 0, y + lineWidth / 2, painter.transform.width, lineWidth, color);
+function drawHorizontalLine(frameRenderContext, y, lineWidth, color) {
+	drawDebugSSRect(frameRenderContext, 0, y + lineWidth / 2, frameRenderContext.transform.width, lineWidth, color);
 }
-function drawVerticalLine(painter, x, lineWidth, color) {
-	drawDebugSSRect(painter, x - lineWidth / 2, 0, lineWidth, painter.transform.height, color);
+function drawVerticalLine(frameRenderContext, x, lineWidth, color) {
+	drawDebugSSRect(frameRenderContext, x - lineWidth / 2, 0, lineWidth, frameRenderContext.transform.height, color);
 }
-function drawDebugSSRect(painter, x, y, width, height, color) {
-	const context = painter.context;
+function drawDebugSSRect(frameRenderContext, x, y, width, height, color) {
+	const context = frameRenderContext.context;
 	const gl = context.gl;
+	const pixelRatio = frameRenderContext.data.pixelRatio;
 	gl.enable(gl.SCISSOR_TEST);
-	gl.scissor(x * painter.pixelRatio, y * painter.pixelRatio, width * painter.pixelRatio, height * painter.pixelRatio);
+	gl.scissor(x * pixelRatio, y * pixelRatio, width * pixelRatio, height * pixelRatio);
 	context.clear({ color });
 	gl.disable(gl.SCISSOR_TEST);
 }
-function drawDebug(painter, tileManager, coords, renderContext) {
-	for (const coord of coords) drawDebugTile(painter, tileManager, coord, renderContext);
+function drawDebug(painter, tileManager, coords, frameRenderContext) {
+	for (const coord of coords) drawDebugTile(painter, tileManager, coord, frameRenderContext);
 }
-function drawDebugTile(painter, tileManager, coord, renderContext) {
+function drawDebugTile(painter, tileManager, coord, frameRenderContext) {
 	const context = painter.context;
 	const gl = context.gl;
-	const program = painter.useProgram("debug");
+	const program = frameRenderContext.useProgram("debug");
 	const depthMode = DepthMode.disabled;
 	const stencilMode = StencilMode.disabled;
-	const colorMode = painter.colorModeForRenderPass();
+	const colorMode = frameRenderContext.colorModeForRenderPass();
 	const id = "$debug";
-	const terrainData = getTerrainDataForTile(renderContext, coord);
+	const terrainData = frameRenderContext.getTerrainDataForTile(coord);
 	context.activeTexture.set(gl.TEXTURE0);
 	const tileByteLength = tileManager.getTileByID(coord.key).latestRawTileData?.byteLength || 0;
 	const tileSizeKb = Math.floor(tileByteLength / 1024);
 	const tileSize = tileManager.getTile(coord).tileSize;
-	const scaleRatio = 512 / Math.min(tileSize, 512) * (coord.overscaledZ / painter.transform.zoom) * .5;
+	const scaleRatio = 512 / Math.min(tileSize, 512) * (coord.overscaledZ / frameRenderContext.transform.zoom) * .5;
 	let tileIdText = coord.canonical.toString();
 	if (coord.overscaledZ !== coord.canonical.z) tileIdText += ` => ${coord.overscaledZ}`;
 	drawTextToOverlay(painter, `${tileIdText} ${tileSizeKb}kB`);
-	const projectionData = getProjectionDataForTile(renderContext, coord);
+	const projectionData = frameRenderContext.getProjectionDataForTile(coord);
 	program.draw(context, gl.TRIANGLES, depthMode, stencilMode, ColorMode.alphaBlended, CullFaceMode.disabled, debugUniformValues(Color.transparent, scaleRatio), null, projectionData, id, painter.debugBuffer, painter.quadTriangleIndexBuffer, painter.debugSegments);
 	program.draw(context, gl.LINE_STRIP, depthMode, stencilMode, colorMode, CullFaceMode.disabled, debugUniformValues(Color.red), terrainData, projectionData, id, painter.debugBuffer, painter.tileBorderIndexBuffer, painter.debugSegments);
 }
@@ -19536,12 +19235,12 @@ function selectDebugSource(style, zoom) {
 }
 //#endregion
 //#region src/webgl/draw/draw_custom.ts
-function drawCustom(painter, tileManager, layer, renderContext) {
-	const { isRenderingGlobe } = renderContext;
+function drawCustom(painter, tileManager, layer, frameRenderContext) {
+	const { isRenderingGlobe } = frameRenderContext.data;
 	const context = painter.context;
 	const implementation = layer.implementation;
 	const projection = painter.style.projection;
-	const transform = painter.transform;
+	const transform = frameRenderContext.transform;
 	const projectionData = transform.getProjectionDataForCustomLayer(isRenderingGlobe);
 	const customLayerArgs = {
 		farZ: transform.farZ,
@@ -19565,20 +19264,20 @@ function drawCustom(painter, tileManager, layer, renderContext) {
 		}
 	};
 	const renderingMode = implementation.renderingMode ? implementation.renderingMode : "2d";
-	if (renderContext.currentPass === "offscreen") {
+	if (frameRenderContext.currentPass === "offscreen") {
 		const prerender = implementation.prerender;
 		if (prerender) {
 			painter.setCustomLayerDefaults();
-			context.setColorMode(painter.colorModeForRenderPass());
+			context.setColorMode(frameRenderContext.colorModeForRenderPass());
 			prerender.call(implementation, context.gl, customLayerArgs);
 			context.setDirty();
 			painter.setBaseState();
 		}
-	} else if (renderContext.currentPass === "translucent") {
+	} else if (frameRenderContext.currentPass === "translucent") {
 		painter.setCustomLayerDefaults();
-		context.setColorMode(painter.colorModeForRenderPass());
+		context.setColorMode(frameRenderContext.colorModeForRenderPass());
 		context.setStencilMode(StencilMode.disabled);
-		const depthMode = renderingMode === "3d" ? painter.getDepthModeFor3D() : painter.getDepthModeForSublayer(0, DepthMode.ReadOnly);
+		const depthMode = renderingMode === "3d" ? frameRenderContext.getDepthModeFor3D() : frameRenderContext.getDepthModeForSublayer(0, DepthMode.ReadOnly);
 		context.setDepthMode(depthMode);
 		implementation.render(context.gl, customLayerArgs);
 		context.setDirty();
@@ -19596,11 +19295,11 @@ function drawCustom(painter, tileManager, layer, renderContext) {
 function drawDepth(painter, terrain) {
 	const context = painter.context;
 	const gl = context.gl;
-	const tr = painter.transform;
+	const tr = painter.frameRenderContext.transform;
 	const colorMode = ColorMode.unblended;
 	const depthMode = new DepthMode(gl.LEQUAL, DepthMode.ReadWrite, [0, 1]);
 	const tiles = terrain.tileManager.getRenderableTiles();
-	const program = painter.useProgram("terrainDepth");
+	const program = painter.frameRenderContext.useProgram("terrainDepth");
 	context.bindFramebuffer.set(terrain.getFramebuffer().framebuffer);
 	context.viewport.set([
 		0,
@@ -19631,14 +19330,14 @@ function drawDepth(painter, terrain) {
 		painter.height
 	]);
 }
-function drawTerrain(painter, terrain, tiles, renderContext) {
-	const { isRenderingGlobe } = renderContext;
+function drawTerrain(painter, terrain, tiles, frameRenderContext) {
+	const { isRenderingGlobe } = frameRenderContext.data;
 	const context = painter.context;
 	const gl = context.gl;
-	const tr = painter.transform;
-	const colorMode = painter.colorModeForRenderPass();
-	const depthMode = painter.getDepthModeFor3D();
-	const program = painter.useProgram("terrain");
+	const tr = frameRenderContext.transform;
+	const colorMode = frameRenderContext.colorModeForRenderPass();
+	const depthMode = frameRenderContext.getDepthModeFor3D();
+	const program = frameRenderContext.useProgram("terrain");
 	context.bindFramebuffer.set(null);
 	context.viewport.set([
 		0,
@@ -19654,43 +19353,29 @@ function drawTerrain(painter, terrain, tiles, renderContext) {
 		texture.bind(gl.LINEAR, gl.CLAMP_TO_EDGE, gl.LINEAR_MIPMAP_LINEAR);
 		const eleDelta = terrain.getSkirtLength(tr.zoom);
 		const fogMatrix = tr.calculateFogMatrix(tile.tileID.toUnwrapped());
-		const uniformValues = terrainUniformValues(eleDelta, fogMatrix, painter.style.sky, tr.pitch, isRenderingGlobe);
-		const projectionData = getProjectionDataForTile(renderContext, tile.tileID, { applyTerrainMatrix: false });
+		const uniformValues = terrainUniformValues(eleDelta, fogMatrix, frameRenderContext.data.sky, tr.pitch, isRenderingGlobe);
+		const projectionData = frameRenderContext.getProjectionDataForTile(tile.tileID, { applyTerrainMatrix: false });
 		program.draw(context, gl.TRIANGLES, depthMode, StencilMode.disabled, colorMode, CullFaceMode.backCCW, uniformValues, terrainData, projectionData, "terrain", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 	}
 }
 //#endregion
 //#region src/webgl/draw/draw_sky.ts
-function getMesh(context, sky) {
-	if (!sky.mesh) {
-		const vertexArray = new PosArray();
-		vertexArray.emplaceBack(-1, -1);
-		vertexArray.emplaceBack(1, -1);
-		vertexArray.emplaceBack(1, 1);
-		vertexArray.emplaceBack(-1, 1);
-		const indexArray = new TriangleIndexArray();
-		indexArray.emplaceBack(0, 1, 2);
-		indexArray.emplaceBack(0, 2, 3);
-		sky.mesh = new Mesh(context.createVertexBuffer(vertexArray, posAttributes.members), context.createIndexBuffer(indexArray), SegmentVector.simpleSegment(0, 0, vertexArray.length, indexArray.length));
-	}
-	return sky.mesh;
-}
-function drawSky(painter, sky) {
+function drawSky(painter, sky, pixelRatio) {
 	const context = painter.context;
 	const gl = context.gl;
-	const skyUniforms = skyUniformValues(sky, painter.transform, painter.pixelRatio);
+	const skyUniforms = skyUniformValues(sky, painter.frameRenderContext.transform, pixelRatio);
 	const depthMode = new DepthMode(gl.LEQUAL, DepthMode.ReadWrite, [0, 1]);
 	const stencilMode = StencilMode.disabled;
-	const colorMode = painter.colorModeForRenderPass();
-	const program = painter.useProgram("sky");
-	const mesh = getMesh(context, sky);
+	const colorMode = painter.frameRenderContext.colorModeForRenderPass();
+	const program = painter.frameRenderContext.useProgram("sky");
+	const mesh = painter.skyMesh;
 	program.draw(context, gl.TRIANGLES, depthMode, stencilMode, colorMode, CullFaceMode.disabled, skyUniforms, null, void 0, "sky", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 }
 function getSunPos(light, transform) {
-	const lightPos = light.getCartesianPosition();
+	const lightPos = sphericalToCartesian(light.position);
 	negate(lightPos, lightPos);
 	const lightMat = identity(/* @__PURE__ */ new Float64Array(16));
-	if (light.properties.get("anchor") === "map") {
+	if (light.anchor === "map") {
 		rotateZ(lightMat, lightMat, transform.rollInRadians);
 		rotateX(lightMat, lightMat, -transform.pitchInRadians);
 		rotateZ(lightMat, lightMat, transform.bearingInRadians);
@@ -19703,10 +19388,10 @@ function getSunPos(light, transform) {
 function drawAtmosphere(painter, sky, light) {
 	const context = painter.context;
 	const gl = context.gl;
-	const program = painter.useProgram("atmosphere");
+	const program = painter.frameRenderContext.useProgram("atmosphere");
 	const depthMode = new DepthMode(gl.LEQUAL, DepthMode.ReadOnly, [0, 1]);
-	const transform = painter.transform;
-	const sunPos = getSunPos(light, painter.transform);
+	const transform = painter.frameRenderContext.transform;
+	const sunPos = getSunPos(light, painter.frameRenderContext.transform);
 	const projectionData = transform.getProjectionData({
 		overscaledTileID: null,
 		applyGlobeMatrix: true,
@@ -19715,10 +19400,10 @@ function drawAtmosphere(painter, sky, light) {
 	const globeRadius = getGlobeRadiusPixels(transform.worldSize, transform.center.lat);
 	const globePosition = getGlobeCenterInViewSpace(transform);
 	const altitudeBlend = getAtmosphereAltitudeBlend(length(globePosition) - globeRadius, globeRadius);
-	const atmosphereBlend = sky.properties.get("atmosphere-blend") * projectionData.projectionTransition * altitudeBlend;
+	const atmosphereBlend = sky["atmosphere-blend"] * projectionData.projectionTransition * altitudeBlend;
 	if (atmosphereBlend === 0) return;
 	const uniformValues = atmosphereUniformValues(sunPos, atmosphereBlend, globePosition, globeRadius, transform.inverseProjectionMatrix);
-	const mesh = getMesh(context, sky);
+	const mesh = painter.skyMesh;
 	program.draw(context, gl.TRIANGLES, depthMode, StencilMode.disabled, ColorMode.alphaBlended, CullFaceMode.disabled, uniformValues, null, null, "atmosphere", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 }
 //#endregion
@@ -19742,129 +19427,121 @@ const webglDrawFunctions = {
 	terrainDepth: drawDepth
 };
 //#endregion
-//#region src/render/painter.ts
+//#region src/render/frame_render_context.ts
+/** Distinct z-planes within each layer that can be drawn to, implemented with the WebGL depth buffer. */
+const NUM_SUBLAYERS = TileManager.maxOverzooming + TileManager.maxUnderzooming + 1;
+/** Depth distance between two neighboring sublayers. */
+const DEPTH_EPSILON = 1 / Math.pow(2, 16);
+/** The mercator variant, for draws that force the simple projection, like fullscreen quads. */
+const MERCATOR_SHADER_VARIANT = {
+	name: MercatorShaderVariantKey,
+	define: MercatorShaderDefine,
+	prelude: shaders.projectionMercator
+};
 /**
 * @internal
-* Initialize a new painter object.
+* The state of one frame, created per render and updated as rendering proceeds.
+* Corresponds to part of MapLibre Native's `PaintParameters`.
 */
-var Painter = class Painter {
-	constructor(gl, transform) {
-		this.drawFunctions = webglDrawFunctions;
-		this.context = new Context(gl);
-		this.transform = transform;
-		this.layerOpacityFbo = null;
-		this._tileTextures = {};
-		this._rttObjectRecyclePool = [];
-		this._rttSharedFbo = null;
-		this.terrainFacilitator = {
-			depthDirty: true,
-			matrix: identity(/* @__PURE__ */ new Float64Array(16)),
-			renderTime: 0
-		};
-		this.setup();
-		this.numSublayers = TileManager.maxOverzooming + TileManager.maxUnderzooming + 1;
-		this.depthEpsilon = 1 / Math.pow(2, 16);
-		this.crossTileSymbolIndex = new CrossTileSymbolIndex();
+var FrameRenderContext = class {
+	constructor(options) {
+		this.currentLayer = 0;
+		this.opaquePassCutoff = Infinity;
+		this.depthRangeFor3D = [0, 1];
+		this.isRenderingToTexture = false;
+		this.nextStencilID = 1;
+		this.tileClippingMaskIDs = {};
+		this.transform = options.transform;
+		this.terrain = options.terrain;
+		this.data = options.data;
+		this.context = options.context;
+		this.programCache = options.programCache;
+		this.currentPass = options.currentPass;
+		this.getStencilMesh = options.getStencilMesh;
 	}
-	resize(width, height, pixelRatio) {
-		this.width = Math.floor(width * pixelRatio);
-		this.height = Math.floor(height * pixelRatio);
-		this.pixelRatio = pixelRatio;
-		this.context.viewport.set([
-			0,
-			0,
-			this.width,
-			this.height
-		]);
-		if (this.style) for (const layerId of this.style._order) this.style._layers[layerId].resize();
+	getProjectionDataForTile(tileID, options = {}) {
+		const projectionData = this.transform.getProjectionData({
+			overscaledTileID: tileID,
+			aligned: options.aligned,
+			applyGlobeMatrix: !this.isRenderingToTexture,
+			applyTerrainMatrix: options.applyTerrainMatrix ?? true
+		});
+		if (this.isRenderingToTexture) return projectionData;
+		projectionData.uniformBufferKey = options.aligned ? `${tileID.key}/aligned` : tileID.key;
+		return projectionData;
 	}
-	setup() {
-		const context = this.context;
-		const tileExtentArray = new PosArray();
-		tileExtentArray.emplaceBack(0, 0);
-		tileExtentArray.emplaceBack(EXTENT, 0);
-		tileExtentArray.emplaceBack(0, EXTENT);
-		tileExtentArray.emplaceBack(EXTENT, EXTENT);
-		this.tileExtentBuffer = context.createVertexBuffer(tileExtentArray, posAttributes.members);
-		this.tileExtentSegments = SegmentVector.simpleSegment(0, 0, 4, 2);
-		const debugArray = new PosArray();
-		debugArray.emplaceBack(0, 0);
-		debugArray.emplaceBack(EXTENT, 0);
-		debugArray.emplaceBack(0, EXTENT);
-		debugArray.emplaceBack(EXTENT, EXTENT);
-		this.debugBuffer = context.createVertexBuffer(debugArray, posAttributes.members);
-		this.debugSegments = SegmentVector.simpleSegment(0, 0, 4, 5);
-		const rasterBoundsArray = new RasterBoundsArray();
-		rasterBoundsArray.emplaceBack(0, 0, 0, 0);
-		rasterBoundsArray.emplaceBack(EXTENT, 0, EXTENT, 0);
-		rasterBoundsArray.emplaceBack(0, EXTENT, 0, EXTENT);
-		rasterBoundsArray.emplaceBack(EXTENT, EXTENT, EXTENT, EXTENT);
-		this.rasterBoundsBuffer = context.createVertexBuffer(rasterBoundsArray, rasterBoundsAttributes.members);
-		this.rasterBoundsSegments = SegmentVector.simpleSegment(0, 0, 4, 2);
-		const rasterBoundsArrayPosOnly = new PosArray();
-		rasterBoundsArrayPosOnly.emplaceBack(0, 0);
-		rasterBoundsArrayPosOnly.emplaceBack(EXTENT, 0);
-		rasterBoundsArrayPosOnly.emplaceBack(0, EXTENT);
-		rasterBoundsArrayPosOnly.emplaceBack(EXTENT, EXTENT);
-		this.rasterBoundsBufferPosOnly = context.createVertexBuffer(rasterBoundsArrayPosOnly, posAttributes.members);
-		this.rasterBoundsSegmentsPosOnly = SegmentVector.simpleSegment(0, 0, 4, 5);
-		const viewportArray = new PosArray();
-		viewportArray.emplaceBack(0, 0);
-		viewportArray.emplaceBack(1, 0);
-		viewportArray.emplaceBack(0, 1);
-		viewportArray.emplaceBack(1, 1);
-		this.viewportBuffer = context.createVertexBuffer(viewportArray, posAttributes.members);
-		this.viewportSegments = SegmentVector.simpleSegment(0, 0, 4, 2);
-		const tileLineStripIndices = new LineStripIndexArray();
-		tileLineStripIndices.emplaceBack(0);
-		tileLineStripIndices.emplaceBack(1);
-		tileLineStripIndices.emplaceBack(3);
-		tileLineStripIndices.emplaceBack(2);
-		tileLineStripIndices.emplaceBack(0);
-		this.tileBorderIndexBuffer = context.createIndexBuffer(tileLineStripIndices);
-		const quadTriangleIndices = new TriangleIndexArray();
-		quadTriangleIndices.emplaceBack(1, 0, 2);
-		quadTriangleIndices.emplaceBack(1, 2, 3);
-		this.quadTriangleIndexBuffer = context.createIndexBuffer(quadTriangleIndices);
+	/**
+	* Returns terrain data for a tile.
+	* Returns null if terrain is not configured or tiles are being rendered to a texture.
+	*/
+	getTerrainDataForTile(tileID) {
+		if (this.isRenderingToTexture) return null;
+		return this.terrain?.getTerrainData(tileID) ?? null;
+	}
+	/**
+	* Finds the required shader and its variant (base/terrain/globe, etc.) and binds it, compiling a new shader if required.
+	* @param name - Name of the desired shader.
+	* @param programConfiguration - Configuration of shader's inputs.
+	* @param forceSimpleProjection - Whether to force the use of a shader variant with simple mercator projection vertex shader.
+	* False by default. Use true when drawing with a simple projection matrix is desired, eg. when drawing a fullscreen quad.
+	* @param defines - Additional macros to be injected at the beginning of the shader. Expected format is `['#define XYZ']`, etc.
+	*/
+	useProgram(name, programConfiguration, forceSimpleProjection = false, defines = []) {
+		return this.programCache.getProgram({
+			name,
+			programConfiguration,
+			projectionShaderVariant: forceSimpleProjection ? MERCATOR_SHADER_VARIANT : this.data.projectionShaderVariant,
+			showOverdrawInspector: this.data.showOverdrawInspector,
+			useTerrain: this.terrain !== null,
+			defines
+		});
+	}
+	colorModeForRenderPass() {
 		const gl = this.context.gl;
-		this.stencilClearMode = new StencilMode({
-			func: gl.ALWAYS,
-			mask: 0
-		}, 0, 255, gl.ZERO, gl.ZERO, gl.ZERO);
-		this.tileExtentMesh = new Mesh(this.tileExtentBuffer, this.quadTriangleIndexBuffer, this.tileExtentSegments);
+		if (this.data.showOverdrawInspector) {
+			const a = 1 / 8;
+			return new ColorMode([gl.CONSTANT_COLOR, gl.ONE], new Color(a, a, a, 0), [
+				true,
+				true,
+				true,
+				true
+			]);
+		} else if (this.currentPass === "opaque") return ColorMode.unblended;
+		else return ColorMode.alphaBlended;
 	}
+	getDepthModeForSublayer(n, mask, func) {
+		if (!this.opaquePassEnabledForLayer()) return DepthMode.disabled;
+		const depth = 1 - ((1 + this.currentLayer) * NUM_SUBLAYERS + n) * DEPTH_EPSILON;
+		return new DepthMode(func || this.context.gl.LEQUAL, mask, [depth, depth]);
+	}
+	getDepthModeFor3D() {
+		return new DepthMode(this.context.gl.LEQUAL, DepthMode.ReadWrite, this.depthRangeFor3D);
+	}
+	/** Sets the depth range that 3D layers draw into, which lies below the depth values of every sublayer of the `layerCount` layers. */
+	setDepthRangeFor3D(layerCount) {
+		this.depthRangeFor3D = [0, 1 - (layerCount + 2) * NUM_SUBLAYERS * DEPTH_EPSILON];
+	}
+	/**
+	* Returns whether the current layer can be drawn in the opaque pass. The opaque pass and 3D layers both use the depth buffer,
+	* so layers drawn above 3D layers use the painter's algorithm to appear above 3D features.
+	*/
+	opaquePassEnabledForLayer() {
+		return this.currentLayer < this.opaquePassCutoff;
+	}
+	/**
+	* Reset the drawing canvas by clearing the stencil buffer so that we can draw
+	* new tiles at the same location, while retaining previously drawn pixels.
+	*/
 	clearStencil() {
-		const context = this.context;
-		const gl = context.gl;
 		this.nextStencilID = 1;
 		this.currentStencilSource = void 0;
-		const matrix = create$1();
-		ortho(matrix, 0, this.width, this.height, 0, 0, 1);
-		scale(matrix, matrix, [
-			gl.drawingBufferWidth,
-			gl.drawingBufferHeight,
-			0
-		]);
-		const projectionData = {
-			mainMatrix: matrix,
-			tileMercatorCoords: [
-				0,
-				0,
-				1,
-				1
-			],
-			clippingPlane: [
-				0,
-				0,
-				0,
-				0
-			],
-			projectionTransition: 0,
-			fallbackMatrix: matrix,
-			clipAntimeridian: false
-		};
-		this.useProgram("clippingMask", null, true).draw(context, gl.TRIANGLES, DepthMode.disabled, this.stencilClearMode, ColorMode.disabled, CullFaceMode.disabled, null, null, projectionData, "$clipping", this.viewportBuffer, this.quadTriangleIndexBuffer, this.viewportSegments);
+		this.context.clear({ stencil: 0 });
 	}
+	/** Makes the next tile-clipped layer draw its clipping masks again. */
+	invalidateTileClippingMasks() {
+		this.currentStencilSource = void 0;
+	}
+	/** Draws the clipping masks of a layer's tiles into the stencil buffer, unless its source's masks are already there. */
 	renderTileClippingMasks(layer, tileIDs) {
 		if (this.currentStencilSource === layer.source || !layer.isTileClipped() || !tileIDs?.length) return;
 		this.currentStencilSource = layer.source;
@@ -19874,46 +19551,26 @@ var Painter = class Painter {
 		context.setDepthMode(DepthMode.disabled);
 		const stencilRefs = {};
 		for (const tileID of tileIDs) stencilRefs[tileID.key] = this.nextStencilID++;
-		if (this.style.projection.useSubdivision) this._renderTileMasks(stencilRefs, tileIDs, true);
-		this._renderTileMasks(stencilRefs, tileIDs, false);
-		this._tileClippingMaskIDs = stencilRefs;
+		if (this.data.useSubdivision) this.renderTileMasks(stencilRefs, tileIDs, true);
+		this.renderTileMasks(stencilRefs, tileIDs, false);
+		this.tileClippingMaskIDs = stencilRefs;
 	}
-	_renderTileMasks(tileStencilRefs, tileIDs, useBorders) {
+	renderTileMasks(tileStencilRefs, tileIDs, useBorders) {
 		const context = this.context;
 		const gl = context.gl;
-		const projection = this.style.projection;
-		const renderContext = this.renderContext;
 		const program = this.useProgram("clippingMask");
 		for (const tileID of tileIDs) {
 			const stencilRef = tileStencilRefs[tileID.key];
-			const terrainData = getTerrainDataForTile(renderContext, tileID);
-			const mesh = projection.getMeshFromTileID(this.context, tileID.canonical, useBorders, true, "stencil");
-			const projectionData = getProjectionDataForTile(renderContext, tileID);
+			const terrainData = this.getTerrainDataForTile(tileID);
+			const mesh = this.getStencilMesh(tileID.canonical, useBorders);
+			const projectionData = this.getProjectionDataForTile(tileID);
 			program.draw(context, gl.TRIANGLES, DepthMode.disabled, new StencilMode({
 				func: gl.ALWAYS,
 				mask: 0
-			}, stencilRef, 255, gl.KEEP, gl.KEEP, gl.REPLACE), ColorMode.disabled, renderContext.isRenderingToTexture ? CullFaceMode.disabled : CullFaceMode.backCCW, null, terrainData, projectionData, "$clipping", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
+			}, stencilRef, 255, gl.KEEP, gl.KEEP, gl.REPLACE), ColorMode.disabled, this.isRenderingToTexture ? CullFaceMode.disabled : CullFaceMode.backCCW, null, terrainData, projectionData, "$clipping", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
 		}
 	}
-	/**
-	* Fills the depth buffer with the geometry of all supplied tiles.
-	* Does not change the color buffer or the stencil buffer.
-	*/
-	_renderTilesDepthBuffer() {
-		const context = this.context;
-		const gl = context.gl;
-		const projection = this.style.projection;
-		const transform = this.transform;
-		const program = this.useProgram("depth");
-		const depthMode = this.getDepthModeFor3D();
-		const tileIDs = coveringTiles(transform, { tileSize: transform.tileSize });
-		for (const tileID of tileIDs) {
-			const terrainData = getTerrainDataForTile(this.renderContext, tileID);
-			const mesh = projection.getMeshFromTileID(this.context, tileID.canonical, true, true, "raster");
-			const projectionData = getProjectionDataForTile(this.renderContext, tileID);
-			program.draw(context, gl.TRIANGLES, depthMode, StencilMode.disabled, ColorMode.disabled, CullFaceMode.backCCW, null, terrainData, projectionData, "$clipping", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
-		}
-	}
+	/** Returns a stencil mode that draws each pixel of a 3D layer only once. */
 	stencilModeFor3D() {
 		this.currentStencilSource = void 0;
 		if (this.nextStencilID + 1 > 256) this.clearStencil();
@@ -19929,8 +19586,21 @@ var Painter = class Painter {
 		return new StencilMode({
 			func: gl.EQUAL,
 			mask: 255
-		}, this._tileClippingMaskIDs[tileID.key], 0, gl.KEEP, gl.KEEP, gl.REPLACE);
+		}, this.tileClippingMaskIDs[tileID.key], 0, gl.KEEP, gl.KEEP, gl.REPLACE);
 	}
+	/**
+	* Sort coordinates by Z as drawing tiles is done in Z-descending order.
+	* All children with the same Z write the same stencil value.  Children
+	* stencil values are greater than parent's.  This is used only for raster
+	* and raster-dem tiles, which are already clipped to tile boundaries, to
+	* mask area of tile overlapped by children tiles.
+	* Stencil ref values continue the range used by the tile clipping masks.
+	*
+	* Attention: This function changes the next stencil ID even if the result of it
+	* is not used, which might cause problems when rendering due to invalid stencil
+	* values.
+	* Returns [StencilMode for tile overscaleZ map, sortedCoords].
+	*/
 	getStencilConfigForOverlapAndUpdateStencilID(tileIDs) {
 		const gl = this.context.gl;
 		const coords = tileIDs.sort((a, b) => b.overscaledZ - a.overscaledZ);
@@ -19989,41 +19659,137 @@ var Painter = class Painter {
 			];
 		}
 	}
-	colorModeForRenderPass() {
-		const gl = this.context.gl;
-		if (this._showOverdrawInspector) {
-			const a = 1 / 8;
-			return new ColorMode([gl.CONSTANT_COLOR, gl.ONE], new Color(a, a, a, 0), [
-				true,
-				true,
-				true,
-				true
-			]);
-		} else if (this.renderContext.currentPass === "opaque") return ColorMode.unblended;
-		else return ColorMode.alphaBlended;
+};
+//#endregion
+//#region src/render/painter.ts
+/**
+* @internal
+* Initialize a new painter object.
+*/
+var Painter = class Painter {
+	constructor(gl) {
+		this.drawFunctions = webglDrawFunctions;
+		this.context = new Context(gl);
+		this.programCache = new ProgramCache(this.context);
+		this.layerOpacityFbo = null;
+		this._tileTextures = {};
+		this._rttObjectRecyclePool = [];
+		this._rttSharedFbo = null;
+		this.terrainFacilitator = {
+			depthDirty: true,
+			matrix: identity(/* @__PURE__ */ new Float64Array(16)),
+			renderTime: 0
+		};
+		this.setup();
+		this.crossTileSymbolIndex = new CrossTileSymbolIndex();
 	}
-	getDepthModeForSublayer(n, mask, func) {
-		if (!this.opaquePassEnabledForLayer()) return DepthMode.disabled;
-		const depth = 1 - ((1 + this.renderContext.currentLayer) * this.numSublayers + n) * this.depthEpsilon;
-		return new DepthMode(func || this.context.gl.LEQUAL, mask, [depth, depth]);
+	resize(width, height, pixelRatio) {
+		this.width = Math.round(width * pixelRatio);
+		this.height = Math.round(height * pixelRatio);
+		this.context.viewport.set([
+			0,
+			0,
+			this.width,
+			this.height
+		]);
+		if (this.style) for (const layerId of this.style._order) this.style._layers[layerId].resize();
 	}
-	getDepthModeFor3D() {
-		return new DepthMode(this.context.gl.LEQUAL, DepthMode.ReadWrite, this.renderContext.depthRangeFor3D);
+	setup() {
+		const context = this.context;
+		const tileExtentArray = new PosArray();
+		tileExtentArray.emplaceBack(0, 0);
+		tileExtentArray.emplaceBack(EXTENT, 0);
+		tileExtentArray.emplaceBack(0, EXTENT);
+		tileExtentArray.emplaceBack(EXTENT, EXTENT);
+		this.tileExtentBuffer = context.createVertexBuffer(tileExtentArray, posAttributes.members);
+		this.tileExtentSegments = SegmentVector.simpleSegment(0, 0, 4, 2);
+		const debugArray = new PosArray();
+		debugArray.emplaceBack(0, 0);
+		debugArray.emplaceBack(EXTENT, 0);
+		debugArray.emplaceBack(0, EXTENT);
+		debugArray.emplaceBack(EXTENT, EXTENT);
+		this.debugBuffer = context.createVertexBuffer(debugArray, posAttributes.members);
+		this.debugSegments = SegmentVector.simpleSegment(0, 0, 4, 5);
+		const rasterBoundsArray = new RasterBoundsArray();
+		rasterBoundsArray.emplaceBack(0, 0, 0, 0);
+		rasterBoundsArray.emplaceBack(EXTENT, 0, EXTENT, 0);
+		rasterBoundsArray.emplaceBack(0, EXTENT, 0, EXTENT);
+		rasterBoundsArray.emplaceBack(EXTENT, EXTENT, EXTENT, EXTENT);
+		this.rasterBoundsBuffer = context.createVertexBuffer(rasterBoundsArray, rasterBoundsAttributes.members);
+		this.rasterBoundsSegments = SegmentVector.simpleSegment(0, 0, 4, 2);
+		const rasterBoundsArrayPosOnly = new PosArray();
+		rasterBoundsArrayPosOnly.emplaceBack(0, 0);
+		rasterBoundsArrayPosOnly.emplaceBack(EXTENT, 0);
+		rasterBoundsArrayPosOnly.emplaceBack(0, EXTENT);
+		rasterBoundsArrayPosOnly.emplaceBack(EXTENT, EXTENT);
+		this.rasterBoundsBufferPosOnly = context.createVertexBuffer(rasterBoundsArrayPosOnly, posAttributes.members);
+		this.rasterBoundsSegmentsPosOnly = SegmentVector.simpleSegment(0, 0, 4, 5);
+		const viewportArray = new PosArray();
+		viewportArray.emplaceBack(0, 0);
+		viewportArray.emplaceBack(1, 0);
+		viewportArray.emplaceBack(0, 1);
+		viewportArray.emplaceBack(1, 1);
+		this.viewportBuffer = context.createVertexBuffer(viewportArray, posAttributes.members);
+		this.viewportSegments = SegmentVector.simpleSegment(0, 0, 4, 2);
+		const tileLineStripIndices = new LineStripIndexArray();
+		tileLineStripIndices.emplaceBack(0);
+		tileLineStripIndices.emplaceBack(1);
+		tileLineStripIndices.emplaceBack(3);
+		tileLineStripIndices.emplaceBack(2);
+		tileLineStripIndices.emplaceBack(0);
+		this.tileBorderIndexBuffer = context.createIndexBuffer(tileLineStripIndices);
+		const quadTriangleIndices = new TriangleIndexArray();
+		quadTriangleIndices.emplaceBack(1, 0, 2);
+		quadTriangleIndices.emplaceBack(1, 2, 3);
+		this.quadTriangleIndexBuffer = context.createIndexBuffer(quadTriangleIndices);
+		this.tileExtentMesh = new Mesh(this.tileExtentBuffer, this.quadTriangleIndexBuffer, this.tileExtentSegments);
+		const skyArray = new PosArray();
+		skyArray.emplaceBack(-1, -1);
+		skyArray.emplaceBack(1, -1);
+		skyArray.emplaceBack(1, 1);
+		skyArray.emplaceBack(-1, 1);
+		const skyIndices = new TriangleIndexArray();
+		skyIndices.emplaceBack(0, 1, 2);
+		skyIndices.emplaceBack(0, 2, 3);
+		this.skyMesh = new Mesh(context.createVertexBuffer(skyArray, posAttributes.members), context.createIndexBuffer(skyIndices), SegmentVector.simpleSegment(0, 0, skyArray.length, skyIndices.length));
 	}
-	opaquePassEnabledForLayer() {
-		return this.renderContext.currentLayer < this.renderContext.opaquePassCutoff;
+	/**
+	* Fills the depth buffer with the geometry of all supplied tiles.
+	* Does not change the color buffer or the stencil buffer.
+	*/
+	_renderTilesDepthBuffer() {
+		const context = this.context;
+		const gl = context.gl;
+		const projection = this.style.projection;
+		const transform = this.frameRenderContext.transform;
+		const program = this.frameRenderContext.useProgram("depth");
+		const depthMode = this.frameRenderContext.getDepthModeFor3D();
+		const tileIDs = coveringTiles(transform, { tileSize: transform.tileSize });
+		for (const tileID of tileIDs) {
+			const terrainData = this.frameRenderContext.getTerrainDataForTile(tileID);
+			const mesh = projection.getMeshFromTileID(this.context, tileID.canonical, true, true, "raster");
+			const projectionData = this.frameRenderContext.getProjectionDataForTile(tileID);
+			program.draw(context, gl.TRIANGLES, depthMode, StencilMode.disabled, ColorMode.disabled, CullFaceMode.backCCW, null, terrainData, projectionData, "$clipping", mesh.vertexBuffer, mesh.indexBuffer, mesh.segments);
+		}
 	}
-	render(style, options) {
+	render(style, transform, data) {
 		this.style = style;
-		this.options = options;
-		const renderContext = this.renderContext = createRenderContext(this.transform, style.projection, style.map.terrain ?? null);
+		const frameRenderContext = this.frameRenderContext = new FrameRenderContext({
+			transform,
+			terrain: style.map.terrain ?? null,
+			data,
+			context: this.context,
+			programCache: this.programCache,
+			currentPass: "offscreen",
+			getStencilMesh: (tileID, hasBorder) => style.projection.getMeshFromTileID(this.context, tileID, hasBorder, true, "stencil")
+		});
 		this.lineAtlas = style.lineAtlas;
 		this.imageManager = style.imageManager;
 		this.patternAtlas = style.patternAtlas;
 		this.glyphManager = style.glyphManager;
-		this.symbolFadeChange = style.placement.symbolFadeChange(now());
-		updateFrameUniformBuffer(this.context.frameUniformBuffer, this);
+		updateFrameUniformBuffer(this.context.frameUniformBuffer, transform, data);
 		this.imageManager.beginFrame();
+		releaseProjectionUniformBuffers(this.context);
 		const layerIds = this.style._order;
 		const tileManagers = this.style.tileManagers;
 		const coordsAscending = {};
@@ -20036,26 +19802,26 @@ var Painter = class Painter {
 			coordsDescending[id] = coordsAscending[id].slice().reverse();
 			coordsDescendingSymbol[id] = tileManager.getVisibleCoordinates(true).reverse();
 		}
-		renderContext.opaquePassCutoff = Infinity;
+		frameRenderContext.opaquePassCutoff = Infinity;
 		for (let i = 0; i < layerIds.length; i++) {
 			const layerId = layerIds[i];
 			if (this.style._layers[layerId].is3D()) {
-				renderContext.opaquePassCutoff = i;
+				frameRenderContext.opaquePassCutoff = i;
 				break;
 			}
 		}
 		this.maybeDrawDepth();
 		if (this.renderToTexture) {
-			this.renderToTexture.prepareForRender(this.style, this.transform.zoom);
-			renderContext.opaquePassCutoff = 0;
+			this.renderToTexture.prepareForRender(this.style, transform.zoom, data.moving);
+			frameRenderContext.opaquePassCutoff = 0;
 		}
-		renderContext.currentPass = "offscreen";
+		frameRenderContext.currentPass = "offscreen";
 		for (const layerId of layerIds) {
 			const layer = this.style._layers[layerId];
-			if (!layer.hasOffscreenPass() || layer.isHidden(this.transform.zoom)) continue;
+			if (!layer.hasOffscreenPass() || layer.isHidden(transform.zoom)) continue;
 			const coords = coordsDescending[layer.source];
 			if (layer.type !== "custom" && !coords.length) continue;
-			this.renderLayer(this, tileManagers[layer.source], layer, coords, renderContext);
+			this.renderLayer(this, tileManagers[layer.source], layer, coords, frameRenderContext);
 		}
 		this.context.viewport.set([
 			0,
@@ -20065,46 +19831,45 @@ var Painter = class Painter {
 		]);
 		this.context.bindFramebuffer.set(null);
 		this.context.clear({
-			color: options.showOverdrawInspector ? Color.black : Color.transparent,
+			color: data.showOverdrawInspector ? Color.black : Color.transparent,
 			depth: 1
 		});
-		this.clearStencil();
-		if (this.style.sky) this.drawFunctions.sky(this, this.style.sky);
-		this._showOverdrawInspector = options.showOverdrawInspector;
-		renderContext.depthRangeFor3D = [0, 1 - (style._order.length + 2) * this.numSublayers * this.depthEpsilon];
+		frameRenderContext.clearStencil();
+		if (data.sky) this.drawFunctions.sky(this, data.sky, data.pixelRatio);
+		frameRenderContext.setDepthRangeFor3D(style._order.length);
 		if (!this.renderToTexture) {
-			renderContext.currentPass = "opaque";
-			for (renderContext.currentLayer = layerIds.length - 1; renderContext.currentLayer >= 0; renderContext.currentLayer--) {
-				const layer = this.style._layers[layerIds[renderContext.currentLayer]];
-				if (layer.isHidden(this.transform.zoom)) continue;
+			frameRenderContext.currentPass = "opaque";
+			for (frameRenderContext.currentLayer = layerIds.length - 1; frameRenderContext.currentLayer >= 0; frameRenderContext.currentLayer--) {
+				const layer = this.style._layers[layerIds[frameRenderContext.currentLayer]];
+				if (layer.isHidden(transform.zoom)) continue;
 				const tileManager = tileManagers[layer.source];
 				const coords = coordsAscending[layer.source];
-				this.renderTileClippingMasks(layer, coords);
-				this.renderLayer(this, tileManager, layer, coords, renderContext);
+				frameRenderContext.renderTileClippingMasks(layer, coords);
+				this.renderLayer(this, tileManager, layer, coords, frameRenderContext);
 			}
 		}
-		renderContext.currentPass = "translucent";
+		frameRenderContext.currentPass = "translucent";
 		let globeDepthRendered = false;
-		for (renderContext.currentLayer = 0; renderContext.currentLayer < layerIds.length; renderContext.currentLayer++) {
-			const layer = this.style._layers[layerIds[renderContext.currentLayer]];
-			if (layer.isHidden(this.transform.zoom)) continue;
+		for (frameRenderContext.currentLayer = 0; frameRenderContext.currentLayer < layerIds.length; frameRenderContext.currentLayer++) {
+			const layer = this.style._layers[layerIds[frameRenderContext.currentLayer]];
+			if (layer.isHidden(transform.zoom)) continue;
 			const tileManager = tileManagers[layer.source];
-			if (this.renderToTexture?.renderLayer(layer, renderContext)) continue;
-			if (!this.opaquePassEnabledForLayer() && !globeDepthRendered) {
+			if (this.renderToTexture?.renderLayer(layer, frameRenderContext)) continue;
+			if (!frameRenderContext.opaquePassEnabledForLayer() && !globeDepthRendered) {
 				globeDepthRendered = true;
-				if (renderContext.isRenderingGlobe && !this.style.map.terrain) this._renderTilesDepthBuffer();
+				if (data.isRenderingGlobe && !frameRenderContext.terrain) this._renderTilesDepthBuffer();
 			}
 			const coords = (layer.type === "symbol" ? coordsDescendingSymbol : coordsDescending)[layer.source];
-			this.renderTileClippingMasks(layer, coordsAscending[layer.source]);
-			this.renderLayer(this, tileManager, layer, coords, renderContext);
+			frameRenderContext.renderTileClippingMasks(layer, coordsAscending[layer.source]);
+			this.renderLayer(this, tileManager, layer, coords, frameRenderContext);
 		}
-		if (renderContext.isRenderingGlobe) this.drawFunctions.atmosphere(this, this.style.sky, this.style.light);
-		if (this.options.showTileBoundaries) {
-			const selectedSource = selectDebugSource(this.style, this.transform.zoom);
-			if (selectedSource) this.drawFunctions.debug(this, selectedSource, selectedSource.getVisibleCoordinates(), renderContext);
+		if (data.isRenderingGlobe) this.drawFunctions.atmosphere(this, data.sky, data.light);
+		if (data.showTileBoundaries) {
+			const selectedSource = selectDebugSource(this.style, transform.zoom);
+			if (selectedSource) this.drawFunctions.debug(this, selectedSource, selectedSource.getVisibleCoordinates(), frameRenderContext);
 		}
-		if (this.options.showPadding) this.drawFunctions.debugPadding(this);
-		if (this.renderToTexture && !this.options.moving) this.clearRTTPool();
+		if (data.showPadding) this.drawFunctions.debugPadding(frameRenderContext);
+		if (this.renderToTexture && !data.moving) this.clearRTTPool();
 		this.context.setDefault();
 	}
 	/**
@@ -20119,34 +19884,34 @@ var Painter = class Painter {
 	* Updates the depth framebuffer after explicit invalidation, camera movement, or tile reloading.
 	*/
 	maybeDrawDepth() {
-		if (!this.style?.projection || !this.style.map?.terrain) return;
+		if (!this.style?.projection || !this.frameRenderContext.terrain) return;
 		const prevMatrix = this.terrainFacilitator.matrix;
-		const currMatrix = this.transform.modelViewProjectionMatrix;
+		const currMatrix = this.frameRenderContext.transform.modelViewProjectionMatrix;
 		let doUpdate = this.terrainFacilitator.depthDirty;
 		doUpdate ||= !equals(prevMatrix, currMatrix);
-		doUpdate ||= this.style.map.terrain.tileManager.anyTilesAfterTime(this.terrainFacilitator.renderTime);
+		doUpdate ||= this.frameRenderContext.terrain.tileManager.anyTilesAfterTime(this.terrainFacilitator.renderTime);
 		if (!doUpdate) return;
 		copy(prevMatrix, currMatrix);
 		this.terrainFacilitator.renderTime = now();
 		this.terrainFacilitator.depthDirty = false;
-		this.drawFunctions.terrainDepth(this, this.style.map.terrain);
+		this.drawFunctions.terrainDepth(this, this.frameRenderContext.terrain);
 	}
-	renderLayer(painter, tileManager, layer, coords, renderContext) {
-		if (layer.isHidden(this.transform.zoom)) return;
+	renderLayer(painter, tileManager, layer, coords, frameRenderContext) {
+		if (layer.isHidden(frameRenderContext.transform.zoom)) return;
 		if (layer.type !== "background" && layer.type !== "custom" && !(coords || []).length) return;
 		this.id = layer.id;
 		const draw = this.drawFunctions;
-		if (isSymbolStyleLayer(layer)) draw.symbol(painter, tileManager, layer, coords, this.style.placement.variableOffsets, renderContext);
-		else if (isCircleStyleLayer(layer)) draw.circle(painter, tileManager, layer, coords, renderContext);
-		else if (isHeatmapStyleLayer(layer)) draw.heatmap(painter, tileManager, layer, coords, renderContext);
-		else if (isLineStyleLayer(layer)) draw.line(painter, tileManager, layer, coords, renderContext);
-		else if (isFillStyleLayer(layer)) draw.fill(painter, tileManager, layer, coords, renderContext);
-		else if (isFillExtrusionStyleLayer(layer)) draw.fillExtrusion(painter, tileManager, layer, coords, renderContext);
-		else if (isHillshadeStyleLayer(layer)) draw.hillshade(painter, tileManager, layer, coords, renderContext);
-		else if (isColorReliefStyleLayer(layer)) draw.colorRelief(painter, tileManager, layer, coords, renderContext);
-		else if (isRasterStyleLayer(layer)) draw.raster(painter, tileManager, layer, coords, renderContext);
-		else if (isBackgroundStyleLayer(layer)) draw.background(painter, tileManager, layer, coords, renderContext);
-		else if (isCustomStyleLayer(layer)) draw.custom(painter, tileManager, layer, renderContext);
+		if (isSymbolStyleLayer(layer)) draw.symbol(painter, tileManager, layer, coords, this.style.placement.variableOffsets, frameRenderContext);
+		else if (isCircleStyleLayer(layer)) draw.circle(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isHeatmapStyleLayer(layer)) draw.heatmap(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isLineStyleLayer(layer)) draw.line(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isFillStyleLayer(layer)) draw.fill(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isFillExtrusionStyleLayer(layer)) draw.fillExtrusion(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isHillshadeStyleLayer(layer)) draw.hillshade(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isColorReliefStyleLayer(layer)) draw.colorRelief(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isRasterStyleLayer(layer)) draw.raster(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isBackgroundStyleLayer(layer)) draw.background(painter, tileManager, layer, coords, frameRenderContext);
+		else if (isCustomStyleLayer(layer)) draw.custom(painter, tileManager, layer, frameRenderContext);
 	}
 	static {
 		this.MAX_TEXTURE_POOL_SIZE_PER_BUCKET = 50;
@@ -20261,30 +20026,6 @@ var Painter = class Painter {
 		const imagePosB = this.patternAtlas.getPattern(image.to.toString());
 		return !imagePosA || !imagePosB;
 	}
-	/**
-	* Finds the required shader and its variant (base/terrain/globe, etc.) and binds it, compiling a new shader if required.
-	* @param name - Name of the desired shader.
-	* @param programConfiguration - Configuration of shader's inputs.
-	* @param forceSimpleProjection - Whether to force the use of a shader variant with simple mercator projection vertex shader.
-	* @param defines - Additional macros to be injected at the beginning of the shader. Expected format is `['#define XYZ']`, etc.
-	* False by default. Use true when drawing with a simple projection matrix is desired, eg. when drawing a fullscreen quad.
-	* @returns
-	*/
-	useProgram(name, programConfiguration, forceSimpleProjection = false, defines = []) {
-		this.cache ||= {};
-		const useTerrain = !!this.style.map.terrain;
-		const projection = this.style.projection;
-		const projectionPrelude = forceSimpleProjection ? shaders.projectionMercator : projection.shaderPreludeCode;
-		const projectionDefine = forceSimpleProjection ? MercatorShaderDefine : projection.shaderDefine;
-		const projectionKey = `/${forceSimpleProjection ? MercatorShaderVariantKey : projection.shaderVariantName}`;
-		const configurationKey = programConfiguration ? programConfiguration.cacheKey : "";
-		const overdrawKey = this._showOverdrawInspector ? "/overdraw" : "";
-		const terrainKey = useTerrain ? "/terrain" : "";
-		const definesKey = defines ? `/${defines.join("/")}` : "";
-		const key = name + configurationKey + projectionKey + overdrawKey + terrainKey + definesKey;
-		this.cache[key] ||= new Program(this.context, shaders[name], programConfiguration, programUniforms[name], this._showOverdrawInspector, useTerrain, projectionPrelude, projectionDefine, defines);
-		return this.cache[key];
-	}
 	setCustomLayerDefaults() {
 		this.context.setCustomLayerDefaults();
 	}
@@ -20328,17 +20069,13 @@ var Painter = class Painter {
 		if (this.quadTriangleIndexBuffer) this.quadTriangleIndexBuffer.destroy();
 		if (this.tileExtentMesh) this.tileExtentMesh.vertexBuffer?.destroy();
 		if (this.tileExtentMesh) this.tileExtentMesh.indexBuffer?.destroy();
+		this.skyMesh?.destroy();
+		this.skyMesh = null;
 		if (this.debugOverlayTexture) this.debugOverlayTexture.destroy();
-		this.context.projectionUniformBuffer.destroy();
+		destroyProjectionUniformBuffers(this.context);
 		this.context.terrainUniformBuffer.destroy();
 		this.context.frameUniformBuffer.destroy();
-		if (this.cache) {
-			for (const key in this.cache) {
-				const program = this.cache[key];
-				if (program?.program) this.context.gl.deleteProgram(program.program);
-			}
-			this.cache = {};
-		}
+		this.programCache.destroy();
 		if (this.context) this.context.setDefault();
 	}
 	overLimit() {
@@ -21065,7 +20802,7 @@ var TapZoomHandler = class {
 			return { cameraAnimation: (map) => map.easeTo({
 				duration: 300,
 				zoom: evaluateZoomSnap(tr.zoom + 1, map.getZoomSnap()),
-				around: tr.unproject(zoomInPoint)
+				around: tr.transform.isPointOnMapSurface(zoomInPoint) ? tr.unproject(zoomInPoint) : void 0
 			}, { originalEvent: e }) };
 		} else if (zoomOutPoint) {
 			this._active = true;
@@ -21074,7 +20811,7 @@ var TapZoomHandler = class {
 			return { cameraAnimation: (map) => map.easeTo({
 				duration: 300,
 				zoom: evaluateZoomSnap(tr.zoom - 1, map.getZoomSnap()),
-				around: tr.unproject(zoomOutPoint)
+				around: tr.transform.isPointOnMapSurface(zoomOutPoint) ? tr.unproject(zoomOutPoint) : void 0
 			}, { originalEvent: e }) };
 		}
 	}
@@ -22125,7 +21862,7 @@ var ClickZoomHandler = class {
 			map.easeTo({
 				duration: 300,
 				zoom: evaluateZoomSnap(this._tr.zoom + (e.shiftKey ? -1 : 1), map.getZoomSnap()),
-				around: this._tr.unproject(point)
+				around: this._tr.transform.isPointOnMapSurface(point) ? this._tr.unproject(point) : void 0
 			}, { originalEvent: e });
 		} };
 	}
@@ -22613,7 +22350,8 @@ var HandlerManager = class {
 	constructor(map, camera, options) {
 		this._terrainGesture = {
 			inFlight: false,
-			anchorElevation: null
+			anchorElevation: null,
+			anchorCenterElevation: null
 		};
 		this.handleWindowEvent = (e) => {
 			this.handleEvent(e, `${e.type}Window`);
@@ -22969,9 +22707,10 @@ var HandlerManager = class {
 	*/
 	_terrainGestureElevation(terrain, around, aroundOnSurface, tr, combinedEventsInProgress) {
 		if (!aroundOnSurface) return;
-		if (this._terrainGesture.anchorElevation === null && (combinedEventsInProgress.drag || combinedEventsInProgress.zoom)) {
+		if (this._terrainGesture.anchorCenterElevation !== tr.elevation && (combinedEventsInProgress.drag || combinedEventsInProgress.zoom)) {
 			const anchor = tr.screenTerrainPointToMercatorCoordinate(around, terrain);
 			this._terrainGesture.anchorElevation = anchor ? anchor.z : void 0;
+			this._terrainGesture.anchorCenterElevation = tr.elevation;
 		}
 		const elevation = this._terrainGesture.anchorElevation;
 		if (elevation === null || elevation === void 0) return;
@@ -22994,13 +22733,17 @@ var HandlerManager = class {
 	_handleMapControls({ terrain, tr, deltasForHelper, preZoomAroundLoc, combinedEventsInProgress, panDelta }) {
 		const cameraHelper = this._camera.cameraHelper;
 		cameraHelper.handleMapControlsRollPitchBearingZoom(deltasForHelper, tr);
+		if (!terrain && !cameraHelper.useGlobeControls && !tr.isPointOnMapSurface(deltasForHelper.around)) {
+			if (panDelta) tr.setCenter(tr.screenPointToLocation(tr.centerPoint.sub(panDelta)));
+			return;
+		}
 		if (!terrain) {
 			cameraHelper.handleMapControlsPan(deltasForHelper, tr, preZoomAroundLoc);
 			return;
 		}
 		if (!this._terrainGesture.inFlight) {
 			this._terrainGesture.inFlight = true;
-			this._camera.elevationFreeze = true;
+			this._camera.holdElevation(tr, "gesture");
 			cameraHelper.handleMapControlsPan(deltasForHelper, tr, preZoomAroundLoc);
 			return;
 		}
@@ -23040,14 +22783,17 @@ var HandlerManager = class {
 		const stillMoving = isMoving(this._eventsInProgress);
 		const finishedMoving = (wasMoving || nowMoving) && !stillMoving;
 		if (finishedMoving && this._terrainGesture.inFlight) {
-			this._camera.elevationFreeze = false;
+			const tookDem = this._camera.releaseElevation();
 			this._terrainGesture = {
 				inFlight: false,
-				anchorElevation: null
+				anchorElevation: null,
+				anchorCenterElevation: null
 			};
-			const tr = this._camera.getTransformForUpdate();
-			if (this._map.getCenterClampedToGround()) tr.recalculateZoomAndCenter(this._map.terrain);
-			this._camera.applyUpdatedTransform(tr);
+			this._camera.applyTransformChange((tr) => {
+				if (!this._map.getCenterClampedToGround()) return;
+				if (this._map.terrain) this._camera.putCenterBackOnTerrain(tr, this._map.terrain, tookDem);
+				else tr.setElevation(0);
+			});
 		}
 		if (allowEndAnimation && finishedMoving) {
 			this._updatingCamera = true;
@@ -23086,9 +22832,68 @@ var HandlerManager = class {
 };
 //#endregion
 //#region src/ui/camera.ts
+/**
+* A hold on the center elevation, see {@link Camera.holdElevation}: one that started where no DEM data under a center
+* clamped to the ground had loaded waits for it and takes it when it lands. It holds no transform: a gesture's takes
+* on the terrain change, on the requested camera state its frames read; an animation's on its next frame, on the
+* transform it edits, which a projection change does not replace, or at its end when nothing ran in between.
+*/
+var ElevationHold = class {
+	/**
+	* @param holder - who holds the elevation
+	* @param startedWithoutDem - whether the hold started without DEM data under the center; only such a hold waits
+	*/
+	constructor(holder, startedWithoutDem) {
+		this.holder = holder;
+		this.startedWithoutDem = startedWithoutDem;
+		this._terrainChanged = false;
+		this.awaitsDem = startedWithoutDem;
+	}
+	/** Whether the hold carries an elevation it took from DEM data. */
+	get tookDem() {
+		return this.startedWithoutDem && !this.awaitsDem;
+	}
+	/** Asks the next {@link take} to check for DEM data under the center, after the terrain changed. */
+	noteTerrainChange() {
+		if (this.startedWithoutDem) this._terrainChanged = true;
+	}
+	/**
+	* While the hold waits, takes the elevation the terrain draws under the center once the tile there has its own
+	* DEM data, or a coarser tile's sooner where it lifts a camera that would be inside the terrain. After a terrain
+	* change that leaves no DEM data under the center, puts the center back at the 0 the terrain gives there and
+	* waits again.
+	* @param tr - the transform the gesture or animation edits
+	* @param terrain - the terrain under it
+	* @returns whether it changed the elevation
+	*/
+	take(tr, terrain) {
+		let changed = false;
+		if (this._terrainChanged) {
+			this._terrainChanged = false;
+			if (!terrain.hasElevationForLngLat(tr.center, tr)) {
+				tr.setElevation(0);
+				this.awaitsDem = true;
+				changed = true;
+			}
+		}
+		if (!this.awaitsDem) return changed;
+		const elevation = terrain.getDrawnElevationForLngLat(tr.center, true);
+		if (elevation !== void 0) {
+			tr.setElevation(elevation);
+			this.awaitsDem = false;
+			return true;
+		}
+		const drawnElevation = terrain.getDrawnElevationForLngLat(tr.center);
+		if (drawnElevation === void 0 || drawnElevation <= tr.elevation) return changed;
+		if (tr.getCameraAltitude() >= terrain.getElevationForLngLatZoom(tr.getCameraLngLat(), tr.zoom)) return changed;
+		tr.setElevation(drawnElevation);
+		return true;
+	}
+};
 var Camera = class extends Evented {
 	constructor(options) {
 		super();
+		this._elevationHold = null;
 		this._renderFrameCallback = () => {
 			const t = Math.min((now() - this._easeStart) / this._easeOptions.duration, 1);
 			this._onEaseFrame(this._easeOptions.easing(t));
@@ -23119,11 +22924,13 @@ var Camera = class extends Evented {
 	}
 	/**
 	* @internal
-	* Hands the camera the map's terrain, or null when the map has none, and brings the center
-	* elevation up to date with it, see {@link Camera.applyTerrainChange}.
+	* Hands the camera the map's terrain, or null when the map has none, and brings the center elevation up to date
+	* with it, see {@link Camera.applyTerrainChange}. A hold that started without DEM data waits again when the
+	* terrain changes to one without data under the center, see {@link ElevationHold.take}.
 	*/
 	setTerrain(terrain) {
 		this.terrain = terrain;
+		if (terrain) this._elevationHold?.noteTerrainChange();
 		this.applyTerrainChange();
 	}
 	migrateProjection(newTransform, newCameraHelper) {
@@ -23185,7 +22992,7 @@ var Camera = class extends Evented {
 	}
 	setVerticalFieldOfView(fov, eventData) {
 		if (fov != this.transform.fov) {
-			this.transform.setFov(fov);
+			this.applyTransformChange((tr) => tr.setFov(fov));
 			this.fire(new MapMovementEvent("movestart", eventData)).fire(new MapMovementEvent("move", eventData)).fire(new MapMovementEvent("moveend", eventData));
 		}
 		return this;
@@ -23245,6 +23052,10 @@ var Camera = class extends Evented {
 		this.jumpTo({ roll }, eventData);
 		return this;
 	}
+	/**
+	* Returns {@link JumpToOptions} so the result can carry `padding` when `absolutePadding` is set.
+	* Once that is the default, `padding` can move onto {@link CameraOptions} and this can return it.
+	*/
 	cameraForBounds(bounds, options) {
 		bounds = LngLatBounds.convert(bounds).adjustAntiMeridian();
 		const bearing = options?.bearing || 0;
@@ -23259,7 +23070,8 @@ var Camera = class extends Evented {
 	* @param p1 - Second point
 	* @param bearing - Desired map bearing at end of animation, in degrees
 	* @param options - the camera options
-	* @returns If map is able to fit to provided bounds, returns `center`, `zoom`, and `bearing`.
+	* @returns If map is able to fit to provided bounds, returns `center`, `zoom`, and `bearing`,
+	*      plus `padding` when `absolutePadding` is set.
 	*      If map is unable to fit, method will warn and return undefined.
 	* @example
 	* ```ts
@@ -23296,9 +23108,21 @@ var Camera = class extends Evented {
 		options.padding = padding;
 		const tr = this.transform;
 		const bounds = new LngLatBounds(p0, p1);
-		const result = this.cameraHelper.cameraForBoxAndBearing(options, padding, bounds, bearing, tr);
-		if (result && this._zoomSnap) result.zoom = evaluateZoomSnap(result.zoom, this._zoomSnap, -1);
-		return result;
+		const noPadding = {
+			top: 0,
+			bottom: 0,
+			right: 0,
+			left: 0
+		};
+		const fitPadding = options.absolutePadding ? noPadding : padding;
+		const mapPadding = options.absolutePadding ? padding : extend(noPadding, tr.padding);
+		const result = this.cameraHelper.cameraForBoxAndBearing(options, fitPadding, mapPadding, bounds, bearing, tr);
+		if (!result) return void 0;
+		if (this._zoomSnap) result.zoom = evaluateZoomSnap(result.zoom, this._zoomSnap, -1);
+		return options.absolutePadding ? {
+			...result,
+			padding
+		} : result;
 	}
 	fitBounds(bounds, options, eventData) {
 		return this._fitInternal(this.cameraForBounds(bounds, options), options, eventData);
@@ -23309,7 +23133,10 @@ var Camera = class extends Evented {
 	_fitInternal(calculatedOptions, options, eventData) {
 		if (!calculatedOptions) return this;
 		options = extend(calculatedOptions, options);
-		delete options.padding;
+		if (options.absolutePadding) {
+			options.padding = calculatedOptions.padding;
+			delete options.absolutePadding;
+		} else delete options.padding;
 		return options.linear ? this.easeTo(options, eventData) : this.flyTo(options, eventData);
 	}
 	jumpTo(options, eventData) {
@@ -23319,7 +23146,7 @@ var Camera = class extends Evented {
 		let bearingChanged = false, pitchChanged = false;
 		let rollChanged = false;
 		const oldZoom = tr.zoom;
-		if (this.terrain) tr.setElevation(this.terrain.getElevationForLngLat(options.center ? LngLat.convert(options.center) : tr.center, tr));
+		if (this.terrain && this.getCenterClampedToGround()) tr.setElevation(this.terrain.getElevationForLngLat(options.center ? LngLat.convert(options.center) : tr.center, tr));
 		this.cameraHelper.handleJumpToCenterZoom(tr, options);
 		const zoomChanged = tr.zoom !== oldZoom;
 		if (options.elevation !== void 0 && tr.elevation !== +options.elevation) tr.setElevation(+options.elevation);
@@ -23421,63 +23248,133 @@ var Camera = class extends Evented {
 		this._padding = !tr.isPaddingEqual(padding);
 		this._zooming ||= easeHandler.isZooming;
 		this._easeId = options.easeId;
-		this._prepareEase(eventData, options.noMoveStart, currently);
-		if (this.terrain) this._prepareElevation(easeHandler.elevationCenter);
+		this._prepareEase(eventData, options.noMoveStart, currently, {
+			tr,
+			center: easeHandler.elevationCenter,
+			freeze: options.freezeElevation
+		});
 		this._ease((k) => {
 			easeHandler.easeFunc(k);
-			if (this.terrain && !options.freezeElevation) this._updateElevation(k);
+			if (this.terrain && !options.freezeElevation) this._updateElevation(k, tr);
 			this.applyUpdatedTransform(tr);
 			this._fireMoveEvents(eventData);
 		}, (interruptingEaseId) => {
-			if (this.terrain && options.freezeElevation) this._finalizeElevation();
-			else this.elevationFreeze = false;
-			this._afterEase(eventData, interruptingEaseId);
+			this._afterEase(eventData, interruptingEaseId, options.freezeElevation);
 		}, options);
 		return this;
 	}
-	_prepareEase(eventData, noMoveStart, currently = {}) {
+	/**
+	* @param elevation - over terrain, the transform the animation edits, the map center it ends on, and whether
+	* it holds the center elevation (`freezeElevation`) instead of easing it
+	*/
+	_prepareEase(eventData, noMoveStart, currently = {}, elevation) {
 		this._moving = true;
+		if (this.terrain && elevation) {
+			this._prepareElevation(elevation.center, elevation.tr);
+			if (elevation.freeze) this.holdElevation(elevation.tr, "animation");
+		}
 		if (!noMoveStart && !currently.moving) this.fire(new MapMovementEvent("movestart", eventData));
 		if (this._zooming && !currently.zooming) this.fire(new MapMovementEvent("zoomstart", eventData));
 		if (this._rotating && !currently.rotating) this.fire(new MapMovementEvent("rotatestart", eventData));
 		if (this._pitching && !currently.pitching) this.fire(new MapMovementEvent("pitchstart", eventData));
 		if (this._rolling && !currently.rolling) this.fire(new MapMovementEvent("rollstart", eventData));
 	}
-	_prepareElevation(center) {
+	/**
+	* @internal
+	* Starts easing the center elevation: records where it stands on the transform the animation edits and
+	* samples the terrain under the map center the animation ends on.
+	* @param center - the map center when the animation ends
+	* @param tr - the transform the animation edits
+	*/
+	_prepareElevation(center, tr) {
 		this._elevationCenter = center;
-		this._elevationStart = this.transform.elevation;
-		this._elevationTarget = this.terrain.getElevationForLngLat(center, this.transform);
+		this._elevationStart = tr.elevation;
+		this._elevationTarget = this.terrain.getElevationForLngLat(center, tr);
 		this.elevationFreeze = true;
 	}
-	_updateElevation(k) {
-		if (this._elevationStart === void 0 || this._elevationCenter === void 0) this._prepareElevation(this.transform.center);
-		this.transform.setMinElevationForCurrentTile(this.terrain.getMinTileElevationForLngLatZoom(this._elevationCenter, this.transform.tileZoom));
-		const elevation = this.terrain.getElevationForLngLat(this._elevationCenter, this.transform);
+	/**
+	* @internal
+	* Eases the center elevation towards the terrain under `_elevationCenter`, on the transform the
+	* animation edits, so that `applyUpdatedTransform` carries it to the rendered transform. A center
+	* that is not clamped to the ground keeps its elevation.
+	* @param k - the animation's progress, 0 to 1
+	* @param tr - the transform the animation edits
+	*/
+	_updateElevation(k, tr) {
+		if (this._elevationStart === void 0 || this._elevationCenter === void 0) this._prepareElevation(tr.center, tr);
+		tr.setMinElevationForCurrentTile(this.terrain.getMinTileElevationForLngLatZoom(this._elevationCenter, tr.tileZoom));
+		const elevation = this.terrain.getElevationForLngLat(this._elevationCenter, tr);
 		if (k < 1 && elevation !== this._elevationTarget) {
 			const pitch1 = this._elevationTarget - this._elevationStart;
 			const pitch2 = (elevation - (pitch1 * k + this._elevationStart)) / (1 - k);
 			this._elevationStart += k * (pitch1 - pitch2);
 			this._elevationTarget = elevation;
 		}
-		this.transform.setElevation(interpolateFactory.number(this._elevationStart, this._elevationTarget, k));
-	}
-	_finalizeElevation() {
-		this.elevationFreeze = false;
-		if (this.getCenterClampedToGround()) this.transform.recalculateZoomAndCenter(this.terrain);
+		if (this.getCenterClampedToGround()) tr.setElevation(interpolateFactory.number(this._elevationStart, this._elevationTarget, k));
 	}
 	/**
 	* @internal
-	* Applies a change of the terrain under the center to the transform: the terrain was set or
-	* removed, or a DEM tile landed. The center keeps its place and the camera moves with the
-	* center's elevation, as it does on every rendered frame while nothing holds the elevation.
-	* While a gesture or an ease holds it this does nothing: the camera stays where the user put
-	* it and the hold's end re-solves zoom and center onto the new terrain without moving it.
-	* Nothing is in flight when this writes, so it writes the rendered transform, like the
-	* per-frame clamp; a requested camera state created here would outlive the call and the
-	* next gesture would start from it.
+	* Holds the center elevation for a gesture or an animation with `freezeElevation`: the frames leave it alone and
+	* the end puts the center back onto the terrain. A hold that starts without DEM data under a center clamped to
+	* the ground waits for it, see {@link ElevationHold.take}.
+	* @param tr - the transform the gesture or animation edits, read for the center the hold starts at
+	* @param holder - who holds it
+	*/
+	holdElevation(tr, holder) {
+		this.elevationFreeze = true;
+		const startedWithoutDem = !!this.terrain && this.getCenterClampedToGround() && !this.terrain.hasElevationForLngLat(tr.center, tr);
+		this._elevationHold = new ElevationHold(holder, startedWithoutDem);
+	}
+	/**
+	* @internal
+	* Ends a hold on the center elevation, and any wait for DEM data with it, see {@link Camera.holdElevation}.
+	*/
+	releaseElevation() {
+		const tookDem = this._elevationHold?.tookDem ?? false;
+		this.elevationFreeze = false;
+		this._elevationHold = null;
+		return tookDem;
+	}
+	/**
+	* @internal
+	* Puts the center back onto the terrain at the end of a hold, re-solving zoom and center with the camera in place.
+	* After a hold that took DEM data, a center over a tile without its own DEM data yet keeps the zoom and takes the
+	* drawn elevation instead, with the camera check keeping the camera out of the terrain.
+	* @param tr - the transform the end writes
+	* @param terrain - the terrain the gesture or animation ends over
+	* @param tookDem - whether the hold carried an elevation it took from DEM data, see {@link Camera.releaseElevation}
+	*/
+	putCenterBackOnTerrain(tr, terrain, tookDem) {
+		if (tookDem && terrain.getDrawnElevationForLngLat(tr.center, true) === void 0) {
+			tr.setElevation(terrain.getElevationForLngLat(tr.center, tr));
+			const cameraOptions = this._elevateCameraIfInsideTerrain(tr);
+			if (cameraOptions.zoom !== void 0) tr.setZoom(cameraOptions.zoom);
+			if (cameraOptions.pitch !== void 0) tr.setPitch(cameraOptions.pitch);
+		} else tr.recalculateZoomAndCenter(terrain);
+	}
+	/**
+	* @internal
+	* Lets a hold on the center elevation take DEM data that landed, see {@link ElevationHold.take}.
+	* @param tr - the transform the hold's gesture or animation edits
+	* @returns whether it changed the elevation
+	*/
+	_takeLandedElevation(tr) {
+		if (!this._elevationHold || !this.terrain || !this.getCenterClampedToGround()) return false;
+		return this._elevationHold.take(tr, this.terrain);
+	}
+	/**
+	* @internal
+	* Applies a change of the terrain under the center (terrain set or removed, a DEM tile landed): at rest the
+	* camera moves with the center's elevation, as on every rendered frame; a hold keeps the camera where the user
+	* put it unless it waits for DEM data. A gesture's hold takes here, on the requested camera state its frames
+	* read; an animation's takes on its next frame, on the transform it edits, see {@link ElevationHold.take}.
 	*/
 	applyTerrainChange() {
-		if (this.elevationFreeze) return;
+		if (this.elevationFreeze) {
+			const tr = this._requestedCameraState;
+			if (this._elevationHold?.holder === "gesture" && tr && this._takeLandedElevation(tr)) this.applyUpdatedTransform(tr);
+			return;
+		}
 		const tr = this.transform;
 		tr.setMinElevationForCurrentTile(this.terrain ? this.terrain.getMinTileElevationForLngLatZoom(tr.center, tr.tileZoom) : 0);
 		if (this.getCenterClampedToGround()) tr.setElevation(this.terrain ? this.terrain.getElevationForLngLat(tr.center, tr) : 0);
@@ -23523,12 +23420,14 @@ var Camera = class extends Evented {
 	}
 	/**
 	* @internal
-	* Called after the camera is done being manipulated.
+	* Called after the camera is done being manipulated; a hold on the center elevation takes DEM data that landed
+	* first, see {@link ElevationHold.take}.
 	* @param tr - the requested camera end state
 	* If the camera is inside terrain, it gets elevated.
 	* Call `transformCameraUpdate` if present, and then apply the "approved" changes.
 	*/
 	applyUpdatedTransform(tr) {
+		this._takeLandedElevation(tr);
 		const modifiers = [];
 		modifiers.push((tr) => this._elevateCameraIfInsideTerrain(tr));
 		if (this.transformCameraUpdate) modifiers.push((tr) => this.transformCameraUpdate(tr));
@@ -23547,6 +23446,19 @@ var Camera = class extends Evented {
 		}
 		this.transform.apply(finalTransform, false);
 	}
+	/**
+	* @internal
+	* Applies a change that is not itself a movement, such as new bounds, limits or field of view, the way
+	* any camera update is applied. A requested camera state created only for this change is dropped again,
+	* so a later movement cannot restore the old values.
+	*/
+	applyTransformChange(change) {
+		const hadRequestedCameraState = this._requestedCameraState !== void 0;
+		const tr = this.getTransformForUpdate();
+		change(tr);
+		this.applyUpdatedTransform(tr);
+		if (!hadRequestedCameraState) delete this._requestedCameraState;
+	}
 	_fireMoveEvents(eventData) {
 		this.fire(new MapMovementEvent("move", eventData));
 		if (this._zooming) this.fire(new MapMovementEvent("zoom", eventData));
@@ -23554,7 +23466,14 @@ var Camera = class extends Evented {
 		if (this._pitching) this.fire(new MapMovementEvent("pitch", eventData));
 		if (this._rolling) this.fire(new MapMovementEvent("roll", eventData));
 	}
-	_afterEase(eventData, easeId) {
+	/**
+	* @param freezeElevation - whether the animation held the center elevation; its end then takes DEM data that
+	* landed since its last frame and puts the center back onto the terrain, see {@link Camera.putCenterBackOnTerrain}
+	*/
+	_afterEase(eventData, easeId, freezeElevation = false) {
+		this._takeLandedElevation(this.transform);
+		const tookDem = this.releaseElevation();
+		if (this.terrain && freezeElevation && this.getCenterClampedToGround()) this.putCenterBackOnTerrain(this.transform, this.terrain, tookDem);
 		if (this._easeId && easeId && this._easeId === easeId) return;
 		delete this._easeId;
 		const wasZooming = this._zooming;
@@ -23664,8 +23583,11 @@ var Camera = class extends Evented {
 		this._pitching = pitch !== startPitch;
 		this._rolling = roll !== startRoll;
 		this._padding = !tr.isPaddingEqual(padding);
-		this._prepareEase(eventData, false);
-		if (this.terrain) this._prepareElevation(flyToHandler.targetCenter);
+		this._prepareEase(eventData, false, {}, {
+			tr,
+			center: flyToHandler.targetCenter,
+			freeze: options.freezeElevation
+		});
 		this._ease((k) => {
 			const s = k * S;
 			const scale = 1 / w(s);
@@ -23678,13 +23600,11 @@ var Camera = class extends Evented {
 				pointAtOffset = tr.centerPoint.add(offsetAsPoint);
 			}
 			flyToHandler.easeFunc(k, scale, centerFactor, pointAtOffset);
-			if (this.terrain && !options.freezeElevation) this._updateElevation(k);
+			if (this.terrain && !options.freezeElevation) this._updateElevation(k, tr);
 			this.applyUpdatedTransform(tr);
 			this._fireMoveEvents(eventData);
 		}, () => {
-			if (this.terrain && options.freezeElevation) this._finalizeElevation();
-			else this.elevationFreeze = false;
-			this._afterEase(eventData);
+			this._afterEase(eventData, void 0, options.freezeElevation);
 		}, options);
 		return this;
 	}
@@ -23864,7 +23784,16 @@ var AttributionControl = class {
 		if (attribHTML === this._attribHTML) return;
 		this._attribHTML = attribHTML;
 		if (attributions.length) {
-			this._innerContainer.replaceChildren(DOM.sanitize(attribHTML));
+			const fragment = document.createDocumentFragment();
+			let isFirst = true;
+			for (const attribution of attributions) {
+				const sanitizedAttribution = DOM.sanitize(attribution);
+				if (!sanitizedAttribution.hasChildNodes()) continue;
+				if (!isFirst) fragment.append(" | ");
+				fragment.append(sanitizedAttribution);
+				isFirst = false;
+			}
+			this._innerContainer.replaceChildren(fragment);
 			this._container.classList.remove("maplibregl-attrib-empty");
 		} else this._container.classList.add("maplibregl-attrib-empty");
 		this._updateCompact();
@@ -23981,6 +23910,639 @@ var TaskQueue = class {
 	}
 };
 //#endregion
+//#region src/data/pos3d_attributes.ts
+const pos3dAttributes = createLayout([{
+	name: "a_pos3d",
+	type: "Int16",
+	components: 3
+}]);
+//#endregion
+//#region src/tile/terrain_tile_manager.ts
+/**
+* @internal
+* This class is a helper for the Terrain-class, it:
+*
+* - loads raster-dem tiles
+* - manages all renderToTexture tiles.
+* - caches previous rendered tiles.
+* - finds all necessary renderToTexture tiles for a OverscaledTileID area
+* - finds the corresponding raster-dem tile for OverscaledTileID
+*/
+var TerrainTileManager = class extends Evented {
+	constructor(tileManager) {
+		super();
+		this._lastTilesetChange = now();
+		this.tileManager = tileManager;
+		this._tiles = {};
+		this._renderableTilesKeys = [];
+		this._sourceTileCache = {};
+		this.minzoom = 0;
+		this.maxzoom = 22;
+		this.deltaZoom = 1;
+		this.tileSize = tileManager._source.tileSize * 2 ** this.deltaZoom;
+		tileManager.usedForTerrain = true;
+		tileManager.tileSize = this.tileSize;
+	}
+	destruct() {
+		this.tileManager.usedForTerrain = false;
+		this.tileManager.tileSize = null;
+		this.releaseAllRTT();
+	}
+	getSource() {
+		return this.tileManager._source;
+	}
+	/**
+	* Load Terrain Tiles, create internal render-to-texture tiles, free GPU memory.
+	* @param transform - the operation to do
+	* @param terrain - the terrain
+	* @returns true when the set of renderable tiles changed
+	*/
+	update(transform, terrain) {
+		this.tileManager.update(transform, terrain);
+		this._renderableTilesKeys = [];
+		const keys = {};
+		let changed = false;
+		for (const tileID of coveringTiles(transform, {
+			tileSize: this.tileSize,
+			minzoom: this.minzoom,
+			maxzoom: this.maxzoom,
+			reparseOverscaled: false,
+			terrain
+		})) {
+			keys[tileID.key] = true;
+			this._renderableTilesKeys.push(tileID.key);
+			if (!this._tiles[tileID.key]) {
+				tileID.terrainRttPosMatrix32f = /* @__PURE__ */ new Float32Array(16);
+				ortho(tileID.terrainRttPosMatrix32f, 0, EXTENT, EXTENT, 0, 0, 1);
+				this._tiles[tileID.key] = new Tile(tileID, this.tileSize);
+				this._lastTilesetChange = now();
+				changed = true;
+			}
+		}
+		for (const key in this._tiles) if (!keys[key]) {
+			this._tiles[key].releaseRTT(this.tileManager.map.painter);
+			delete this._tiles[key];
+			changed = true;
+		}
+		return changed;
+	}
+	/**
+	* Release the RTT objects for `tileID` (and its ancestors/descendants),
+	*/
+	releaseRTT(tileID) {
+		for (const key in this._tiles) {
+			const tile = this._tiles[key];
+			if (tile.tileID.equals(tileID) || tile.tileID.isChildOf(tileID) || tileID.isChildOf(tile.tileID)) tile.releaseRTT(this.tileManager.map.painter);
+		}
+	}
+	/**
+	* Release the A RTT objects for all tiles.
+	*/
+	releaseAllRTT() {
+		for (const key in this._tiles) this._tiles[key].releaseRTT(this.tileManager.map.painter);
+	}
+	/**
+	* get a list of tiles, which are loaded and should be rendered in the current scene
+	* @returns the renderable tiles
+	*/
+	getRenderableTiles() {
+		return this._renderableTilesKeys.map((key) => this.getTileByID(key));
+	}
+	/**
+	* get terrain tile by the TileID key
+	* @param id - the tile id
+	* @returns the tile
+	*/
+	getTileByID(id) {
+		return this._tiles[id];
+	}
+	/**
+	* Searches for the corresponding current renderable terrain-tiles
+	* @param tileID - the tile to look for
+	* @returns the tiles that were found
+	*/
+	getTerrainCoords(tileID, terrainTileRanges) {
+		if (terrainTileRanges) return this._getTerrainCoordsForTileRanges(tileID, terrainTileRanges);
+		else return this._getTerrainCoordsForRegularTile(tileID);
+	}
+	/**
+	* Searches for the corresponding current renderable terrain-tiles.
+	* Includes terrain tiles that are either:
+	* - the same as the tileID
+	* - a parent of the tileID
+	* - a child of the tileID
+	* @param tileID - the tile to look for
+	* @returns the tiles that were found
+	*/
+	_getTerrainCoordsForRegularTile(tileID) {
+		const coords = {};
+		for (const key of this._renderableTilesKeys) {
+			const terrainTileID = this._tiles[key].tileID;
+			const coord = tileID.clone();
+			const mat = createMat4f64();
+			if (terrainTileID.canonical.equals(tileID.canonical)) ortho(mat, 0, EXTENT, EXTENT, 0, 0, 1);
+			else if (terrainTileID.canonical.isChildOf(tileID.canonical)) {
+				const dz = terrainTileID.canonical.z - tileID.canonical.z;
+				const dx = terrainTileID.canonical.x - (terrainTileID.canonical.x >> dz << dz);
+				const dy = terrainTileID.canonical.y - (terrainTileID.canonical.y >> dz << dz);
+				const size = EXTENT >> dz;
+				ortho(mat, 0, size, size, 0, 0, 1);
+				translate(mat, mat, [
+					-dx * size,
+					-dy * size,
+					0
+				]);
+			} else if (tileID.canonical.isChildOf(terrainTileID.canonical)) {
+				const dz = tileID.canonical.z - terrainTileID.canonical.z;
+				const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz);
+				const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
+				const size = EXTENT >> dz;
+				ortho(mat, 0, EXTENT, EXTENT, 0, 0, 1);
+				translate(mat, mat, [
+					dx * size,
+					dy * size,
+					0
+				]);
+				scale(mat, mat, [
+					1 / 2 ** dz,
+					1 / 2 ** dz,
+					0
+				]);
+			} else continue;
+			coord.terrainRttPosMatrix32f = new Float32Array(mat);
+			coords[key] = coord;
+		}
+		return coords;
+	}
+	/**
+	* Searches for the corresponding current renderable terrain-tiles.
+	* Includes terrain tiles that are within terrain tile ranges.
+	* @param tileID - the tile to look for
+	* @returns the tiles that were found
+	*/
+	_getTerrainCoordsForTileRanges(tileID, terrainTileRanges) {
+		const coords = {};
+		for (const key of this._renderableTilesKeys) {
+			const terrainTileID = this._tiles[key].tileID;
+			if (!this._isWithinTileRanges(terrainTileID, terrainTileRanges)) continue;
+			const coord = tileID.clone();
+			const mat = createMat4f64();
+			if (terrainTileID.canonical.z === tileID.canonical.z) {
+				const dx = tileID.canonical.x - terrainTileID.canonical.x + tileID.wrap * (1 << tileID.canonical.z);
+				const dy = tileID.canonical.y - terrainTileID.canonical.y;
+				ortho(mat, 0, EXTENT, EXTENT, 0, 0, 1);
+				translate(mat, mat, [
+					dx * EXTENT,
+					dy * EXTENT,
+					0
+				]);
+			} else if (terrainTileID.canonical.z > tileID.canonical.z) {
+				const dz = terrainTileID.canonical.z - tileID.canonical.z;
+				const dx = terrainTileID.canonical.x - (terrainTileID.canonical.x >> dz << dz) + tileID.wrap * (1 << terrainTileID.canonical.z);
+				const dy = terrainTileID.canonical.y - (terrainTileID.canonical.y >> dz << dz);
+				const dx2 = tileID.canonical.x - (terrainTileID.canonical.x >> dz);
+				const dy2 = tileID.canonical.y - (terrainTileID.canonical.y >> dz);
+				const size = EXTENT >> dz;
+				ortho(mat, 0, size, size, 0, 0, 1);
+				translate(mat, mat, [
+					-dx * size + dx2 * EXTENT,
+					-dy * size + dy2 * EXTENT,
+					0
+				]);
+			} else {
+				const dz = tileID.canonical.z - terrainTileID.canonical.z;
+				const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz) + tileID.wrap * (1 << tileID.canonical.z);
+				const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
+				const dx2 = (tileID.canonical.x >> dz) - terrainTileID.canonical.x;
+				const dy2 = (tileID.canonical.y >> dz) - terrainTileID.canonical.y;
+				const size = EXTENT << dz;
+				ortho(mat, 0, size, size, 0, 0, 1);
+				translate(mat, mat, [
+					dx * EXTENT + dx2 * size,
+					dy * EXTENT + dy2 * size,
+					0
+				]);
+			}
+			coord.terrainRttPosMatrix32f = new Float32Array(mat);
+			coords[key] = coord;
+		}
+		return coords;
+	}
+	/**
+	* find the covering raster-dem tile
+	* @param tileID - the tile to look for
+	* @param searchForDEM - Optional parameter to search for (parent) source tiles with loaded dem.
+	* @returns the tile
+	*/
+	getSourceTile(tileID, searchForDEM) {
+		const source = this.tileManager._source;
+		let z = tileID.overscaledZ - this.deltaZoom;
+		if (z > source.maxzoom) z = source.maxzoom;
+		if (z < source.minzoom) return void 0;
+		this._sourceTileCache[tileID.key] ||= tileID.scaledTo(z).key;
+		let tile = this.findTileInCaches(this._sourceTileCache[tileID.key]);
+		if (!tile?.dem && searchForDEM) while (z >= source.minzoom && !tile?.dem) tile = this.findTileInCaches(tileID.scaledTo(z--).key);
+		return tile;
+	}
+	findTileInCaches(key) {
+		let tile = this.tileManager.getTileByID(key);
+		if (tile) return tile;
+		tile = this.tileManager._outOfViewCache.getByKey(key);
+		return tile;
+	}
+	/**
+	* gets whether any tiles were loaded after a specific time. This is used to update the depth framebuffer.
+	* @param time - the time
+	* @returns true if any tiles came into view at or after the specified time
+	*/
+	anyTilesAfterTime(time = now()) {
+		return this._lastTilesetChange >= time;
+	}
+	/**
+	* Checks whether a tile is within the canonical tile ranges.
+	* @param tileID - Tile to check
+	* @param canonicalTileRanges - Canonical tile ranges
+	* @returns
+	*/
+	_isWithinTileRanges(tileID, canonicalTileRanges) {
+		const range = canonicalTileRanges[tileID.canonical.z];
+		return !!range && (tileID.wrap > range.minWrap || tileID.wrap < range.maxWrap || tileID.canonical.x >= range.minTileXWrapped && tileID.canonical.x <= range.maxTileXWrapped && tileID.canonical.y >= range.minTileY && tileID.canonical.y <= range.maxTileY);
+	}
+};
+//#endregion
+//#region src/render/terrain.ts
+/**
+* @internal
+* This is the main class which handles most of the 3D Terrain logic. It has the following topics:
+*
+* 1. loads raster-dem tiles via the internal tileManager this.tileManager
+* 2. creates a depth-framebuffer, which is used to calculate the visibility of coordinates
+* 3. stores all render-to-texture tiles in the this.tileManager._tiles
+* 4. calculates the elevation for a specific tile-coordinate
+* 5. creates a terrain-mesh
+*
+* A note about the GPU resource-usage:
+*
+* Framebuffers:
+*
+* - one for the depth framebuffer with the size of the map-div.
+* - one for rendering a tile to texture with the size of tileSize (= 512x512).
+*
+* Textures:
+*
+* - one texture for an empty raster-dem tile with size 1x1
+* - one texture for an empty depth-buffer, when terrain is disabled with size 1x1
+* - one texture for an each loaded raster-dem with size of the source.tileSize
+* - one texture for the depth-framebuffer with the size of the map-div.
+* - finally for each render-to-texture tile (= this._tiles) a set of textures
+* for each render stack (The stack-concept is documented in painter.ts).
+*
+* Normally there exists 1-3 Textures per tile, depending on the stylesheet.
+* Each Textures has the size 2*tileSize (= 1024x1024). Also there exists a
+* cache of the last 150 newest rendered tiles.
+*
+*/
+var Terrain = class {
+	constructor(painter, tileManager, options, terrainSkirtLength = "auto") {
+		this._meshCache = {};
+		this.painter = painter;
+		this.tileManager = new TerrainTileManager(tileManager);
+		this.options = options;
+		this.exaggeration = typeof options.exaggeration === "number" ? options.exaggeration : 1;
+		this._terrainSkirtLength = terrainSkirtLength;
+		this.qualityFactor = 2;
+		this.meshSize = 128;
+		this._demMatrixCache = /* @__PURE__ */ new Map();
+		this.coverage = new TerrainCoverage(this.tileManager, this.exaggeration);
+	}
+	destroy() {
+		if (this._fbo) {
+			this._fbo.destroy();
+			this._fbo = null;
+		}
+		if (this._fboDepthTexture) {
+			this._fboDepthTexture.destroy();
+			this._fboDepthTexture = null;
+		}
+		if (this._emptyDemTexture) {
+			this._emptyDemTexture.destroy();
+			this._emptyDemTexture = null;
+		}
+		if (this._emptyDepthTexture) {
+			this._emptyDepthTexture.destroy();
+			this._emptyDepthTexture = null;
+		}
+		for (const key in this._meshCache) this._meshCache[key].destroy();
+		this._meshCache = {};
+		this.tileManager.destruct();
+	}
+	/**
+	* Get the elevation-value from original dem-data for a given tile-coordinate.
+	* Coordinates that fall outside `[0, extent)` are normalized to the
+	* appropriate neighbor tile before lookup.
+	* @param tileID - the tile to get the elevation for
+	* @param x - x coordinate relative to the tile, may be outside `[0, extent)`
+	* @param y - y coordinate relative to the tile, may be outside `[0, extent)`
+	* @param extent - optional, default 8192
+	* @returns the elevation
+	*/
+	getDEMElevation(tileID, x, y, extent = EXTENT) {
+		const normalized = tileID.normalizeCoordinates(x, y, extent);
+		if (!normalized) return 0;
+		const sampler = this.coverage.getSampler(normalized.tileID);
+		return sampler ? sampler(normalized.x, normalized.y, extent) : 0;
+	}
+	/**
+	* Get the elevation for given {@link LngLat} in respect of exaggeration.
+	* @param lnglat - the location
+	* @param zoom - the zoom, use {@link getElevationForLngLat} if you don't want a specific zoom level, but more accurate results.
+	* @returns the elevation
+	*/
+	getElevationForLngLatZoom(lnglat, zoom) {
+		if (!isInBoundsForZoomLngLat(zoom, lnglat.wrap())) return 0;
+		const { tileID, mercatorX, mercatorY } = this._getOverscaledTileIDFromLngLatZoom(lnglat, zoom);
+		return this.getElevation(tileID, mercatorX % EXTENT, mercatorY % EXTENT, EXTENT);
+	}
+	/**
+	* Get the elevation for given {@link LngLat} in respect of exaggeration.
+	* Where the location is covered by a rendered tile with loaded DEM data this samples the
+	* rendered surface, so the result agrees with what is drawn; elsewhere it traverses up the
+	* zoom levels to find the first tile with data to return.
+	* @param lnglat - the location
+	* @returns the elevation
+	*/
+	getElevationForLngLat(lnglat, transform) {
+		const elevation = this.getDrawnElevationForLngLat(lnglat);
+		if (elevation !== void 0) return elevation;
+		return this.getElevationForLngLatZoom(lnglat, this._getFallbackZoom(transform));
+	}
+	/**
+	* Get the elevation of the terrain as drawn at the given {@link LngLat}, in respect of exaggeration, where a drawn
+	* tile has DEM data there: its own, or with `ownDemOnly` false a loaded parent's drawn in its place, which can be
+	* a few hundred meters off until the tile's own loads.
+	* @param lnglat - the location
+	* @param ownDemOnly - whether only a drawn tile's own DEM data counts
+	* @returns the elevation, or undefined where no drawn tile has that DEM data
+	*/
+	getDrawnElevationForLngLat(lnglat, ownDemOnly = false) {
+		return this.coverage.sample(lnglat, ownDemOnly);
+	}
+	/**
+	* Whether {@link getElevationForLngLat} finds DEM data at the given {@link LngLat}, drawn or in the tile it falls
+	* back to, rather than giving 0 for want of any.
+	* @param lnglat - the location
+	* @param transform - the transform {@link getElevationForLngLat} is given
+	* @returns true where a drawn tile or the fallback tile has DEM data, its own or a loaded parent's
+	*/
+	hasElevationForLngLat(lnglat, transform) {
+		if (this.getDrawnElevationForLngLat(lnglat) !== void 0) return true;
+		const zoom = this._getFallbackZoom(transform);
+		if (!isInBoundsForZoomLngLat(zoom, lnglat.wrap())) return false;
+		const { tileID } = this._getOverscaledTileIDFromLngLatZoom(lnglat, zoom);
+		return !!this.tileManager.getSourceTile(tileID, true)?.dem;
+	}
+	/**
+	* The zoom {@link getElevationForLngLat} passes to {@link getElevationForLngLatZoom} where no drawn tile has DEM
+	* data: the transform's tile zoom, where the terrain's tiles are loaded.
+	*/
+	_getFallbackZoom(transform) {
+		return Math.min(transform.tileZoom, this.tileManager.maxzoom);
+	}
+	/**
+	* Get the elevation for given coordinate in respect of exaggeration.
+	* @param tileID - the tile id
+	* @param x - x coordinate relative to the tile, may be outside `[0, extent)`
+	* @param y - y coordinate relative to the tile, may be outside `[0, extent)`
+	* @param extent - optional, default 8192
+	* @returns the elevation
+	*/
+	getElevation(tileID, x, y, extent = EXTENT) {
+		return this.getDEMElevation(tileID, x, y, extent) * this.exaggeration;
+	}
+	/**
+	* Clear the CPU samplers of the drawn tiles' DEM data, which may retain a previously selected DEM tile.
+	* @internal
+	*/
+	resetElevationCache() {
+		this.coverage.reset();
+	}
+	/**
+	* Index of the tiles the terrain currently renders, for sampling the terrain surface on the CPU.
+	* @returns the index, or null when no terrain tile is renderable
+	*/
+	getCoverageIndex() {
+		return this.coverage.getIndex();
+	}
+	/**
+	* Get the matrix that maps a tile's coordinates into the DEM tile it is rendered with.
+	* The transform is derived from the loaded DEM tile's own zoom level, not from the source's
+	* declared maxzoom: getSourceTile falls back to a loaded parent tile while the deepest DEM
+	* tile is still loading, and the scale and offset must match the tile that is actually used.
+	* @param tileID - the tile id
+	* @param sourceTile - the DEM tile that is used for this tile, either its own tile or a loaded parent
+	* @returns the matrix that maps the tile's coordinates onto the DEM tile
+	*/
+	_getDEMTileMatrix(tileID, sourceTile) {
+		const matrixKey = `${sourceTile.tileID.key}/${tileID.key}`;
+		const cachedMatrix = this._demMatrixCache.get(matrixKey);
+		if (cachedMatrix) return cachedMatrix;
+		const dz = tileID.canonical.z - sourceTile.tileID.canonical.z;
+		const dx = tileID.canonical.x - (tileID.canonical.x >> dz << dz);
+		const dy = tileID.canonical.y - (tileID.canonical.y >> dz << dz);
+		const demMatrix = fromScaling(/* @__PURE__ */ new Float64Array(16), [
+			1 / (EXTENT << dz),
+			1 / (EXTENT << dz),
+			0
+		]);
+		translate(demMatrix, demMatrix, [
+			dx * EXTENT,
+			dy * EXTENT,
+			0
+		]);
+		this._demMatrixCache.set(matrixKey, demMatrix);
+		return demMatrix;
+	}
+	/**
+	* returns a Terrain Object for a tile. Unless the tile corresponds to data (e.g. tile is loading), return a flat dem object
+	* @param tileID - the tile to get the terrain for
+	* @returns the terrain data to use in the program
+	*/
+	getTerrainData(tileID) {
+		if (!this._emptyDemTexture) {
+			const context = this.painter.context;
+			const image = new RGBAImage({
+				width: 1,
+				height: 1
+			}, /* @__PURE__ */ new Uint8Array(4));
+			this._emptyDepthTexture = new Texture(context, image, context.gl.RGBA, { premultiply: false });
+			this._emptyDemUnpack = [
+				0,
+				0,
+				0,
+				0
+			];
+			this._emptyDemTexture = new Texture(context, new RGBAImage({
+				width: 1,
+				height: 1
+			}), context.gl.RGBA, { premultiply: false });
+			this._emptyDemTexture.bind(context.gl.NEAREST, context.gl.CLAMP_TO_EDGE);
+			this._emptyDemMatrix = identity([]);
+		}
+		const sourceTile = this.tileManager.getSourceTile(tileID, true);
+		if (sourceTile?.dem && (!sourceTile.demTexture || sourceTile.needsTerrainPrepare)) {
+			const context = this.painter.context;
+			sourceTile.demTexture ||= this.painter.getTileTexture(sourceTile.dem.stride);
+			if (sourceTile.demTexture) sourceTile.demTexture.update(sourceTile.dem.getPixels(), { premultiply: false });
+			else sourceTile.demTexture = new Texture(context, sourceTile.dem.getPixels(), context.gl.RGBA, { premultiply: false });
+			sourceTile.demTexture.bind(context.gl.NEAREST, context.gl.CLAMP_TO_EDGE);
+			sourceTile.needsTerrainPrepare = false;
+		}
+		const terrainMatrix = sourceTile ? this._getDEMTileMatrix(tileID, sourceTile) : this._emptyDemMatrix;
+		return {
+			"u_depth": 2,
+			"u_terrain": 3,
+			"u_terrain_dim": sourceTile?.dem?.dim || 1,
+			"u_terrain_matrix": terrainMatrix,
+			"u_terrain_unpack": sourceTile?.dem?.getUnpackVector() || this._emptyDemUnpack,
+			"u_terrain_exaggeration": this.exaggeration,
+			texture: (sourceTile?.demTexture || this._emptyDemTexture).texture,
+			depthTexture: (this._fboDepthTexture || this._emptyDepthTexture).texture,
+			tile: sourceTile
+		};
+	}
+	/**
+	* get a framebuffer as big as the map-div, which will be used to render depth into a texture
+	* @returns the frame buffer
+	*/
+	getFramebuffer() {
+		const painter = this.painter;
+		const width = painter.width / devicePixelRatio;
+		const height = painter.height / devicePixelRatio;
+		if (this._fbo && (this._fbo.width !== width || this._fbo.height !== height)) {
+			this._fbo.destroy();
+			this._fboDepthTexture.destroy();
+			delete this._fbo;
+			delete this._fboDepthTexture;
+		}
+		if (!this._fboDepthTexture) {
+			this._fboDepthTexture = new Texture(painter.context, {
+				width,
+				height,
+				data: null
+			}, painter.context.gl.RGBA, { premultiply: false });
+			this._fboDepthTexture.bind(painter.context.gl.NEAREST, painter.context.gl.CLAMP_TO_EDGE);
+		}
+		if (!this._fbo) {
+			this._fbo = painter.context.createFramebuffer(width, height, true, false);
+			this._fbo.depthAttachment.set(painter.context.createRenderbuffer(painter.context.gl.DEPTH_COMPONENT16, width, height));
+		}
+		this._fbo.colorAttachment.set(this._fboDepthTexture.texture);
+		return this._fbo;
+	}
+	/**
+	* create a regular mesh which will be used by all terrain-tiles
+	* @returns the created regular mesh
+	*/
+	getTerrainMesh(tileId) {
+		const globeEnabled = this.painter.style.projection?.transitionState > 0;
+		const northPole = globeEnabled && tileId.canonical.y === 0;
+		const southPole = globeEnabled && tileId.canonical.y === (1 << tileId.canonical.z) - 1;
+		const key = `m_${northPole ? "n" : ""}_${southPole ? "s" : ""}`;
+		if (this._meshCache[key]) return this._meshCache[key];
+		const context = this.painter.context;
+		const vertexArray = new Pos3dArray();
+		const indexArray = new TriangleIndexArray();
+		const meshSize = this.meshSize;
+		const delta = EXTENT / meshSize;
+		const meshSize2 = meshSize * meshSize;
+		for (let y = 0; y <= meshSize; y++) for (let x = 0; x <= meshSize; x++) vertexArray.emplaceBack(x * delta, y * delta, 0);
+		for (let y = 0; y < meshSize2; y += meshSize + 1) for (let x = 0; x < meshSize; x++) {
+			indexArray.emplaceBack(x + y, meshSize + x + y + 1, meshSize + x + y + 2);
+			indexArray.emplaceBack(x + y, meshSize + x + y + 2, x + y + 1);
+		}
+		if (this._terrainSkirtLength !== "none") this._buildSkirts(vertexArray, indexArray, meshSize, delta, northPole, southPole);
+		const mesh = new Mesh(context.createVertexBuffer(vertexArray, pos3dAttributes.members), context.createIndexBuffer(indexArray), SegmentVector.simpleSegment(0, 0, vertexArray.length, indexArray.length));
+		this._meshCache[key] = mesh;
+		return mesh;
+	}
+	/**
+	* Calculates the height of the tile skirts for the "auto" strategy.
+	* @see {@link MapOptions.terrainSkirtLength}
+	* @param zoom - current zoomlevel
+	* @returns the elevation delta in meters
+	*/
+	getSkirtLength(zoom) {
+		return 2 * Math.PI * earthRadius / Math.pow(2, Math.max(zoom, 0)) / 5;
+	}
+	getMinTileElevationForLngLatZoom(lnglat, zoom) {
+		if (!isInBoundsForZoomLngLat(zoom, lnglat.wrap())) return 0;
+		const { tileID } = this._getOverscaledTileIDFromLngLatZoom(lnglat, zoom);
+		return this.getMinMaxElevation(tileID).minElevation ?? 0;
+	}
+	/**
+	* Get the minimum and maximum elevation contained in a tile. This includes any
+	* exaggeration included in the terrain.
+	*
+	* @param tileID - ID of the tile to be used as a source for the min/max elevation
+	* @returns the minimum and maximum elevation found in the tile, including the terrain's
+	* exaggeration
+	*/
+	getMinMaxElevation(tileID) {
+		const tile = this.tileManager.getSourceTile(tileID, true);
+		const minMax = {
+			minElevation: null,
+			maxElevation: null
+		};
+		if (tile?.dem) {
+			minMax.minElevation = tile.dem.min * this.exaggeration;
+			minMax.maxElevation = tile.dem.max * this.exaggeration;
+		}
+		return minMax;
+	}
+	_getOverscaledTileIDFromLngLatZoom(lnglat, zoom) {
+		const mercatorCoordinate = MercatorCoordinate.fromLngLat(lnglat.wrap());
+		const worldSize = (1 << zoom) * EXTENT;
+		const mercatorX = mercatorCoordinate.x * worldSize;
+		const mercatorY = mercatorCoordinate.y * worldSize;
+		const tileX = Math.floor(mercatorX / EXTENT), tileY = Math.floor(mercatorY / EXTENT);
+		return {
+			tileID: new OverscaledTileID(zoom, 0, zoom, tileX, tileY),
+			mercatorX,
+			mercatorY
+		};
+	}
+	/** Add an extra frame around the mesh to avoid hairline gaps (stitching) on tile boundaries with different zoomlevels.
+	* @see {@link MapOptions.terrainSkirtLength}
+	*/
+	_buildSkirts(vertexArray, indexArray, meshSize, delta, northPole, southPole) {
+		const offsetTop = vertexArray.length;
+		const offsetTopEdge = 0;
+		const offsetBottom = offsetTop + (meshSize + 1);
+		const offsetBottomEdge = (meshSize + 1) * meshSize;
+		const northY = northPole ? NORTH_POLE_Y : 0;
+		const northZ = northPole ? 0 : 1;
+		const southY = southPole ? SOUTH_POLE_Y : EXTENT;
+		const southZ = southPole ? 0 : 1;
+		for (let x = 0; x <= meshSize; x++) vertexArray.emplaceBack(x * delta, northY, northZ);
+		for (let x = 0; x <= meshSize; x++) vertexArray.emplaceBack(x * delta, southY, southZ);
+		for (let x = 0; x < meshSize; x++) {
+			indexArray.emplaceBack(offsetBottomEdge + x, offsetBottom + x, offsetBottom + x + 1);
+			indexArray.emplaceBack(offsetBottomEdge + x, offsetBottom + x + 1, offsetBottomEdge + x + 1);
+			indexArray.emplaceBack(offsetTopEdge + x, offsetTop + x + 1, offsetTop + x);
+			indexArray.emplaceBack(offsetTopEdge + x, offsetTopEdge + x + 1, offsetTop + x + 1);
+		}
+		const offsetLeft = vertexArray.length;
+		const offsetRight = offsetLeft + (meshSize + 1) * 2;
+		for (const x of [0, 1]) for (let y = 0; y <= meshSize; y++) for (const z of [0, 1]) vertexArray.emplaceBack(x * EXTENT, y * delta, z);
+		for (let y = 0; y < meshSize * 2; y += 2) {
+			indexArray.emplaceBack(offsetLeft + y, offsetLeft + y + 1, offsetLeft + y + 3);
+			indexArray.emplaceBack(offsetLeft + y, offsetLeft + y + 3, offsetLeft + y + 2);
+			indexArray.emplaceBack(offsetRight + y, offsetRight + y + 3, offsetRight + y + 1);
+			indexArray.emplaceBack(offsetRight + y, offsetRight + y + 2, offsetRight + y + 3);
+		}
+	}
+};
+//#endregion
 //#region src/webgl/rtt_fingerprint.ts
 /**
 * What a render-to-texture tile's textures differ in from the state this frame would render them from,
@@ -24061,7 +24623,7 @@ var RenderToTexture = class {
 	* is changing and then all re-rendered in the same frame, since a tile-by-tile change would show; a source
 	* data change re-renders immediately.
 	*/
-	prepareForRender(style, zoom) {
+	prepareForRender(style, zoom, isMoving) {
 		const zoomChanged = zoom !== this._lastPrepareZoom;
 		this._lastPrepareZoom = zoom;
 		this._stacks = [];
@@ -24098,7 +24660,7 @@ var RenderToTexture = class {
 			for (const key in coordsAscending) fingerprints[key] = new RTTFingerprint(coordsAscending[key], revision, zoom, visibleLayerIds);
 		}
 		this.needsFollowUpFrame = false;
-		const moving = zoomChanged || this.painter.options.moving;
+		const moving = zoomChanged || isMoving;
 		let staleTileReleased = false;
 		for (const tile of this._renderableTiles) {
 			const difference = this._textureDifference(tile);
@@ -24133,11 +24695,11 @@ var RenderToTexture = class {
 	* and 'live'-layers (f.e. symbols) it is necessary to create more stacks. For example
 	* a symbol-layer is in between of fill-layers.
 	* @param layer - the layer to render
-	* @param renderContext - shared state for the current render
+	* @param frameRenderContext - shared state for the current render
 	* @returns if true layer is rendered to texture, otherwise false
 	*/
-	renderLayer(layer, renderContext) {
-		if (layer.isHidden(this.painter.transform.zoom)) return false;
+	renderLayer(layer, frameRenderContext) {
+		if (layer.isHidden(frameRenderContext.transform.zoom)) return false;
 		const type = layer.type;
 		const painter = this.painter;
 		const isLastLayer = this._renderableLayerIds[this._renderableLayerIds.length - 1] === layer.id;
@@ -24150,7 +24712,8 @@ var RenderToTexture = class {
 		if (LAYERS_TO_TEXTURES[this._prevType] || LAYERS_TO_TEXTURES[type] && isLastLayer) {
 			this._prevType = type;
 			const stack = this._stacks.length - 1, layers = this._stacks[stack] || [];
-			renderContext.isRenderingToTexture = true;
+			frameRenderContext.isRenderingToTexture = true;
+			setFrameUniformWorldSize(painter.context.frameUniformBuffer, this.rttSize, this.rttSize);
 			for (const tile of this._renderableTiles) {
 				this._rttTiles.push(tile);
 				if (tile.getRTT(stack)) continue;
@@ -24160,7 +24723,7 @@ var RenderToTexture = class {
 					color: Color.transparent,
 					stencil: 0
 				});
-				painter.currentStencilSource = void 0;
+				frameRenderContext.invalidateTileClippingMasks();
 				for (const layerId of layers) {
 					const layer = painter.style._layers[layerId];
 					const coords = layer.source ? this._coordsAscending[layer.source][tile.tileID.key] : [tile.tileID];
@@ -24170,14 +24733,15 @@ var RenderToTexture = class {
 						this.rttSize,
 						this.rttSize
 					]);
-					painter.renderTileClippingMasks(layer, coords);
-					painter.renderLayer(painter, painter.style.tileManagers[layer.source], layer, coords, renderContext);
+					frameRenderContext.renderTileClippingMasks(layer, coords);
+					painter.renderLayer(painter, painter.style.tileManagers[layer.source], layer, coords, frameRenderContext);
 					if (layer.source) tile.rttFingerprint[layer.source] = this._rttFingerprints[layer.source][tile.tileID.key];
 				}
 				obj.texture.generateMipmap();
 			}
-			renderContext.isRenderingToTexture = false;
-			drawTerrain(this.painter, this.terrain, this._rttTiles, renderContext);
+			frameRenderContext.isRenderingToTexture = false;
+			setFrameUniformWorldSize(painter.context.frameUniformBuffer, painter.context.gl.drawingBufferWidth, painter.context.gl.drawingBufferHeight);
+			drawTerrain(this.painter, this.terrain, this._rttTiles, frameRenderContext);
 			this._rttTiles = [];
 			return LAYERS_TO_TEXTURES[type];
 		}
@@ -25012,7 +25576,8 @@ var Map$1 = class extends Evented {
 	* in the viewport. LngLatBounds represent a box that is always axis-aligned with bearing 0.
 	* Bounds will be taken in `[sw, ne]` order. Southwest point will always be to the left of the northeast point.
 	* @param options - Options object
-	* @returns If map is able to fit to provided bounds, returns `center`, `zoom`, and `bearing`.
+	* @returns If map is able to fit to provided bounds, returns `center`, `zoom`, and `bearing`,
+	* plus `padding` when `absolutePadding` is set.
 	* If map is unable to fit, method will warn and return undefined.
 	* @example
 	* ```ts
@@ -25311,15 +25876,15 @@ var Map$1 = class extends Evented {
 	*/
 	_resizeInternal(constrainTransform = true) {
 		const [width, height] = this._containerDimensions();
-		const clampedPixelRatio = this._getClampedPixelRatio(width, height);
-		this._resizeCanvas(width, height, clampedPixelRatio);
-		this.painter.resize(width, height, clampedPixelRatio);
+		this._clampedPixelRatio = this._getClampedPixelRatio(width, height);
+		this._resizeCanvas(width, height, this._clampedPixelRatio);
+		this.painter.resize(width, height, this._clampedPixelRatio);
 		if (this.painter.overLimit()) {
 			const gl = this.painter.context.gl;
 			this._maxCanvasSize = [gl.drawingBufferWidth, gl.drawingBufferHeight];
-			const clampedPixelRatio = this._getClampedPixelRatio(width, height);
-			this._resizeCanvas(width, height, clampedPixelRatio);
-			this.painter.resize(width, height, clampedPixelRatio);
+			this._clampedPixelRatio = this._getClampedPixelRatio(width, height);
+			this._resizeCanvas(width, height, this._clampedPixelRatio);
+			this.painter.resize(width, height, this._clampedPixelRatio);
 		}
 		this._resizeTransform(constrainTransform);
 	}
@@ -25411,7 +25976,7 @@ var Map$1 = class extends Evented {
 	* ```
 	*/
 	setMaxBounds(bounds) {
-		this._camera.transform.setMaxBounds(LngLatBounds.convert(bounds));
+		this._camera.applyTransformChange((tr) => tr.setMaxBounds(LngLatBounds.convert(bounds)));
 		return this._update();
 	}
 	/**
@@ -25438,9 +26003,7 @@ var Map$1 = class extends Evented {
 		minZoom = minZoom === null || minZoom === void 0 ? defaultMinZoom : minZoom;
 		if (minZoom >= defaultMinZoom && minZoom <= this._camera.transform.maxZoom) {
 			const zoomBefore = this._camera.transform.zoom;
-			const tr = this._camera.getTransformForUpdate();
-			tr.setMinZoom(minZoom);
-			this._camera.applyUpdatedTransform(tr);
+			this._camera.applyTransformChange((tr) => tr.setMinZoom(minZoom));
 			this._update();
 			if (zoomBefore !== this._camera.transform.zoom) this.fire(new MapMovementEvent("zoomstart")).fire(new MapMovementEvent("zoom")).fire(new MapMovementEvent("zoomend")).fire(new MapMovementEvent("movestart")).fire(new MapMovementEvent("move")).fire(new MapMovementEvent("moveend"));
 			return this;
@@ -25480,9 +26043,7 @@ var Map$1 = class extends Evented {
 		maxZoom = maxZoom === null || maxZoom === void 0 ? defaultMaxZoom : maxZoom;
 		if (maxZoom >= this._camera.transform.minZoom) {
 			const zoomBefore = this._camera.transform.zoom;
-			const tr = this._camera.getTransformForUpdate();
-			tr.setMaxZoom(maxZoom);
-			this._camera.applyUpdatedTransform(tr);
+			this._camera.applyTransformChange((tr) => tr.setMaxZoom(maxZoom));
 			this._update();
 			if (zoomBefore !== this._camera.transform.zoom) this.fire(new MapMovementEvent("zoomstart")).fire(new MapMovementEvent("zoom")).fire(new MapMovementEvent("zoomend")).fire(new MapMovementEvent("movestart")).fire(new MapMovementEvent("move")).fire(new MapMovementEvent("moveend"));
 			return this;
@@ -25516,9 +26077,7 @@ var Map$1 = class extends Evented {
 		if (minPitch < defaultMinPitch) throw new Error(`minPitch must be greater than or equal to ${defaultMinPitch}`);
 		if (minPitch >= defaultMinPitch && minPitch <= this._camera.transform.maxPitch) {
 			const pitchBefore = this._camera.transform.pitch;
-			const tr = this._camera.getTransformForUpdate();
-			tr.setMinPitch(minPitch);
-			this._camera.applyUpdatedTransform(tr);
+			this._camera.applyTransformChange((tr) => tr.setMinPitch(minPitch));
 			this._update();
 			if (pitchBefore !== this._camera.transform.pitch) this.fire(new MapMovementEvent("pitchstart")).fire(new MapMovementEvent("pitch")).fire(new MapMovementEvent("pitchend")).fire(new MapMovementEvent("movestart")).fire(new MapMovementEvent("move")).fire(new MapMovementEvent("moveend"));
 			return this;
@@ -25548,9 +26107,7 @@ var Map$1 = class extends Evented {
 		if (maxPitch > maxPitchThreshold) throw new Error(`maxPitch must be less than or equal to ${maxPitchThreshold}`);
 		if (maxPitch >= this._camera.transform.minPitch) {
 			const pitchBefore = this._camera.transform.pitch;
-			const tr = this._camera.getTransformForUpdate();
-			tr.setMaxPitch(maxPitch);
-			this._camera.applyUpdatedTransform(tr);
+			this._camera.applyTransformChange((tr) => tr.setMaxPitch(maxPitch));
 			this._update();
 			if (pitchBefore !== this._camera.transform.pitch) this.fire(new MapMovementEvent("pitchstart")).fire(new MapMovementEvent("pitch")).fire(new MapMovementEvent("pitchend")).fire(new MapMovementEvent("movestart")).fire(new MapMovementEvent("move")).fire(new MapMovementEvent("moveend"));
 			return this;
@@ -25633,7 +26190,7 @@ var Map$1 = class extends Evented {
 	* @see [Render world copies](https://maplibre.org/maplibre-gl-js/docs/examples/render-world-copies/)
 	*/
 	setRenderWorldCopies(renderWorldCopies) {
-		this._camera.transform.setRenderWorldCopies(renderWorldCopies);
+		this._camera.applyTransformChange((tr) => tr.setRenderWorldCopies(renderWorldCopies));
 		return this._update();
 	}
 	/** Sets or clears the callback overriding how the map constrains the viewport's lnglat and zoom to respect the longitude and latitude bounds.
@@ -25651,7 +26208,7 @@ var Map$1 = class extends Evented {
 	* @see [Customize the map transform constrain](https://maplibre.org/maplibre-gl-js/docs/examples/customize-the-map-transform-constrain/)
 	*/
 	setTransformConstrain(constrain) {
-		this._camera.transform.setConstrainOverride(constrain);
+		this._camera.applyTransformChange((tr) => tr.setConstrainOverride(constrain));
 		return this._update();
 	}
 	/**
@@ -25723,7 +26280,7 @@ var Map$1 = class extends Evented {
 	isRotating() {
 		return this._camera.isRotating() || this._handlers?.isRotating() || false;
 	}
-	_createDelegatedListener(type, layerIds, listener) {
+	_createDelegates(type, layerIds, listener) {
 		if (type === "mouseenter" || type === "mouseover") {
 			let mousein = false;
 			const mousemove = (e) => {
@@ -25739,12 +26296,8 @@ var Map$1 = class extends Evented {
 				mousein = false;
 			};
 			return {
-				layers: layerIds,
-				listener,
-				delegates: {
-					mousemove,
-					mouseout
-				}
+				mousemove,
+				mouseout
 			};
 		} else if (type === "mouseleave" || type === "mouseout") {
 			let mousein = false;
@@ -25763,12 +26316,8 @@ var Map$1 = class extends Evented {
 				}
 			};
 			return {
-				layers: layerIds,
-				listener,
-				delegates: {
-					mousemove,
-					mouseout
-				}
+				mousemove,
+				mouseout
 			};
 		} else {
 			const delegate = (e) => {
@@ -25780,17 +26329,14 @@ var Map$1 = class extends Evented {
 					delete e.features;
 				}
 			};
-			return {
-				layers: layerIds,
-				listener,
-				delegates: { [type]: delegate }
-			};
+			return { [type]: delegate };
 		}
 	}
-	_saveDelegatedListener(type, delegatedListener) {
+	_addDelegatedListener(type, delegatedListener) {
 		this._delegatedListeners ||= {};
 		this._delegatedListeners[type] ||= [];
 		this._delegatedListeners[type].push(delegatedListener);
+		for (const event in delegatedListener.delegates) this.on(event, delegatedListener.delegates[event]);
 	}
 	_removeDelegatedListener(type, layerIds, listener) {
 		if (!this._delegatedListeners?.[type]) return;
@@ -25807,9 +26353,12 @@ var Map$1 = class extends Evented {
 	on(type, layerIdsOrListener, listener) {
 		if (listener === void 0) return super.on(type, layerIdsOrListener);
 		const layerIds = typeof layerIdsOrListener === "string" ? [layerIdsOrListener] : layerIdsOrListener;
-		const delegatedListener = this._createDelegatedListener(type, layerIds, listener);
-		this._saveDelegatedListener(type, delegatedListener);
-		for (const event in delegatedListener.delegates) this.on(event, delegatedListener.delegates[event]);
+		const delegatedListener = {
+			layers: layerIds,
+			listener,
+			delegates: this._createDelegates(type, layerIds, listener)
+		};
+		this._addDelegatedListener(type, delegatedListener);
 		return { unsubscribe: () => {
 			this._removeDelegatedListener(type, layerIds, listener);
 		} };
@@ -25817,16 +26366,15 @@ var Map$1 = class extends Evented {
 	once(type, layerIdsOrListener, listener) {
 		if (listener === void 0) return super.once(type, layerIdsOrListener);
 		const layerIds = typeof layerIdsOrListener === "string" ? [layerIdsOrListener] : layerIdsOrListener;
-		const delegatedListener = this._createDelegatedListener(type, layerIds, listener);
-		for (const key in delegatedListener.delegates) {
-			const delegate = delegatedListener.delegates[key];
-			delegatedListener.delegates[key] = (...args) => {
+		const delegatedListener = {
+			layers: layerIds,
+			listener,
+			delegates: this._createDelegates(type, layerIds, (e) => {
 				this._removeDelegatedListener(type, layerIds, listener);
-				delegate(...args);
-			};
-		}
-		this._saveDelegatedListener(type, delegatedListener);
-		for (const event in delegatedListener.delegates) this.once(event, delegatedListener.delegates[event]);
+				listener.call(this, e);
+			})
+		};
+		this._addDelegatedListener(type, delegatedListener);
 		return this;
 	}
 	off(type, layerIdsOrListener, listener) {
@@ -27246,12 +27794,16 @@ var Map$1 = class extends Evented {
 	getCanvas() {
 		return this._canvas;
 	}
+	/**
+	* @internal
+	* The viewport in whole CSS pixels, shared by the canvas, the painter and the transform.
+	*/
 	_containerDimensions() {
 		let width = 0;
 		let height = 0;
 		if (this._container) {
-			width = this._container.clientWidth || 400;
-			height = this._container.clientHeight || 300;
+			width = Math.floor(this._container.clientWidth) || 400;
+			height = Math.floor(this._container.clientHeight) || 300;
 		}
 		return [width, height];
 	}
@@ -27339,11 +27891,19 @@ var Map$1 = class extends Evented {
 		this._container.removeEventListener("scroll", this._onMapScroll, false);
 		this._container.classList.remove("maplibregl-map");
 	}
+	/**
+	* @internal
+	* Sizes the backing store to whole device pixels and the CSS box to cover exactly that many, so
+	* the compositor never rescales the canvas. A pixel ratio can sit a fraction below a whole
+	* number, where truncating the count would cost a whole pixel per axis.
+	*/
 	_resizeCanvas(width, height, pixelRatio) {
-		this._canvas.width = Math.floor(pixelRatio * width);
-		this._canvas.height = Math.floor(pixelRatio * height);
-		this._canvas.style.width = `${width}px`;
-		this._canvas.style.height = `${height}px`;
+		const canvasWidth = Math.round(pixelRatio * width);
+		const canvasHeight = Math.round(pixelRatio * height);
+		this._canvas.width = canvasWidth;
+		this._canvas.height = canvasHeight;
+		this._canvas.style.width = `${canvasWidth / pixelRatio}px`;
+		this._canvas.style.height = `${canvasHeight / pixelRatio}px`;
 	}
 	/**
 	* @internal
@@ -27363,7 +27923,7 @@ var Map$1 = class extends Evented {
 		}, { once: true });
 		const gl = this._canvas.getContext("webgl2", attributes);
 		if (!gl) throw new GPUInitializationError(attributes, creationEvent);
-		this.painter = new Painter(gl, this._camera.transform);
+		this.painter = new Painter(gl);
 	}
 	/**
 	* @internal
@@ -27373,7 +27933,6 @@ var Map$1 = class extends Evented {
 	*/
 	migrateProjection(newTransform, newCameraHelper) {
 		this._camera.migrateProjection(newTransform, newCameraHelper);
-		this.painter.transform = newTransform;
 		this.fire(new MapProjectionEvent({ newProjection: this.style.projection.name }));
 	}
 	/**
@@ -27468,15 +28027,29 @@ var Map$1 = class extends Evented {
 			if (this.getCenterClampedToGround()) this._camera.transform.setElevation(0);
 		}
 		this._placementDirty = this.style?._updatePlacement(this._camera.transform, this.showCollisionBoxes, fadeDuration, this._crossSourceCollisions, globeRenderingChanged);
-		this.painter.render(this.style, {
+		const projection = this.style.projection;
+		const projectionTransition = projection?.transitionState ?? 0;
+		this.painter.render(this.style, this._camera.transform, {
 			showTileBoundaries: this.showTileBoundaries,
 			showOverdrawInspector: this._showOverdrawInspector,
 			rotating: this.isRotating(),
 			zooming: this.isZooming(),
 			moving: this.isMoving(),
 			fadeDuration,
+			symbolFadeChange: this.style.placement.symbolFadeChange(now()),
 			showPadding: this.showPadding,
-			anisotropicFilterPitch: this.getAnisotropicFilterPitch()
+			anisotropicFilterPitch: this.getAnisotropicFilterPitch(),
+			projectionTransition,
+			isRenderingGlobe: projectionTransition > 0,
+			projectionShaderVariant: projection ? {
+				name: projection.shaderVariantName,
+				define: projection.shaderDefine,
+				prelude: projection.shaderPreludeCode
+			} : void 0,
+			useSubdivision: projection?.useSubdivision ?? false,
+			pixelRatio: this._clampedPixelRatio,
+			light: this.style.light?.getEvaluated(),
+			sky: this.style.sky?.getEvaluated()
 		});
 		this.fire(new MapLibreEvent("render"));
 		if (this.loaded() && !this._loaded) {
@@ -28712,7 +29285,8 @@ const defaultOptions$2 = {
 	fitBoundsOptions: { maxZoom: 15 },
 	trackUserLocation: false,
 	showAccuracyCircle: true,
-	showUserLocation: true
+	showUserLocation: true,
+	zoomToUserAccuracy: true
 };
 let numberOfWatches = 0;
 let noTimeout = false;
@@ -28961,11 +29535,22 @@ var GeolocateControl = class extends Evented {
 		};
 		this._updateCamera = (position) => {
 			const center = new LngLat(position.coords.longitude, position.coords.latitude);
-			const radius = position.coords.accuracy;
 			const bearing = this._map.getBearing();
+			const eventData = { geolocateSource: true };
+			if (!this.options.zoomToUserAccuracy) {
+				const options = extend({}, this.options.fitBoundsOptions, {
+					center,
+					bearing,
+					zoom: this._map.getZoom()
+				});
+				if (options.linear) this._map.easeTo(options, eventData);
+				else this._map.flyTo(options, eventData);
+				return;
+			}
+			const radius = position.coords.accuracy;
 			const options = extend({ bearing }, this.options.fitBoundsOptions);
 			const newBounds = LngLatBounds.fromLngLat(center, radius);
-			this._map.fitBounds(newBounds, options, { geolocateSource: true });
+			this._map.fitBounds(newBounds, options, eventData);
 		};
 		this._updateMarker = (position) => {
 			if (position) {

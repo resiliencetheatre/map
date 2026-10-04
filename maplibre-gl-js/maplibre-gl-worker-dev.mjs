@@ -1,8 +1,8 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.11.1/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.12.0/LICENSE.txt
 */
-import { An as addProtocol, Br as EXTENT, D as clipGeometry, Dt as RGBAImage, Et as AlphaImage, F as potpack, Fn as isAbortError, G as GeoJSONVT, H as rtlWorkerPlugin, Ir as warnOnce, Ln as JSON_PREFIX, Mn as removeProtocol, N as ImageAtlas, On as makeRequest, Tn as getJSON, Ui as Point, Vt as CollisionBoxArray, _ as createStyleLayer, bt as DEMData, c as GeoJSONWrapper, d as OverscaledTileID, dn as createExpression, dr as isImageBitmap, dt as VectorTile, en as EvaluationParameters, g as Actor, gr as isWorker, i as MLTVectorTile, l as fromVectorTileJs, ln as groupByLayout, lr as getImageData, nn as register, o as DictionaryCoder, r as FeatureIndex, rr as extend, t as BoundedLRUCache, tr as ensureError, un as featureFilter, vr as mapObject, wn as getArrayBuffer, z as PbfReader } from "./maplibre-gl-shared-dev.mjs";
+import { D as clipGeometry, Dt as AlphaImage, En as getJSON, F as potpack, H as rtlWorkerPlugin, Ht as CollisionBoxArray, In as isAbortError, K as GeoJSONVT, Lr as warnOnce, N as ImageAtlas, Nn as removeProtocol, Ot as RGBAImage, Rn as JSON_PREFIX, Tn as getArrayBuffer, Vr as EXTENT, Wi as Point, _ as createStyleLayer, _r as isWorker, c as GeoJSONWrapper, d as OverscaledTileID, dn as featureFilter, fn as createExpression, fr as isImageBitmap, ft as VectorTile, g as Actor, i as MLTVectorTile, ir as extend, jn as addProtocol, kn as makeRequest, l as fromVectorTileJs, nr as ensureError, o as DictionaryCoder, r as FeatureIndex, rn as register, t as BoundedLRUCache, tn as EvaluationParameters, un as groupByLayout, ur as getImageData, xt as DEMData, yr as mapObject, z as PbfReader } from "./maplibre-gl-shared-dev.mjs";
 //#region src/style/style_layer_index.ts
 var StyleLayerIndex = class {
 	constructor(layerConfigs, globalState) {
@@ -50,22 +50,25 @@ var GlyphAtlas = class {
 		const positions = {};
 		const bins = [];
 		for (const stack in stacks) {
-			const glyphs = stacks[stack];
 			const stackPositions = positions[stack] = {};
-			for (const id in glyphs) {
-				const src = glyphs[id];
-				if (!src || src.bitmap.width === 0 || src.bitmap.height === 0) continue;
-				const bin = {
-					x: 0,
-					y: 0,
-					w: src.bitmap.width + 2,
-					h: src.bitmap.height + 2
-				};
-				bins.push(bin);
-				stackPositions[id] = {
-					rect: bin,
-					metrics: src.metrics
-				};
+			for (const variant in stacks[stack]) {
+				const glyphs = stacks[stack][variant];
+				stackPositions[variant] = {};
+				for (const id in glyphs) {
+					const src = glyphs[id];
+					if (!src || src.bitmap.width === 0 || src.bitmap.height === 0) continue;
+					const bin = {
+						x: 0,
+						y: 0,
+						w: src.bitmap.width + 2,
+						h: src.bitmap.height + 2
+					};
+					bins.push(bin);
+					stackPositions[variant][id] = {
+						rect: bin,
+						metrics: src.metrics
+					};
+				}
 			}
 		}
 		const { w, h } = potpack(bins);
@@ -73,12 +76,12 @@ var GlyphAtlas = class {
 			width: w || 1,
 			height: h || 1
 		});
-		for (const stack in stacks) {
-			const glyphs = stacks[stack];
+		for (const stack in stacks) for (const variant in stacks[stack]) {
+			const glyphs = stacks[stack][variant];
 			for (const id in glyphs) {
 				const src = glyphs[id];
 				if (!src || src.bitmap.width === 0 || src.bitmap.height === 0) continue;
-				const bin = positions[stack][id].rect;
+				const bin = positions[stack][variant][id].rect;
 				AlphaImage.copy(src.bitmap, image, {
 					x: 0,
 					y: 0
@@ -161,7 +164,7 @@ var WorkerTile = class {
 				featureIndex.bucketLayerIDs.push(family.map((l) => l.id));
 			}
 		}
-		const stacks = mapObject(options.glyphDependencies, (glyphs) => Object.keys(glyphs));
+		const stacks = mapObject(options.glyphDependencies, (variants) => mapObject(variants, (glyphs) => Object.keys(glyphs)));
 		for (const request of this.inFlightDependencies) request?.abort();
 		this.inFlightDependencies = [];
 		let getGlyphsPromise = Promise.resolve({});
@@ -736,7 +739,6 @@ var GeoJSONWorkerSource = class {
 				features: []
 			}, params);
 			this._geoJSONIndex.updateData(params.dataDiff, this._getFilterPredicate(params.filter, params.source));
-			return;
 		}
 		if (params.updateCluster) this._geoJSONIndex.updateClusterOptions(params.geojsonVtOptions.cluster, getSuperclusterOptions(params));
 		if (this._geoJSONIndex == null) throw new Error(`Input data given to '${params.source}' is not a valid GeoJSON object.`);

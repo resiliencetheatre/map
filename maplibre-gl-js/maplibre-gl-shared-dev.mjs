@@ -1,6 +1,6 @@
 /**
 * MapLibre GL JS
-* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.11.1/LICENSE.txt
+* @license 3-Clause BSD. Full text of license: https://github.com/maplibre/maplibre-gl-js/blob/v6.12.0/LICENSE.txt
 */
 //#region \0rolldown/runtime.js
 var __create = Object.create;
@@ -14313,32 +14313,36 @@ register("StructArrayLayout2i4i12", StructArrayLayout2i4i12);
 * Implementation of the StructArray layout:
 * [0] - Int16[2]
 * [4] - Uint8[4]
+* [8] - Int8[2]
 *
 */
-var StructArrayLayout2i4ub8 = class extends StructArray {
+var StructArrayLayout2i4ub2b10 = class extends StructArray {
 	_refreshViews() {
 		this.uint8 = new Uint8Array(this.arrayBuffer);
 		this.int16 = new Int16Array(this.arrayBuffer);
+		this.int8 = new Int8Array(this.arrayBuffer);
 	}
-	emplaceBack(v0, v1, v2, v3, v4, v5) {
+	emplaceBack(v0, v1, v2, v3, v4, v5, v6, v7) {
 		const i = this.length;
 		this.resize(i + 1);
-		return this.emplace(i, v0, v1, v2, v3, v4, v5);
+		return this.emplace(i, v0, v1, v2, v3, v4, v5, v6, v7);
 	}
-	emplace(i, v0, v1, v2, v3, v4, v5) {
-		const o2 = i * 4;
-		const o1 = i * 8;
+	emplace(i, v0, v1, v2, v3, v4, v5, v6, v7) {
+		const o2 = i * 5;
+		const o1 = i * 10;
 		this.int16[o2 + 0] = v0;
 		this.int16[o2 + 1] = v1;
 		this.uint8[o1 + 4] = v2;
 		this.uint8[o1 + 5] = v3;
 		this.uint8[o1 + 6] = v4;
 		this.uint8[o1 + 7] = v5;
+		this.int8[o1 + 8] = v6;
+		this.int8[o1 + 9] = v7;
 		return i;
 	}
 };
-StructArrayLayout2i4ub8.prototype.bytesPerElement = 8;
-register("StructArrayLayout2i4ub8", StructArrayLayout2i4ub8);
+StructArrayLayout2i4ub2b10.prototype.bytesPerElement = 10;
+register("StructArrayLayout2i4ub2b10", StructArrayLayout2i4ub2b10);
 /**
 * @internal
 * Implementation of the StructArray layout:
@@ -15255,7 +15259,7 @@ var RasterBoundsArray = class extends StructArrayLayout4i8 {};
 var CircleLayoutArray = class extends StructArrayLayout2i4 {};
 var FillLayoutArray = class extends StructArrayLayout2i4 {};
 var FillExtrusionLayoutArray = class extends StructArrayLayout2i4i12 {};
-var LineLayoutArray = class extends StructArrayLayout2i4ub8 {};
+var LineLayoutArray = class extends StructArrayLayout2i4ub2b10 {};
 var LineExtLayoutArray = class extends StructArrayLayout2f8 {};
 var PatternLayoutArray = class extends StructArrayLayout10ui20 {};
 var DashLayoutArray = class extends StructArrayLayout8ui16 {};
@@ -17244,17 +17248,36 @@ var DEMData = class DEMData {
 		return this.unpack(pixels[index], pixels[index + 1], pixels[index + 2]);
 	}
 };
+/**
+* Packs an elevation into the RGB channels that {@link DEMData.unpack} decodes with the given
+* unpack vector `[redFactor, greenFactor, blueFactor, baseShift]`.
+*
+* A channel whose factor is 0 contributes nothing to the decoded elevation, so it packs to 0 and
+* takes no part in the scale the other channels are quantized by. When all three factors are 0
+* every color decodes to `-baseShift`, and the packed color is black.
+*/
 function packDEMData(v, unpackVector) {
 	const redFactor = unpackVector[0];
 	const greenFactor = unpackVector[1];
 	const blueFactor = unpackVector[2];
 	const baseShift = unpackVector[3];
-	const minScale = Math.min(redFactor, greenFactor, blueFactor);
+	const factors = [
+		redFactor,
+		greenFactor,
+		blueFactor
+	].filter((factor) => factor !== 0);
+	if (factors.length === 0) return {
+		r: 0,
+		g: 0,
+		b: 0
+	};
+	const minScale = Math.min(...factors);
 	const vScaled = Math.round((v + baseShift) / minScale);
+	const packChannel = (factor) => factor === 0 ? 0 : Math.floor(vScaled * minScale / factor) % 256;
 	return {
-		r: Math.floor(vScaled * minScale / redFactor) % 256,
-		g: Math.floor(vScaled * minScale / greenFactor) % 256,
-		b: Math.floor(vScaled * minScale / blueFactor) % 256
+		r: packChannel(redFactor),
+		g: packChannel(greenFactor),
+		b: packChannel(blueFactor)
 	};
 }
 register("DEMData", DEMData);
@@ -17622,15 +17645,11 @@ function indexSegment(head, stop) {
 	do {
 		const b = numBlocks++;
 		blockHead[b] = p;
-		let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+		let minX = p.x, minY = p.y, maxX = p.x, maxY = p.y;
 		let k = 0;
 		do {
 			const c = p.next;
 			p.z = b;
-			if (p.x < minX) minX = p.x;
-			if (p.x > maxX) maxX = p.x;
-			if (p.y < minY) minY = p.y;
-			if (p.y > maxY) maxY = p.y;
 			if (c.x < minX) minX = c.x;
 			if (c.x > maxX) maxX = c.x;
 			if (c.y < minY) minY = c.y;
@@ -17748,6 +17767,8 @@ function indexCurve(start, minX, minY, invSize) {
 		prev = node;
 	}
 	/** @type {Node} */ prev.nextZ = null;
+	sortArr.fill(null, 0, n);
+	sortBuf.fill(null, 0, n);
 }
 /** @param {number} n */
 function sortNodes(n) {
@@ -19717,6 +19738,60 @@ function getTileUnitsForMeters(distanceInMeters, canonical) {
 	return distanceInMeters * meterInMercator * tileUnitsPerMercator;
 }
 /**
+* Cosine of the sharpest turn between two walls that is still shaded as one curved surface, 35 degrees.
+* Rounded corners split their arc into steps of 30 degrees or less.
+*/
+const SMOOTH_WALL_MIN_DOT = Math.cos(35 * Math.PI / 180);
+/**
+* How many times longer than its neighbour a wall has to be to keep its own normal where they meet.
+*/
+const LONG_WALL_RATIO = 2;
+/**
+* Returns the normals of each wall of a rounded ring, indexed by the wall's end vertex, so that the
+* lighting blends across a rounded corner. Boundary and zero-length walls get `null`.
+* @param ring - Ring as passed to the bucket, closed or open
+*/
+function roundedWallNormals(ring) {
+	const perps = [null];
+	for (let p = 1; p < ring.length; p++) {
+		const edge = ring[p].sub(ring[p - 1]);
+		const isWall = !isBoundaryEdge(ring[p], ring[p - 1]) && edge.mag() > 0;
+		perps.push(isWall ? edge._perp() : null);
+	}
+	const last = ring.length - 1;
+	const isClosed = last > 1 && ring[0].equals(ring[last]);
+	const normals = [null];
+	for (let p = 1; p <= last; p++) {
+		const perp = perps[p];
+		if (!perp) {
+			normals.push(null);
+			continue;
+		}
+		const previous = isClosed && p === 1 ? perps[last] : perps[p - 1];
+		const next = isClosed && p === last ? perps[1] : perps[p + 1];
+		normals.push({
+			start: smoothNormal(perp, previous),
+			end: smoothNormal(perp, next)
+		});
+	}
+	return normals;
+}
+/**
+* Returns the normal of a wall at the vertex it shares with a neighbouring wall. At a shallow turn both
+* walls share one normal: the much longer wall's own, which keeps a straight wall evenly lit up to the
+* arc, or else their average weighted by length. At a sharp turn the wall keeps its own.
+* @param perp - Perpendicular of the wall, as long as the wall
+* @param neighbour - Perpendicular of the neighbouring wall, if there is one
+*/
+function smoothNormal(perp, neighbour) {
+	if (!neighbour) return perp.unit();
+	const length = perp.mag();
+	const neighbourLength = neighbour.mag();
+	if (perp.x * neighbour.x + perp.y * neighbour.y < SMOOTH_WALL_MIN_DOT * length * neighbourLength || length >= LONG_WALL_RATIO * neighbourLength) return perp.unit();
+	if (neighbourLength >= LONG_WALL_RATIO * length) return neighbour.unit();
+	return perp.add(neighbour)._unit();
+}
+/**
 * Rounds the corners of a single ring.
 *
 * Corners that tile clipping created are left sharp: they belong to the cut rather than to the
@@ -19929,19 +20004,24 @@ var FillExtrusionBucket = class {
 	*/
 	_generateSideFaces(geometry, segmentReference) {
 		let edgeDistance = 0;
+		const wallNormals = this.layers[0].layout.get("fill-extrusion-rounded-corner-distance") > 0 ? roundedWallNormals(geometry) : null;
 		for (let p = 1; p < geometry.length; p++) {
 			const p1 = geometry[p];
 			const p2 = geometry[p - 1];
-			if (isBoundaryEdge(p1, p2)) continue;
+			if (isBoundaryEdge(p1, p2) || wallNormals && !wallNormals[p]) continue;
 			if (segmentReference.segment.vertexLength + 4 > SegmentVector.MAX_VERTEX_ARRAY_LENGTH) segmentReference.segment = this.segments.prepareSegment(4, this.layoutVertexArray, this.indexArray);
 			const perp = p1.sub(p2)._perp()._unit();
+			const { start, end } = wallNormals ? wallNormals[p] : {
+				start: perp,
+				end: perp
+			};
 			const dist = p2.dist(p1);
 			if (edgeDistance + dist > 32768) edgeDistance = 0;
-			addVertex$1(this.layoutVertexArray, p1.x, p1.y, perp.x, perp.y, 0, 0, edgeDistance);
-			addVertex$1(this.layoutVertexArray, p1.x, p1.y, perp.x, perp.y, 0, 1, edgeDistance);
+			addVertex$1(this.layoutVertexArray, p1.x, p1.y, end.x, end.y, 0, 0, edgeDistance);
+			addVertex$1(this.layoutVertexArray, p1.x, p1.y, end.x, end.y, 0, 1, edgeDistance);
 			edgeDistance += dist;
-			addVertex$1(this.layoutVertexArray, p2.x, p2.y, perp.x, perp.y, 0, 0, edgeDistance);
-			addVertex$1(this.layoutVertexArray, p2.x, p2.y, perp.x, perp.y, 0, 1, edgeDistance);
+			addVertex$1(this.layoutVertexArray, p2.x, p2.y, start.x, start.y, 0, 0, edgeDistance);
+			addVertex$1(this.layoutVertexArray, p2.x, p2.y, start.x, start.y, 0, 1, edgeDistance);
 			const bottomRight = segmentReference.segment.vertexLength;
 			this.indexArray.emplaceBack(bottomRight, bottomRight + 2, bottomRight + 1);
 			this.indexArray.emplaceBack(bottomRight + 1, bottomRight + 2, bottomRight + 3);
@@ -22021,15 +22101,23 @@ var GeoJSONVT = class {
 };
 //#endregion
 //#region src/data/bucket/line_attributes.ts
-const lineLayoutAttributes = createLayout([{
-	name: "a_pos_normal",
-	components: 2,
-	type: "Int16"
-}, {
-	name: "a_data",
-	components: 4,
-	type: "Uint8"
-}], 4);
+const lineLayoutAttributes = createLayout([
+	{
+		name: "a_pos_normal",
+		components: 2,
+		type: "Int16"
+	},
+	{
+		name: "a_data",
+		components: 4,
+		type: "Uint8"
+	},
+	{
+		name: "a_offset_normal",
+		components: 2,
+		type: "Int8"
+	}
+], 2);
 const members$1 = lineLayoutAttributes.members;
 lineLayoutAttributes.size;
 lineLayoutAttributes.alignment;
@@ -22053,6 +22141,17 @@ const EXTRUDE_SCALE = 63;
 const COS_HALF_SHARP_CORNER = Math.cos(75 / 2 * (Math.PI / 180));
 const SHARP_CORNER_OFFSET = 15;
 const DEG_PER_TRIANGLE = 20;
+/**
+* Longest miter vector `line-offset` follows into a corner. It is also as far as the vector can be
+* stored: a_offset_normal holds bytes scaled by EXTRUDE_SCALE, which cap out at 127 / 63.
+*/
+const MAX_OFFSET_MITER_LENGTH = 2;
+/**
+* Miter length at which `line-offset` starts easing from the miter vector of a join to the plain
+* segment normals. The bisector of a near hairpin points along the line rather than across it, so a
+* corner that sharp is offset forwards past its neighbours instead of sideways.
+*/
+const OFFSET_FALLBACK_START = 3;
 const LINE_DISTANCE_SCALE = 1 / 2;
 const MAX_LINE_DISTANCE = Math.pow(2, 14) / LINE_DISTANCE_SCALE;
 /**
@@ -22216,6 +22315,8 @@ var LineBucket = class {
 			const approxAngle = 2 * Math.sqrt(2 - 2 * cosHalfAngle);
 			const isSharpCorner = cosHalfAngle < COS_HALF_SHARP_CORNER && prevVertex && nextVertex;
 			const lineTurnsLeft = prevNormal.x * nextNormal.y - prevNormal.y * nextNormal.x > 0;
+			const offsetNormal = joinNormal.mult(Math.min(miterLength, MAX_OFFSET_MITER_LENGTH));
+			const offsetFallback = clamp$2((miterLength - OFFSET_FALLBACK_START) / 5, 0, 1);
 			if (isSharpCorner && i > first) {
 				const prevSegmentLength = currentVertex.dist(prevVertex);
 				if (prevSegmentLength > 2 * sharpCornerOffset) {
@@ -22239,20 +22340,20 @@ var LineBucket = class {
 			if (prevVertex) this.updateDistance(prevVertex, currentVertex);
 			if (currentJoin === "miter") {
 				joinNormal._mult(miterLength);
-				this.addCurrentVertex(currentVertex, joinNormal, 0, 0, segment);
+				this.addCurrentVertex(currentVertex, joinNormal, 0, 0, segment, false, offsetNormal);
 			} else if (currentJoin === "flipbevel") {
 				if (miterLength > 100) joinNormal = nextNormal.mult(-1);
 				else {
 					const bevelLength = miterLength * prevNormal.add(nextNormal).mag() / prevNormal.sub(nextNormal).mag();
 					joinNormal._perp()._mult(bevelLength * (lineTurnsLeft ? -1 : 1));
 				}
-				this.addCurrentVertex(currentVertex, joinNormal, 0, 0, segment);
-				this.addCurrentVertex(currentVertex, joinNormal.mult(-1), 0, 0, segment);
+				this.addCurrentVertex(currentVertex, joinNormal, 0, 0, segment, false, offsetNormal, offsetFallback);
+				this.addCurrentVertex(currentVertex, joinNormal.mult(-1), 0, 0, segment, false, offsetNormal, offsetFallback);
 			} else if (currentJoin === "bevel" || currentJoin === "fakeround") {
 				const offset = -Math.sqrt(miterLength * miterLength - 1);
 				const offsetA = lineTurnsLeft ? offset : 0;
 				const offsetB = lineTurnsLeft ? 0 : offset;
-				if (prevVertex) this.addCurrentVertex(currentVertex, prevNormal, offsetA, offsetB, segment);
+				if (prevVertex) this.addCurrentVertex(currentVertex, prevNormal, offsetA, offsetB, segment, false, offsetNormal);
 				if (currentJoin === "fakeround") {
 					const n = Math.round(approxAngle * 180 / Math.PI / DEG_PER_TRIANGLE);
 					for (let m = 1; m < n; m++) {
@@ -22264,22 +22365,22 @@ var LineBucket = class {
 							t = t + t * t2 * (t - 1) * (A * t2 * t2 + B);
 						}
 						const extrude = nextNormal.sub(prevNormal)._mult(t)._add(prevNormal)._unit()._mult(lineTurnsLeft ? -1 : 1);
-						this.addHalfVertex(currentVertex, extrude.x, extrude.y, false, lineTurnsLeft, 0, segment);
+						this.addHalfVertex(currentVertex, extrude.x, extrude.y, lineTurnsLeft ? -offsetNormal.x : offsetNormal.x, lineTurnsLeft ? -offsetNormal.y : offsetNormal.y, false, lineTurnsLeft, segment);
 					}
 				}
-				if (nextVertex) this.addCurrentVertex(currentVertex, nextNormal, -offsetA, -offsetB, segment);
-			} else if (currentJoin === "butt") this.addCurrentVertex(currentVertex, joinNormal, 0, 0, segment);
+				if (nextVertex) this.addCurrentVertex(currentVertex, nextNormal, -offsetA, -offsetB, segment, false, offsetNormal);
+			} else if (currentJoin === "butt") this.addCurrentVertex(currentVertex, joinNormal, 0, 0, segment, false, offsetNormal);
 			else if (currentJoin === "square") {
 				const offset = prevVertex ? 1 : -1;
-				this.addCurrentVertex(currentVertex, joinNormal, offset, offset, segment);
+				this.addCurrentVertex(currentVertex, joinNormal, offset, offset, segment, false, offsetNormal);
 			} else if (currentJoin === "round") {
 				if (prevVertex) {
-					this.addCurrentVertex(currentVertex, prevNormal, 0, 0, segment);
-					this.addCurrentVertex(currentVertex, prevNormal, 1, 1, segment, true);
+					this.addCurrentVertex(currentVertex, prevNormal, 0, 0, segment, false, offsetNormal, offsetFallback);
+					this.addCurrentVertex(currentVertex, prevNormal, 1, 1, segment, true, offsetNormal, offsetFallback);
 				}
 				if (nextVertex) {
-					this.addCurrentVertex(currentVertex, nextNormal, -1, -1, segment, true);
-					this.addCurrentVertex(currentVertex, nextNormal, 0, 0, segment);
+					this.addCurrentVertex(currentVertex, nextNormal, -1, -1, segment, true, offsetNormal, offsetFallback);
+					this.addCurrentVertex(currentVertex, nextNormal, 0, 0, segment, false, offsetNormal, offsetFallback);
 				}
 			}
 			if (isSharpCorner && i < len - 1) {
@@ -22302,23 +22403,41 @@ var LineBucket = class {
 	* @param endRight - extrude to shift the left vertex along the line
 	* @param segment - the segment object to add the vertex to
 	* @param round - whether this is a round cap
+	* @param offsetNormal - the vector `line-offset` moves this vertex along. An offset line turns its corner where
+	* the two offset segments meet, on the angle bisector `miterLength` away, so every vertex of a join shares that
+	* vector. Defaults to the vertex normal, which is where a vertex outside a join belongs.
+	* @param offsetFallback - how far to ease `offsetNormal` back to the vertex normal, see {@link OFFSET_FALLBACK_START}
 	*/
-	addCurrentVertex(p, normal, endLeft, endRight, segment, round = false) {
+	addCurrentVertex(p, normal, endLeft, endRight, segment, round = false, offsetNormal = normal, offsetFallback = 0) {
 		const leftX = normal.x + normal.y * endLeft;
 		const leftY = normal.y - normal.x * endLeft;
 		const rightX = -normal.x + normal.y * endRight;
 		const rightY = -normal.y - normal.x * endRight;
-		this.addHalfVertex(p, leftX, leftY, round, false, endLeft, segment);
-		this.addHalfVertex(p, rightX, rightY, round, true, -endRight, segment);
+		const offsetX = offsetNormal.x + (normal.x - offsetNormal.x) * offsetFallback;
+		const offsetY = offsetNormal.y + (normal.y - offsetNormal.y) * offsetFallback;
+		this.addHalfVertex(p, leftX, leftY, offsetX, offsetY, round, false, segment);
+		this.addHalfVertex(p, rightX, rightY, -offsetX, -offsetY, round, true, segment);
 		if (this.distance > MAX_LINE_DISTANCE / 2 && this.totalDistance === 0) {
 			this.distance = 0;
 			this.updateScaledDistance();
-			this.addCurrentVertex(p, normal, endLeft, endRight, segment, round);
+			this.addCurrentVertex(p, normal, endLeft, endRight, segment, round, offsetNormal, offsetFallback);
 		}
 	}
-	addHalfVertex({ x, y }, extrudeX, extrudeY, round, up, dir, segment) {
+	/**
+	* Add a single vertex to the buffers.
+	*
+	* @param p - the line vertex to add a buffer vertex for
+	* @param extrudeX - x of the vector the vertex is extruded along by half the line width
+	* @param extrudeY - y of the vector the vertex is extruded along by half the line width
+	* @param offsetX - x of the vector `line-offset` moves the vertex along
+	* @param offsetY - y of the vector `line-offset` moves the vertex along
+	* @param round - whether this is a round cap
+	* @param up - whether this is the vertex on the positive side of the normal
+	* @param segment - the segment object to add the vertex to
+	*/
+	addHalfVertex({ x, y }, extrudeX, extrudeY, offsetX, offsetY, round, up, segment) {
 		const linesofarScaled = (this.lineClips ? this.scaledDistance * (MAX_LINE_DISTANCE - 1) : this.scaledDistance) * LINE_DISTANCE_SCALE;
-		this.layoutVertexArray.emplaceBack((x << 1) + (round ? 1 : 0), (y << 1) + (up ? 1 : 0), Math.round(EXTRUDE_SCALE * extrudeX) + 128, Math.round(EXTRUDE_SCALE * extrudeY) + 128, (dir === 0 ? 0 : dir < 0 ? -1 : 1) + 1 | (linesofarScaled & 63) << 2, linesofarScaled >> 6);
+		this.layoutVertexArray.emplaceBack((x << 1) + (round ? 1 : 0), (y << 1) + (up ? 1 : 0), Math.round(EXTRUDE_SCALE * extrudeX) + 128, Math.round(EXTRUDE_SCALE * extrudeY) + 128, (linesofarScaled & 63) << 2, linesofarScaled >> 6, Math.round(EXTRUDE_SCALE * offsetX), Math.round(EXTRUDE_SCALE * offsetY));
 		if (this.lineClips) {
 			const uvX = (this.scaledDistance - this.lineClips.start) / (this.lineClips.end - this.lineClips.start);
 			this.layoutVertexArray2.emplaceBack(uvX, this.lineClipsArray.length);
@@ -22679,7 +22798,7 @@ createLayout([
 		name: "heightOffset"
 	}
 ]);
-createLayout([
+const symbolInstance = createLayout([
 	{
 		type: "Int16",
 		name: "anchorX"
@@ -24001,7 +24120,7 @@ const breakableBefore = { [40]: true };
 */
 function getGlyphAdvance(grapheme, section, glyphMap, imagePositions, spacing, layoutTextSize) {
 	if ("fontStack" in section) {
-		const positions = glyphMap[section.fontStack];
+		const positions = glyphMap[section.fontStack]?.default;
 		const glyph = positions?.[grapheme];
 		if (glyph) return glyph.metrics.advance * section.scale + spacing;
 		let advance = 0;
@@ -26407,7 +26526,7 @@ function getVerticalAlignFactor(verticalAlign) {
 }
 function getRectAndMetrics(glyphPosition, glyphMap, section, key) {
 	if (glyphPosition?.rect) return glyphPosition;
-	const glyph = glyphMap[section.fontStack]?.[key];
+	const glyph = (glyphMap[section.fontStack]?.default)?.[key];
 	if (!glyph) return null;
 	return {
 		rect: null,
@@ -26541,7 +26660,7 @@ function shapeLines(shaping, glyphMap, glyphPositions, imagePositions, lines, li
 			const grapheme = graphemes[i];
 			const codePoint = grapheme.codePointAt(0);
 			const vertical = lineVerticals ? lineVerticals[i] : isLineVertical(writingMode, allowVerticalPlacement, codePoint);
-			const keys = "fontStack" in section && isCluster(grapheme) && !glyphMap[section.fontStack]?.[grapheme] ? [...grapheme] : [grapheme];
+			const keys = "fontStack" in section && isCluster(grapheme) && !glyphMap[section.fontStack]?.default?.[grapheme] ? [...grapheme] : [grapheme];
 			for (const key of keys) {
 				const positionedGlyph = {
 					glyph: key.codePointAt(0),
@@ -26604,7 +26723,7 @@ function shapeLines(shaping, glyphMap, glyphPositions, imagePositions, lines, li
 	shaping.right = shaping.left + maxLineLength;
 }
 function shapeTextSection(section, key, vertical, lineShapingSize, glyphMap, glyphPositions) {
-	const glyphPosition = glyphPositions[section.fontStack]?.[key];
+	const glyphPosition = (glyphPositions[section.fontStack]?.default)?.[key];
 	const rectAndMetrics = getRectAndMetrics(glyphPosition, glyphMap, section, key);
 	if (rectAndMetrics === null) return null;
 	let baselineOffset;
@@ -28153,7 +28272,7 @@ var SymbolBucket = class {
 		for (let i = 0; i < graphemes.length; i++) {
 			const section = tagged.getSection(i);
 			if ("imageName" in section) continue;
-			const stack = stacks[section.fontStack] ||= {};
+			const stack = (stacks[section.fontStack] ||= { default: {} }).default;
 			const grapheme = graphemes[i];
 			if (isCluster(grapheme)) stack[grapheme] = true;
 			for (const char of grapheme) {
@@ -34294,6 +34413,6 @@ var BoundedLRUCache = class {
 	}
 };
 //#endregion
-export { projectToWorldCoordinates as $, differenceOfAnglesDegrees as $n, add$4 as $r, Transitionable as $t, evaluateSizeForZoom as A, rotateX$3 as Ai, addProtocol as An, scaleZoom as Ar, toEvaluationFeature as At, isCluster as B, rotate$4 as Bi, arrayBufferToImage as Bn, EXTENT$1 as Br, SegmentVector as Bt, addDynamicAttributes as C, exactEquals$5 as Ci, GLOBAL_DISPATCHER_ID as Cn, pointPlaneSignedDistance as Cr, HEATMAP_FULL_RENDER_FBO_KEY as Ct, clipGeometry as D, multiply$5 as Di, getVideo as Dn, remapSaturate as Dr, RGBAImage as Dt, TextAnchorEnum as E, invert$2 as Ei, getReferrer as En, readImageUsingVideoFrame as Er, AlphaImage as Et, potpack as F, create$6 as Fi, isAbortError as Fn, uniqueId as Fr, Uniform4f as Ft, GeoJSONVT as G, createIdentityMat4f32 as Gn, zero as Gr, PosArray as Gt, rtlWorkerPlugin as H, offscreenCanvasSupported as Hi, bezier as Hn, length as Hr, CollisionCircleLayoutArray as Ht, isStyleImageWebGLData as I, fromRotation$2 as Ii, throwIfAborted as In, warnOnce as Ir, UniformColor as It, cameraDirectionFromPitchBearing as J, createVec3f64 as Jn, multiply$2 as Jr, TriangleIndexArray as Jt, isFillExtrusionStyleLayer as K, createIdentityMat4f64 as Kn, fromEuler as Kr, QuadTriangleArray as Kt, renderStyleImage as L, create$8 as Li, JSON_PREFIX as Ln, wrap$1 as Lr, UniformColorArray as Lt, getAnchorAlignment as M, rotateZ$3 as Mi, removeProtocol as Mn, subscribe as Mr, Uniform1i as Mt, ImageAtlas as N, scale$5 as Ni, config as Nn, threePlaneIntersection as Nr, Uniform2f as Nt, clipLine as O, ortho as Oi, makeRequest as On, rollPitchBearingEqual as Or, isCircleStyleLayer as Ot, ImagePosition as P, translate$2 as Pi, AbortError as Pn, translatePosition as Pr, Uniform3f as Pt, maxMercatorHorizonAngle as Q, degreesToRadians as Qn, transformMat4$1 as Qr, Properties as Qt, parseGlyphPbf as R, determinant$3 as Ri, MAX_VALID_LATITUDE as Rn, zoomScale as Rr, UniformFloatArray as Rt, SymbolBucket as S, equals$6 as Si, AJAXError as Sn, pick as Sr, isHillshadeStyleLayer as St, getAnchorJustification as T, identity$2 as Ti, getJSON as Tn, rayPlaneIntersection as Tr, renderColorRamp as Tt, collisionCircleLayout as U, Point as Ui, clamp$2 as Un, scale as Ur, LineStripIndexArray as Ut, codePointUsesLocalIdeographFontFamily as V, isOffscreenCanvasDistorted as Vi, arrayBufferToImageBitmap as Vn, create as Vr, CollisionBoxArray as Vt, isLineStyleLayer as W, clone as Wn, sqrLen as Wr, Pos3dArray as Wt, cameraMercatorCoordinateFromCenterAndRotation as X, deepEqual$1 as Xn, mul$3 as Xr, isRasterStyleLayer as Xt, cameraMercatorCoordinate as Y, createVec4f64 as Yn, slerp as Yr, createLayout as Yt, getMercatorHorizon as Z, defaultEasing as Zn, scale$3 as Zr, DataConstantProperty as Zt, createStyleLayer as _, transformQuat$1 as _i, derefLayers as _n, lerp as _r, SubdivisionGranularityExpression as _t, GeoJSONFeature as a, length$4 as ai, validateAndEmit as an, findLineIntersection as ar, lngFromMercatorX as at, isBackgroundStyleLayer as b, copy$5 as bi, Event as bn, nextPowerOfTwo as br, DEMData as bt, GeoJSONWrapper as c, rotateX$2 as ci, emptyStyle as cn, getEdgeTiles as cr, mercatorZfromAltitude as ct, OverscaledTileID as d, scale$4 as di, createExpression as dn, isImageBitmap as dr, VectorTile as dt, clone$5 as ei, EvaluationParameters as en, distanceOfAnglesRadians as er, tileCoordinatesToMercatorCoordinates as et, UnwrappedTileID as f, scaleAndAdd$2 as fi, interpolateFactory as fn, isPointableEvent as fr, EXTENT_BOUNDS as ft, Actor as g, transformMat4$2 as gi, diff as gn, isWorker as gr, SOUTH_POLE_Y as gt, isInBoundsForZoomLngLat as h, transformMat3$1 as hi, ValidationError as hn, isTouchableOrPointableType as hr, NORTH_POLE_Y as ht, MLTVectorTile as i, len$4 as ii, emitValidationErrors as in, filterObject as ir, latFromMercatorY as it, WritingMode as j, rotateY$3 as ji, getProtocol as jn, sphericalToCartesian as jr, Uniform1f as jt, evaluateSizeForFeature as k, perspective as ki, sameOrigin as kn, rollPitchBearingToQuat as kr, polygonIntersectsPolygon as kt, fromVectorTileJs as l, rotateY$2 as li, groupByLayout as ln, getImageData as lr, LngLat as lt, compareTileId as m, subtract$2 as mi, Color as mn, isTouchableEvent as mr, isFillStyleLayer as mt, TileCache as n, distance$2 as ni, register as nn, evaluateZoomSnap as nr, MercatorCoordinate as nt, DictionaryCoder as o, negate$2 as oi, validateStyle as on, getAABB as or, mercatorXfromLng as ot, calculateTileKey as p, sub$2 as pi, ProjectionDefinition as pn, isSafari as pr, Bounds as pt, calculateTileMatrix as q, createMat4f64 as qn, fromValues$2 as qr, RasterBoundsArray as qt, FeatureIndex as r, dot$5 as ri, SPEC_SOURCE_TYPES as rn, extend as rr, altitudeFromMercatorZ as rt, GEOJSON_TILE_LAYER_NAME as s, normalize$4 as si, validateStyleAndEmit as sn, getAngleDelta as sr, mercatorYfromLat as st, BoundedLRUCache as t, cross$2 as ti, ZoomHistory as tn, ensureError as tr, unprojectFromWorldCoordinates as tt, CanonicalTileID as u, rotateZ$2 as ui, featureFilter as un, getRollPitchBearing as ur, earthRadius as ut, isCustomStyleLayer as v, zero$2 as vi, latest as vn, mapObject as vr, SubdivisionGranularitySetting as vt, getOverlapMode as w, fromScaling as wi, getArrayBuffer as wn, radiansToDegrees as wr, isHeatmapStyleLayer as wt, isSymbolStyleLayer as x, create$5 as xi, Evented as xn, parseCacheControl as xr, Texture as xt, validateCustomStyleLayer as y, clone$6 as yi, ErrorEvent as yn, mod as yr, isColorReliefStyleLayer as yt, PbfReader as z, invert$5 as zi, angleToRotateBetweenVectors2D as zn, pixelsToTileUnits as zr, UniformMatrix4f as zt };
+export { maxMercatorHorizonAngle as $, degreesToRadians as $n, transformMat4$1 as $r, Properties as $t, evaluateSizeForZoom as A, perspective as Ai, sameOrigin as An, rollPitchBearingToQuat as Ar, polygonIntersectsPolygon as At, isCluster as B, invert$5 as Bi, angleToRotateBetweenVectors2D as Bn, pixelsToTileUnits as Br, UniformMatrix4f as Bt, addDynamicAttributes as C, equals$6 as Ci, AJAXError as Cn, pick as Cr, isHillshadeStyleLayer as Ct, clipGeometry as D, invert$2 as Di, getReferrer as Dn, readImageUsingVideoFrame as Dr, AlphaImage as Dt, TextAnchorEnum as E, identity$2 as Ei, getJSON as En, rayPlaneIntersection as Er, renderColorRamp as Et, potpack as F, translate$2 as Fi, AbortError as Fn, translatePosition as Fr, Uniform3f as Ft, isLineStyleLayer as G, clone as Gn, sqrLen as Gr, Pos3dArray as Gt, rtlWorkerPlugin as H, isOffscreenCanvasDistorted as Hi, arrayBufferToImageBitmap as Hn, create as Hr, CollisionBoxArray as Ht, isStyleImageWebGLData as I, create$6 as Ii, isAbortError as In, uniqueId as Ir, Uniform4f as It, calculateTileMatrix as J, createMat4f64 as Jn, fromValues$2 as Jr, RasterBoundsArray as Jt, GeoJSONVT as K, createIdentityMat4f32 as Kn, zero as Kr, PosArray as Kt, renderStyleImage as L, fromRotation$2 as Li, throwIfAborted as Ln, warnOnce as Lr, UniformColor as Lt, getAnchorAlignment as M, rotateY$3 as Mi, getProtocol as Mn, sphericalToCartesian as Mr, Uniform1f as Mt, ImageAtlas as N, rotateZ$3 as Ni, removeProtocol as Nn, subscribe as Nr, Uniform1i as Nt, clipLine as O, multiply$5 as Oi, getVideo as On, remapSaturate as Or, RGBAImage as Ot, ImagePosition as P, scale$5 as Pi, config as Pn, threePlaneIntersection as Pr, Uniform2f as Pt, getMercatorHorizon as Q, defaultEasing as Qn, scale$3 as Qr, DataConstantProperty as Qt, parseGlyphPbf as R, create$8 as Ri, JSON_PREFIX as Rn, wrap$1 as Rr, UniformColorArray as Rt, SymbolBucket as S, create$5 as Si, Evented as Sn, parseCacheControl as Sr, Texture as St, getAnchorJustification as T, fromScaling as Ti, getArrayBuffer as Tn, radiansToDegrees as Tr, isHeatmapStyleLayer as Tt, collisionCircleLayout as U, offscreenCanvasSupported as Ui, bezier as Un, length as Ur, CollisionCircleLayoutArray as Ut, codePointUsesLocalIdeographFontFamily as V, rotate$4 as Vi, arrayBufferToImage as Vn, EXTENT$1 as Vr, SegmentVector as Vt, symbolInstance as W, Point as Wi, clamp$2 as Wn, scale as Wr, LineStripIndexArray as Wt, cameraMercatorCoordinate as X, createVec4f64 as Xn, slerp as Xr, createLayout as Xt, cameraDirectionFromPitchBearing as Y, createVec3f64 as Yn, multiply$2 as Yr, TriangleIndexArray as Yt, cameraMercatorCoordinateFromCenterAndRotation as Z, deepEqual$1 as Zn, mul$3 as Zr, isRasterStyleLayer as Zt, createStyleLayer as _, transformMat4$2 as _i, diff as _n, isWorker as _r, SOUTH_POLE_Y as _t, GeoJSONFeature as a, len$4 as ai, emitValidationErrors as an, filterObject as ar, latFromMercatorY as at, isBackgroundStyleLayer as b, clone$6 as bi, ErrorEvent as bn, mod as br, isColorReliefStyleLayer as bt, GeoJSONWrapper as c, normalize$4 as ci, validateStyleAndEmit as cn, getAngleDelta as cr, mercatorYfromLat as ct, OverscaledTileID as d, rotateZ$2 as di, featureFilter as dn, getRollPitchBearing as dr, earthRadius as dt, add$4 as ei, Transitionable as en, differenceOfAnglesDegrees as er, projectToWorldCoordinates as et, UnwrappedTileID as f, scale$4 as fi, createExpression as fn, isImageBitmap as fr, VectorTile as ft, Actor as g, transformMat3$1 as gi, ValidationError as gn, isTouchableOrPointableType as gr, NORTH_POLE_Y as gt, isInBoundsForZoomLngLat as h, subtract$2 as hi, Color as hn, isTouchableEvent as hr, isFillStyleLayer as ht, MLTVectorTile as i, dot$5 as ii, SPEC_SOURCE_TYPES as in, extend as ir, altitudeFromMercatorZ as it, WritingMode as j, rotateX$3 as ji, addProtocol as jn, scaleZoom as jr, toEvaluationFeature as jt, evaluateSizeForFeature as k, ortho as ki, makeRequest as kn, rollPitchBearingEqual as kr, isCircleStyleLayer as kt, fromVectorTileJs as l, rotateX$2 as li, emptyStyle as ln, getEdgeTiles as lr, mercatorZfromAltitude as lt, compareTileId as m, sub$2 as mi, ProjectionDefinition as mn, isSafari as mr, Bounds as mt, TileCache as n, cross$2 as ni, ZoomHistory as nn, ensureError as nr, unprojectFromWorldCoordinates as nt, DictionaryCoder as o, length$4 as oi, validateAndEmit as on, findLineIntersection as or, lngFromMercatorX as ot, calculateTileKey as p, scaleAndAdd$2 as pi, interpolateFactory as pn, isPointableEvent as pr, EXTENT_BOUNDS as pt, isFillExtrusionStyleLayer as q, createIdentityMat4f64 as qn, fromEuler as qr, QuadTriangleArray as qt, FeatureIndex as r, distance$2 as ri, register as rn, evaluateZoomSnap as rr, MercatorCoordinate as rt, GEOJSON_TILE_LAYER_NAME as s, negate$2 as si, validateStyle as sn, getAABB as sr, mercatorXfromLng as st, BoundedLRUCache as t, clone$5 as ti, EvaluationParameters as tn, distanceOfAnglesRadians as tr, tileCoordinatesToMercatorCoordinates as tt, CanonicalTileID as u, rotateY$2 as ui, groupByLayout as un, getImageData as ur, LngLat as ut, isCustomStyleLayer as v, transformQuat$1 as vi, derefLayers as vn, lerp as vr, SubdivisionGranularityExpression as vt, getOverlapMode as w, exactEquals$5 as wi, GLOBAL_DISPATCHER_ID as wn, pointPlaneSignedDistance as wr, HEATMAP_FULL_RENDER_FBO_KEY as wt, isSymbolStyleLayer as x, copy$5 as xi, Event as xn, nextPowerOfTwo as xr, DEMData as xt, validateCustomStyleLayer as y, zero$2 as yi, latest as yn, mapObject as yr, SubdivisionGranularitySetting as yt, PbfReader as z, determinant$3 as zi, MAX_VALID_LATITUDE as zn, zoomScale as zr, UniformFloatArray as zt };
 
 //# sourceMappingURL=maplibre-gl-shared-dev.mjs.map
