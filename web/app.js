@@ -1,4 +1,5 @@
 import * as maplibregl from "/maplibre/maplibre-gl.mjs";
+import { createViewpointController } from "/viewpoint.mjs";
 
 const dot = document.querySelector("#status-dot");
 const label = document.querySelector("#status-text");
@@ -51,6 +52,37 @@ let refreshTimer = null;
 let latestPositions = [];
 let situationMap = null;
 let activeTargetState = "live";
+
+// Camera commands are shared by all open maps; each command is applied once.
+async function startViewpointRefresh(map) {
+  let lastId = null;
+  const requests = new AbortController();
+  map.on("remove", () => requests.abort());
+  const applyViewpoint = createViewpointController(map);
+  async function refresh() {
+    try {
+      const query = lastId ? `?after=${encodeURIComponent(lastId)}` : "";
+      const response = await fetch(`/api/viewpoint${query}`, { cache: "no-store", signal: requests.signal });
+      if (!response.ok) throw new Error("Viewpoint request failed");
+      const { viewpoint, elapsed = 0 } = await response.json();
+      if (viewpoint && viewpoint.id !== lastId) {
+        applyViewpoint(viewpoint, lastId === null, elapsed);
+        lastId = viewpoint.id;
+        fittedToLivePositions = true;
+      }
+    } catch (error) {
+      if (!requests.signal.aborted) console.warn("Viewpoint:", error);
+    }
+  }
+  await refresh();
+  // Changed commands return immediately; otherwise the server waits up to 20s.
+  const poll = async () => {
+    if (requests.signal.aborted) return;
+    await refresh();
+    if (!requests.signal.aborted) window.setTimeout(poll, 1000);
+  };
+  window.setTimeout(poll, 1000);
+}
 
 const savedIdleThreshold = Number(localStorage.getItem(IDLE_THRESHOLD_KEY));
 if (Number.isFinite(savedIdleThreshold) && savedIdleThreshold >= 1) {
@@ -567,7 +599,7 @@ Promise.all([
       map.on("mouseenter", "target-tail-points", () => { map.getCanvas().style.cursor = "pointer"; });
       map.on("mouseleave", "target-tail-points", () => { map.getCanvas().style.cursor = ""; });
       refreshIntervalSelect.addEventListener("change", () => startPositionRefresh(map));
-      startPositionRefresh(map);
+      startViewpointRefresh(map).then(() => startPositionRefresh(map));
       mapMessage.classList.add("hidden");
     });
     map.on("error", (event) => {

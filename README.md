@@ -53,6 +53,93 @@ near Luxembourg: civil protection, fire and rescue, and emergency medical
 services. Each symbol shows its designation and the age of its latest report;
 selecting it also shows speed and heading.
 
+### Flying a GeoJSON route
+
+Start `python-front.py`, open the map in a browser, and run:
+
+```sh
+python3 python-fly.py examples/flight-route.geojson --tilt 60 --altitude 1000 --speed 120
+```
+
+`python-fly.py` moves the camera along the route once, facing the direction of
+travel. `--speed` is in km/h (default 120), `--altitude` is camera height in
+metres above sea level, and `--tilt` is degrees from straight
+down, from 0 to 85. Supply both camera options for this flight view.
+With terrain enabled, choose an altitude above
+the local terrain. GeoJSON coordinate elevations are ignored. `--interval`
+sets timeline sample spacing in seconds (0.1–10, default 0.1); `--url` defaults to
+`http://127.0.0.1:8080/api/viewpoint`. Ctrl+C stops the flight at its current view.
+
+Omit both `--tilt` and `--altitude` to smoothly pan the map centre along the route
+while preserving the browser's current zoom, tilt, and orientation:
+
+```sh
+python3 python-fly.py examples/flight-route-taiwan.geojson --speed 300
+```
+
+In this mode, route coordinates set the map centre rather than the camera's
+physical position. Each browser retains its own viewing settings.
+
+The script uploads the route timeline once. The browser plays it locally using
+its own animation clock, so HTTP timing does not determine camera motion.
+The Python process waits for completion; Ctrl+C sends a stop viewpoint.
+Playback supports up to 10,000 route vertices and 20,000 timeline samples;
+sample spacing increases automatically for long flights, retaining all vertices.
+`--stream` selects the older per-position HTTP mode if needed.
+
+The camera follows the timeline smoothly at the browser's animation frame rate.
+`--smoothing` sets the approximate following delay in seconds (default 0.5,
+range 0–5); increase it to soften turns, or use 0 to follow the timeline directly.
+`--turn-seconds` sets the route window used for gradual heading changes around
+vertices (default 2, range 0–60); 0 uses each segment's heading directly.
+After updates stop, the camera settles onto the final received viewpoint.
+
+During playback, the camera holds its elevation reference instead of repeatedly
+snapping to newly loaded terrain heights. This also applies when terrain is
+enabled during a flight and when panning only the map centre. Normal terrain
+following is restored when playback finishes or manual navigation interrupts it.
+Terrain rendering can still reduce frame rate on slower graphics hardware.
+
+Input accepts a LineString, MultiLineString, Feature, or FeatureCollection
+containing only line geometries. Coordinates are `[longitude, latitude]` in
+WGS84. Sections must connect in file order; repeated adjacent points are
+ignored. Speed is measured along great-circle segments, independently of vertex
+spacing. Latitudes are limited to ±85 degrees for the map projection.
+
+The shared camera API is separate from position reports:
+
+```sh
+curl -X POST http://127.0.0.1:8080/api/viewpoint \
+  -H 'Content-Type: application/json' \
+  -d '{"longitude":6.13,"latitude":49.61,"altitude":1000,"tilt":60,"bearing":90,"duration":0.1}'
+curl http://127.0.0.1:8080/api/viewpoint
+```
+
+POST requires numeric `longitude` (±180) and `latitude` (±85). Omit all three
+camera fields for centre-only panning, or supply `altitude` (1–10,000,000 metres),
+`tilt` (0–85), and `bearing` (±360 degrees clockwise from north) together for
+the flight view. Optional `duration` is a transition time in seconds (0–10,
+default 0). Optional `smoothing` (0–5 seconds, default 0) enables continuous
+camera following in place of `duration` transitions. It returns HTTP 200 with
+`{"viewpoint":{...,"id":"..."}}`, or
+400 for invalid input. GET returns the same envelope, initially
+`{"viewpoint":null}`. The latest command lives in server memory and resets
+on server restart; it is not recorded as a track.
+
+Optional `playback` contains 2–20,000 frames of
+`[seconds, longitude, latitude, bearing]`, starting at zero with strictly
+increasing times. Bearing is ignored for centre-only panning. The viewpoint
+body limit is 4 MiB. GET includes `elapsed` seconds for a playback command so
+newly opened maps join the flight at its current position.
+
+Browsers use `GET /api/viewpoint?after=<id>` to wait for a changed command for
+up to 20 seconds. An unchanged response has `viewpoint: null`; animation
+continues locally throughout the wait. Normal route playback needs one POST
+and roughly three waiting GET responses per minute per browser, rather than
+ten POSTs and ten GETs per second. The last writer controls the shared view.
+When commands stop, normal manual navigation remains available. Live target
+refreshes continue without automatically fitting the map over a flight view.
+
 ### Using military symbols
 
 `web/index.html` loads `web/milsymbol.js` before the application module, making

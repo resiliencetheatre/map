@@ -60,6 +60,54 @@ curl http://127.0.0.1:8080/api/status</code></pre>
       </div>
     </section>
 
+    <section aria-labelledby="viewpoint-title">
+      <h2 id="viewpoint-title">Fly a route or set the viewpoint</h2>
+      <p>Open the map and run a flight using a GeoJSON LineString or connected
+        MultiLineString, optionally wrapped in Features or a FeatureCollection:</p>
+      <pre><code>python3 python-fly.py examples/flight-route.geojson --tilt 60 --altitude 1000 --speed 120</code></pre>
+      <p>Omit both <code>--tilt</code> and <code>--altitude</code> to pan only the map
+        centre, preserving its current zoom, tilt, and orientation:</p>
+      <pre><code>python3 python-fly.py examples/flight-route-taiwan.geojson --speed 300</code></pre>
+      <p>Speed is km/h; altitude is metres above sea level, ignoring GeoJSON elevations.
+        Tilt is degrees from straight down (0–85). When terrain is enabled, choose an
+        altitude above it. Optional <code>--interval</code> sets timeline sample seconds (default 0.1),
+        and <code>--url</code> selects the viewpoint endpoint. Ctrl+C stops the flight.</p>
+      <p>Camera motion is smoothed at animation frame rate. <code>--smoothing</code>
+        controls the approximate following delay (default 0.5 seconds, range 0–5).
+        <code>--turn-seconds</code> controls the route window for gradual heading
+        changes (default 2 seconds, range 0–60). Set either to 0 to disable that
+        smoothing. The camera settles onto the final viewpoint when updates stop.
+        Playback holds the camera elevation reference steady as terrain loads;
+        normal terrain following resumes when playback ends or manual navigation interrupts it.</p>
+      <p>The script uploads the timeline once for local browser playback, eliminating
+        repeated position POSTs. Ctrl+C sends a stop command. <code>--stream</code>
+        enables the older per-position HTTP mode. Routes support up to 10,000 vertices;
+        timeline spacing expands automatically to stay within 20,000 samples.</p>
+      <p><code>POST /api/viewpoint</code> sets the shared camera for all open maps.
+        Required numeric fields: longitude (±180) and latitude (±85).
+        For centre-only panning omit altitude, tilt, and bearing. For a flight view
+        supply all three: altitude (1–10,000,000), tilt (0–85), and bearing
+        (±360, clockwise from north).
+        Optional duration is transition seconds (0–10, default 0). Optional
+        smoothing (0–5 seconds, default 0) enables continuous camera following
+        instead of duration-based transitions.</p>
+      <pre><code>curl -X POST http://127.0.0.1:8080/api/viewpoint \
+  -H 'Content-Type: application/json' \
+  -d '{"longitude":6.13,"latitude":49.61,"altitude":1000,"tilt":60,"bearing":90,"duration":0.1}'</code></pre>
+      <p>Returns HTTP 200 with <code>{"viewpoint":{...,"id":"..."}}</code>, or 400 for
+        invalid input. <code>GET /api/viewpoint</code> returns the latest command in the
+        same envelope, initially <code>{"viewpoint":null}</code>. Commands are kept in
+        memory until server restart. Browsers use <code>GET /api/viewpoint?after=&lt;id&gt;</code>
+        to wait up to 20 seconds for a changed command; an unchanged response contains
+        <code>viewpoint: null</code>. The last writer controls the view. After a flight, manual map
+        navigation remains available.</p>
+      <p>Optional <code>playback</code> contains 2–20,000 frames of
+        <code>[seconds, longitude, latitude, bearing]</code> with increasing times starting
+        at zero. Bearing is ignored for centre-only panning. The body limit is 4 MiB.
+        GET includes <code>elapsed</code> seconds for playback so new browsers join at
+        the current route position. Animation continues locally between requests.</p>
+    </section>
+
     <section aria-labelledby="report-title">
       <h2 id="report-title">Submit a position</h2>
       <p>The example includes all required fields plus the optional <code>status_text</code> and <code>activity_at</code> fields. Status text may contain up to 500 characters. Activity time must be a timezone-aware ISO 8601 timestamp of at most 100 characters; it is used for target age and Live/Idle classification. Coordinates use WGS84 decimal degrees; heading is degrees, speed is km/h, and accuracy is metres.</p>

@@ -7,6 +7,9 @@ import math
 import mimetypes
 import re
 import sqlite3
+import threading
+import time
+import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -101,6 +104,53 @@ def validate_position(data: object) -> dict:
     return position
 
 
+def validate_viewpoint(data: object) -> dict:
+    """Validate camera coordinates, altitude (MSL), tilt and transition time."""
+    if not isinstance(data, dict):
+        raise ValueError("JSON body must be an object")
+    result = {}
+    camera_fields = {"altitude", "tilt", "bearing"}
+    supplied = camera_fields.intersection(data)
+    if supplied and supplied != camera_fields:
+        raise ValueError("supply altitude, tilt and bearing together, or omit all for centre-only panning")
+    limits = {"longitude": (-180, 180), "latitude": (-85, 85),
+              "altitude": (1, 10000000), "tilt": (0, 85),
+              "bearing": (-360, 360), "duration": (0, 10)}
+    for field, (low, high) in limits.items():
+        if field in camera_fields and not supplied:
+            continue
+        value = data.get(field, 0 if field == "duration" else None)
+        if (isinstance(value, bool) or not isinstance(value, (int, float))
+                or not math.isfinite(value) or not low <= value <= high):
+            raise ValueError(f"{field} must be a finite number from {low} to {high}")
+        result[field] = value
+    if "bearing" in result:
+        result["bearing"] %= 360
+    smoothing = data.get("smoothing", 0)
+    if (isinstance(smoothing, bool) or not isinstance(smoothing, (int, float))
+            or not math.isfinite(smoothing) or not 0 <= smoothing <= 5):
+        raise ValueError("smoothing must be a finite number from 0 to 5")
+    result["smoothing"] = smoothing
+    if "playback" in data:
+        frames = data["playback"]
+        if not isinstance(frames, list) or not 2 <= len(frames) <= 20000:
+            raise ValueError("playback must contain 2–20000 [seconds, longitude, latitude, bearing] frames")
+        previous = -1
+        for frame in frames:
+            if (not isinstance(frame, list) or len(frame) != 4
+                    or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                           or not math.isfinite(v) for v in frame)):
+                raise ValueError("invalid playback frame")
+            seconds, lon, lat, bearing = frame
+            if seconds <= previous or not -180 <= lon <= 180 or not -85 <= lat <= 85 or not 0 <= bearing <= 360:
+                raise ValueError("invalid playback time or coordinates")
+            previous = seconds
+        if frames[0][0] != 0:
+            raise ValueError("playback must start at zero seconds")
+        result["playback"] = frames
+    return result
+
+
 def safe_file(root: Path, requested: str, *, allow_symlink: bool = False) -> Path | None:
     """Resolve a URL path below root, rejecting traversal and directories."""
     try:
@@ -116,10 +166,32 @@ def safe_file(root: Path, requested: str, *, allow_symlink: bool = False) -> Pat
 
 
 def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Path):
+    viewpoint = None
+    viewpoint_started = 0
+    viewpoint_lock = threading.Condition()
+
     class SituationHandler(BaseHTTPRequestHandler):
         def do_GET(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
             request = urlsplit(self.path)
             path = request.path
+
+            if path == "/api/viewpoint":
+                after = parse_qs(request.query).get("after", [None])[0]
+                with viewpoint_lock:
+                    if after:
+                        viewpoint_lock.wait_for(lambda: viewpoint is not None and viewpoint["id"] != after, timeout=20)
+                    current = viewpoint
+                    elapsed = max(0, time.monotonic() - viewpoint_started)
+                changed = not after or current is None or current["id"] != after
+                payload = {"viewpoint": current if changed else None}
+                if after or current and "playback" in current:
+                    payload["elapsed"] = elapsed
+                try:
+                    self._send_json(payload)
+                except (BrokenPipeError, ConnectionResetError):
+                    # Closing/reloading a map can cancel its waiting request.
+                    pass
+                return
 
             if path == "/health":
                 self._send_bytes(b"OK", "text/plain; charset=utf-8")
@@ -208,17 +280,29 @@ def make_handler(web_dir: Path, map_dir: Path, maplibre_dir: Path, database: Pat
             self._send_file(file_path)
 
         def do_POST(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
-            if urlsplit(self.path).path != "/api/positions":
+            nonlocal viewpoint, viewpoint_started
+            path = urlsplit(self.path).path
+            if path not in ("/api/positions", "/api/viewpoint"):
                 self.send_error(404, "Not found")
                 return
             try:
                 length = int(self.headers.get("Content-Length", "0"))
-                if length <= 0 or length > 64 * 1024:
-                    raise ValueError("request body must be between 1 byte and 64 KiB")
+                limit = 4 * 1024 * 1024 if path == "/api/viewpoint" else 64 * 1024
+                if length <= 0 or length > limit:
+                    raise ValueError(f"request body must be between 1 and {limit} bytes")
                 data = json.loads(self.rfile.read(length))
-                position = validate_position(data)
+                position = validate_viewpoint(data) if path == "/api/viewpoint" else validate_position(data)
             except (ValueError, json.JSONDecodeError) as error:
                 self._send_json({"error": str(error)}, status=400)
+                return
+
+            if path == "/api/viewpoint":
+                position["id"] = str(uuid.uuid4())
+                with viewpoint_lock:
+                    viewpoint = position
+                    viewpoint_started = time.monotonic()
+                    viewpoint_lock.notify_all()
+                self._send_json({"viewpoint": position})
                 return
 
             received_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
