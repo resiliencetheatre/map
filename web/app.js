@@ -518,11 +518,17 @@ Promise.all([
       container: "map",
       center: [base.header.centerLon, base.header.centerLat],
       zoom: Math.max(base.header.minZoom, Math.min(base.header.centerZoom, 3)),
+      maxPitch: 85,
       style
     });
     situationMap = map;
     map.addControl(new maplibregl.NavigationControl(), "top-right");
     map.on("load", () => {
+      map.setSky({
+		"sky-color": "#88bbee",
+		"horizon-color": "#ffffff",
+		"sky-horizon-blend": 0.5
+	  });
       map.addControl(new TerrainControl(), "top-right");
       map.addSource("target-tails", { type: "geojson", data: emptyTailData() });
       map.addLayer({
