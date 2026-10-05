@@ -237,6 +237,8 @@ Mapterhorn's 512-pixel, Terrarium-encoded elevation tiles.
 
 ### Configuring map layers
 
+![Terrain](docs/terrain-example.png)
+
 Map sources are configured in `web/map-layers.json`. Exactly one archive has
 the `base` role and remains visible everywhere. Regional archives use the
 `overlay` role and automatically render above it only within their PMTiles
