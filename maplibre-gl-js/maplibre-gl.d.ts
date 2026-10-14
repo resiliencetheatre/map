@@ -3,8 +3,8 @@ import { mat2, mat4, vec3, vec4 } from "gl-matrix";
 import { GeoJSONVTOptions } from "@maplibre/geojson-vt";
 import { AllLayoutProperties, AllPaintProperties, Color, ColorArray, CompositeExpression, DiffCommand, Feature, FeatureFilter, FeatureState, FilterSpecification, FontFacesSpecification, Formatted, FormattedSection, GeoJSONSourceSpecification, GlobalProperties, ICanonicalTileID, IMercatorCoordinate, ImageSourceSpecification, InterpolationType, LayerSpecification, LightSpecification, MLFontFace, NumberArray, Padding, ProjectionSpecification, PromoteIdSpecification, PropertyValueSpecification, RasterDEMSourceSpecification, RasterSourceSpecification, ResolvedImage, SkySpecification, SourceExpression, SourceSpecification, SpriteSpecification, StateSpecification, StylePropertyExpression, StylePropertySpecification, StyleSpecification, TerrainSpecification, TransitionSpecification, ValidationError, VariableAnchorOffsetCollection, VectorSourceSpecification, VideoSourceSpecification, VisibilityExpression, VisibilitySpecification } from "@maplibre/maplibre-gl-style-spec";
 import { VectorTileFeatureLike, VectorTileLayerLike } from "@maplibre/vt-pbf";
-import KDBush from "kdbush";
 import TinySDF, { TinySDFOptions } from "@mapbox/tiny-sdf";
+import KDBush from "kdbush";
 export type * from "@maplibre/maplibre-gl-style-spec";
 //#region src/util/ajax.d.ts
 /**
@@ -858,7 +858,7 @@ export declare class LngLat {
  * let nullIsland = new MercatorCoordinate(0.5, 0.5, 0);
  * ```
  * @see [Add a custom style layer](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/)
- * @see [Add a 3D model using three.js](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-3d-model-using-threejs/)
+ * @see [Add 3D Tiles, 3D objects and models using Three.js](https://maplibre.org/maplibre-gl-js/docs/examples/add-3d-tiles-3d-objects-and-models-using-threejs/)
  * @see [Add a simple custom layer on a globe](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-simple-custom-layer-on-a-globe/)
  */
 export declare class MercatorCoordinate implements IMercatorCoordinate {
@@ -3178,20 +3178,256 @@ type PaddingOptions = RequireAtLeastOne<{
   left: number;
 }>;
 //#endregion
-//#region src/symbol/shaping.d.ts
-declare enum WritingMode {
-  none = 0,
-  horizontal = 1,
-  vertical = 2,
-  horizontalOnly = 3
+//#region src/webgl/depth_mode.d.ts
+declare class DepthMode {
+  func: DepthFuncType;
+  mask: DepthMaskType;
+  range: DepthRangeType;
+  static ReadOnly: boolean;
+  static ReadWrite: boolean;
+  constructor(depthFunc: DepthFuncType, depthMask: DepthMaskType, depthRange: DepthRangeType);
+  static disabled: Readonly<DepthMode>;
 }
 //#endregion
-//#region src/symbol/anchor.d.ts
-declare class Anchor extends Point$1 {
-  angle: any;
-  segment?: number;
-  constructor(x: number, y: number, angle: number, segment?: number);
-  clone(): Anchor;
+//#region src/webgl/color_mode.d.ts
+declare class ColorMode {
+  blendFunction: BlendFuncType;
+  blendColor: Color;
+  mask: ColorMaskType;
+  constructor(blendFunction: BlendFuncType, blendColor: Color, mask: ColorMaskType);
+  static Replace: BlendFuncType;
+  static disabled: Readonly<ColorMode>;
+  static unblended: Readonly<ColorMode>;
+  static alphaBlended: Readonly<ColorMode>;
+}
+//#endregion
+//#region src/webgl/stencil_mode.d.ts
+declare class StencilMode {
+  test: StencilTestGL;
+  ref: number;
+  mask: number;
+  fail: StencilOpConstant;
+  depthFail: StencilOpConstant;
+  pass: StencilOpConstant;
+  constructor(test: StencilTestGL, ref: number, mask: number, fail: StencilOpConstant, depthFail: StencilOpConstant, pass: StencilOpConstant);
+  static disabled: Readonly<StencilMode>;
+}
+//#endregion
+//#region src/geo/projection/projection_data.d.ts
+type ProjectionMatrix = Mat4f32 | Mat4f64;
+/**
+ * Projection data used by renderer shader uniforms. Renderer matrices are stored
+ * as 32-bit floats so WebGL can consume them directly without per-upload copies.
+ */
+type RendererProjectionData = ProjectionData<Mat4f32> & {
+  /** Draws of one frame with the same key share one uniform buffer. */
+  uniformBufferKey?: string;
+};
+/**
+ * Projection data exposed to custom layers. Some matrices are stored as 64-bit
+ * floats so custom layer code can apply additional CPU-side transforms before
+ * converting to 32-bit floats for WebGL upload when necessary.
+ */
+type CustomLayerProjectionData = ProjectionData<ProjectionMatrix, ProjectionMatrix>;
+/**
+ * This type contains all data necessary to project a tile to screen in MapLibre's shader system.
+ * Contains data used for both mercator and globe projection.
+ */
+type ProjectionData<MainMatrix extends mat4 = mat4, FallbackMatrix extends mat4 = MainMatrix> = {
+  /**
+   * The main projection matrix. For mercator projection, it usually projects in-tile coordinates 0..EXTENT to screen,
+   * for globe projection, it projects a unit sphere planet to screen.
+   * Uniform name: `u_projection_matrix`.
+   */
+  mainMatrix: MainMatrix;
+  /**
+   * The extent of current tile in the mercator square.
+   * Used by globe projection.
+   * First two components are X and Y offset, last two are X and Y scale.
+   * Uniform name: `u_projection_tile_mercator_coords`.
+   *
+   * Conversion from in-tile coordinates in range 0..EXTENT is done as follows:
+   * @example
+   * ```
+   * vec2 mercator_coords = u_projection_tile_mercator_coords.xy + in_tile.xy * u_projection_tile_mercator_coords.zw;
+   * ```
+   */
+  tileMercatorCoords: [number, number, number, number];
+  /**
+   * The plane equation for a plane that intersects the planet's horizon.
+   * Assumes the planet to be a unit sphere.
+   * Used by globe projection for clipping.
+   * Uniform name: `u_projection_clipping_plane`.
+   */
+  clippingPlane: [number, number, number, number];
+  /**
+   * A value in range 0..1 indicating interpolation between mercator (0) and globe (1) projections.
+   * Used by globe projection to hide projection transition at high zooms.
+   * Uniform name: `u_projection_transition`.
+   */
+  projectionTransition: number;
+  /**
+   * Fallback matrix that projects the current tile according to mercator projection.
+   * Used by globe projection to fall back to mercator projection in an animated way.
+   * Uniform name: `u_projection_fallback_matrix`.
+   */
+  fallbackMatrix: FallbackMatrix;
+  /**
+   * Whether line fragments outside the tile's X extent should be discarded: true for the zoom 0 tile under globe projection, false otherwise.
+   * The z0 tile covers the whole world, so its buffer wraps around the planet onto the tile itself,
+   * drawing geometry near the antimeridian twice. Stencil clipping cannot remove this same-pixel overlap,
+   * so lines are clipped in the fragment shader instead (fills are clipped during subdivision).
+   * Uniform name: `u_projection_clip_antimeridian`.
+   */
+  clipAntimeridian: boolean;
+};
+/**
+ * Parameters object for the transform's `getProjectionData` function.
+ * Contains the requested tile ID and more.
+ */
+type ProjectionDataParams = {
+  /**
+   * The ID of the current tile
+   */
+  overscaledTileID: OverscaledTileID | null;
+  /**
+   * Set to true if a pixel-aligned matrix should be used, if possible (mostly used for raster tiles under mercator projection)
+   */
+  aligned?: boolean;
+  /**
+   * Set to true if the terrain matrix should be applied (i.e. when rendering terrain)
+   */
+  applyTerrainMatrix?: boolean;
+  /**
+   * Set to true if the globe matrix should be applied (i.e. when rendering globe)
+   */
+  applyGlobeMatrix?: boolean;
+};
+//#endregion
+//#region src/render/mesh.d.ts
+declare class Mesh {
+  vertexBuffer: VertexBuffer;
+  indexBuffer: IndexBuffer;
+  segments: SegmentVector;
+  constructor(vertexBuffer: VertexBuffer, indexBuffer: IndexBuffer, segments: SegmentVector);
+  destroy(): void;
+}
+//#endregion
+//#region src/style/light_properties.g.d.ts
+type LightProps = {
+  "anchor": DataConstantProperty<"map" | "viewport">;
+  "position": DataConstantProperty<[number, number, number]>;
+  "color": DataConstantProperty<Color>;
+  "intensity": DataConstantProperty<number>;
+};
+type LightPropsPossiblyEvaluated = {
+  "anchor": "map" | "viewport";
+  "position": [number, number, number];
+  "color": Color;
+  "intensity": number;
+};
+//#endregion
+//#region src/geo/projection/projection.d.ts
+/**
+ * Custom projections are handled both by a class which implements this `Projection` interface,
+ * and a class that is derived from the `Transform` base class. What is the difference?
+ *
+ * The transform-derived class:
+ * - should do all the heavy lifting for the projection - implement all the `project*` and `unproject*` functions, etc.
+ * - must store the map's state - center, pitch, etc. - this is handled in the `Transform` base class
+ * - must be cloneable - it should not create any heavy resources
+ *
+ * The projection-implementing class:
+ * - must provide basic information and data about the projection, which is *independent of the map's state* - name, shader functions, subdivision settings, etc.
+ * - must be a "singleton" - no matter how many copies of the matching Transform class exist, the Projection should always exist as a single instance (per Map)
+ * - may create heavy resources that should not exist in multiple copies (projection is never cloned) - for example, see the GPU inaccuracy mitigation for globe projection
+ * - must be explicitly disposed of after usage using the `destroy` function - this allows the implementing class to free any allocated resources
+ */
+/**
+ * @internal
+ * Specifies the usage for a square tile mesh:
+ * - 'stencil' for drawing stencil masks
+ * - 'raster' for drawing raster tiles, hillshade, etc.
+ */
+type TileMeshUsage = "stencil" | "raster";
+/**
+ * An interface the implementations of which are used internally by MapLibre to handle different projections.
+ */
+interface Projection {
+  /**
+   * @internal
+   * A short, descriptive name of this projection, such as 'mercator' or 'globe'.
+   */
+  get name(): ProjectionSpecification["type"];
+  /**
+   * @internal
+   * True if this projection needs to render subdivided geometry.
+   * Optimized rendering paths for non-subdivided geometry might be used throughout MapLibre.
+   * The value of this property may change during runtime, for example in globe projection depending on zoom.
+   */
+  get useSubdivision(): boolean;
+  /**
+   * Name of the shader projection variant that should be used for this projection.
+   * Note that this value may change dynamically, for example when globe projection internally transitions to mercator.
+   * Then globe projection might start reporting the mercator shader variant name to make MapLibre use faster mercator shaders.
+   */
+  get shaderVariantName(): string;
+  /**
+   * A `#define` macro that is injected into every MapLibre shader that uses this projection.
+   * @example
+   * `const define = projection.shaderDefine; // '#define GLOBE'`
+   */
+  get shaderDefine(): string;
+  /**
+   * @internal
+   * A preprocessed prelude code for both vertex and fragment shaders.
+   */
+  get shaderPreludeCode(): PreparedShader;
+  /**
+   * Vertex shader code that is injected into every MapLibre vertex shader that uses this projection.
+   */
+  get vertexShaderPreludeCode(): string;
+  /**
+   * @internal
+   * An object describing how much subdivision should be applied to rendered geometry.
+   * The subdivision settings should be a constant for a given projection.
+   * Projections that do not require subdivision should return {@link SubdivisionGranularitySetting.noSubdivision}.
+   */
+  get subdivisionGranularity(): SubdivisionGranularitySetting;
+  /**
+   * @internal
+   * A number representing the current transition state of the projection.
+   * The return value should be a number between 0 and 1,
+   * where 0 means the projection is fully in the initial state,
+   * and 1 means the projection is fully in the final state.
+   */
+  get transitionState(): number;
+  /**
+   * @internal
+   * Cleans up any resources the projection created, especially GPU buffers.
+   */
+  destroy(): void;
+  /**
+   * @internal
+   * Returns a subdivided mesh for a given tile ID, covering 0..EXTENT range.
+   * @param context - WebGL context.
+   * @param tileID - The tile coordinates for which to return a mesh. Meshes for tiles that border the top/bottom mercator edge might include extra geometry for the north/south pole.
+   * @param hasBorder - When true, the mesh will also include a small border beyond the 0..EXTENT range.
+   * @param allowPoles - When true, the mesh will also include geometry to cover the north (south) pole, if the given tileID borders the mercator range's top (bottom) edge.
+   * @param usage - Specify the usage of the tile mesh, as different usages might use different levels of subdivision.
+   */
+  getMeshFromTileID(context: Context, tileID: CanonicalTileID, hasBorder: boolean, allowPoles: boolean, usage: TileMeshUsage): Mesh;
+  /**
+   * @internal
+   * Recalculates the projection state based on the current evaluation parameters.
+   * @param params - Evaluation parameters.
+   */
+  recalculate(params: EvaluationParameters): void;
+  /**
+   * @internal
+   * Returns true if the projection is currently transitioning between two states.
+   */
+  hasTransition(): boolean;
 }
 //#endregion
 //#region src/style/style_layer/symbol_style_layer_properties.g.d.ts
@@ -3323,6 +3559,88 @@ type SymbolPaintPropsPossiblyEvaluated = {
   "text-translate": [number, number];
   "text-translate-anchor": "map" | "viewport";
 };
+//#endregion
+//#region src/style/style_layer/overlap_mode.d.ts
+/**
+ * The overlap mode for properties like `icon-overlap`and `text-overlap`
+ */
+type OverlapMode = "never" | "always" | "cooperative";
+//#endregion
+//#region src/symbol/grid_index.d.ts
+type QueryResult<T> = {
+  key: T;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+};
+/**
+ * A key for the grid
+ */
+type GridKey = {
+  overlapMode?: OverlapMode;
+};
+/**
+ * @internal
+ * GridIndex is a data structure for testing the intersection of
+ * circles and rectangles in a 2d plane.
+ * It is optimized for rapid insertion and querying.
+ * GridIndex splits the plane into a set of "cells" and keeps track
+ * of which geometries intersect with each cell. At query time,
+ * full geometry comparisons are only done for items that share
+ * at least one cell. As long as the geometries are relatively
+ * uniformly distributed across the plane, this greatly reduces
+ * the number of comparisons necessary.
+ */
+declare class GridIndex<T extends GridKey> {
+  circleKeys: T[];
+  boxKeys: T[];
+  boxCells: number[][];
+  circleCells: number[][];
+  bboxes: number[];
+  circles: number[];
+  xCellCount: number;
+  yCellCount: number;
+  width: number;
+  height: number;
+  xScale: number;
+  yScale: number;
+  boxUid: number;
+  circleUid: number;
+  constructor(width: number, height: number, cellSize: number);
+  keysLength(): number;
+  insert(key: T, x1: number, y1: number, x2: number, y2: number): void;
+  insertCircle(key: T, x: number, y: number, radius: number): void;
+  private _insertBoxCell;
+  private _insertCircleCell;
+  private _query;
+  query(x1: number, y1: number, x2: number, y2: number): Array<QueryResult<T>>;
+  hitTest(x1: number, y1: number, x2: number, y2: number, overlapMode: OverlapMode, predicate?: (key: T) => boolean): boolean;
+  hitTestCircle(x: number, y: number, radius: number, overlapMode: OverlapMode, predicate?: (key: T) => boolean): boolean;
+  private _queryCell;
+  private _queryCellCircle;
+  private _forEachCell;
+  private _convertToXCellCoord;
+  private _convertToYCellCoord;
+  private _circlesCollide;
+  private _circleAndRectCollide;
+}
+//#endregion
+//#region src/symbol/shaping.d.ts
+declare enum WritingMode {
+  none = 0,
+  horizontal = 1,
+  vertical = 2,
+  horizontalOnly = 3
+}
+//#endregion
+//#region src/symbol/anchor.d.ts
+declare class Anchor extends Point$1 {
+  angle: any;
+  segment?: number;
+  constructor(x: number, y: number, angle: number, segment?: number);
+  clone(): Anchor;
+}
 //#endregion
 //#region src/style/style_layer/symbol_style_layer.d.ts
 declare class SymbolStyleLayer extends StyleLayer {
@@ -3600,236 +3918,221 @@ declare class SymbolBucket implements Bucket {
   sortFeatures(angle: number): void;
 }
 //#endregion
-//#region src/symbol/cross_tile_symbol_index.d.ts
-type SymbolsByKeyEntry = {
-  index?: KDBush;
-  positions?: Array<{
-    x: number;
-    y: number;
-  }>;
-  crossTileIDs: number[];
+//#region src/symbol/collision_index.d.ts
+type PlacedCircles = {
+  circles: number[];
+  offscreen: boolean;
+  collisionDetected: boolean;
 };
-declare class TileLayerIndex {
-  tileID: OverscaledTileID;
+type PlacedBox = {
+  box: number[];
+  placeable: boolean;
+  offscreen: boolean;
+  occluded: boolean;
+};
+type FeatureKey = {
   bucketInstanceId: number;
-  _symbolsByKey: Record<number, SymbolsByKeyEntry>;
-  constructor(tileID: OverscaledTileID, symbolInstances: SymbolInstanceArray, bucketInstanceId: number);
-  getScaledCoordinates(symbolInstance: SymbolInstance, childTileID: OverscaledTileID): {
+  featureIndex: number;
+  collisionGroupID: number;
+  overlapMode: OverlapMode;
+};
+/**
+ * @internal
+ * A collision index used to prevent symbols from overlapping. It keep tracks of
+ * where previous symbols have been placed and is used to check if a new
+ * symbol overlaps with any previously added symbols.
+ *
+ * There are two steps to insertion: first placeCollisionBox/Circles checks if
+ * there's room for a symbol, then insertCollisionBox/Circles actually puts the
+ * symbol in the index. The two step process allows paired symbols to be inserted
+ * together even if they overlap.
+ */
+declare class CollisionIndex {
+  grid: GridIndex<FeatureKey>;
+  ignoredGrid: GridIndex<FeatureKey>;
+  transform: IReadonlyTransform;
+  pitchFactor: number;
+  screenRightBoundary: number;
+  screenBottomBoundary: number;
+  gridRightBoundary: number;
+  gridBottomBoundary: number;
+  perspectiveRatioCutoff: number;
+  constructor(transform: IReadonlyTransform, grid?: GridIndex<FeatureKey>, ignoredGrid?: GridIndex<FeatureKey>);
+  placeCollisionBox(collisionBox: SingleCollisionBox, overlapMode: OverlapMode, textPixelRatio: number, tileID: OverscaledTileID, unwrappedTileID: UnwrappedTileID, pitchWithMap: boolean, rotateWithMap: boolean, translation: [number, number], collisionGroupPredicate?: (key: FeatureKey) => boolean, getElevation?: GetElevation, shift?: Point$1, simpleProjectionMatrix?: mat4, heightOffset?: number, heightAnchorGround?: boolean): PlacedBox;
+  placeCollisionCircles(overlapMode: OverlapMode, symbol: PlacedSymbol, lineVertexArray: SymbolLineVertexArray, glyphOffsetArray: GlyphOffsetArray, fontSize: number, unwrappedTileID: UnwrappedTileID, pitchedLabelPlaneMatrix: mat4, showCollisionCircles: boolean, pitchWithMap: boolean, collisionGroupPredicate: (key: FeatureKey) => boolean, circlePixelDiameter: number, textPixelPadding: number, translation: [number, number], getElevation: GetElevation | undefined): PlacedCircles;
+  projectPathToScreenSpace(projectedPath: Point$1[], projectionContext: SymbolProjectionContext): PointProjection[];
+  /**
+   * Because the geometries in the CollisionIndex are an approximation of the shape of
+   * symbols on the map, we use the CollisionIndex to look up the symbol part of
+   * `queryRenderedFeatures`.
+   */
+  queryRenderedSymbols(viewportQueryGeometry: Point$1[]): Record<number, number[]>;
+  insertCollisionBox(collisionBox: number[], overlapMode: OverlapMode, ignorePlacement: boolean, bucketInstanceId: number, featureIndex: number, collisionGroupID: number): void;
+  insertCollisionCircles(collisionCircles: number[], overlapMode: OverlapMode, ignorePlacement: boolean, bucketInstanceId: number, featureIndex: number, collisionGroupID: number): void;
+  projectAndGetPerspectiveRatio(x: number, y: number, unwrappedTileID: UnwrappedTileID, elevation?: number, simpleProjectionMatrix?: mat4): {
     x: number;
     y: number;
+    perspectiveRatio: number;
+    isOccluded: boolean;
+    signedDistanceFromCamera: number;
   };
-  findMatches(symbolInstances: SymbolInstanceArray, newTileID: OverscaledTileID, zoomCrossTileIDs: {
-    [crossTileID: number]: boolean;
-  }): void;
+  getPerspectiveRatio(x: number, y: number, unwrappedTileID: UnwrappedTileID, elevation?: number): number;
+  isOffscreen(x1: number, y1: number, x2: number, y2: number): boolean;
+  isInsideGrid(x1: number, y1: number, x2: number, y2: number): boolean;
+  getViewportMatrix(): mat4;
   /**
-   * Matches a symbol instance against an entry backed by a KDBush spatial index
-   * (used for keys with more than {@link KDBUSH_THRESHHOLD} symbols).
-   *
-   * Matches any symbol with the same key whose coordinates are within one grid
-   * unit (with a 4px grid, this covers a 12px by 12px area). The lowest-index
-   * unclaimed candidate is claimed in a single pass rather than sorting the
-   * whole result set on every query: `range()` can return many candidates where
-   * symbols are coincident (e.g. stacked point markers), so a per-query sort
-   * would dominate placement cost on dense layers.
-   *
-   * Once a symbol is marked duplicate against a parent symbol, no other symbol
-   * at the same zoom level may duplicate against the same parent (see issue #5993).
+   * Applies all layout+paint properties of the given box in order to find as good approximation of its screen-space bounding box as possible.
    */
-  private findMatchesForIndexedEntry;
-  /**
-   * Matches a symbol instance against an entry that stores its positions as a
-   * plain array (used for keys with at most {@link KDBUSH_THRESHHOLD} symbols).
-   *
-   * Matches any symbol with the same key whose coordinates are within one grid
-   * unit (with a 4px grid, this covers a 12px by 12px area). Positions are
-   * stored in symbol-instance order, so the first unclaimed match is also the
-   * lowest-index one.
-   *
-   * Once a symbol is marked duplicate against a parent symbol, no other symbol
-   * at the same zoom level may duplicate against the same parent (see issue #5993).
-   */
-  private findMatchesForNonIndexedEntry;
-  getCrossTileIDsLists(): number[][];
+  private _projectCollisionBox;
 }
-declare class CrossTileIDs {
-  maxCrossTileID: number;
-  constructor();
-  generate(): number;
+//#endregion
+//#region src/style/style_layer/variable_text_anchor.d.ts
+declare enum TextAnchorEnum {
+  "center" = 1,
+  "left" = 2,
+  "right" = 3,
+  "top" = 4,
+  "bottom" = 5,
+  "top-left" = 6,
+  "top-right" = 7,
+  "bottom-left" = 8,
+  "bottom-right" = 9
 }
-declare class CrossTileSymbolLayerIndex {
-  indexes: { [zoom in string | number]: { [tileId in string | number]: TileLayerIndex; }; };
-  usedCrossTileIDs: { [zoom in string | number]: {
-    [crossTileID: number]: boolean;
-  }; };
-  lng: number;
-  constructor();
-  handleWrapJump(lng: number): void;
-  addBucket(tileID: OverscaledTileID, bucket: SymbolBucket, crossTileIDs: CrossTileIDs): boolean;
-  removeBucketCrossTileIDs(zoom: string | number, removedBucket: TileLayerIndex): void;
-  removeStaleBuckets(currentIDs: { [k in string | number]: boolean; }): boolean;
+type TextAnchor = keyof typeof TextAnchorEnum;
+//#endregion
+//#region src/symbol/placement.d.ts
+declare class OpacityState {
+  opacity: number;
+  placed: boolean;
+  constructor(prevState: OpacityState, increment: number, placed: boolean, skipFade?: boolean | null);
+  isHidden(): boolean;
 }
-declare class CrossTileSymbolIndex {
-  layerIndexes: {
-    [layerId: string]: CrossTileSymbolLayerIndex;
+declare class JointOpacityState {
+  text: OpacityState;
+  icon: OpacityState;
+  constructor(prevState: JointOpacityState, increment: number, placedText: boolean, placedIcon: boolean, skipFade?: boolean | null);
+  isHidden(): boolean;
+}
+declare class JointPlacement {
+  text: boolean;
+  icon: boolean;
+  skipFade: boolean;
+  constructor(text: boolean, icon: boolean, skipFade: boolean);
+}
+declare class RetainedQueryData {
+  bucketInstanceId: number;
+  featureIndex: FeatureIndex;
+  sourceLayerIndex: number;
+  bucketIndex: number;
+  tileID: OverscaledTileID;
+  featureSortOrder: number[];
+  constructor(bucketInstanceId: number, featureIndex: FeatureIndex, sourceLayerIndex: number, bucketIndex: number, tileID: OverscaledTileID);
+}
+type CollisionGroup = {
+  ID: number;
+  predicate?: (key: FeatureKey) => boolean;
+};
+declare class CollisionGroups {
+  collisionGroups: {
+    [groupName: string]: CollisionGroup;
   };
-  crossTileIDs: CrossTileIDs;
-  maxBucketInstanceId: number;
-  bucketsInCurrentPlacement: {
-    [_: number]: boolean;
+  maxGroupID: number;
+  crossSourceCollisions: boolean;
+  constructor(crossSourceCollisions: boolean);
+  get(sourceID: string): CollisionGroup;
+}
+type VariableOffset = {
+  textOffset: [number, number];
+  width: number;
+  height: number;
+  anchor: TextAnchor;
+  textBoxScale: number;
+  prevAnchor?: TextAnchor;
+};
+type TileLayerParameters = {
+  bucket: SymbolBucket;
+  layout: PossiblyEvaluated<SymbolLayoutProps, SymbolLayoutPropsPossiblyEvaluated>;
+  translationText: [number, number];
+  translationIcon: [number, number];
+  unwrappedTileID: UnwrappedTileID;
+  pitchedLabelPlaneMatrix: mat4;
+  scale: number;
+  textPixelRatio: number;
+  holdingForFade: boolean;
+  collisionBoxArray: CollisionBoxArray;
+  partiallyEvaluatedTextSize: {
+    uSize: number;
+    uSizeT: number;
   };
-  constructor();
-  addLayer(styleLayer: StyleLayer, tiles: Tile[], lng: number): boolean;
-  pruneUnusedLayers(usedLayers: string[]): void;
-}
-//#endregion
-//#region src/webgl/depth_mode.d.ts
-declare class DepthMode {
-  func: DepthFuncType;
-  mask: DepthMaskType;
-  range: DepthRangeType;
-  static ReadOnly: boolean;
-  static ReadWrite: boolean;
-  constructor(depthFunc: DepthFuncType, depthMask: DepthMaskType, depthRange: DepthRangeType);
-  static disabled: Readonly<DepthMode>;
-}
-//#endregion
-//#region src/webgl/color_mode.d.ts
-declare class ColorMode {
-  blendFunction: BlendFuncType;
-  blendColor: Color;
-  mask: ColorMaskType;
-  constructor(blendFunction: BlendFuncType, blendColor: Color, mask: ColorMaskType);
-  static Replace: BlendFuncType;
-  static disabled: Readonly<ColorMode>;
-  static unblended: Readonly<ColorMode>;
-  static alphaBlended: Readonly<ColorMode>;
-}
-//#endregion
-//#region src/webgl/stencil_mode.d.ts
-declare class StencilMode {
-  test: StencilTestGL;
-  ref: number;
-  mask: number;
-  fail: StencilOpConstant;
-  depthFail: StencilOpConstant;
-  pass: StencilOpConstant;
-  constructor(test: StencilTestGL, ref: number, mask: number, fail: StencilOpConstant, depthFail: StencilOpConstant, pass: StencilOpConstant);
-  static disabled: Readonly<StencilMode>;
-}
-//#endregion
-//#region src/geo/projection/projection_data.d.ts
-type ProjectionMatrix = Mat4f32 | Mat4f64;
-/**
- * Projection data used by renderer shader uniforms. Renderer matrices are stored
- * as 32-bit floats so WebGL can consume them directly without per-upload copies.
- */
-type RendererProjectionData = ProjectionData<Mat4f32> & {
-  /** Draws of one frame with the same key share one uniform buffer. */
-  uniformBufferKey?: string;
+  collisionGroup: CollisionGroup;
 };
-/**
- * Projection data exposed to custom layers. Some matrices are stored as 64-bit
- * floats so custom layer code can apply additional CPU-side transforms before
- * converting to 32-bit floats for WebGL upload when necessary.
- */
-type CustomLayerProjectionData = ProjectionData<ProjectionMatrix, ProjectionMatrix>;
-/**
- * This type contains all data necessary to project a tile to screen in MapLibre's shader system.
- * Contains data used for both mercator and globe projection.
- */
-type ProjectionData<MainMatrix extends mat4 = mat4, FallbackMatrix extends mat4 = MainMatrix> = {
-  /**
-   * The main projection matrix. For mercator projection, it usually projects in-tile coordinates 0..EXTENT to screen,
-   * for globe projection, it projects a unit sphere planet to screen.
-   * Uniform name: `u_projection_matrix`.
-   */
-  mainMatrix: MainMatrix;
-  /**
-   * The extent of current tile in the mercator square.
-   * Used by globe projection.
-   * First two components are X and Y offset, last two are X and Y scale.
-   * Uniform name: `u_projection_tile_mercator_coords`.
-   *
-   * Conversion from in-tile coordinates in range 0..EXTENT is done as follows:
-   * @example
-   * ```
-   * vec2 mercator_coords = u_projection_tile_mercator_coords.xy + in_tile.xy * u_projection_tile_mercator_coords.zw;
-   * ```
-   */
-  tileMercatorCoords: [number, number, number, number];
-  /**
-   * The plane equation for a plane that intersects the planet's horizon.
-   * Assumes the planet to be a unit sphere.
-   * Used by globe projection for clipping.
-   * Uniform name: `u_projection_clipping_plane`.
-   */
-  clippingPlane: [number, number, number, number];
-  /**
-   * A value in range 0..1 indicating interpolation between mercator (0) and globe (1) projections.
-   * Used by globe projection to hide projection transition at high zooms.
-   * Uniform name: `u_projection_transition`.
-   */
-  projectionTransition: number;
-  /**
-   * Fallback matrix that projects the current tile according to mercator projection.
-   * Used by globe projection to fall back to mercator projection in an animated way.
-   * Uniform name: `u_projection_fallback_matrix`.
-   */
-  fallbackMatrix: FallbackMatrix;
-  /**
-   * Whether line fragments outside the tile's X extent should be discarded: true for the zoom 0 tile under globe projection, false otherwise.
-   * The z0 tile covers the whole world, so its buffer wraps around the planet onto the tile itself,
-   * drawing geometry near the antimeridian twice. Stencil clipping cannot remove this same-pixel overlap,
-   * so lines are clipped in the fragment shader instead (fills are clipped during subdivision).
-   * Uniform name: `u_projection_clip_antimeridian`.
-   */
-  clipAntimeridian: boolean;
+type BucketPart = {
+  sortKey?: number | void;
+  symbolInstanceStart: number;
+  symbolInstanceEnd: number;
+  parameters: TileLayerParameters;
 };
-/**
- * Parameters object for the transform's `getProjectionData` function.
- * Contains the requested tile ID and more.
- */
-type ProjectionDataParams = {
-  /**
-   * The ID of the current tile
-   */
-  overscaledTileID: OverscaledTileID | null;
-  /**
-   * Set to true if a pixel-aligned matrix should be used, if possible (mostly used for raster tiles under mercator projection)
-   */
-  aligned?: boolean;
-  /**
-   * Set to true if the terrain matrix should be applied (i.e. when rendering terrain)
-   */
-  applyTerrainMatrix?: boolean;
-  /**
-   * Set to true if the globe matrix should be applied (i.e. when rendering globe)
-   */
-  applyGlobeMatrix?: boolean;
+type CrossTileID = string | number;
+/** What the last rewrite of a bucket's opacity buffers read, one entry per symbol. */
+type OpacityInputs = {
+  crossTileIDs: number[];
+  /** True for every symbol whose label another bucket is drawing. */
+  duplicates: boolean[];
 };
-//#endregion
-//#region src/render/mesh.d.ts
-declare class Mesh {
-  vertexBuffer: VertexBuffer;
-  indexBuffer: IndexBuffer;
-  segments: SegmentVector;
-  constructor(vertexBuffer: VertexBuffer, indexBuffer: IndexBuffer, segments: SegmentVector);
-  destroy(): void;
+declare class Placement {
+  transform: IReadonlyTransform;
+  terrain: Terrain;
+  collisionIndex: CollisionIndex;
+  placements: { [_ in CrossTileID]: JointPlacement; };
+  opacities: { [_ in CrossTileID]: JointOpacityState; };
+  variableOffsets: { [_ in CrossTileID]: VariableOffset; };
+  placedOrientations: { [_ in CrossTileID]: number; };
+  commitTime: number;
+  prevZoomAdjustment: number;
+  lastPlacementChangeTime: number;
+  stale: boolean;
+  fadeDuration: number;
+  retainedQueryData: {
+    [_: number]: RetainedQueryData;
+  };
+  collisionGroups: CollisionGroups;
+  prevPlacement: Placement;
+  zoomAtLastRecencyCheck: number;
+  collisionCircleArrays: { [k in any]: number[]; };
+  collisionBoxArrays: Map<number, Map<number, {
+    text: number[];
+    icon: number[];
+  }>>;
+  lastOpacityInputs: WeakMap<SymbolBucket, OpacityInputs>;
+  constructor(transform: ITransform, terrain: Terrain, fadeDuration: number, crossSourceCollisions: boolean, prevPlacement?: Placement);
+  private _getTerrainElevationFunc;
+  getBucketParts(results: BucketPart[], styleLayer: StyleLayer, tile: Tile, sortAcrossTiles: boolean): void;
+  attemptAnchorPlacement(textAnchorOffset: TextAnchorOffset, textBox: SingleCollisionBox, width: number, height: number, textBoxScale: number, rotateWithMap: boolean, pitchWithMap: boolean, textPixelRatio: number, tileID: OverscaledTileID, unwrappedTileID: UnwrappedTileID, collisionGroup: CollisionGroup, textOverlapMode: OverlapMode, symbolInstance: SymbolInstance, bucket: SymbolBucket, orientation: number, translationText: [number, number], translationIcon: [number, number], iconBox?: SingleCollisionBox | null, getElevation?: GetElevation, simpleProjectionMatrix?: mat4, heightOffset?: number, heightAnchorGround?: boolean): {
+    shift: Point$1;
+    placedGlyphBoxes: PlacedBox;
+  };
+  placeLayerBucketPart(bucketPart: BucketPart, seenCrossTileIDs: { [k in string | number]: boolean; }, showCollisionBoxes: boolean): void;
+  storeCollisionData(bucketInstanceId: number, symbolIndex: number, collisionArrays: CollisionArrays, placedGlyphBoxes: PlacedBox, placedIconBoxes: PlacedBox, placedGlyphCircles: PlacedCircles): void;
+  markUsedJustification(bucket: SymbolBucket, placedAnchor: TextAnchor, symbolInstance: SymbolInstance, orientation: number): void;
+  markUsedOrientation(bucket: SymbolBucket, orientation: number, symbolInstance: SymbolInstance): void;
+  commit(now: number): void;
+  /** Writes the opacity buffers of `styleLayer`, skipping buckets a rewrite would leave as they are. */
+  updateLayerOpacities(styleLayer: StyleLayer, tiles: Tile[]): void;
+  /**
+   * Marks the bucket's symbols whose label an earlier bucket already draws, and claims the rest in `seenCrossTileIDs`.
+   * `changed` is false when the marks match the last call, which means the buffers are already up to date.
+   */
+  _markDuplicates(bucket: SymbolBucket, seenCrossTileIDs: { [k in string | number]: boolean; }): {
+    duplicates: boolean[];
+    changed: boolean;
+  };
+  updateBucketOpacities(bucket: SymbolBucket, tileID: OverscaledTileID, duplicates: boolean[], collisionBoxArray?: CollisionBoxArray | null): void;
+  symbolFadeChange(now: number): number;
+  zoomAdjustment(zoom: number): number;
+  hasTransitions(now: number): boolean;
+  stillRecent(now: number, zoom: number): boolean;
+  setStale(): void;
 }
-//#endregion
-//#region src/style/light_properties.g.d.ts
-type LightProps = {
-  "anchor": DataConstantProperty<"map" | "viewport">;
-  "position": DataConstantProperty<[number, number, number]>;
-  "color": DataConstantProperty<Color>;
-  "intensity": DataConstantProperty<number>;
-};
-type LightPropsPossiblyEvaluated = {
-  "anchor": "map" | "viewport";
-  "position": [number, number, number];
-  "color": Color;
-  "intensity": number;
-};
 //#endregion
 //#region src/render/frame_render_context.d.ts
 type RenderPass = "offscreen" | "opaque" | "translucent";
@@ -3850,6 +4153,8 @@ type FrameRenderData = {
   readonly fadeDuration: number;
   /** Progress of the symbol fade since the last placement. */
   readonly symbolFadeChange: number;
+  /** The anchors the last placement chose for symbols with variable anchors. */
+  readonly variableOffsets: Readonly<Record<CrossTileID, VariableOffset>>;
   readonly anisotropicFilterPitch: number;
   readonly projectionTransition: number;
   readonly isRenderingGlobe: boolean;
@@ -3871,8 +4176,8 @@ type FrameRenderContextOptions = {
   context: Context;
   programCache: ProgramCache;
   currentPass: RenderPass;
-  /** Returns the mesh a tile's clipping mask is drawn with. */
-  getStencilMesh: (tileID: CanonicalTileID, hasBorder: boolean) => Mesh;
+  /** The projection that builds the tile meshes, undefined until the style has one. */
+  projection: Projection | undefined;
 };
 /**
  * @internal
@@ -3890,11 +4195,11 @@ declare class FrameRenderContext {
   readonly data: FrameRenderData;
   readonly context: Context;
   readonly programCache: ProgramCache;
+  private readonly projection;
   /** The source whose clipping masks are in the stencil buffer. */
   private currentStencilSource;
   private nextStencilID;
   private tileClippingMaskIDs;
-  private readonly getStencilMesh;
   constructor(options: FrameRenderContextOptions);
   getProjectionDataForTile(tileID: OverscaledTileID, options?: {
     aligned?: boolean;
@@ -3905,6 +4210,8 @@ declare class FrameRenderContext {
    * Returns null if terrain is not configured or tiles are being rendered to a texture.
    */
   getTerrainDataForTile(tileID: OverscaledTileID): TerrainData | null;
+  /** Returns the mesh the projection draws a tile with. */
+  getMeshFromTileID(tileID: CanonicalTileID, hasBorder: boolean, allowPoles: boolean, usage: TileMeshUsage): Mesh;
   /**
    * Finds the required shader and its variant (base/terrain/globe, etc.) and binds it, compiling a new shader if required.
    * @param name - Name of the desired shader.
@@ -4076,7 +4383,7 @@ declare class TileCache {
 declare class InViewTiles {
   private _tiles;
   handleWrapJump(wrapDelta: number): void;
-  setFeatureState(featuresChanged: LayerFeatureStates, painter: Painter, revision: number): void;
+  setFeatureState(featuresChanged: LayerFeatureStates, style: Style, revision: number): void;
   getAllTiles(): Tile[];
   getAllIds(sorted?: boolean): string[];
   getTileById(key: string): Tile | undefined;
@@ -4878,293 +5185,11 @@ declare class TileManager extends Evented<SourceEventType> {
   areTilesLoaded(): boolean;
 }
 //#endregion
-//#region src/style/style_layer/overlap_mode.d.ts
-/**
- * The overlap mode for properties like `icon-overlap`and `text-overlap`
- */
-type OverlapMode = "never" | "always" | "cooperative";
-//#endregion
-//#region src/symbol/grid_index.d.ts
-type QueryResult<T> = {
-  key: T;
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-};
-/**
- * A key for the grid
- */
-type GridKey = {
-  overlapMode?: OverlapMode;
-};
-/**
- * @internal
- * GridIndex is a data structure for testing the intersection of
- * circles and rectangles in a 2d plane.
- * It is optimized for rapid insertion and querying.
- * GridIndex splits the plane into a set of "cells" and keeps track
- * of which geometries intersect with each cell. At query time,
- * full geometry comparisons are only done for items that share
- * at least one cell. As long as the geometries are relatively
- * uniformly distributed across the plane, this greatly reduces
- * the number of comparisons necessary.
- */
-declare class GridIndex<T extends GridKey> {
-  circleKeys: T[];
-  boxKeys: T[];
-  boxCells: number[][];
-  circleCells: number[][];
-  bboxes: number[];
-  circles: number[];
-  xCellCount: number;
-  yCellCount: number;
-  width: number;
-  height: number;
-  xScale: number;
-  yScale: number;
-  boxUid: number;
-  circleUid: number;
-  constructor(width: number, height: number, cellSize: number);
-  keysLength(): number;
-  insert(key: T, x1: number, y1: number, x2: number, y2: number): void;
-  insertCircle(key: T, x: number, y: number, radius: number): void;
-  private _insertBoxCell;
-  private _insertCircleCell;
-  private _query;
-  query(x1: number, y1: number, x2: number, y2: number): Array<QueryResult<T>>;
-  hitTest(x1: number, y1: number, x2: number, y2: number, overlapMode: OverlapMode, predicate?: (key: T) => boolean): boolean;
-  hitTestCircle(x: number, y: number, radius: number, overlapMode: OverlapMode, predicate?: (key: T) => boolean): boolean;
-  private _queryCell;
-  private _queryCellCircle;
-  private _forEachCell;
-  private _convertToXCellCoord;
-  private _convertToYCellCoord;
-  private _circlesCollide;
-  private _circleAndRectCollide;
-}
-//#endregion
-//#region src/symbol/collision_index.d.ts
-type PlacedCircles = {
-  circles: number[];
-  offscreen: boolean;
-  collisionDetected: boolean;
-};
-type PlacedBox = {
-  box: number[];
-  placeable: boolean;
-  offscreen: boolean;
-  occluded: boolean;
-};
-type FeatureKey = {
-  bucketInstanceId: number;
-  featureIndex: number;
-  collisionGroupID: number;
-  overlapMode: OverlapMode;
-};
-/**
- * @internal
- * A collision index used to prevent symbols from overlapping. It keep tracks of
- * where previous symbols have been placed and is used to check if a new
- * symbol overlaps with any previously added symbols.
- *
- * There are two steps to insertion: first placeCollisionBox/Circles checks if
- * there's room for a symbol, then insertCollisionBox/Circles actually puts the
- * symbol in the index. The two step process allows paired symbols to be inserted
- * together even if they overlap.
- */
-declare class CollisionIndex {
-  grid: GridIndex<FeatureKey>;
-  ignoredGrid: GridIndex<FeatureKey>;
-  transform: IReadonlyTransform;
-  pitchFactor: number;
-  screenRightBoundary: number;
-  screenBottomBoundary: number;
-  gridRightBoundary: number;
-  gridBottomBoundary: number;
-  perspectiveRatioCutoff: number;
-  constructor(transform: IReadonlyTransform, grid?: GridIndex<FeatureKey>, ignoredGrid?: GridIndex<FeatureKey>);
-  placeCollisionBox(collisionBox: SingleCollisionBox, overlapMode: OverlapMode, textPixelRatio: number, tileID: OverscaledTileID, unwrappedTileID: UnwrappedTileID, pitchWithMap: boolean, rotateWithMap: boolean, translation: [number, number], collisionGroupPredicate?: (key: FeatureKey) => boolean, getElevation?: GetElevation, shift?: Point$1, simpleProjectionMatrix?: mat4, heightOffset?: number, heightAnchorGround?: boolean): PlacedBox;
-  placeCollisionCircles(overlapMode: OverlapMode, symbol: PlacedSymbol, lineVertexArray: SymbolLineVertexArray, glyphOffsetArray: GlyphOffsetArray, fontSize: number, unwrappedTileID: UnwrappedTileID, pitchedLabelPlaneMatrix: mat4, showCollisionCircles: boolean, pitchWithMap: boolean, collisionGroupPredicate: (key: FeatureKey) => boolean, circlePixelDiameter: number, textPixelPadding: number, translation: [number, number], getElevation: GetElevation | undefined): PlacedCircles;
-  projectPathToScreenSpace(projectedPath: Point$1[], projectionContext: SymbolProjectionContext): PointProjection[];
-  /**
-   * Because the geometries in the CollisionIndex are an approximation of the shape of
-   * symbols on the map, we use the CollisionIndex to look up the symbol part of
-   * `queryRenderedFeatures`.
-   */
-  queryRenderedSymbols(viewportQueryGeometry: Point$1[]): Record<number, number[]>;
-  insertCollisionBox(collisionBox: number[], overlapMode: OverlapMode, ignorePlacement: boolean, bucketInstanceId: number, featureIndex: number, collisionGroupID: number): void;
-  insertCollisionCircles(collisionCircles: number[], overlapMode: OverlapMode, ignorePlacement: boolean, bucketInstanceId: number, featureIndex: number, collisionGroupID: number): void;
-  projectAndGetPerspectiveRatio(x: number, y: number, unwrappedTileID: UnwrappedTileID, elevation?: number, simpleProjectionMatrix?: mat4): {
-    x: number;
-    y: number;
-    perspectiveRatio: number;
-    isOccluded: boolean;
-    signedDistanceFromCamera: number;
-  };
-  getPerspectiveRatio(x: number, y: number, unwrappedTileID: UnwrappedTileID, elevation?: number): number;
-  isOffscreen(x1: number, y1: number, x2: number, y2: number): boolean;
-  isInsideGrid(x1: number, y1: number, x2: number, y2: number): boolean;
-  getViewportMatrix(): mat4;
-  /**
-   * Applies all layout+paint properties of the given box in order to find as good approximation of its screen-space bounding box as possible.
-   */
-  private _projectCollisionBox;
-}
-//#endregion
-//#region src/style/style_layer/variable_text_anchor.d.ts
-declare enum TextAnchorEnum {
-  "center" = 1,
-  "left" = 2,
-  "right" = 3,
-  "top" = 4,
-  "bottom" = 5,
-  "top-left" = 6,
-  "top-right" = 7,
-  "bottom-left" = 8,
-  "bottom-right" = 9
-}
-type TextAnchor = keyof typeof TextAnchorEnum;
-//#endregion
-//#region src/symbol/placement.d.ts
-declare class OpacityState {
-  opacity: number;
-  placed: boolean;
-  constructor(prevState: OpacityState, increment: number, placed: boolean, skipFade?: boolean | null);
-  isHidden(): boolean;
-}
-declare class JointOpacityState {
-  text: OpacityState;
-  icon: OpacityState;
-  constructor(prevState: JointOpacityState, increment: number, placedText: boolean, placedIcon: boolean, skipFade?: boolean | null);
-  isHidden(): boolean;
-}
-declare class JointPlacement {
-  text: boolean;
-  icon: boolean;
-  skipFade: boolean;
-  constructor(text: boolean, icon: boolean, skipFade: boolean);
-}
-declare class RetainedQueryData {
-  bucketInstanceId: number;
-  featureIndex: FeatureIndex;
-  sourceLayerIndex: number;
-  bucketIndex: number;
-  tileID: OverscaledTileID;
-  featureSortOrder: number[];
-  constructor(bucketInstanceId: number, featureIndex: FeatureIndex, sourceLayerIndex: number, bucketIndex: number, tileID: OverscaledTileID);
-}
-type CollisionGroup = {
-  ID: number;
-  predicate?: (key: FeatureKey) => boolean;
-};
-declare class CollisionGroups {
-  collisionGroups: {
-    [groupName: string]: CollisionGroup;
-  };
-  maxGroupID: number;
-  crossSourceCollisions: boolean;
-  constructor(crossSourceCollisions: boolean);
-  get(sourceID: string): CollisionGroup;
-}
-type VariableOffset = {
-  textOffset: [number, number];
-  width: number;
-  height: number;
-  anchor: TextAnchor;
-  textBoxScale: number;
-  prevAnchor?: TextAnchor;
-};
-type TileLayerParameters = {
-  bucket: SymbolBucket;
-  layout: PossiblyEvaluated<SymbolLayoutProps, SymbolLayoutPropsPossiblyEvaluated>;
-  translationText: [number, number];
-  translationIcon: [number, number];
-  unwrappedTileID: UnwrappedTileID;
-  pitchedLabelPlaneMatrix: mat4;
-  scale: number;
-  textPixelRatio: number;
-  holdingForFade: boolean;
-  collisionBoxArray: CollisionBoxArray;
-  partiallyEvaluatedTextSize: {
-    uSize: number;
-    uSizeT: number;
-  };
-  collisionGroup: CollisionGroup;
-};
-type BucketPart = {
-  sortKey?: number | void;
-  symbolInstanceStart: number;
-  symbolInstanceEnd: number;
-  parameters: TileLayerParameters;
-};
-type CrossTileID = string | number;
-/** What the last rewrite of a bucket's opacity buffers read, one entry per symbol. */
-type OpacityInputs = {
-  crossTileIDs: number[];
-  /** True for every symbol whose label another bucket is drawing. */
-  duplicates: boolean[];
-};
-declare class Placement {
-  transform: IReadonlyTransform;
-  terrain: Terrain;
-  collisionIndex: CollisionIndex;
-  placements: { [_ in CrossTileID]: JointPlacement; };
-  opacities: { [_ in CrossTileID]: JointOpacityState; };
-  variableOffsets: { [_ in CrossTileID]: VariableOffset; };
-  placedOrientations: { [_ in CrossTileID]: number; };
-  commitTime: number;
-  prevZoomAdjustment: number;
-  lastPlacementChangeTime: number;
-  stale: boolean;
-  fadeDuration: number;
-  retainedQueryData: {
-    [_: number]: RetainedQueryData;
-  };
-  collisionGroups: CollisionGroups;
-  prevPlacement: Placement;
-  zoomAtLastRecencyCheck: number;
-  collisionCircleArrays: { [k in any]: number[]; };
-  collisionBoxArrays: Map<number, Map<number, {
-    text: number[];
-    icon: number[];
-  }>>;
-  lastOpacityInputs: WeakMap<SymbolBucket, OpacityInputs>;
-  constructor(transform: ITransform, terrain: Terrain, fadeDuration: number, crossSourceCollisions: boolean, prevPlacement?: Placement);
-  private _getTerrainElevationFunc;
-  getBucketParts(results: BucketPart[], styleLayer: StyleLayer, tile: Tile, sortAcrossTiles: boolean): void;
-  attemptAnchorPlacement(textAnchorOffset: TextAnchorOffset, textBox: SingleCollisionBox, width: number, height: number, textBoxScale: number, rotateWithMap: boolean, pitchWithMap: boolean, textPixelRatio: number, tileID: OverscaledTileID, unwrappedTileID: UnwrappedTileID, collisionGroup: CollisionGroup, textOverlapMode: OverlapMode, symbolInstance: SymbolInstance, bucket: SymbolBucket, orientation: number, translationText: [number, number], translationIcon: [number, number], iconBox?: SingleCollisionBox | null, getElevation?: GetElevation, simpleProjectionMatrix?: mat4, heightOffset?: number, heightAnchorGround?: boolean): {
-    shift: Point$1;
-    placedGlyphBoxes: PlacedBox;
-  };
-  placeLayerBucketPart(bucketPart: BucketPart, seenCrossTileIDs: { [k in string | number]: boolean; }, showCollisionBoxes: boolean): void;
-  storeCollisionData(bucketInstanceId: number, symbolIndex: number, collisionArrays: CollisionArrays, placedGlyphBoxes: PlacedBox, placedIconBoxes: PlacedBox, placedGlyphCircles: PlacedCircles): void;
-  markUsedJustification(bucket: SymbolBucket, placedAnchor: TextAnchor, symbolInstance: SymbolInstance, orientation: number): void;
-  markUsedOrientation(bucket: SymbolBucket, orientation: number, symbolInstance: SymbolInstance): void;
-  commit(now: number): void;
-  /** Writes the opacity buffers of `styleLayer`, skipping buckets a rewrite would leave as they are. */
-  updateLayerOpacities(styleLayer: StyleLayer, tiles: Tile[]): void;
-  /**
-   * Marks the bucket's symbols whose label an earlier bucket already draws, and claims the rest in `seenCrossTileIDs`.
-   * `changed` is false when the marks match the last call, which means the buffers are already up to date.
-   */
-  _markDuplicates(bucket: SymbolBucket, seenCrossTileIDs: { [k in string | number]: boolean; }): {
-    duplicates: boolean[];
-    changed: boolean;
-  };
-  updateBucketOpacities(bucket: SymbolBucket, tileID: OverscaledTileID, duplicates: boolean[], collisionBoxArray?: CollisionBoxArray | null): void;
-  symbolFadeChange(now: number): number;
-  zoomAdjustment(zoom: number): number;
-  hasTransitions(now: number): boolean;
-  stillRecent(now: number, zoom: number): boolean;
-  setStale(): void;
-}
-//#endregion
 //#region src/webgl/draw/draw_symbol.d.ts
-declare function drawSymbols(painter: Painter, tileManager: TileManager, layer: SymbolStyleLayer, coords: OverscaledTileID[], variableOffsets: { [_ in CrossTileID]: VariableOffset; }, frameRenderContext: FrameRenderContext): void;
+declare function drawSymbols(painter: Painter, tileManager: TileManager, layer: SymbolStyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/webgl/draw/draw_circle.d.ts
-declare function drawCircles(painter: Painter, tileManager: TileManager, layer: CircleStyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
+declare function drawCircles(tileManager: TileManager, layer: CircleStyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/data/bucket/heatmap_bucket.d.ts
 declare class HeatmapBucket extends CircleBucket<HeatmapStyleLayer> {
@@ -5541,7 +5566,7 @@ declare class FillExtrusionStyleLayer extends StyleLayer {
 }
 //#endregion
 //#region src/webgl/draw/draw_fill_extrusion.d.ts
-declare function drawFillExtrusion(painter: Painter, tileManager: TileManager, layer: FillExtrusionStyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
+declare function drawFillExtrusion(tileManager: TileManager, layer: FillExtrusionStyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/style/style_layer/hillshade_style_layer_properties.g.d.ts
 type HillshadePaintProps = {
@@ -5632,7 +5657,7 @@ declare class ColorReliefStyleLayer extends StyleLayer {
 declare function drawColorRelief(painter: Painter, tileManager: TileManager, layer: ColorReliefStyleLayer, tileIDs: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/webgl/draw/draw_raster.d.ts
-declare function drawRaster(painter: Painter, tileManager: TileManager, layer: RasterStyleLayer, tileIDs: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
+declare function drawRaster(tileManager: TileManager, layer: RasterStyleLayer, tileIDs: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/style/style_layer/background_style_layer_properties.g.d.ts
 type BackgroundPaintProps = {
@@ -5813,12 +5838,31 @@ type CustomRenderMethodInput = {
    * @param params - Parameters for the projection data generation.
    */
   getProjectionData: (params: CustomLayerProjectionDataParams) => RendererProjectionData;
+  /**
+   * @experimental
+   * Draws the elevation of the terrain as the map draws it into a texture, so that the layer can place many
+   * objects on the ground on the GPU. Only set in {@link CustomLayerInterface.prerender}, while terrain is enabled.
+   * Call it again after the camera moves, terrain tiles load or the terrain changes, and set up your WebGL state afterwards.
+   */
+  renderTerrainHeightMap?: (target: TerrainHeightMapTarget) => void;
 };
 /**
  * @param gl - The map's gl context.
  * @param options - Argument object with render inputs like camera properties.
  */
 type CustomRenderMethod = (gl: WebGL2RenderingContext, options: CustomRenderMethodInput) => void;
+/**
+ * @experimental
+ * Input for {@link CustomLayerInterface.renderToTerrainTile}.
+ */
+type CustomTerrainRenderInput = {
+  /** The terrain tile to draw. */
+  tileID: UnwrappedTileIDLiteral;
+  /** The width of the tile's framebuffer in pixels. */
+  width: number;
+  /** The height of the tile's framebuffer in pixels. */
+  height: number;
+};
 /**
  * Interface for custom style layers. This is a specification for
  * implementers to model: it is not an exported method or class.
@@ -5928,6 +5972,21 @@ interface CustomLayerInterface {
    */
   prerender?: CustomRenderMethod;
   /**
+   * @experimental
+   * Optional method called instead of `render` while terrain is enabled, to draw the layer into a terrain tile that
+   * MapLibre drapes over the terrain with the fill, line and raster layers around the layer in the style.
+   * Clip space `(-1, -1)` is the tile's south-west corner and `(1, 1)` its north-east corner. Draw over what the
+   * framebuffer holds, with the same blending as `render` and without depth or stencil testing. MapLibre calls it
+   * again when it redraws the tile, and after {@link CustomLayerInterface.terrainTileRevision} changes.
+   */
+  renderToTerrainTile?: (gl: WebGL2RenderingContext, options: CustomTerrainRenderInput) => void;
+  /**
+   * @experimental
+   * Optional number that the layer changes when what it draws in {@link CustomLayerInterface.renderToTerrainTile}
+   * changes, before calling {@link Map.triggerRepaint}, so that MapLibre draws the terrain tiles again.
+   */
+  terrainTileRevision?: number;
+  /**
    * Optional method called when the layer has been added to the Map with {@link Map.addLayer}. This
    * gives the layer a chance to initialize gl resources and register event listeners.
    *
@@ -5958,19 +6017,20 @@ declare class CustomStyleLayer extends StyleLayer {
 }
 //#endregion
 //#region src/webgl/draw/draw_custom.d.ts
-declare function drawCustom(painter: Painter, tileManager: TileManager, layer: CustomStyleLayer, frameRenderContext: FrameRenderContext): void;
+declare function drawCustom(painter: Painter, tileManager: TileManager, layer: CustomStyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/webgl/draw/draw_terrain.d.ts
 /**
  * Redraw the Depth Framebuffer
  * @param painter - the painter
  * @param terrain - the terrain
+ * @param frameRenderContext - shared state for the current render
  */
-declare function drawDepth(painter: Painter, terrain: Terrain): void;
+declare function drawDepth(painter: Painter, terrain: Terrain, frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/webgl/draw/draw_sky.d.ts
-declare function drawSky(painter: Painter, sky: Readonly<SkyPropsPossiblyEvaluated>, pixelRatio: number): void;
-declare function drawAtmosphere(painter: Painter, sky: Readonly<SkyPropsPossiblyEvaluated>, light: Readonly<LightPropsPossiblyEvaluated>): void;
+declare function drawSky(mesh: Mesh, frameRenderContext: FrameRenderContext): void;
+declare function drawAtmosphere(mesh: Mesh, frameRenderContext: FrameRenderContext): void;
 //#endregion
 //#region src/webgl/draw/index.d.ts
 type DrawFunctions = {
@@ -6014,258 +6074,14 @@ declare class PatternAtlas {
    * @returns the position of the pattern within the atlas, or `null` if there is no such image
    */
   getPattern(id: string): ImagePosition;
+  /**
+   * Checks whether a pattern image is needed, and if it is, whether it is not loaded.
+   *
+   * @returns true if a needed image is missing and rendering needs to be skipped.
+   */
+  isPatternMissing(image?: CrossFaded<ResolvedImage> | null): boolean;
   bind(context: Context): void;
   private _update;
-}
-//#endregion
-//#region src/util/request_manager.d.ts
-/**
- * A type of MapLibre resource.
- */
-declare const enum ResourceType {
-  Glyphs = "Glyphs",
-  Image = "Image",
-  Source = "Source",
-  SpriteImage = "SpriteImage",
-  SpriteJSON = "SpriteJSON",
-  Style = "Style",
-  Tile = "Tile",
-  Unknown = "Unknown"
-}
-/**
- * This function is used to transform a request.
- * It is used just before executing the relevant request.
- */
-type RequestTransformFunction = (url: string, resourceType?: ResourceType) => RequestParameters | Promise<RequestParameters> | undefined;
-declare class RequestManager {
-  _transformRequestFn: RequestTransformFunction | null;
-  constructor(transformRequestFn?: RequestTransformFunction | null);
-  transformRequest(url: string, type: ResourceType): RequestParameters | Promise<RequestParameters>;
-  setTransformRequest(transformRequest: RequestTransformFunction | null): void;
-}
-//#endregion
-//#region src/render/font_face_manager.d.ts
-/**
- * An inclusive range of Unicode codepoints, parsed out of a `unicode-range` entry.
- */
-type UnicodeRange = {
-  start: number;
-  end: number;
-};
-/**
- * A font file declared by the style, along with the bookkeeping needed to draw with it.
- */
-type DeclaredFontFace = {
-  /**
-   * The font file's URL, as written in the style.
-   */
-  url: string;
-  /**
-   * The codepoints the style lets this file cover.
-   */
-  ranges: UnicodeRange[];
-  /**
-   * The CSS family name the file is registered under. It is generated rather than taken from the
-   * style so that a style cannot restyle the surrounding page by declaring a font face named
-   * after one the page uses, and so that each file can be selected on its own.
-   */
-  family: string;
-  /**
-   * Resolves to whether the file loaded and can be drawn with. Started the first time a codepoint
-   * needs this file, so that a style may declare more fonts than any one map ever draws with.
-   */
-  loaded?: Promise<boolean>;
-};
-/**
- * Keeps the font files a style declares in its
- * [`font-faces`](https://maplibre.org/maplibre-style-spec/root/#font-faces) property, and hands the
- * {@link GlyphManager} the CSS family to draw a given codepoint with.
- *
- * The files go to the browser's CSS Font Loading API, so any format it can render text with works.
- * Each is registered under a family name of our own making, so that a style cannot restyle the
- * surrounding page and a codepoint can be pinned to one file rather than to whatever font matching
- * picks.
- *
- * Rasterizing happens a grapheme cluster at a time, so a letter reaches the browser's text engine
- * with its marks. Shaping across cluster boundaries still needs the RTL text plugin.
- */
-declare class FontFaceManager {
-  requestManager: RequestManager;
-  /**
-   * The declared files by the font name used in `text-font`, in the order the style listed them.
-   */
-  _faces: Record<string, DeclaredFontFace[]>;
-  /**
-   * Everything handed to `document.fonts`, so that it can all be handed back on destroy.
-   */
-  _registered: Set<FontFace>;
-  constructor(requestManager: RequestManager);
-  /**
-   * Replaces the declared font faces. Nothing is downloaded here: each file waits until a
-   * codepoint it covers is actually drawn.
-   */
-  setFontFaces(fontFaces?: FontFacesSpecification | null): void;
-  /**
-   * Whether the style declared any font face at all, so that the common case of a style without
-   * `font-faces` costs nothing.
-   */
-  hasFontFaces(): boolean;
-  /**
-   * Finds the font file to draw a codepoint with: each name of the `text-font` stack in turn, and
-   * within a name each declared file, until one covers it. A file that fails to load is skipped,
-   * the specification asking for unsupported fonts to be ignored.
-   *
-   * @returns the CSS family to draw with, or `null` to leave the codepoint to the `glyphs` URL
-   */
-  getFontFamily(fontStack: string, codePoint: number): Promise<string | null>;
-  /**
-   * Turns one declaration into a face to draw with, or `null` if there is nothing usable in it.
-   *
-   * A bare URL is the same as a face that names no `unicode-range`: it covers every codepoint.
-   */
-  _declareFontFace(fontName: string, declaration: string | MLFontFace): DeclaredFontFace | null;
-  /**
-   * Downloads a declared file and hands it to the browser, reporting whether it can be drawn with.
-   * A failure is not an error: its codepoints fall through to the next file, then to `glyphs`.
-   */
-  _loadFontFace(face: DeclaredFontFace): Promise<boolean>;
-  /**
-   * Downloads a font file, giving the map's `transformRequest` a chance to rewrite the request the
-   * same way it gets one for a glyph range.
-   */
-  _downloadFontFile(url: string): Promise<ArrayBuffer>;
-  _unregister(fontFace: FontFace): void;
-  _unregisterAll(): void;
-  destroy(): void;
-}
-//#endregion
-//#region src/render/glyph_manager.d.ts
-type Entry = {
-  /**
-   * The glyphs drawn or downloaded so far, keyed by variant and grapheme cluster.
-   * `null` means the requested glyph is unavailable.
-   */
-  glyphs: Record<string, Record<string, StyleGlyph | null>>;
-  requests: Record<number, Promise<{
-    [_: number]: StyleGlyph | null;
-  }>>;
-  ranges: Record<number, boolean | null>;
-  tinySDF?: Promise<Rasterizer>;
-  ideographTinySDF?: Promise<Rasterizer>;
-  /**
-   * One TinySDF per `font-faces` file this stack draws with, keyed by the file's CSS family.
-   */
-  fontFaceTinySDFs?: Record<string, Promise<Rasterizer>>;
-  /**
-   * One TinySDF per font selection used to draw whole grapheme clusters, which need a wider canvas
-   * to fit in than a single codepoint does.
-   */
-  clusterTinySDFs?: Record<string, Promise<Rasterizer>>;
-};
-/** A requested glyph with its lookup keys; `null` means unavailable. */
-type GlyphResult = {
-  stack: string;
-  id: string;
-  variant: string;
-  glyph: StyleGlyph | null;
-};
-/**
- * The rasterizer, as it really is. TinySDF carries the `buffer` it was built with, which its type
- * declaration leaves out and which the canvas has to be widened through.
- */
-type Rasterizer = TinySDF & {
-  buffer: number;
-};
-/**
- * Builds the thing that rasterizes a glyph. Taken as a dependency so that a test can stand in for
- * the canvas it would otherwise need to draw on.
- *
- * @param options - what to draw with, whose `buffer` sizes the canvas
- * @param padding - the room to leave around each glyph in the bitmap, which is not that buffer
- */
-type CreateRasterizer = (options: TinySDFOptions, padding: number) => Rasterizer;
-declare class GlyphManager {
-  requestManager: RequestManager;
-  localIdeographFontFamily: string | false;
-  entries: Record<string, Entry>;
-  url: string;
-  lang?: string;
-  fontFaceManager: FontFaceManager;
-  createRasterizer: CreateRasterizer;
-  constructor(requestManager: RequestManager, localIdeographFontFamily?: string | false, lang?: string, createRasterizer?: CreateRasterizer);
-  setURL(url?: string | null): void;
-  /**
-   * Replaces the font files the style declares in its `font-faces` property, dropping every glyph
-   * drawn with the previous ones.
-   */
-  setFontFaces(fontFaces?: FontFacesSpecification | null): void;
-  getGlyphs(glyphs: GlyphRequests): Promise<GlyphMap>;
-  /**
-   * Gets one glyph, asked for by grapheme cluster so that a letter and its marks are drawn as the
-   * one shape they are written as.
-   *
-   * A cluster is drawn from a font rather than fetched, because a glyphs URL serves codepoints and
-   * has no way to serve the one shape they are written as. A file the style pinned with
-   * `font-faces` draws it where one covers it, and the local fonts otherwise. For a single
-   * codepoint a declared file still wins over the glyphs URL and the local fallbacks.
-   * Providers support the `default` variant; unsupported variants return `null`.
-   */
-  _getAndCacheGlyphsPromise(stack: string, id: string, variant: string): Promise<GlyphResult>;
-  /**
-   * Gets a glyph from the server-side cache, downloading the PBF range it falls in if need be.
-   *
-   * Only reached for a single codepoint. What comes back is keyed by codepoint, as the file is,
-   * and is cached by cluster -- which for one codepoint is the character itself.
-   */
-  _downloadAndCacheRangePromise(stack: string, id: string): Promise<{
-    stack: string;
-    id: string;
-    glyph: StyleGlyph;
-  }>;
-  /**
-   * Downloads one range of 256 codepoints from the glyphs URL and parses the glyphs out of it.
-   */
-  _loadGlyphRange(fontstack: string, range: number): Promise<Record<number, StyleGlyph | null>>;
-  _warnOnMissingGlyphRange(glyph: StyleGlyph, range: number, id: number, err: Error): void;
-  /**
-   * Returns whether the given codepoint should be rendered locally.
-   */
-  _charUsesLocalIdeographFontFamily(id: number): boolean;
-  /**
-   * Draws a glyph offscreen using TinySDF, created lazily. The whole cluster goes to TinySDF, which
-   * is what lets the browser's text engine place a letter's marks on it.
-   *
-   * @param fontFaceFamily - the CSS family of the `font-faces` file covering this codepoint, if any
-   */
-  _drawGlyph(entry: Entry, stack: string, id: string, fontFaceFamily?: string): Promise<StyleGlyph>;
-  /**
-   * Returns the TinySDF that draws this grapheme, created lazily. A stack keeps one per font
-   * selection, so a fallback cannot bleed into the rest of the text, and one more per font file
-   * for the clusters drawn from it, which need a wider canvas.
-   *
-   * A font file carries its own weight and style, so neither is sniffed out of the family name.
-   * Where no file covers the grapheme, `localIdeographFontFamily` beats the last resort fontstack.
-   */
-  _getTinySDF(entry: Entry, stack: string, id: string, fontFaceFamily?: string): Promise<Rasterizer>;
-  /**
-   * Builds the TinySDF that draws with a given font selection.
-   *
-   * TinySDF derives its canvas from `fontSize + buffer * 4`, so the buffer is the only way in to a
-   * wider one. It also stands for the padding the atlas expects to be `GLYPH_PBF_BORDER`, so the
-   * two are passed separately.
-   *
-   * @param emsWide - how wide the glyphs may be, in font sizes, before TinySDF cuts them off
-   */
-  _createTinySDF(stack: String | false, sniffFontStyles?: boolean, emsWide?: number): Promise<Rasterizer>;
-  /**
-   * Sniffs the font style out of a font family name.
-   */
-  _fontStyle(fontFamily: string): string;
-  /**
-   * Sniffs the font weight out of a font family name.
-   */
-  _fontWeight(fontFamily: string): string;
-  destroy(): void;
 }
 //#endregion
 //#region src/render/render_to_texture_interface.d.ts
@@ -6280,7 +6096,7 @@ interface IRenderToTexture {
    */
   needsFollowUpFrame: boolean;
   prepareForRender(style: Style, zoom: number, isMoving: boolean): void;
-  renderLayer(layer: StyleLayer, frameRenderContext: FrameRenderContext): boolean;
+  renderLayer(layer: StyleLayer, style: Style, frameRenderContext: FrameRenderContext): boolean;
   getTexture(tile: Tile): any;
 }
 //#endregion
@@ -6328,7 +6144,6 @@ declare class Painter {
    * Resized in place to match the target dimensions.
    */
   layerOpacityFbo: Framebuffer | null;
-  emptyProgramConfiguration: ProgramConfiguration;
   width: number;
   height: number;
   tileExtentBuffer: VertexBuffer;
@@ -6340,21 +6155,13 @@ declare class Painter {
   debugSegments: SegmentVector;
   rasterBoundsBuffer: VertexBuffer;
   rasterBoundsSegments: SegmentVector;
-  rasterBoundsBufferPosOnly: VertexBuffer;
-  rasterBoundsSegmentsPosOnly: SegmentVector;
   viewportBuffer: VertexBuffer;
   viewportSegments: SegmentVector;
   quadTriangleIndexBuffer: IndexBuffer;
   tileBorderIndexBuffer: IndexBuffer;
-  style: Style;
   lineAtlas: LineAtlas;
-  imageManager: ImageManager;
   patternAtlas: PatternAtlas;
-  glyphManager: GlyphManager;
-  frameRenderContext: FrameRenderContext;
-  id: string;
   programCache: ProgramCache;
-  crossTileSymbolIndex: CrossTileSymbolIndex;
   debugOverlayTexture: Texture;
   debugOverlayCanvas: HTMLCanvasElement;
   terrainFacilitator: {
@@ -6369,7 +6176,7 @@ declare class Painter {
    * Fills the depth buffer with the geometry of all supplied tiles.
    * Does not change the color buffer or the stencil buffer.
    */
-  _renderTilesDepthBuffer(): void;
+  _renderTilesDepthBuffer(frameRenderContext: FrameRenderContext): void;
   render(style: Style, transform: IReadonlyTransform, data: FrameRenderData): void;
   /**
    * Invalidates cached terrain depth so the next eligible depth pass redraws it.
@@ -6380,7 +6187,7 @@ declare class Painter {
   /**
    * Updates the depth framebuffer after explicit invalidation, camera movement, or tile reloading.
    */
-  maybeDrawDepth(): void;
+  maybeDrawDepth(frameRenderContext: FrameRenderContext): void;
   renderLayer(painter: Painter, tileManager: TileManager, layer: StyleLayer, coords: OverscaledTileID[], frameRenderContext: FrameRenderContext): void;
   static readonly MAX_TEXTURE_POOL_SIZE_PER_BUCKET = 50;
   saveTileTexture(texture: Texture): void;
@@ -6403,13 +6210,6 @@ declare class Painter {
    * released their drapes.
    */
   destroyRTTResources(): void;
-  /**
-   * Checks whether a pattern image is needed, and if it is, whether it is not loaded.
-   *
-   * @returns true if a needed image is missing and rendering needs to be skipped.
-   */
-  isPatternMissing(image?: CrossFaded<ResolvedImage> | null): boolean;
-  setCustomLayerDefaults(): void;
   setBaseState(): void;
   initDebugOverlayCanvas(): void;
   destroy(): void;
@@ -6525,6 +6325,10 @@ type SymbolProjectionContext = {
 //#endregion
 //#region src/geo/projection/covering_tiles_details_provider.d.ts
 interface CoveringTilesDetailsProvider {
+  /**
+   * Returns the center that the tiles are selected around.
+   */
+  getCenter: (transform: IReadonlyTransform) => LngLat;
   /**
    * Returns the distance from the point to the tile
    * @param pointX - point x.
@@ -7311,10 +7115,10 @@ declare class Tile {
    * to true. If the data is null, like in the case of an empty
    * GeoJSON tile, no-op but still set loaded to true.
    * @param data - The data from the worker
-   * @param painter - the painter
+   * @param style - the style the tile's layers belong to
    * @param justReloaded - `true` to just reload
    */
-  loadVectorData(data: WorkerTileResult, painter: Painter, justReloaded?: boolean | null): void;
+  loadVectorData(data: WorkerTileResult, style: Style, justReloaded?: boolean | null): void;
   /**
    * Release any data or WebGL resources referenced by this tile.
    */
@@ -7332,7 +7136,7 @@ declare class Tile {
   patternsLoaded(): boolean;
   setExpiryData(data: ExpiryData): void;
   getExpiryTimeout(): number;
-  setFeatureState(states: LayerFeatureStates, painter: Painter, revision: number): void;
+  setFeatureState(states: LayerFeatureStates, style: Style, revision: number): void;
   holdingForSymbolFade(): boolean;
   symbolFadeFinished(): boolean;
   clearSymbolFadeHold(): void;
@@ -7368,8 +7172,8 @@ declare class SourceFeatureState {
   updateState(sourceLayer: string, featureId: number | string, newState: any): void;
   removeFeatureState(sourceLayer: string, featureId?: number | string, key?: string): void;
   getState(sourceLayer: string, featureId: number | string): FeatureState;
-  initializeTileState(tile: Tile, painter: Painter): void;
-  coalesceChanges(inViewTiles: InViewTiles, painter: Painter): void;
+  initializeTileState(tile: Tile, style: Style): void;
+  coalesceChanges(inViewTiles: InViewTiles, style: Style): void;
 }
 //#endregion
 //#region src/data/feature_index.d.ts
@@ -7918,6 +7722,8 @@ declare class Context {
   extTextureFilterAnisotropic: EXT_texture_filter_anisotropic | null;
   extTextureFilterAnisotropicMax?: GLfloat;
   constructor(gl: WebGL2RenderingContext);
+  /** Destroys the uniform buffers the context created. */
+  destroy(): void;
   setDefault(): void;
   setDirty(): void;
   /**
@@ -8176,6 +7982,22 @@ declare class TerrainCoverage {
 //#endregion
 //#region src/render/terrain.d.ts
 /**
+ * @experimental
+ * A float texture for {@link CustomRenderMethodInput.renderTerrainHeightMap}, such as `RGBA32F`, which needs the
+ * `EXT_color_buffer_float` extension to be drawn into. Red holds the elevation in meters, including the terrain exaggeration, alpha
+ * is 1 where terrain is loaded and 0 elsewhere, and the first row is the south edge.
+ */
+type TerrainHeightMapTarget = {
+  /** A texture in the map's WebGL context. */
+  texture: WebGLTexture;
+  /** The width of the texture in pixels. */
+  width: number;
+  /** The height of the texture in pixels. */
+  height: number;
+  /** The area to draw, `[minX, minY, maxX, maxY]` in {@link MercatorCoordinate} units, with x counting world copies. */
+  bounds: [number, number, number, number];
+};
+/**
  * @internal
  * A terrain GPU related object
  */
@@ -8252,6 +8074,7 @@ declare class Terrain {
    * holds the framebuffer object in size of the screen to render the depth into a texture.
    */
   _fbo: Framebuffer;
+  _heightMapFbo: Framebuffer;
   _fboDepthTexture: Texture;
   _emptyDepthTexture: Texture;
   /**
@@ -8371,10 +8194,17 @@ declare class Terrain {
    */
   getFramebuffer(): Framebuffer;
   /**
+   * get the framebuffer that draws the height map into a texture of a custom layer
+   * @param texture - the texture to draw into
+   * @returns the frame buffer
+   */
+  getHeightMapFramebuffer(texture: WebGLTexture): Framebuffer;
+  /**
    * create a regular mesh which will be used by all terrain-tiles
+   * @param globeEnabled - whether the globe is rendering, which adds the pole geometry of the edge tiles
    * @returns the created regular mesh
    */
-  getTerrainMesh(tileId: OverscaledTileID): Mesh;
+  getTerrainMesh(tileId: OverscaledTileID, globeEnabled: boolean): Mesh;
   /**
    * Calculates the height of the tile skirts for the "auto" strategy.
    * @see {@link MapOptions.terrainSkirtLength}
@@ -9745,6 +9575,256 @@ export declare class MapStyleImageMissingEvent extends MapLibreEvent {
   constructor(data?: any);
 }
 //#endregion
+//#region src/util/request_manager.d.ts
+/**
+ * A type of MapLibre resource.
+ */
+declare const enum ResourceType {
+  Glyphs = "Glyphs",
+  Image = "Image",
+  Source = "Source",
+  SpriteImage = "SpriteImage",
+  SpriteJSON = "SpriteJSON",
+  Style = "Style",
+  Tile = "Tile",
+  Unknown = "Unknown"
+}
+/**
+ * This function is used to transform a request.
+ * It is used just before executing the relevant request.
+ */
+type RequestTransformFunction = (url: string, resourceType?: ResourceType) => RequestParameters | Promise<RequestParameters> | undefined;
+declare class RequestManager {
+  _transformRequestFn: RequestTransformFunction | null;
+  constructor(transformRequestFn?: RequestTransformFunction | null);
+  transformRequest(url: string, type: ResourceType): RequestParameters | Promise<RequestParameters>;
+  setTransformRequest(transformRequest: RequestTransformFunction | null): void;
+}
+//#endregion
+//#region src/render/font_face_manager.d.ts
+/**
+ * An inclusive range of Unicode codepoints, parsed out of a `unicode-range` entry.
+ */
+type UnicodeRange = {
+  start: number;
+  end: number;
+};
+/**
+ * A font file declared by the style, along with the bookkeeping needed to draw with it.
+ */
+type DeclaredFontFace = {
+  /**
+   * The font file's URL, as written in the style.
+   */
+  url: string;
+  /**
+   * The codepoints the style lets this file cover.
+   */
+  ranges: UnicodeRange[];
+  /**
+   * The CSS family name the file is registered under. It is generated rather than taken from the
+   * style so that a style cannot restyle the surrounding page by declaring a font face named
+   * after one the page uses, and so that each file can be selected on its own.
+   */
+  family: string;
+  /**
+   * Resolves to whether the file loaded and can be drawn with. Started the first time a codepoint
+   * needs this file, so that a style may declare more fonts than any one map ever draws with.
+   */
+  loaded?: Promise<boolean>;
+};
+/**
+ * Keeps the font files a style declares in its
+ * [`font-faces`](https://maplibre.org/maplibre-style-spec/root/#font-faces) property, and hands the
+ * {@link GlyphManager} the CSS family to draw a given codepoint with.
+ *
+ * The files go to the browser's CSS Font Loading API, so any format it can render text with works.
+ * Each is registered under a family name of our own making, so that a style cannot restyle the
+ * surrounding page and a codepoint can be pinned to one file rather than to whatever font matching
+ * picks.
+ *
+ * Rasterizing happens a grapheme cluster at a time, so a letter reaches the browser's text engine
+ * with its marks. Shaping across cluster boundaries still needs the RTL text plugin.
+ */
+declare class FontFaceManager {
+  requestManager: RequestManager;
+  /**
+   * The declared files by the font name used in `text-font`, in the order the style listed them.
+   */
+  _faces: Record<string, DeclaredFontFace[]>;
+  /**
+   * Everything handed to `document.fonts`, so that it can all be handed back on destroy.
+   */
+  _registered: Set<FontFace>;
+  constructor(requestManager: RequestManager);
+  /**
+   * Replaces the declared font faces. Nothing is downloaded here: each file waits until a
+   * codepoint it covers is actually drawn.
+   */
+  setFontFaces(fontFaces?: FontFacesSpecification | null): void;
+  /**
+   * Whether the style declared any font face at all, so that the common case of a style without
+   * `font-faces` costs nothing.
+   */
+  hasFontFaces(): boolean;
+  /**
+   * Finds the font file to draw a codepoint with: each name of the `text-font` stack in turn, and
+   * within a name each declared file, until one covers it. A file that fails to load is skipped,
+   * the specification asking for unsupported fonts to be ignored.
+   *
+   * @returns the CSS family to draw with, or `null` to leave the codepoint to the `glyphs` URL
+   */
+  getFontFamily(fontStack: string, codePoint: number): Promise<string | null>;
+  /**
+   * Turns one declaration into a face to draw with, or `null` if there is nothing usable in it.
+   *
+   * A bare URL is the same as a face that names no `unicode-range`: it covers every codepoint.
+   */
+  _declareFontFace(fontName: string, declaration: string | MLFontFace): DeclaredFontFace | null;
+  /**
+   * Downloads a declared file and hands it to the browser, reporting whether it can be drawn with.
+   * A failure is not an error: its codepoints fall through to the next file, then to `glyphs`.
+   */
+  _loadFontFace(face: DeclaredFontFace): Promise<boolean>;
+  /**
+   * Downloads a font file, giving the map's `transformRequest` a chance to rewrite the request the
+   * same way it gets one for a glyph range.
+   */
+  _downloadFontFile(url: string): Promise<ArrayBuffer>;
+  _unregister(fontFace: FontFace): void;
+  _unregisterAll(): void;
+  destroy(): void;
+}
+//#endregion
+//#region src/render/glyph_manager.d.ts
+type Entry = {
+  /**
+   * The glyphs drawn or downloaded so far, keyed by variant and grapheme cluster.
+   * `null` means the requested glyph is unavailable.
+   */
+  glyphs: Record<string, Record<string, StyleGlyph | null>>;
+  requests: Record<number, Promise<{
+    [_: number]: StyleGlyph | null;
+  }>>;
+  ranges: Record<number, boolean | null>;
+  tinySDF?: Promise<Rasterizer>;
+  ideographTinySDF?: Promise<Rasterizer>;
+  /**
+   * One TinySDF per `font-faces` file this stack draws with, keyed by the file's CSS family.
+   */
+  fontFaceTinySDFs?: Record<string, Promise<Rasterizer>>;
+  /**
+   * One TinySDF per font selection used to draw whole grapheme clusters, which need a wider canvas
+   * to fit in than a single codepoint does.
+   */
+  clusterTinySDFs?: Record<string, Promise<Rasterizer>>;
+};
+/** A requested glyph with its lookup keys; `null` means unavailable. */
+type GlyphResult = {
+  stack: string;
+  id: string;
+  variant: string;
+  glyph: StyleGlyph | null;
+};
+/**
+ * The rasterizer, as it really is. TinySDF carries the `buffer` it was built with, which its type
+ * declaration leaves out and which the canvas has to be widened through.
+ */
+type Rasterizer = TinySDF & {
+  buffer: number;
+};
+/**
+ * Builds the thing that rasterizes a glyph. Taken as a dependency so that a test can stand in for
+ * the canvas it would otherwise need to draw on.
+ *
+ * @param options - what to draw with, whose `buffer` sizes the canvas
+ * @param padding - the room to leave around each glyph in the bitmap, which is not that buffer
+ */
+type CreateRasterizer = (options: TinySDFOptions, padding: number) => Rasterizer;
+declare class GlyphManager {
+  requestManager: RequestManager;
+  localIdeographFontFamily: string | false;
+  entries: Record<string, Entry>;
+  url: string;
+  lang?: string;
+  fontFaceManager: FontFaceManager;
+  createRasterizer: CreateRasterizer;
+  constructor(requestManager: RequestManager, localIdeographFontFamily?: string | false, lang?: string, createRasterizer?: CreateRasterizer);
+  setURL(url?: string | null): void;
+  /**
+   * Replaces the font files the style declares in its `font-faces` property, dropping every glyph
+   * drawn with the previous ones.
+   */
+  setFontFaces(fontFaces?: FontFacesSpecification | null): void;
+  getGlyphs(glyphs: GlyphRequests): Promise<GlyphMap>;
+  /**
+   * Gets one glyph, asked for by grapheme cluster so that a letter and its marks are drawn as the
+   * one shape they are written as.
+   *
+   * A cluster is drawn from a font rather than fetched, because a glyphs URL serves codepoints and
+   * has no way to serve the one shape they are written as. A file the style pinned with
+   * `font-faces` draws it where one covers it, and the local fonts otherwise. For a single
+   * codepoint a declared file still wins over the glyphs URL and the local fallbacks.
+   * Providers support the `default` variant; unsupported variants return `null`.
+   */
+  _getAndCacheGlyphsPromise(stack: string, id: string, variant: string): Promise<GlyphResult>;
+  /**
+   * Gets a glyph from the server-side cache, downloading the PBF range it falls in if need be.
+   *
+   * Only reached for a single codepoint. What comes back is keyed by codepoint, as the file is,
+   * and is cached by cluster -- which for one codepoint is the character itself.
+   */
+  _downloadAndCacheRangePromise(stack: string, id: string): Promise<{
+    stack: string;
+    id: string;
+    glyph: StyleGlyph;
+  }>;
+  /**
+   * Downloads one range of 256 codepoints from the glyphs URL and parses the glyphs out of it.
+   */
+  _loadGlyphRange(fontstack: string, range: number): Promise<Record<number, StyleGlyph | null>>;
+  _warnOnMissingGlyphRange(glyph: StyleGlyph, range: number, id: number, err: Error): void;
+  /**
+   * Returns whether the given codepoint should be rendered locally.
+   */
+  _charUsesLocalIdeographFontFamily(id: number): boolean;
+  /**
+   * Draws a glyph offscreen using TinySDF, created lazily. The whole cluster goes to TinySDF, which
+   * is what lets the browser's text engine place a letter's marks on it.
+   *
+   * @param fontFaceFamily - the CSS family of the `font-faces` file covering this codepoint, if any
+   */
+  _drawGlyph(entry: Entry, stack: string, id: string, fontFaceFamily?: string): Promise<StyleGlyph>;
+  /**
+   * Returns the TinySDF that draws this grapheme, created lazily. A stack keeps one per font
+   * selection, so a fallback cannot bleed into the rest of the text, and one more per font file
+   * for the clusters drawn from it, which need a wider canvas.
+   *
+   * A font file carries its own weight and style, so neither is sniffed out of the family name.
+   * Where no file covers the grapheme, `localIdeographFontFamily` beats the last resort fontstack.
+   */
+  _getTinySDF(entry: Entry, stack: string, id: string, fontFaceFamily?: string): Promise<Rasterizer>;
+  /**
+   * Builds the TinySDF that draws with a given font selection.
+   *
+   * TinySDF derives its canvas from `fontSize + buffer * 4`, so the buffer is the only way in to a
+   * wider one. It also stands for the padding the atlas expects to be `GLYPH_PBF_BORDER`, so the
+   * two are passed separately.
+   *
+   * @param emsWide - how wide the glyphs may be, in font sizes, before TinySDF cuts them off
+   */
+  _createTinySDF(stack: String | false, sniffFontStyles?: boolean, emsWide?: number): Promise<Rasterizer>;
+  /**
+   * Sniffs the font style out of a font family name.
+   */
+  _fontStyle(fontFamily: string): string;
+  /**
+   * Sniffs the font weight out of a font family name.
+   */
+  _fontWeight(fontFamily: string): string;
+  destroy(): void;
+}
+//#endregion
 //#region src/style/light.d.ts
 declare class Light extends Evented {
   _transitionable: Transitionable<LightProps>;
@@ -9810,107 +9890,86 @@ declare class PauseablePlacement {
   commit(now: number): Placement;
 }
 //#endregion
-//#region src/geo/projection/projection.d.ts
-/**
- * Custom projections are handled both by a class which implements this `Projection` interface,
- * and a class that is derived from the `Transform` base class. What is the difference?
- *
- * The transform-derived class:
- * - should do all the heavy lifting for the projection - implement all the `project*` and `unproject*` functions, etc.
- * - must store the map's state - center, pitch, etc. - this is handled in the `Transform` base class
- * - must be cloneable - it should not create any heavy resources
- *
- * The projection-implementing class:
- * - must provide basic information and data about the projection, which is *independent of the map's state* - name, shader functions, subdivision settings, etc.
- * - must be a "singleton" - no matter how many copies of the matching Transform class exist, the Projection should always exist as a single instance (per Map)
- * - may create heavy resources that should not exist in multiple copies (projection is never cloned) - for example, see the GPU inaccuracy mitigation for globe projection
- * - must be explicitly disposed of after usage using the `destroy` function - this allows the implementing class to free any allocated resources
- */
-/**
- * @internal
- * Specifies the usage for a square tile mesh:
- * - 'stencil' for drawing stencil masks
- * - 'raster' for drawing raster tiles, hillshade, etc.
- */
-type TileMeshUsage = "stencil" | "raster";
-/**
- * An interface the implementations of which are used internally by MapLibre to handle different projections.
- */
-interface Projection {
+//#region src/symbol/cross_tile_symbol_index.d.ts
+type SymbolsByKeyEntry = {
+  index?: KDBush;
+  positions?: Array<{
+    x: number;
+    y: number;
+  }>;
+  crossTileIDs: number[];
+};
+declare class TileLayerIndex {
+  tileID: OverscaledTileID;
+  bucketInstanceId: number;
+  _symbolsByKey: Record<number, SymbolsByKeyEntry>;
+  constructor(tileID: OverscaledTileID, symbolInstances: SymbolInstanceArray, bucketInstanceId: number);
+  getScaledCoordinates(symbolInstance: SymbolInstance, childTileID: OverscaledTileID): {
+    x: number;
+    y: number;
+  };
+  findMatches(symbolInstances: SymbolInstanceArray, newTileID: OverscaledTileID, zoomCrossTileIDs: {
+    [crossTileID: number]: boolean;
+  }): void;
   /**
-   * @internal
-   * A short, descriptive name of this projection, such as 'mercator' or 'globe'.
+   * Matches a symbol instance against an entry backed by a KDBush spatial index
+   * (used for keys with more than {@link KDBUSH_THRESHHOLD} symbols).
+   *
+   * Matches any symbol with the same key whose coordinates are within one grid
+   * unit (with a 4px grid, this covers a 12px by 12px area). The lowest-index
+   * unclaimed candidate is claimed in a single pass rather than sorting the
+   * whole result set on every query: `range()` can return many candidates where
+   * symbols are coincident (e.g. stacked point markers), so a per-query sort
+   * would dominate placement cost on dense layers.
+   *
+   * Once a symbol is marked duplicate against a parent symbol, no other symbol
+   * at the same zoom level may duplicate against the same parent (see issue #5993).
    */
-  get name(): ProjectionSpecification["type"];
+  private findMatchesForIndexedEntry;
   /**
-   * @internal
-   * True if this projection needs to render subdivided geometry.
-   * Optimized rendering paths for non-subdivided geometry might be used throughout MapLibre.
-   * The value of this property may change during runtime, for example in globe projection depending on zoom.
+   * Matches a symbol instance against an entry that stores its positions as a
+   * plain array (used for keys with at most {@link KDBUSH_THRESHHOLD} symbols).
+   *
+   * Matches any symbol with the same key whose coordinates are within one grid
+   * unit (with a 4px grid, this covers a 12px by 12px area). Positions are
+   * stored in symbol-instance order, so the first unclaimed match is also the
+   * lowest-index one.
+   *
+   * Once a symbol is marked duplicate against a parent symbol, no other symbol
+   * at the same zoom level may duplicate against the same parent (see issue #5993).
    */
-  get useSubdivision(): boolean;
-  /**
-   * Name of the shader projection variant that should be used for this projection.
-   * Note that this value may change dynamically, for example when globe projection internally transitions to mercator.
-   * Then globe projection might start reporting the mercator shader variant name to make MapLibre use faster mercator shaders.
-   */
-  get shaderVariantName(): string;
-  /**
-   * A `#define` macro that is injected into every MapLibre shader that uses this projection.
-   * @example
-   * `const define = projection.shaderDefine; // '#define GLOBE'`
-   */
-  get shaderDefine(): string;
-  /**
-   * @internal
-   * A preprocessed prelude code for both vertex and fragment shaders.
-   */
-  get shaderPreludeCode(): PreparedShader;
-  /**
-   * Vertex shader code that is injected into every MapLibre vertex shader that uses this projection.
-   */
-  get vertexShaderPreludeCode(): string;
-  /**
-   * @internal
-   * An object describing how much subdivision should be applied to rendered geometry.
-   * The subdivision settings should be a constant for a given projection.
-   * Projections that do not require subdivision should return {@link SubdivisionGranularitySetting.noSubdivision}.
-   */
-  get subdivisionGranularity(): SubdivisionGranularitySetting;
-  /**
-   * @internal
-   * A number representing the current transition state of the projection.
-   * The return value should be a number between 0 and 1,
-   * where 0 means the projection is fully in the initial state,
-   * and 1 means the projection is fully in the final state.
-   */
-  get transitionState(): number;
-  /**
-   * @internal
-   * Cleans up any resources the projection created, especially GPU buffers.
-   */
-  destroy(): void;
-  /**
-   * @internal
-   * Returns a subdivided mesh for a given tile ID, covering 0..EXTENT range.
-   * @param context - WebGL context.
-   * @param tileID - The tile coordinates for which to return a mesh. Meshes for tiles that border the top/bottom mercator edge might include extra geometry for the north/south pole.
-   * @param hasBorder - When true, the mesh will also include a small border beyond the 0..EXTENT range.
-   * @param allowPoles - When true, the mesh will also include geometry to cover the north (south) pole, if the given tileID borders the mercator range's top (bottom) edge.
-   * @param usage - Specify the usage of the tile mesh, as different usages might use different levels of subdivision.
-   */
-  getMeshFromTileID(context: Context, tileID: CanonicalTileID, hasBorder: boolean, allowPoles: boolean, usage: TileMeshUsage): Mesh;
-  /**
-   * @internal
-   * Recalculates the projection state based on the current evaluation parameters.
-   * @param params - Evaluation parameters.
-   */
-  recalculate(params: EvaluationParameters): void;
-  /**
-   * @internal
-   * Returns true if the projection is currently transitioning between two states.
-   */
-  hasTransition(): boolean;
+  private findMatchesForNonIndexedEntry;
+  getCrossTileIDsLists(): number[][];
+}
+declare class CrossTileIDs {
+  maxCrossTileID: number;
+  constructor();
+  generate(): number;
+}
+declare class CrossTileSymbolLayerIndex {
+  indexes: { [zoom in string | number]: { [tileId in string | number]: TileLayerIndex; }; };
+  usedCrossTileIDs: { [zoom in string | number]: {
+    [crossTileID: number]: boolean;
+  }; };
+  lng: number;
+  constructor();
+  handleWrapJump(lng: number): void;
+  addBucket(tileID: OverscaledTileID, bucket: SymbolBucket, crossTileIDs: CrossTileIDs): boolean;
+  removeBucketCrossTileIDs(zoom: string | number, removedBucket: TileLayerIndex): void;
+  removeStaleBuckets(currentIDs: { [k in string | number]: boolean; }): boolean;
+}
+declare class CrossTileSymbolIndex {
+  layerIndexes: {
+    [layerId: string]: CrossTileSymbolLayerIndex;
+  };
+  crossTileIDs: CrossTileIDs;
+  maxBucketInstanceId: number;
+  bucketsInCurrentPlacement: {
+    [_: number]: boolean;
+  };
+  constructor();
+  addLayer(styleLayer: StyleLayer, tiles: Tile[], lng: number): boolean;
+  pruneUnusedLayers(usedLayers: string[]): void;
 }
 //#endregion
 //#region src/style/style.d.ts
@@ -9947,6 +10006,10 @@ type StyleOptions = {
    * Forces a full update.
    */
   localIdeographFontFamily?: string | false;
+  /**
+   * Defines an initial global state for the map style. It overrides the defaults defined in the map style, as if {@link Map.setGlobalStateProperty} was called after loading the style.
+   */
+  globalState?: Record<string, any>;
 };
 /**
  * Supporting type to add validation to another style related type
@@ -9956,6 +10019,10 @@ type StyleSetterOptions = {
    * Whether to check if the filter conforms to the MapLibre Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
    */
   validate?: boolean;
+  /**
+   * Defines an initial global state for the map style. It overrides the defaults defined in the map style, as if {@link Map.setGlobalStateProperty} was called after loading the style.
+   */
+  globalState?: Record<string, any>;
 };
 /**
  * Part of {@link Map.setStyle} options, transformStyle is a convenience function that allows to modify a style after it is fetched but before it is committed to the map state.
@@ -10085,6 +10152,7 @@ export declare class Style extends Evented<MapEventType> {
   _layerOrderChanged: boolean;
   _symbolPlacementTriggered: boolean;
   _placedProjectionTransition: number;
+  _initialGlobalState: Record<string, any>;
   _globalState: Record<string, any>;
   crossTileSymbolIndex: CrossTileSymbolIndex;
   pauseablePlacement: PauseablePlacement;
@@ -10138,6 +10206,8 @@ export declare class Style extends Evented<MapEventType> {
   _updateTilesForChangedImages(): void;
   _updateTilesForChangedGlyphs(): void;
   _updateWorkerLayers(updatedIds: string[], removedIds: string[]): void;
+  /** Tells the layers that the canvas was resized. */
+  resize(): void;
   _resetUpdates(): void;
   /**
    * Update this style's state to match the given style JSON, performing only
@@ -11117,6 +11187,68 @@ export declare class DragPanHandler {
   isActive(): boolean;
 }
 //#endregion
+//#region src/ui/elevation_hold.d.ts
+/** Who holds the center elevation: a gesture, or an animation with `freezeElevation`. */
+type ElevationHolder = "gesture" | "animation";
+/**
+ * A hold on the center elevation, see {@link Camera.holdElevation}: one that started where no DEM data under a center
+ * clamped to the ground had loaded, or whose terrain changed to one without DEM data there, waits for it and follows
+ * the terrain drawn under the center until the tile there has its own. It holds no transform: a gesture's takes on the
+ * terrain change, on the requested camera state its frames read; an animation's on its next frame, on the transform it
+ * edits, which a projection change does not replace, or at its end when nothing ran in between.
+ */
+declare class ElevationHold {
+  readonly holder: ElevationHolder;
+  /**
+   * Where the hold stands with the DEM data under the center:
+   * - `loaded`: the tile under the center had its DEM data when the hold started, so the hold keeps its elevation.
+   * - `awaiting`: no DEM data under the center yet, from the start or since a terrain change left none there; the
+   * hold follows the terrain drawn there, see {@link take}.
+   * - `taken`: the hold waited and then took the elevation of the tile's own DEM data. Unlike `loaded`, the elevation
+   * came during the hold, so the end keeps the zoom where that data is missing again, see
+   * {@link Camera.putCenterBackOnTerrain}.
+   */
+  private _dem;
+  /**
+   * While {@link Camera._keepCameraAboveTerrain} has lifted the held elevation: the elevation held and how far above
+   * it the camera was lifted, so later frames can lower it again as the terrain allows and tell the lifted elevation
+   * from one a take set anew, which carries no lift; null while nothing is lifted.
+   */
+  lift: {
+    heldElevation: number;
+    height: number;
+  } | null;
+  /**
+   * Whether {@link Camera._keepCameraAboveTerrain} keeps the drawn terrain below where the center would sit at maxZoom,
+   * see {@link Camera._terrainHeightAboveMaxZoomForCenter}: from the start of a hold that starts with the terrain below
+   * that point, as on the ground at rest, or from the first frame the terrain is below it. A hold that starts with the
+   * terrain above it, as behind a crest, leaves the terrain there.
+   */
+  keepsTerrainBelowMaxZoomForCenter: boolean;
+  private _terrainChanged;
+  /**
+   * @param holder - who holds the elevation
+   * @param startedWithoutDem - whether the hold started without DEM data under the center, and so waits for it
+   * @param terrainBelowMaxZoomForCenter - whether the drawn terrain is below where the center would sit at maxZoom when
+   * the hold starts, see {@link Camera._terrainHeightAboveMaxZoomForCenter}
+   */
+  constructor(holder: ElevationHolder, startedWithoutDem: boolean, terrainBelowMaxZoomForCenter: boolean);
+  /** Whether the hold waited for DEM data under the center and took the data of the tile there. */
+  get tookDem(): boolean;
+  /** Asks the next {@link take} to check for DEM data under the center, after the terrain changed. */
+  noteTerrainChange(): void;
+  /**
+   * While the hold waits, takes the elevation the terrain draws under the center: a loaded parent tile's DEM data,
+   * drawn in place of the tile's own until that lands, and then the tile's own, which ends the wait. After a terrain
+   * change that leaves no DEM data under the center, puts the center back at the 0 the terrain gives there and
+   * waits again.
+   * @param tr - the transform the gesture or animation edits
+   * @param terrain - the terrain under it
+   * @returns whether it changed the elevation
+   */
+  take(tr: ITransform, terrain: Terrain): boolean;
+}
+//#endregion
 //#region src/util/task_queue.d.ts
 type TaskID = number;
 type Task = {
@@ -11493,40 +11625,6 @@ type CameraInitOptions = {
    */
   stopHandlers?: () => void;
 };
-/** Who holds the center elevation: a gesture, or an animation with `freezeElevation`. */
-type ElevationHolder = "gesture" | "animation";
-/**
- * A hold on the center elevation, see {@link Camera.holdElevation}: one that started where no DEM data under a center
- * clamped to the ground had loaded waits for it and takes it when it lands. It holds no transform: a gesture's takes
- * on the terrain change, on the requested camera state its frames read; an animation's on its next frame, on the
- * transform it edits, which a projection change does not replace, or at its end when nothing ran in between.
- */
-declare class ElevationHold {
-  readonly holder: ElevationHolder;
-  readonly startedWithoutDem: boolean;
-  /** Whether the hold waits for DEM data under the center: from its start, or since a terrain change left none there. */
-  awaitsDem: boolean;
-  private _terrainChanged;
-  /**
-   * @param holder - who holds the elevation
-   * @param startedWithoutDem - whether the hold started without DEM data under the center; only such a hold waits
-   */
-  constructor(holder: ElevationHolder, startedWithoutDem: boolean);
-  /** Whether the hold carries an elevation it took from DEM data. */
-  get tookDem(): boolean;
-  /** Asks the next {@link take} to check for DEM data under the center, after the terrain changed. */
-  noteTerrainChange(): void;
-  /**
-   * While the hold waits, takes the elevation the terrain draws under the center once the tile there has its own
-   * DEM data, or a coarser tile's sooner where it lifts a camera that would be inside the terrain. After a terrain
-   * change that leaves no DEM data under the center, puts the center back at the 0 the terrain gives there and
-   * waits again.
-   * @param tr - the transform the gesture or animation edits
-   * @param terrain - the terrain under it
-   * @returns whether it changed the elevation
-   */
-  take(tr: ITransform, terrain: Terrain): boolean;
-}
 declare class Camera extends Evented<MapEventType> {
   transform: ITransform;
   /**
@@ -11613,8 +11711,8 @@ declare class Camera extends Evented<MapEventType> {
   /**
    * @internal
    * Hands the camera the map's terrain, or null when the map has none, and brings the center elevation up to date
-   * with it, see {@link Camera.applyTerrainChange}. A hold that started without DEM data waits again when the
-   * terrain changes to one without data under the center, see {@link ElevationHold.take}.
+   * with it, see {@link Camera.applyTerrainChange}. A hold waits again when the terrain changes to one without DEM
+   * data under the center, see {@link ElevationHold.take}.
    */
   setTerrain(terrain: Terrain): void;
   migrateProjection(newTransform: ITransform, newCameraHelper: ICameraHelper): void;
@@ -11769,26 +11867,68 @@ declare class Camera extends Evented<MapEventType> {
   getTransformForUpdate(): ITransform;
   /**
    * @internal
-   * Checks the given transform for the camera being below terrain surface and
-   * returns new pitch and zoom to fix that.
-   *
-   * With the new pitch and zoom, the camera will be at the same ground
-   * position but at higher altitude. It will still point to the same spot on
-   * the map.
-   *
-   * @param tr - The transform to check.
+   * Keeps the camera above the terrain for a camera update. While a gesture or an animation holds the center elevation
+   * over mercator terrain, below a pitch of 90 degrees with the center clamped to the ground, the held elevation is
+   * lifted on the given transform just far enough that the drawn terrain stays below where the center would sit at
+   * maxZoom once the hold keeps it there, see {@link ElevationHold.keepsTerrainBelowMaxZoomForCenter}, so the end does
+   * not move the camera back. A gesture's lift also keeps the camera and its near clipping plane above the terrain,
+   * so its pitch and zoom stay where the user puts them; the camera of an animation, and of any camera update without
+   * a hold, is kept above the terrain by {@link Camera._raiseCameraByPitchAndZoom} instead. The lift is lowered again
+   * as the terrain allows.
+   * @param tr - the transform the camera update edits
+   * @returns the transform to render: `tr`, or its corrected copy
    */
-  _elevateCameraIfInsideTerrain(tr: ITransform): {
-    pitch?: number;
-    zoom?: number;
-  };
+  _keepCameraAboveTerrain(tr: ITransform): ITransform;
   /**
    * @internal
-   * Called after the camera is done being manipulated; a hold on the center elevation takes DEM data that landed
-   * first, see {@link ElevationHold.take}.
+   * Where the camera is inside the terrain, re-solves pitch and zoom on a copy of the transform so the camera sits
+   * above it at the same ground position, still looking at the same center at the same elevation, and the transform
+   * the update edits keeps what it asked for; over mercator terrain high enough that its near clipping plane clears the terrain too. Without
+   * terrain the camera is kept above sea level, which only needs checking where the center elevation is negative or
+   * the pitch passes 90 degrees. On a globe the camera is left where it is.
+   * @param tr - the transform the camera update edits
+   * @returns `tr` while the camera is clear, else the corrected copy
+   */
+  _raiseCameraByPitchAndZoom(tr: ITransform): ITransform;
+  /**
+   * @internal
+   * How far the terrain reaches above the camera, or the drawn terrain above one of nine points spread over its
+   * near clipping plane, in meters, whichever is more; zero or less while all are clear. The renderer drops whatever
+   * is nearer than that plane, so terrain reaching above it would show as a hole into the ground. The points are a
+   * 3 by 3 grid weighted bilinearly over the plane's four corners, the frustum's first four points in order around
+   * the plane. The plane is checked on mercator only, where the frustum is in mercator coordinates.
+   * @param tr - the transform whose camera is checked
+   */
+  _terrainHeightAboveCamera(tr: ITransform): number;
+  /**
+   * @internal
+   * How far the drawn terrain rises above the point on the center ray where the center would sit at maxZoom, with the
+   * camera where it is, in meters; zero or less while the terrain is below that point, undefined where no terrain is
+   * drawn under it. A hold's end puts the center onto the drawn terrain the center ray meets, with the camera where it
+   * is, see {@link Camera.putCenterBackOnTerrain}; terrain above that point puts it nearer than maxZoom allows, and
+   * `setZoom` clamps the zoom it needs by moving the camera back.
+   * @param tr - the transform whose center ray is checked
+   */
+  _terrainHeightAboveMaxZoomForCenter(tr: ITransform): number | undefined;
+  /**
+   * @internal
+   * Moves the center a zoom gesture holds onto the terrain the camera looks at and draws, with the camera where it
+   * is, so a zoom toward rising terrain slows down before it instead of running into it. Farther terrain is followed
+   * only by less than the frame zooms in, so the zoom keeps going in and speeds up gradually; a center ray that slips
+   * over a crest onto terrain far behind it, and terrain so near that the zoom passes maxZoom, which would move the
+   * camera back, are left to the gesture's end, as is everything with the center not clamped to the ground, and a
+   * globe.
+   * @param tr - the requested camera state
+   * @param zoomDelta - how far the frame zooms in
+   */
+  moveCenterOntoTerrain(tr: ITransform, zoomDelta: number): void;
+  /**
+   * @internal
+   * Called after the camera is done being manipulated. A hold on the center elevation takes DEM data that landed, see
+   * {@link ElevationHold.take}; then the camera is kept above the terrain, see {@link Camera._keepCameraAboveTerrain};
+   * `transformCameraUpdate`, if present, proposes its changes on a copy, and the "approved" result is applied to the
+   * rendered transform.
    * @param tr - the requested camera end state
-   * If the camera is inside terrain, it gets elevated.
-   * Call `transformCameraUpdate` if present, and then apply the "approved" changes.
    */
   applyUpdatedTransform(tr: ITransform): void;
   /**
@@ -12015,8 +12155,11 @@ declare class HandlerManager {
   }]>;
   /**
    * The gesture in flight over terrain, from its first handler frame to the `_fireEvents` call that sees the
-   * movement end. It holds the center elevation (see {@link Camera.holdElevation}); its end puts the center back
-   * onto the terrain, or at 0 keeping the zoom with the terrain off.
+   * movement end. It holds the center elevation (see {@link Camera.holdElevation}), which
+   * {@link Camera._keepCameraAboveTerrain} may raise to keep the camera out of the terrain and lower again, and a
+   * frame that zooms in moves the held center onto the terrain the camera looks at, with the camera where it is
+   * (see {@link Camera.moveCenterOntoTerrain}); its end puts the center back onto the terrain, or at 0 keeping the
+   * zoom with the terrain off.
    */
   _terrainGesture: TerrainGesture;
   _zoom: {
@@ -13305,6 +13448,10 @@ type MapOptions = {
    */
   validateStyle?: boolean;
   /**
+   * Defines an initial global state for the map style. It overrides the defaults defined in the map style, as if {@link Map.setGlobalStateProperty} was called after loading the map. Subsequent calls to {@link Map.setStyle} will use the same defaults if the {@link StyleOptions.globalState} option is not set.
+   */
+  globalState?: Record<string, any>;
+  /**
    * The canvas' `width` and `height` max size. The values are passed as an array where the first element is max width and the second element is max height.
    * You shouldn't set this above WebGl `MAX_TEXTURE_SIZE`.
    * A larger canvas is not refused: the pixel ratio is lowered to fit and a warning is logged once.
@@ -13400,18 +13547,18 @@ type LostContextStyle = {
  *
  * @example
  * ```ts
- * let map = new Map({
+ * const map = new Map({
  *   container: 'map',
  *   center: [-122.420679, 37.772537],
  *   zoom: 13,
  *   style: style_object,
  *   hash: true,
- *   transformRequest: (url, resourceType)=> {
- *     if(resourceType === 'Source' && url.startsWith('http://myHost')) {
+ *   transformRequest: (url, resourceType) => {
+ *     if (resourceType === 'Source' && url.startsWith('http://myHost')) {
  *       return {
  *        url: url.replace('http', 'https'),
  *        headers: { 'my-custom-header': true},
- *        credentials: 'include'  // Include cookies for cross-origin requests
+ *        credentials: 'include', // Include cookies for cross-origin requests
  *      }
  *     }
  *   }
@@ -13462,6 +13609,7 @@ declare class Map$1 extends Evented<MapEventType> {
   _mapId: number;
   _localIdeographFontFamily: string | false;
   _validateStyle: boolean;
+  _initialGlobalState: Record<string, any>;
   _styleUrl: string | null;
   _requestManager: RequestManager;
   _locale: Record<string, string>;
@@ -14129,7 +14277,7 @@ declare class Map$1 extends Evented<MapEventType> {
    * Gets the elevation at a given location, in meters above sea level.
    * Returns null if terrain is not enabled.
    * If terrain is enabled with some exaggeration value, the value returned here will be reflective of (multiplied by) that exaggeration value.
-   * This method should be used for proper positioning of custom 3d objects, as explained [here](https://maplibre.org/maplibre-gl-js/docs/examples/adding-3d-models-using-threejs-on-terrain/)
+   * This method should be used for proper positioning of custom 3d objects. If using maplibre-gl-three, see the example [here](https://maplibre-gl-three.readthedocs.io/latest/getting-started/#programmatically-calculating-terrain-height)
    * @param lngLatLike - `[x, y]` or LngLat coordinates of the location
    * @returns elevation in meters
    */
@@ -14874,6 +15022,12 @@ declare class Map$1 extends Evented<MapEventType> {
    *           })
    *       ]
    *   })
+   * });
+   *
+   * map.setStyle('https://demotiles.maplibre.org/style.json', {
+   *   globalState: {
+   *     showCircles: true,
+   *   }
    * });
    * ```
    */
@@ -15869,10 +16023,18 @@ declare class Map$1 extends Evented<MapEventType> {
    * ```ts
    * map.triggerRepaint();
    * ```
-   * @see [Add a 3D model](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-3d-model-using-threejs/)
+   * @see [Add 3D Tiles, 3D objects and models using Three.js](https://maplibre.org/maplibre-gl-js/docs/examples/add-3d-tiles-3d-objects-and-models-using-threejs/)
    * @see [Add an animated icon to the map](https://maplibre.org/maplibre-gl-js/docs/examples/add-an-animated-icon-to-the-map/)
    */
   triggerRepaint(): void;
+  /**
+   * @internal
+   * A tile that fails to load fires an error event and no data event, so when it was the last tile loading,
+   * no frame would run to fire `load` and `idle`.
+   */
+  _onStyleError: (event: ErrorEvent & {
+    tile?: unknown;
+  }) => void;
   _onWindowOnline: () => void;
   /**
    * Gets and sets a Boolean indicating whether the map will render an outline
@@ -18146,4 +18308,4 @@ declare function setWorkerUrl(value: string): void;
  */
 declare function importScriptInWorkers(workerUrl: string): Promise<void>;
 //#endregion
-export { type Actor, type ActorMessage, type AddLayerObject, type AddProtocolAction, type AddProtocolResponseData, type Alignment, type AlphaImage, type AnchoredCameraOptions, type AnimationOptions, type AroundCenterOptions, type AttributionControlOptions, type BoxZoomEndHandler, type BoxZoomHandlerOptions, type Bucket, type CalculateTileZoomFunction, type CameraForBoundsOptions, type CameraOptions, type CameraUpdateTransformFunction, type CanonicalTileRange, type CanvasSourceSpecification, type CenterZoomBearing, type CollisionBoxArray, type Complete, type ControlPosition, type Coordinates, type CoveringTilesOptions, type CreateTileMeshOptions, type CustomLayerInterface, type CustomLayerProjectionData, type CustomLayerProjectionDataParams, type CustomRenderMethod, type CustomRenderMethodInput, type DashEntry, type Dispatcher, type DistributiveKeys, type DistributiveOmit, type DragPanOptions, type EaseToOptions, type ErrorEventType, Event$1 as Event, type EventTypeMap, type EventedParentData, type ExpiryData, type FeatureIdentifier, type FeatureIndex, type FitBoundsOptions, type FlyToOptions, type FullscreenControlEventType, type FullscreenControlOptions, type GeoJSONFeature, type GeoJSONFeatureDiff, type GeoJSONFeatureId, type GeoJSONSourceDiff, type GeolocateControlEventType, type GeolocateControlOptions, type GestureOptions, type GetClusterOptions, type GetResourceResponse, type GlyphMap, type GlyphPosition, type GlyphPositions, type Handler, type HandlerResult, type IActor, type IControl, type ImageAtlas, type ImageSourceImage, type ImageSourceWarp, type IndicesType, type JumpToOptions, type Listener, type LngLatBoundsLike, type LngLatLike, type LoadTileResult, type LogoControlOptions, Map$1 as Map, Map$1 as MapLibreMap, type MapEventType, type MapGeoJSONFeature, type MapLayerEventType, type MapLayerMouseEvent, type MapLayerTouchEvent, type MapOptions, type MapSourceDataType, type MarkerEventType, type MarkerOptions, type Mat4f32, type Mat4f64, type MessageType, type MissingStyleImageResolver, type NavigationControlOptions, type Offset, type OverscaledTileID, type PaddingOptions, type PaintPropertyEntry, type Painter, Point, type PointLike, type PopupEventType, type PopupOptions, type PositionAnchor, type ProjectionData, type ProjectionDataParams, type ProjectionMatrix, type QueryRenderedFeaturesOptions, type QuerySourceFeatureOptions, type RendererProjectionData, type RequestParameters, type RequestResponseMessageMap, type RequestTransformFunction, type RequireAtLeastOne, type ResourceType, type ScaleControlOptions, type SetClusterOptions, type Source, type SourceClass, type SourceEventType, type StyleGlyph, type StyleImage, type StyleImageData, type StyleImageInterface, type StyleImageMetadata, type StyleImageSource, type StyleImageWebGLData, type StyleImageWebGLTarget, type StyleLayer, type StyleOptions, type StyleSetterOptions, type StyleSwapOptions, type Subscription, type TextFit, type Tile, type TileMesh, type TransformConstrainFunction, type TransformStyleFunction, type Unit, type UnwrappedTileIDLiteral, type UpdateImageOptions, type WebGLContextAttributesWithType, type WorkerGlobalScopeInterface, type WorkerTileResult, getMaxParallelImageRequests, getRTLTextPluginStatus, getVersion, getWorkerCount, getWorkerUrl, importScriptInWorkers, setMaxParallelImageRequests, setRTLTextPlugin, setWorkerCount, setWorkerUrl };
+export { type Actor, type ActorMessage, type AddLayerObject, type AddProtocolAction, type AddProtocolResponseData, type Alignment, type AlphaImage, type AnchoredCameraOptions, type AnimationOptions, type AroundCenterOptions, type AttributionControlOptions, type BoxZoomEndHandler, type BoxZoomHandlerOptions, type Bucket, type CalculateTileZoomFunction, type CameraForBoundsOptions, type CameraOptions, type CameraUpdateTransformFunction, type CanonicalTileRange, type CanvasSourceSpecification, type CenterZoomBearing, type CollisionBoxArray, type Complete, type ControlPosition, type Coordinates, type CoveringTilesOptions, type CreateTileMeshOptions, type CustomLayerInterface, type CustomLayerProjectionData, type CustomLayerProjectionDataParams, type CustomRenderMethod, type CustomRenderMethodInput, type CustomTerrainRenderInput, type DashEntry, type Dispatcher, type DistributiveKeys, type DistributiveOmit, type DragPanOptions, type EaseToOptions, type ErrorEventType, Event$1 as Event, type EventTypeMap, type EventedParentData, type ExpiryData, type FeatureIdentifier, type FeatureIndex, type FitBoundsOptions, type FlyToOptions, type FullscreenControlEventType, type FullscreenControlOptions, type GeoJSONFeature, type GeoJSONFeatureDiff, type GeoJSONFeatureId, type GeoJSONSourceDiff, type GeolocateControlEventType, type GeolocateControlOptions, type GestureOptions, type GetClusterOptions, type GetResourceResponse, type GlyphMap, type GlyphPosition, type GlyphPositions, type Handler, type HandlerResult, type IActor, type IControl, type ImageAtlas, type ImageSourceImage, type ImageSourceWarp, type IndicesType, type JumpToOptions, type Listener, type LngLatBoundsLike, type LngLatLike, type LoadTileResult, type LogoControlOptions, Map$1 as Map, Map$1 as MapLibreMap, type MapEventType, type MapGeoJSONFeature, type MapLayerEventType, type MapLayerMouseEvent, type MapLayerTouchEvent, type MapOptions, type MapSourceDataType, type MarkerEventType, type MarkerOptions, type Mat4f32, type Mat4f64, type MessageType, type MissingStyleImageResolver, type NavigationControlOptions, type Offset, type OverscaledTileID, type PaddingOptions, type PaintPropertyEntry, type Painter, Point, type PointLike, type PopupEventType, type PopupOptions, type PositionAnchor, type ProjectionData, type ProjectionDataParams, type ProjectionMatrix, type QueryRenderedFeaturesOptions, type QuerySourceFeatureOptions, type RendererProjectionData, type RequestParameters, type RequestResponseMessageMap, type RequestTransformFunction, type RequireAtLeastOne, type ResourceType, type ScaleControlOptions, type SetClusterOptions, type Source, type SourceClass, type SourceEventType, type StyleGlyph, type StyleImage, type StyleImageData, type StyleImageInterface, type StyleImageMetadata, type StyleImageSource, type StyleImageWebGLData, type StyleImageWebGLTarget, type StyleLayer, type StyleOptions, type StyleSetterOptions, type StyleSwapOptions, type Subscription, type TerrainHeightMapTarget, type TextFit, type Tile, type TileMesh, type TransformConstrainFunction, type TransformStyleFunction, type Unit, type UnwrappedTileIDLiteral, type UpdateImageOptions, type WebGLContextAttributesWithType, type WorkerGlobalScopeInterface, type WorkerTileResult, getMaxParallelImageRequests, getRTLTextPluginStatus, getVersion, getWorkerCount, getWorkerUrl, importScriptInWorkers, setMaxParallelImageRequests, setRTLTextPlugin, setWorkerCount, setWorkerUrl };
